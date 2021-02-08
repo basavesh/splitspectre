@@ -16,3 +16,4 @@ path = "src/client.rs"
 
 [dependencies]
 sodiumoxide = "0.2.6"
+serde = { version = "1.0.123", features = ["derive"] }
