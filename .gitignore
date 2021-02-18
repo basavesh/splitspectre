@@ -3,3 +3,4 @@ unix_domain_communication/target
 unix_domain_communication/src/loopback-socket
 unix_domain_communication/loopback-socket
 sodium_oxide_usage/target
+basic_protocol/target
