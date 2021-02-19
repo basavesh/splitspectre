@@ -1,3 +1,4 @@
+.vscode/
 target/
 unix_domain_communication/target
 unix_domain_communication/src/loopback-socket
