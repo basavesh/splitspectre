@@ -1,2 +1,2 @@
 [workspace]
-members = ["sodium_oxide_usage", "unix_domain_communication", "basic_protocol", "syn_examples"]
+members = ["sodium_oxide_usage", "unix_domain_communication", "basic_protocol", "syn_examples", "secret_integers_usage"]

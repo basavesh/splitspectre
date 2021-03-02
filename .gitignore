@@ -6,3 +6,4 @@ unix_domain_communication/loopback-socket
 sodium_oxide_usage/target
 basic_protocol/target
 syn_examples/target
+secret_integers_usage/target
