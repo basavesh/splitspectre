@@ -5,10 +5,10 @@ use std::os::unix::net::UnixStream;
 use sodiumoxide;
 use std::io::{self, BufRead, BufReader, Write};
 use std::str::from_utf8;
-use common::*;
+use basic_common::*;
 use std::io::prelude::*;
 
-pub mod common;
+pub mod basic_common;
 
 fn main() {
 

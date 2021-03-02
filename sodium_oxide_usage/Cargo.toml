@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 sodiumoxide = "0.2.6"
+secret_integers = "0.1.6"

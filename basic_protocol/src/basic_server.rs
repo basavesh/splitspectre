@@ -6,8 +6,8 @@ use std::fs;
 use std::thread;
 use std::path::Path;
 use std::str::from_utf8;
-use common::SOCKET_PATH;
-use common::*;
+use basic_common::SOCKET_PATH;
+use basic_common::*;
 use sodiumoxide;
 use std::collections::HashMap;
 use serde::{Serialize, Deserialize};
@@ -18,7 +18,7 @@ use std::os::unix::net::{UnixStream, UnixListener};
 use std::net::Shutdown;
 
 
-pub mod common;
+pub mod basic_common;
 
 #[derive(Debug)]
 struct KeyPair {
