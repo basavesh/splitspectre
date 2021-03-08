@@ -1,2 +1,3 @@
 [workspace]
-members = ["sodium_oxide_usage", "unix_domain_communication", "basic_protocol", "syn_examples", "secret_integers_usage"]
+members = ["secret_integers_usage"]
+exclude = ["old_stuff/basic_protocol", "old_stuff/sodium_oxide_usage", "old_stuff/syn_examples", "old_stuff/unix_domain_communication"]

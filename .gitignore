@@ -1,9 +1,9 @@
 .vscode/
 target/
-unix_domain_communication/target
-unix_domain_communication/src/loopback-socket
-unix_domain_communication/loopback-socket
-sodium_oxide_usage/target
-basic_protocol/target
-syn_examples/target
+old_stuff/unix_domain_communication/target
+old_stuff/unix_domain_communication/src/loopback-socket
+old_stuff/unix_domain_communication/loopback-socket
+old_stuff/sodium_oxide_usage/target
+old_stuff/basic_protocol/target
+old_stuff/syn_examples/target
 secret_integers_usage/target

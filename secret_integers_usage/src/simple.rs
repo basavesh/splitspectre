@@ -22,7 +22,6 @@ pub fn encrypt(msg: &[u8], sk: &[U8]) -> Vec<u8> {
     for i in 0..8 {
         new_block[i] = classified_msg[i] ^ sk[i];
     }
-
     return declassify_u8s(&new_block);
 }
 
