@@ -8,19 +8,10 @@ use std::sync::{Arc, Mutex, RwLock};
 use std::os::unix::net::{UnixStream, UnixListener};
 use std::net::Shutdown;
 use secret_integers::*;
-use rand::Rng;
+use simple::*;
 
 pub mod agent_common;
-
-/// classify vector of u8s into U8s
-fn classify_u8s(v: &[u8]) -> Vec<U8> {
-    v.iter().map(|x| U8::classify(*x)).collect()
-}
-
-/// declassify vector of U8s into u8s
-fn declassify_u8s(v: &[U8]) -> Vec<u8> {
-    v.iter().map(|x| U8::declassify(*x)).collect()
-}
+pub mod simple;
 
 fn handle_client(mut stream: UnixStream, child_arc_keys_map: Arc<RwLock<HashMap<u64,
     Vec<U8>>>>, child_arc_counter: Arc<Mutex<u64>>) -> Result<(), Error> {
@@ -39,7 +30,7 @@ fn handle_client(mut stream: UnixStream, child_arc_keys_map: Arc<RwLock<HashMap<
             if let Ok(mut write_guard) = child_arc_keys_map.write() {
                 let mut num = child_arc_counter.lock().unwrap();
                 *num += 1;
-                write_guard.insert(*num, classify_u8s(&rand::thread_rng().gen::<[u8; 8]>().to_vec()));
+                write_guard.insert(*num, get_secret_key());
 
                 let response = MyResponse::ResGetSecretKey{ keyid: *num};
                 let response_string = serde_json::to_string(&response).unwrap();
@@ -55,13 +46,9 @@ fn handle_client(mut stream: UnixStream, child_arc_keys_map: Arc<RwLock<HashMap<
 
                 if read_guard.contains_key(&keyid) {
                     let sk = &read_guard[&keyid];
-                    let mut new_block = [U8::zero(); 8];
-                    let classified_msg = classify_u8s(&plaintext);
-                    for i in 0..8 {
-                        new_block[i] = classified_msg[i] ^ sk[i];
-                    }
+                    let new_block = encrypt(&plaintext, &sk);
 
-                    let response = MyResponse::ResEncrypt{ ciphertext: declassify_u8s(&new_block)};
+                    let response = MyResponse::ResEncrypt{ ciphertext: new_block};
                     let response_string = serde_json::to_string(&response).unwrap();
                     stream.write_all(response_string.as_bytes()).expect("IO Error");
                     stream.shutdown(Shutdown::Both).expect("shutdown function failed");
@@ -77,13 +64,9 @@ fn handle_client(mut stream: UnixStream, child_arc_keys_map: Arc<RwLock<HashMap<
 
                 if read_guard.contains_key(&keyid) {
                     let sk = &read_guard[&keyid];
-                    let mut new_block = [U8::zero(); 8];
-                    let classified_msg = classify_u8s(&ciphertext);
-                    for i in 0..8 {
-                        new_block[i] = classified_msg[i] ^ sk[i];
-                    }
+                    let new_block = decrypt(&ciphertext, &sk);
 
-                    let response = MyResponse::ResDecrypt{ plaintext: declassify_u8s(&new_block)};
+                    let response = MyResponse::ResDecrypt{ plaintext: new_block};
                     let response_string = serde_json::to_string(&response).unwrap();
                     stream.write_all(response_string.as_bytes()).expect("IO Error");
                     stream.shutdown(Shutdown::Both).expect("shutdown function failed");
@@ -123,7 +106,8 @@ fn main() {
                 println!("got connection request");
                 let child_arc_keys_map = arc_keys_map.clone();
                 let child_arc_counter = arc_counter.clone();
-                children.push(thread::spawn(move || handle_client(stream, child_arc_keys_map, child_arc_counter)));
+                children.push(thread::spawn(move ||
+                    handle_client(stream, child_arc_keys_map, child_arc_counter)));
             }
 
             Err(err) => {
@@ -131,5 +115,9 @@ fn main() {
                 break;
             }
         }
+    }
+
+    for child in children {
+        let _ = child.join();
     }
 }
