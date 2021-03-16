@@ -1,0 +1,966 @@
+File {
+    shebang: None,
+    attrs: [],
+    items: [
+        Use(
+            ItemUse {
+                attrs: [],
+                vis: Inherited,
+                use_token: Use,
+                leading_colon: None,
+                tree: Path(
+                    UsePath {
+                        ident: Ident(
+                            std,
+                        ),
+                        colon2_token: Colon2,
+                        tree: Name(
+                            UseName {
+                                ident: Ident(
+                                    io,
+                                ),
+                            },
+                        ),
+                    },
+                ),
+                semi_token: Semi,
+            },
+        ),
+        Use(
+            ItemUse {
+                attrs: [],
+                vis: Inherited,
+                use_token: Use,
+                leading_colon: None,
+                tree: Path(
+                    UsePath {
+                        ident: Ident(
+                            simple,
+                        ),
+                        colon2_token: Colon2,
+                        tree: Glob(
+                            UseGlob {
+                                star_token: Star,
+                            },
+                        ),
+                    },
+                ),
+                semi_token: Semi,
+            },
+        ),
+        Mod(
+            ItemMod {
+                attrs: [],
+                vis: Public(
+                    VisPublic {
+                        pub_token: Pub,
+                    },
+                ),
+                mod_token: Mod,
+                ident: Ident(
+                    simple,
+                ),
+                content: None,
+                semi: Some(
+                    Semi,
+                ),
+            },
+        ),
+        Fn(
+            ItemFn {
+                attrs: [],
+                vis: Inherited,
+                sig: Signature {
+                    constness: None,
+                    asyncness: None,
+                    unsafety: None,
+                    abi: None,
+                    fn_token: Fn,
+                    ident: Ident(
+                        main,
+                    ),
+                    generics: Generics {
+                        lt_token: None,
+                        params: [],
+                        gt_token: None,
+                        where_clause: None,
+                    },
+                    paren_token: Paren,
+                    inputs: [
+                        Typed(
+                            PatType {
+                                attrs: [],
+                                pat: Ident(
+                                    PatIdent {
+                                        attrs: [],
+                                        by_ref: None,
+                                        mutability: None,
+                                        ident: Ident(
+                                            abcd,
+                                        ),
+                                        subpat: None,
+                                    },
+                                ),
+                                colon_token: Colon,
+                                ty: Path(
+                                    TypePath {
+                                        qself: None,
+                                        path: Path {
+                                            leading_colon: None,
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident(
+                                                        String,
+                                                    ),
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                    },
+                                ),
+                            },
+                        ),
+                    ],
+                    variadic: None,
+                    output: Default,
+                },
+                block: Block {
+                    brace_token: Brace,
+                    stmts: [
+                        Local(
+                            Local {
+                                attrs: [],
+                                let_token: Let,
+                                pat: Ident(
+                                    PatIdent {
+                                        attrs: [],
+                                        by_ref: None,
+                                        mutability: None,
+                                        ident: Ident(
+                                            secret_key,
+                                        ),
+                                        subpat: None,
+                                    },
+                                ),
+                                init: Some(
+                                    (
+                                        Eq,
+                                        Call(
+                                            ExprCall {
+                                                attrs: [],
+                                                func: Path(
+                                                    ExprPath {
+                                                        attrs: [],
+                                                        qself: None,
+                                                        path: Path {
+                                                            leading_colon: None,
+                                                            segments: [
+                                                                PathSegment {
+                                                                    ident: Ident(
+                                                                        get_secret_key,
+                                                                    ),
+                                                                    arguments: None,
+                                                                },
+                                                            ],
+                                                        },
+                                                    },
+                                                ),
+                                                paren_token: Paren,
+                                                args: [],
+                                            },
+                                        ),
+                                    ),
+                                ),
+                                semi_token: Semi,
+                            },
+                        ),
+                        Local(
+                            Local {
+                                attrs: [],
+                                let_token: Let,
+                                pat: Ident(
+                                    PatIdent {
+                                        attrs: [],
+                                        by_ref: None,
+                                        mutability: Some(
+                                            Mut,
+                                        ),
+                                        ident: Ident(
+                                            buffer,
+                                        ),
+                                        subpat: None,
+                                    },
+                                ),
+                                init: Some(
+                                    (
+                                        Eq,
+                                        Call(
+                                            ExprCall {
+                                                attrs: [],
+                                                func: Path(
+                                                    ExprPath {
+                                                        attrs: [],
+                                                        qself: None,
+                                                        path: Path {
+                                                            leading_colon: None,
+                                                            segments: [
+                                                                PathSegment {
+                                                                    ident: Ident(
+                                                                        String,
+                                                                    ),
+                                                                    arguments: None,
+                                                                },
+                                                                Colon2,
+                                                                PathSegment {
+                                                                    ident: Ident(
+                                                                        new,
+                                                                    ),
+                                                                    arguments: None,
+                                                                },
+                                                            ],
+                                                        },
+                                                    },
+                                                ),
+                                                paren_token: Paren,
+                                                args: [],
+                                            },
+                                        ),
+                                    ),
+                                ),
+                                semi_token: Semi,
+                            },
+                        ),
+                        Semi(
+                            Macro(
+                                ExprMacro {
+                                    attrs: [],
+                                    mac: Macro {
+                                        path: Path {
+                                            leading_colon: None,
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident(
+                                                        println,
+                                                    ),
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                        bang_token: Bang,
+                                        delimiter: Paren(
+                                            Paren,
+                                        ),
+                                        tokens: TokenStream [
+                                            Literal {
+                                                lit: "Please input a 8 byte message",
+                                            },
+                                        ],
+                                    },
+                                },
+                            ),
+                            Semi,
+                        ),
+                        Local(
+                            Local {
+                                attrs: [],
+                                let_token: Let,
+                                pat: Wild(
+                                    PatWild {
+                                        attrs: [],
+                                        underscore_token: Underscore,
+                                    },
+                                ),
+                                init: Some(
+                                    (
+                                        Eq,
+                                        MethodCall(
+                                            ExprMethodCall {
+                                                attrs: [],
+                                                receiver: Call(
+                                                    ExprCall {
+                                                        attrs: [],
+                                                        func: Path(
+                                                            ExprPath {
+                                                                attrs: [],
+                                                                qself: None,
+                                                                path: Path {
+                                                                    leading_colon: None,
+                                                                    segments: [
+                                                                        PathSegment {
+                                                                            ident: Ident(
+                                                                                io,
+                                                                            ),
+                                                                            arguments: None,
+                                                                        },
+                                                                        Colon2,
+                                                                        PathSegment {
+                                                                            ident: Ident(
+                                                                                stdin,
+                                                                            ),
+                                                                            arguments: None,
+                                                                        },
+                                                                    ],
+                                                                },
+                                                            },
+                                                        ),
+                                                        paren_token: Paren,
+                                                        args: [],
+                                                    },
+                                                ),
+                                                dot_token: Dot,
+                                                method: Ident(
+                                                    read_line,
+                                                ),
+                                                turbofish: None,
+                                                paren_token: Paren,
+                                                args: [
+                                                    Reference(
+                                                        ExprReference {
+                                                            attrs: [],
+                                                            and_token: And,
+                                                            raw: Reserved,
+                                                            mutability: Some(
+                                                                Mut,
+                                                            ),
+                                                            expr: Path(
+                                                                ExprPath {
+                                                                    attrs: [],
+                                                                    qself: None,
+                                                                    path: Path {
+                                                                        leading_colon: None,
+                                                                        segments: [
+                                                                            PathSegment {
+                                                                                ident: Ident(
+                                                                                    buffer,
+                                                                                ),
+                                                                                arguments: None,
+                                                                            },
+                                                                        ],
+                                                                    },
+                                                                },
+                                                            ),
+                                                        },
+                                                    ),
+                                                ],
+                                            },
+                                        ),
+                                    ),
+                                ),
+                                semi_token: Semi,
+                            },
+                        ),
+                        Local(
+                            Local {
+                                attrs: [],
+                                let_token: Let,
+                                pat: Ident(
+                                    PatIdent {
+                                        attrs: [],
+                                        by_ref: None,
+                                        mutability: Some(
+                                            Mut,
+                                        ),
+                                        ident: Ident(
+                                            message,
+                                        ),
+                                        subpat: None,
+                                    },
+                                ),
+                                init: Some(
+                                    (
+                                        Eq,
+                                        Repeat(
+                                            ExprRepeat {
+                                                attrs: [],
+                                                bracket_token: Bracket,
+                                                expr: Lit(
+                                                    ExprLit {
+                                                        attrs: [],
+                                                        lit: Int(
+                                                            LitInt {
+                                                                token: 0u8,
+                                                            },
+                                                        ),
+                                                    },
+                                                ),
+                                                semi_token: Semi,
+                                                len: Lit(
+                                                    ExprLit {
+                                                        attrs: [],
+                                                        lit: Int(
+                                                            LitInt {
+                                                                token: 8,
+                                                            },
+                                                        ),
+                                                    },
+                                                ),
+                                            },
+                                        ),
+                                    ),
+                                ),
+                                semi_token: Semi,
+                            },
+                        ),
+                        Expr(
+                            ForLoop(
+                                ExprForLoop {
+                                    attrs: [],
+                                    label: None,
+                                    for_token: For,
+                                    pat: Ident(
+                                        PatIdent {
+                                            attrs: [],
+                                            by_ref: None,
+                                            mutability: None,
+                                            ident: Ident(
+                                                i,
+                                            ),
+                                            subpat: None,
+                                        },
+                                    ),
+                                    in_token: In,
+                                    expr: Range(
+                                        ExprRange {
+                                            attrs: [],
+                                            from: Some(
+                                                Lit(
+                                                    ExprLit {
+                                                        attrs: [],
+                                                        lit: Int(
+                                                            LitInt {
+                                                                token: 0,
+                                                            },
+                                                        ),
+                                                    },
+                                                ),
+                                            ),
+                                            limits: HalfOpen(
+                                                Dot2,
+                                            ),
+                                            to: Some(
+                                                Lit(
+                                                    ExprLit {
+                                                        attrs: [],
+                                                        lit: Int(
+                                                            LitInt {
+                                                                token: 8,
+                                                            },
+                                                        ),
+                                                    },
+                                                ),
+                                            ),
+                                        },
+                                    ),
+                                    body: Block {
+                                        brace_token: Brace,
+                                        stmts: [
+                                            Expr(
+                                                If(
+                                                    ExprIf {
+                                                        attrs: [],
+                                                        if_token: If,
+                                                        cond: Binary(
+                                                            ExprBinary {
+                                                                attrs: [],
+                                                                left: Path(
+                                                                    ExprPath {
+                                                                        attrs: [],
+                                                                        qself: None,
+                                                                        path: Path {
+                                                                            leading_colon: None,
+                                                                            segments: [
+                                                                                PathSegment {
+                                                                                    ident: Ident(
+                                                                                        i,
+                                                                                    ),
+                                                                                    arguments: None,
+                                                                                },
+                                                                            ],
+                                                                        },
+                                                                    },
+                                                                ),
+                                                                op: Lt(
+                                                                    Lt,
+                                                                ),
+                                                                right: MethodCall(
+                                                                    ExprMethodCall {
+                                                                        attrs: [],
+                                                                        receiver: Path(
+                                                                            ExprPath {
+                                                                                attrs: [],
+                                                                                qself: None,
+                                                                                path: Path {
+                                                                                    leading_colon: None,
+                                                                                    segments: [
+                                                                                        PathSegment {
+                                                                                            ident: Ident(
+                                                                                                buffer,
+                                                                                            ),
+                                                                                            arguments: None,
+                                                                                        },
+                                                                                    ],
+                                                                                },
+                                                                            },
+                                                                        ),
+                                                                        dot_token: Dot,
+                                                                        method: Ident(
+                                                                            len,
+                                                                        ),
+                                                                        turbofish: None,
+                                                                        paren_token: Paren,
+                                                                        args: [],
+                                                                    },
+                                                                ),
+                                                            },
+                                                        ),
+                                                        then_branch: Block {
+                                                            brace_token: Brace,
+                                                            stmts: [
+                                                                Semi(
+                                                                    Assign(
+                                                                        ExprAssign {
+                                                                            attrs: [],
+                                                                            left: Index(
+                                                                                ExprIndex {
+                                                                                    attrs: [],
+                                                                                    expr: Path(
+                                                                                        ExprPath {
+                                                                                            attrs: [],
+                                                                                            qself: None,
+                                                                                            path: Path {
+                                                                                                leading_colon: None,
+                                                                                                segments: [
+                                                                                                    PathSegment {
+                                                                                                        ident: Ident(
+                                                                                                            message,
+                                                                                                        ),
+                                                                                                        arguments: None,
+                                                                                                    },
+                                                                                                ],
+                                                                                            },
+                                                                                        },
+                                                                                    ),
+                                                                                    bracket_token: Bracket,
+                                                                                    index: Path(
+                                                                                        ExprPath {
+                                                                                            attrs: [],
+                                                                                            qself: None,
+                                                                                            path: Path {
+                                                                                                leading_colon: None,
+                                                                                                segments: [
+                                                                                                    PathSegment {
+                                                                                                        ident: Ident(
+                                                                                                            i,
+                                                                                                        ),
+                                                                                                        arguments: None,
+                                                                                                    },
+                                                                                                ],
+                                                                                            },
+                                                                                        },
+                                                                                    ),
+                                                                                },
+                                                                            ),
+                                                                            eq_token: Eq,
+                                                                            right: Index(
+                                                                                ExprIndex {
+                                                                                    attrs: [],
+                                                                                    expr: MethodCall(
+                                                                                        ExprMethodCall {
+                                                                                            attrs: [],
+                                                                                            receiver: Path(
+                                                                                                ExprPath {
+                                                                                                    attrs: [],
+                                                                                                    qself: None,
+                                                                                                    path: Path {
+                                                                                                        leading_colon: None,
+                                                                                                        segments: [
+                                                                                                            PathSegment {
+                                                                                                                ident: Ident(
+                                                                                                                    buffer,
+                                                                                                                ),
+                                                                                                                arguments: None,
+                                                                                                            },
+                                                                                                        ],
+                                                                                                    },
+                                                                                                },
+                                                                                            ),
+                                                                                            dot_token: Dot,
+                                                                                            method: Ident(
+                                                                                                as_bytes,
+                                                                                            ),
+                                                                                            turbofish: None,
+                                                                                            paren_token: Paren,
+                                                                                            args: [],
+                                                                                        },
+                                                                                    ),
+                                                                                    bracket_token: Bracket,
+                                                                                    index: Path(
+                                                                                        ExprPath {
+                                                                                            attrs: [],
+                                                                                            qself: None,
+                                                                                            path: Path {
+                                                                                                leading_colon: None,
+                                                                                                segments: [
+                                                                                                    PathSegment {
+                                                                                                        ident: Ident(
+                                                                                                            i,
+                                                                                                        ),
+                                                                                                        arguments: None,
+                                                                                                    },
+                                                                                                ],
+                                                                                            },
+                                                                                        },
+                                                                                    ),
+                                                                                },
+                                                                            ),
+                                                                        },
+                                                                    ),
+                                                                    Semi,
+                                                                ),
+                                                            ],
+                                                        },
+                                                        else_branch: None,
+                                                    },
+                                                ),
+                                            ),
+                                        ],
+                                    },
+                                },
+                            ),
+                        ),
+                        Local(
+                            Local {
+                                attrs: [],
+                                let_token: Let,
+                                pat: Ident(
+                                    PatIdent {
+                                        attrs: [],
+                                        by_ref: None,
+                                        mutability: None,
+                                        ident: Ident(
+                                            cipher_text,
+                                        ),
+                                        subpat: None,
+                                    },
+                                ),
+                                init: Some(
+                                    (
+                                        Eq,
+                                        Call(
+                                            ExprCall {
+                                                attrs: [],
+                                                func: Path(
+                                                    ExprPath {
+                                                        attrs: [],
+                                                        qself: None,
+                                                        path: Path {
+                                                            leading_colon: None,
+                                                            segments: [
+                                                                PathSegment {
+                                                                    ident: Ident(
+                                                                        encrypt,
+                                                                    ),
+                                                                    arguments: None,
+                                                                },
+                                                            ],
+                                                        },
+                                                    },
+                                                ),
+                                                paren_token: Paren,
+                                                args: [
+                                                    Reference(
+                                                        ExprReference {
+                                                            attrs: [],
+                                                            and_token: And,
+                                                            raw: Reserved,
+                                                            mutability: None,
+                                                            expr: Path(
+                                                                ExprPath {
+                                                                    attrs: [],
+                                                                    qself: None,
+                                                                    path: Path {
+                                                                        leading_colon: None,
+                                                                        segments: [
+                                                                            PathSegment {
+                                                                                ident: Ident(
+                                                                                    message,
+                                                                                ),
+                                                                                arguments: None,
+                                                                            },
+                                                                        ],
+                                                                    },
+                                                                },
+                                                            ),
+                                                        },
+                                                    ),
+                                                    Comma,
+                                                    Reference(
+                                                        ExprReference {
+                                                            attrs: [],
+                                                            and_token: And,
+                                                            raw: Reserved,
+                                                            mutability: None,
+                                                            expr: Path(
+                                                                ExprPath {
+                                                                    attrs: [],
+                                                                    qself: None,
+                                                                    path: Path {
+                                                                        leading_colon: None,
+                                                                        segments: [
+                                                                            PathSegment {
+                                                                                ident: Ident(
+                                                                                    secret_key,
+                                                                                ),
+                                                                                arguments: None,
+                                                                            },
+                                                                        ],
+                                                                    },
+                                                                },
+                                                            ),
+                                                        },
+                                                    ),
+                                                ],
+                                            },
+                                        ),
+                                    ),
+                                ),
+                                semi_token: Semi,
+                            },
+                        ),
+                        Local(
+                            Local {
+                                attrs: [],
+                                let_token: Let,
+                                pat: Ident(
+                                    PatIdent {
+                                        attrs: [],
+                                        by_ref: None,
+                                        mutability: None,
+                                        ident: Ident(
+                                            text,
+                                        ),
+                                        subpat: None,
+                                    },
+                                ),
+                                init: Some(
+                                    (
+                                        Eq,
+                                        Call(
+                                            ExprCall {
+                                                attrs: [],
+                                                func: Path(
+                                                    ExprPath {
+                                                        attrs: [],
+                                                        qself: None,
+                                                        path: Path {
+                                                            leading_colon: None,
+                                                            segments: [
+                                                                PathSegment {
+                                                                    ident: Ident(
+                                                                        decrypt,
+                                                                    ),
+                                                                    arguments: None,
+                                                                },
+                                                            ],
+                                                        },
+                                                    },
+                                                ),
+                                                paren_token: Paren,
+                                                args: [
+                                                    Reference(
+                                                        ExprReference {
+                                                            attrs: [],
+                                                            and_token: And,
+                                                            raw: Reserved,
+                                                            mutability: None,
+                                                            expr: Path(
+                                                                ExprPath {
+                                                                    attrs: [],
+                                                                    qself: None,
+                                                                    path: Path {
+                                                                        leading_colon: None,
+                                                                        segments: [
+                                                                            PathSegment {
+                                                                                ident: Ident(
+                                                                                    cipher_text,
+                                                                                ),
+                                                                                arguments: None,
+                                                                            },
+                                                                        ],
+                                                                    },
+                                                                },
+                                                            ),
+                                                        },
+                                                    ),
+                                                    Comma,
+                                                    Reference(
+                                                        ExprReference {
+                                                            attrs: [],
+                                                            and_token: And,
+                                                            raw: Reserved,
+                                                            mutability: None,
+                                                            expr: Path(
+                                                                ExprPath {
+                                                                    attrs: [],
+                                                                    qself: None,
+                                                                    path: Path {
+                                                                        leading_colon: None,
+                                                                        segments: [
+                                                                            PathSegment {
+                                                                                ident: Ident(
+                                                                                    secret_key,
+                                                                                ),
+                                                                                arguments: None,
+                                                                            },
+                                                                        ],
+                                                                    },
+                                                                },
+                                                            ),
+                                                        },
+                                                    ),
+                                                ],
+                                            },
+                                        ),
+                                    ),
+                                ),
+                                semi_token: Semi,
+                            },
+                        ),
+                        Semi(
+                            Macro(
+                                ExprMacro {
+                                    attrs: [],
+                                    mac: Macro {
+                                        path: Path {
+                                            leading_colon: None,
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident(
+                                                        assert,
+                                                    ),
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                        bang_token: Bang,
+                                        delimiter: Paren(
+                                            Paren,
+                                        ),
+                                        tokens: TokenStream [
+                                            Ident {
+                                                sym: message,
+                                            },
+                                            Punct {
+                                                char: '=',
+                                                spacing: Joint,
+                                            },
+                                            Punct {
+                                                char: '=',
+                                                spacing: Alone,
+                                            },
+                                            Punct {
+                                                char: '&',
+                                                spacing: Alone,
+                                            },
+                                            Ident {
+                                                sym: text,
+                                            },
+                                            Group {
+                                                delimiter: Bracket,
+                                                stream: TokenStream [
+                                                    Punct {
+                                                        char: '.',
+                                                        spacing: Joint,
+                                                    },
+                                                    Punct {
+                                                        char: '.',
+                                                        spacing: Alone,
+                                                    },
+                                                ],
+                                            },
+                                        ],
+                                    },
+                                },
+                            ),
+                            Semi,
+                        ),
+                        Semi(
+                            Macro(
+                                ExprMacro {
+                                    attrs: [],
+                                    mac: Macro {
+                                        path: Path {
+                                            leading_colon: None,
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident(
+                                                        println,
+                                                    ),
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                        bang_token: Bang,
+                                        delimiter: Paren(
+                                            Paren,
+                                        ),
+                                        tokens: TokenStream [
+                                            Literal {
+                                                lit: "message: {:?}",
+                                            },
+                                            Punct {
+                                                char: ',',
+                                                spacing: Alone,
+                                            },
+                                            Ident {
+                                                sym: message,
+                                            },
+                                        ],
+                                    },
+                                },
+                            ),
+                            Semi,
+                        ),
+                        Semi(
+                            Macro(
+                                ExprMacro {
+                                    attrs: [],
+                                    mac: Macro {
+                                        path: Path {
+                                            leading_colon: None,
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident(
+                                                        println,
+                                                    ),
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                        bang_token: Bang,
+                                        delimiter: Paren(
+                                            Paren,
+                                        ),
+                                        tokens: TokenStream [
+                                            Literal {
+                                                lit: "ciphertext: {:?}",
+                                            },
+                                            Punct {
+                                                char: ',',
+                                                spacing: Alone,
+                                            },
+                                            Ident {
+                                                sym: cipher_text,
+                                            },
+                                        ],
+                                    },
+                                },
+                            ),
+                            Semi,
+                        ),
+                    ],
+                },
+            },
+        ),
+    ],
+}

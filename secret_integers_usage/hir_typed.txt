@@ -1,0 +1,444 @@
+#[prelude_import]
+use std::prelude::v1::*;
+#[macro_use]
+extern crate std;
+use std::io;
+use simple::*;
+pub mod simple {
+
+    use rand::Rng;
+    use secret_integers::*;
+    /// classify vector of u8s into U8s
+    fn classify_u8s(v: &[u8])
+     ->
+         Vec<U8> ({
+                      ((((v as &[u8]).iter() as
+                            std::slice::Iter<u8>).map((|x|
+                                                          ((U8::classify as
+                                                               fn(u8) -> secret_integers::U8 {secret_integers::U8::classify::<u8>})((*(x
+                                                                                                                                          as
+                                                                                                                                          &u8)
+                                                                                                                                        as
+                                                                                                                                        u8))
+                                                              as
+                                                              secret_integers::U8)
+                                                                                  as
+                                                                                  [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]))
+                           as
+                           Map<std::slice::Iter<u8>, [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]>).collect()
+                          as Vec<secret_integers::U8>)
+                  } as Vec<secret_integers::U8>)
+    /// declassify vector of U8s into u8s
+    fn declassify_u8s(v: &[U8])
+     ->
+         Vec<u8> ({
+                      ((((v as &[secret_integers::U8]).iter() as
+                            std::slice::Iter<secret_integers::U8>).map((|x|
+                                                                           ((U8::declassify
+                                                                                as
+                                                                                fn(secret_integers::U8) -> u8 {secret_integers::U8::declassify})((*(x
+                                                                                                                                                       as
+                                                                                                                                                       &secret_integers::U8)
+                                                                                                                                                     as
+                                                                                                                                                     secret_integers::U8))
+                                                                               as
+                                                                               u8)
+                                                                                  as
+                                                                                  [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]))
+                           as
+                           Map<std::slice::Iter<secret_integers::U8>, [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]>).collect()
+                          as Vec<u8>)
+                  } as Vec<u8>)
+    pub fn get_secret_key()
+     ->
+         Vec<U8> ({
+                      let random_bytes =
+                          (((rand::thread_rng as
+                                fn() -> ThreadRng {thread_rng})() as
+                               ThreadRng).gen::<[u8; (8 as usize)]>() as
+                              [u8; 8]);
+                      (return ((classify_u8s as
+                                   for<'r> fn(&'r [u8]) -> Vec<secret_integers::U8> {classify_u8s})((&(random_bytes
+                                                                                                          as
+                                                                                                          [u8; 8])
+                                                                                                        as
+                                                                                                        &[u8; 8]))
+                                  as Vec<secret_integers::U8>) as !);
+                  } as !)
+    pub fn encrypt(msg: &[u8], sk: &[U8])
+     ->
+         Vec<u8> ({
+                      let mut new_block =
+                          ([((U8::zero as
+                                 fn() -> secret_integers::U8 {secret_integers::U8::zero})()
+                                as secret_integers::U8); (8 as usize)] as
+                              [secret_integers::U8; 8]);
+                      let classified_msg =
+                          ((classify_u8s as
+                               for<'r> fn(&'r [u8]) -> Vec<secret_integers::U8> {classify_u8s})((msg
+                                                                                                    as
+                                                                                                    &[u8]))
+                              as Vec<secret_integers::U8>);
+                      ({
+                           let _t =
+                               (match ((#[lang = "into_iter"] as
+                                           fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as IntoIterator>::IntoIter {<std::ops::Range<usize> as IntoIterator>::into_iter})((#[lang = "Range"]{start:
+                                                                                                                                                                                                          (0
+                                                                                                                                                                                                              as
+                                                                                                                                                                                                              usize),
+                                                                                                                                                                                                      end:
+                                                                                                                                                                                                          (8
+                                                                                                                                                                                                              as
+                                                                                                                                                                                                              usize),}
+                                                                                                                                                                                       as
+                                                                                                                                                                                       std::ops::Range<usize>))
+                                          as std::ops::Range<usize>) {
+                                    mut iter =>
+                                    (loop  {
+                                         let mut __next;
+                                         (match ((#[lang = "next"] as
+                                                     for<'r> fn(&'r mut std::ops::Range<usize>) -> Option<<std::ops::Range<usize> as Iterator>::Item> {<std::ops::Range<usize> as Iterator>::next})((&mut (iter
+                                                                                                                                                                                                              as
+                                                                                                                                                                                                              std::ops::Range<usize>)
+                                                                                                                                                                                                        as
+                                                                                                                                                                                                        &mut std::ops::Range<usize>))
+                                                    as Option<usize>) {
+                                              #[lang = "Some"] { 0: val } =>
+                                              ((__next as usize) =
+                                                  (val as usize) as ()),
+                                              #[lang = "None"] {  } =>
+                                              (break  as !),
+                                          } as ())
+                                         let i = (__next as usize);
+                                         ({
+                                              (((new_block as
+                                                    [secret_integers::U8; 8])[(i
+                                                                                  as
+                                                                                  usize)]
+                                                   as secret_integers::U8) =
+                                                  (((classified_msg as
+                                                        Vec<secret_integers::U8>)[(i
+                                                                                      as
+                                                                                      usize)]
+                                                       as secret_integers::U8)
+                                                      ^
+                                                      ((sk as
+                                                           &[secret_integers::U8])[(i
+                                                                                       as
+                                                                                       usize)]
+                                                          as
+                                                          secret_integers::U8)
+                                                      as secret_integers::U8)
+                                                  as ());
+                                          } as ())
+                                     } as ()),
+                                } as ());
+                           _t
+                       } as ());
+                      (return ((declassify_u8s as
+                                   for<'r> fn(&'r [secret_integers::U8]) -> Vec<u8> {declassify_u8s})((&(new_block
+                                                                                                            as
+                                                                                                            [secret_integers::U8; 8])
+                                                                                                          as
+                                                                                                          &[secret_integers::U8; 8]))
+                                  as Vec<u8>) as !);
+                  } as !)
+    pub fn decrypt(cipher: &[u8], sk: &[U8])
+     ->
+         Vec<u8> ({
+                      let mut new_block =
+                          ([((U8::zero as
+                                 fn() -> secret_integers::U8 {secret_integers::U8::zero})()
+                                as secret_integers::U8); (8 as usize)] as
+                              [secret_integers::U8; 8]);
+                      let classified_cipher =
+                          ((classify_u8s as
+                               for<'r> fn(&'r [u8]) -> Vec<secret_integers::U8> {classify_u8s})((cipher
+                                                                                                    as
+                                                                                                    &[u8]))
+                              as Vec<secret_integers::U8>);
+                      ({
+                           let _t =
+                               (match ((#[lang = "into_iter"] as
+                                           fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as IntoIterator>::IntoIter {<std::ops::Range<usize> as IntoIterator>::into_iter})((#[lang = "Range"]{start:
+                                                                                                                                                                                                          (0
+                                                                                                                                                                                                              as
+                                                                                                                                                                                                              usize),
+                                                                                                                                                                                                      end:
+                                                                                                                                                                                                          (8
+                                                                                                                                                                                                              as
+                                                                                                                                                                                                              usize),}
+                                                                                                                                                                                       as
+                                                                                                                                                                                       std::ops::Range<usize>))
+                                          as std::ops::Range<usize>) {
+                                    mut iter =>
+                                    (loop  {
+                                         let mut __next;
+                                         (match ((#[lang = "next"] as
+                                                     for<'r> fn(&'r mut std::ops::Range<usize>) -> Option<<std::ops::Range<usize> as Iterator>::Item> {<std::ops::Range<usize> as Iterator>::next})((&mut (iter
+                                                                                                                                                                                                              as
+                                                                                                                                                                                                              std::ops::Range<usize>)
+                                                                                                                                                                                                        as
+                                                                                                                                                                                                        &mut std::ops::Range<usize>))
+                                                    as Option<usize>) {
+                                              #[lang = "Some"] { 0: val } =>
+                                              ((__next as usize) =
+                                                  (val as usize) as ()),
+                                              #[lang = "None"] {  } =>
+                                              (break  as !),
+                                          } as ())
+                                         let i = (__next as usize);
+                                         ({
+                                              (((new_block as
+                                                    [secret_integers::U8; 8])[(i
+                                                                                  as
+                                                                                  usize)]
+                                                   as secret_integers::U8) =
+                                                  (((classified_cipher as
+                                                        Vec<secret_integers::U8>)[(i
+                                                                                      as
+                                                                                      usize)]
+                                                       as secret_integers::U8)
+                                                      ^
+                                                      ((sk as
+                                                           &[secret_integers::U8])[(i
+                                                                                       as
+                                                                                       usize)]
+                                                          as
+                                                          secret_integers::U8)
+                                                      as secret_integers::U8)
+                                                  as ());
+                                          } as ())
+                                     } as ()),
+                                } as ());
+                           _t
+                       } as ());
+                      (return ((declassify_u8s as
+                                   for<'r> fn(&'r [secret_integers::U8]) -> Vec<u8> {declassify_u8s})((&(new_block
+                                                                                                            as
+                                                                                                            [secret_integers::U8; 8])
+                                                                                                          as
+                                                                                                          &[secret_integers::U8; 8]))
+                                  as Vec<u8>) as !);
+                  } as !)
+}
+fn main() ({
+               let secret_key =
+                   ((get_secret_key as
+                        fn() -> Vec<secret_integers::U8> {simple::get_secret_key})()
+                       as Vec<secret_integers::U8>);
+               let mut buffer =
+                   ((String::new as fn() -> String {String::new})() as
+                       String);
+               ({
+                    ((::std::io::_print as
+                         for<'r> fn(Arguments<'r>) {_print})(((::core::fmt::Arguments::new_v1
+                                                                  as
+                                                                  fn(&[&'static str], &[ArgumentV1]) -> Arguments {Arguments::new_v1})((&([("Please input a 8 byte message\n"
+                                                                                                                                               as
+                                                                                                                                               &str)]
+                                                                                                                                             as
+                                                                                                                                             [&str; 1])
+                                                                                                                                           as
+                                                                                                                                           &[&str; 1]),
+                                                                                                                                       (&(match (()
+                                                                                                                                                    as
+                                                                                                                                                    ())
+                                                                                                                                              {
+                                                                                                                                              ()
+                                                                                                                                              =>
+                                                                                                                                              ([]
+                                                                                                                                                  as
+                                                                                                                                                  [ArgumentV1; 0]),
+                                                                                                                                          }
+                                                                                                                                             as
+                                                                                                                                             [ArgumentV1; 0])
+                                                                                                                                           as
+                                                                                                                                           &[ArgumentV1; 0]))
+                                                                 as
+                                                                 Arguments))
+                        as ());
+                } as ());
+               let _ =
+                   (((io::stdin as fn() -> Stdin {stdin})() as
+                        Stdin).read_line((&mut (buffer as String) as
+                                             &mut String)) as
+                       std::result::Result<usize, std::io::Error>);
+               let mut message = ([(0u8 as u8); (8 as usize)] as [u8; 8]);
+               ({
+                    let _t =
+                        (match ((#[lang = "into_iter"] as
+                                    fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as IntoIterator>::IntoIter {<std::ops::Range<usize> as IntoIterator>::into_iter})((#[lang = "Range"]{start:
+                                                                                                                                                                                                   (0
+                                                                                                                                                                                                       as
+                                                                                                                                                                                                       usize),
+                                                                                                                                                                                               end:
+                                                                                                                                                                                                   (8
+                                                                                                                                                                                                       as
+                                                                                                                                                                                                       usize),}
+                                                                                                                                                                                as
+                                                                                                                                                                                std::ops::Range<usize>))
+                                   as std::ops::Range<usize>) {
+                             mut iter =>
+                             (loop  {
+                                  let mut __next;
+                                  (match ((#[lang = "next"] as
+                                              for<'r> fn(&'r mut std::ops::Range<usize>) -> Option<<std::ops::Range<usize> as Iterator>::Item> {<std::ops::Range<usize> as Iterator>::next})((&mut (iter
+                                                                                                                                                                                                       as
+                                                                                                                                                                                                       std::ops::Range<usize>)
+                                                                                                                                                                                                 as
+                                                                                                                                                                                                 &mut std::ops::Range<usize>))
+                                             as Option<usize>) {
+                                       #[lang = "Some"] { 0: val } =>
+                                       ((__next as usize) = (val as usize) as
+                                           ()),
+                                       #[lang = "None"] {  } => (break  as !),
+                                   } as ())
+                                  let i = (__next as usize);
+                                  ({
+                                       (if ((i as usize) <
+                                               ((buffer as String).len() as
+                                                   usize) as bool)
+                                           ({
+                                                (((message as
+                                                      [u8; 8])[(i as usize)]
+                                                     as u8) =
+                                                    (((buffer as
+                                                          String).as_bytes()
+                                                         as
+                                                         &[u8])[(i as usize)]
+                                                        as u8) as ());
+                                            } as ()) as ())
+                                        } as ())
+                                   } as ()), }
+                                 as
+                                 ()); _t } as ());
+                    let cipher_text =
+                        ((encrypt as
+                             for<'r, 's> fn(&'r [u8], &'s [secret_integers::U8]) -> Vec<u8> {simple::encrypt})((&(message
+                                                                                                                     as
+                                                                                                                     [u8; 8])
+                                                                                                                   as
+                                                                                                                   &[u8; 8]),
+                                                                                                               (&(secret_key
+                                                                                                                     as
+                                                                                                                     Vec<secret_integers::U8>)
+                                                                                                                   as
+                                                                                                                   &Vec<secret_integers::U8>))
+                            as Vec<u8>);
+                    let text =
+                        ((decrypt as
+                             for<'r, 's> fn(&'r [u8], &'s [secret_integers::U8]) -> Vec<u8> {simple::decrypt})((&(cipher_text
+                                                                                                                     as
+                                                                                                                     Vec<u8>)
+                                                                                                                   as
+                                                                                                                   &Vec<u8>),
+                                                                                                               (&(secret_key
+                                                                                                                     as
+                                                                                                                     Vec<secret_integers::U8>)
+                                                                                                                   as
+                                                                                                                   &Vec<secret_integers::U8>))
+                            as Vec<u8>);
+                    (if (!(((message as [u8; 8]) ==
+                               (&((text as
+                                      Vec<u8>)[(#[lang = "RangeFull"]{} as
+                                                   RangeFull)] as [u8]) as
+                                   &[u8]) as bool)) as bool)
+                        ({
+                             ((::core::panicking::panic as
+                                  fn(&'static str) -> ! {core::panicking::panic})(("assertion failed: message == &text[..]"
+                                                                                      as
+                                                                                      &str))
+                                 as !)
+                         } as ()) as ());
+                         ({
+                              ((::std::io::_print as
+                                   for<'r> fn(Arguments<'r>) {_print})(((::core::fmt::Arguments::new_v1
+                                                                            as
+                                                                            fn(&[&'static str], &[ArgumentV1]) -> Arguments {Arguments::new_v1})((&([("message: "
+                                                                                                                                                         as
+                                                                                                                                                         &str),
+                                                                                                                                                     ("\n"
+                                                                                                                                                         as
+                                                                                                                                                         &str)]
+                                                                                                                                                       as
+                                                                                                                                                       [&str; 2])
+                                                                                                                                                     as
+                                                                                                                                                     &[&str; 2]),
+                                                                                                                                                 (&(match (((&(message
+                                                                                                                                                                  as
+                                                                                                                                                                  [u8; 8])
+                                                                                                                                                                as
+                                                                                                                                                                &[u8; 8]),)
+                                                                                                                                                              as
+                                                                                                                                                              (&[u8; 8],))
+                                                                                                                                                        {
+                                                                                                                                                        (arg0,)
+                                                                                                                                                        =>
+                                                                                                                                                        ([((::core::fmt::ArgumentV1::new
+                                                                                                                                                               as
+                                                                                                                                                               for<'b> fn(&'b [u8; 8], for<'r, 's, 't0> fn(&'r [u8; 8], &'s mut Formatter<'t0>) -> std::result::Result<(), std::fmt::Error>) -> ArgumentV1<'b> {ArgumentV1::new::<[u8; 8]>})((arg0
+                                                                                                                                                                                                                                                                                                                                                 as
+                                                                                                                                                                                                                                                                                                                                                 &[u8; 8]),
+                                                                                                                                                                                                                                                                                                                                             (::core::fmt::Debug::fmt
+                                                                                                                                                                                                                                                                                                                                                 as
+                                                                                                                                                                                                                                                                                                                                                 for<'r, 's, 't0> fn(&'r [u8; 8], &'s mut Formatter<'t0>) -> std::result::Result<(), std::fmt::Error> {<[u8; 8] as Debug>::fmt}))
+                                                                                                                                                              as
+                                                                                                                                                              ArgumentV1)]
+                                                                                                                                                            as
+                                                                                                                                                            [ArgumentV1; 1]),
+                                                                                                                                                    }
+                                                                                                                                                       as
+                                                                                                                                                       [ArgumentV1; 1])
+                                                                                                                                                     as
+                                                                                                                                                     &[ArgumentV1; 1]))
+                                                                           as
+                                                                           Arguments))
+                                  as ());
+                          } as ());
+                         ({
+                              ((::std::io::_print as
+                                   for<'r> fn(Arguments<'r>) {_print})(((::core::fmt::Arguments::new_v1
+                                                                            as
+                                                                            fn(&[&'static str], &[ArgumentV1]) -> Arguments {Arguments::new_v1})((&([("ciphertext: "
+                                                                                                                                                         as
+                                                                                                                                                         &str),
+                                                                                                                                                     ("\n"
+                                                                                                                                                         as
+                                                                                                                                                         &str)]
+                                                                                                                                                       as
+                                                                                                                                                       [&str; 2])
+                                                                                                                                                     as
+                                                                                                                                                     &[&str; 2]),
+                                                                                                                                                 (&(match (((&(cipher_text
+                                                                                                                                                                  as
+                                                                                                                                                                  Vec<u8>)
+                                                                                                                                                                as
+                                                                                                                                                                &Vec<u8>),)
+                                                                                                                                                              as
+                                                                                                                                                              (&Vec<u8>,))
+                                                                                                                                                        {
+                                                                                                                                                        (arg0,)
+                                                                                                                                                        =>
+                                                                                                                                                        ([((::core::fmt::ArgumentV1::new
+                                                                                                                                                               as
+                                                                                                                                                               for<'b> fn(&'b Vec<u8>, for<'r, 's, 't0> fn(&'r Vec<u8>, &'s mut Formatter<'t0>) -> std::result::Result<(), std::fmt::Error>) -> ArgumentV1<'b> {ArgumentV1::new::<Vec<u8>>})((arg0
+                                                                                                                                                                                                                                                                                                                                                 as
+                                                                                                                                                                                                                                                                                                                                                 &Vec<u8>),
+                                                                                                                                                                                                                                                                                                                                             (::core::fmt::Debug::fmt
+                                                                                                                                                                                                                                                                                                                                                 as
+                                                                                                                                                                                                                                                                                                                                                 for<'r, 's, 't0> fn(&'r Vec<u8>, &'s mut Formatter<'t0>) -> std::result::Result<(), std::fmt::Error> {<Vec<u8> as Debug>::fmt}))
+                                                                                                                                                              as
+                                                                                                                                                              ArgumentV1)]
+                                                                                                                                                            as
+                                                                                                                                                            [ArgumentV1; 1]),
+                                                                                                                                                    }
+                                                                                                                                                       as
+                                                                                                                                                       [ArgumentV1; 1])
+                                                                                                                                                     as
+                                                                                                                                                     &[ArgumentV1; 1]))
+                                                                           as
+                                                                           Arguments))
+                                  as ());
+                          } as ());
+                     } as ())

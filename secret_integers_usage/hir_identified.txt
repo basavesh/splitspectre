@@ -1,0 +1,857 @@
+#[prelude_import]
+use std::prelude::v1::*; /*
+hir_id: HirId { owner: DefId(0:1 ~ secret_integers_usage[a377]::{misc#0}), local_id: 0 }
+*/
+#[macro_use]
+extern crate std; /*
+hir_id: HirId { owner: DefId(0:2 ~ secret_integers_usage[a377]::std), local_id: 0 }
+*/
+use std::io; /*
+hir_id: HirId { owner: DefId(0:3 ~ secret_integers_usage[a377]::{misc#1}), local_id: 0 }
+*/
+use simple::*; /*
+hir_id: HirId { owner: DefId(0:4 ~ secret_integers_usage[a377]::{misc#2}), local_id: 0 }
+*/
+pub mod simple {
+
+    use rand::Rng;
+    /*
+    hir_id: HirId { owner: DefId(0:6 ~ secret_integers_usage[a377]::simple::{misc#0}), local_id: 0 }
+    */
+    use secret_integers::*;
+    /*
+    hir_id: HirId { owner: DefId(0:7 ~ secret_integers_usage[a377]::simple::{misc#1}), local_id: 0 }
+    */
+    /// classify vector of u8s into U8s
+    fn classify_u8s(v /*
+                        pat hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 2 }
+                        */: &[u8])
+     ->
+         Vec<U8> ({
+                      ((((v /*
+                             expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 7 }
+                             */).iter() /*
+                            expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 8 }
+                            */).map((|x /*
+                                          pat hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 10 }
+                                          */|
+                                        ((U8::classify /*
+                                             expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 14 }
+                                             */)((*(x /*
+                                                       expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 16 }
+                                                       */) /*
+                                                     expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 17 }
+                                                     */)) /*
+                                            expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 18 }
+                                            */) /*
+                                               expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 20 }
+                                               */)) /*
+                           expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 21 }
+                           */).collect() /*
+                          expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 22 }
+                          */)
+                  } /*
+                     block hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 23 }
+                     */ /*
+                     expr hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 24 }
+                     */)
+    /*
+    hir_id: HirId { owner: DefId(0:8 ~ secret_integers_usage[a377]::simple::classify_u8s), local_id: 0 }
+    */
+    /// declassify vector of U8s into u8s
+    fn declassify_u8s(v /*
+                          pat hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 2 }
+                          */: &[U8])
+     ->
+         Vec<u8> ({
+                      ((((v /*
+                             expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 7 }
+                             */).iter() /*
+                            expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 8 }
+                            */).map((|x /*
+                                          pat hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 10 }
+                                          */|
+                                        ((U8::declassify /*
+                                             expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 14 }
+                                             */)((*(x /*
+                                                       expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 16 }
+                                                       */) /*
+                                                     expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 17 }
+                                                     */)) /*
+                                            expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 18 }
+                                            */) /*
+                                               expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 20 }
+                                               */)) /*
+                           expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 21 }
+                           */).collect() /*
+                          expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 22 }
+                          */)
+                  } /*
+                     block hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 23 }
+                     */ /*
+                     expr hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 24 }
+                     */)
+    /*
+    hir_id: HirId { owner: DefId(0:10 ~ secret_integers_usage[a377]::simple::declassify_u8s), local_id: 0 }
+    */
+    pub fn get_secret_key()
+     ->
+         Vec<U8> ({
+                      let random_bytes /*
+                              pat hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 13 }
+                              */ =
+                          (((rand::thread_rng /*
+                                expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 9 }
+                                */)() /*
+                               expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 10 }
+                               */).gen::<[u8; (8 /*
+                                                  expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 4 }
+                                                  */)]>() /*
+                              expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 11 }
+                              */);
+                      (return ((classify_u8s /*
+                                   expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 16 }
+                                   */)((&(random_bytes /*
+                                             expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 18 }
+                                             */) /*
+                                           expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 19 }
+                                           */)) /*
+                                  expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 20 }
+                                  */) /*
+                          expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 21 }
+                          */);
+                  } /*
+                     block hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 23 }
+                     */ /*
+                     expr hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 24 }
+                     */)
+    /*
+    hir_id: HirId { owner: DefId(0:12 ~ secret_integers_usage[a377]::simple::get_secret_key), local_id: 0 }
+    */
+    pub fn encrypt(msg /*
+                       pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 2 }
+                       */: &[u8],
+                   sk /*
+                       pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 4 }
+                       */: &[U8])
+     ->
+         Vec<u8> ({
+                      let mut new_block /*
+                              pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 14 }
+                              */ =
+                          ([((U8::zero /*
+                                 expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 8 }
+                                 */)() /*
+                                expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 9 }
+                                */);
+                               (8 /*
+                                   expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 11 }
+                                   */)] /*
+                              expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 12 }
+                              */);
+                      let classified_msg /*
+                              pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 22 }
+                              */ =
+                          ((classify_u8s /*
+                               expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 17 }
+                               */)((msg /*
+                                       expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 19 }
+                                       */)) /*
+                              expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 20 }
+                              */);
+                      ({
+                           let _t =
+                               (match ((#[lang = "into_iter"] /*
+                                           expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 77 }
+                                           */)((#[lang = "Range"]{start:
+                                                                      (0 /*
+                                                                          expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 24 }
+                                                                          */),
+                                                                  end:
+                                                                      (8 /*
+                                                                          expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 26 }
+                                                                          */),}
+                                                   /*
+                                                   expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 28 }
+                                                   */)) /*
+                                          expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 78 }
+                                          */) {
+                                    mut iter /*
+                                    pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 41 }
+                                    */ =>
+                                    (loop  {
+                                         let mut __next /*
+                                                 pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 29 }
+                                                 */;
+                                         (match ((#[lang = "next"] /*
+                                                     expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 44 }
+                                                     */)((&mut (iter /*
+                                                                   expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 42 }
+                                                                   */) /*
+                                                             expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 43 }
+                                                             */)) /*
+                                                    expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 45 }
+                                                    */) {
+                                              #[lang = "Some"] {
+                                              0: val
+                                                  /*
+                                                  pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 30 }
+                                                  */ } /*
+                                              pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 35 }
+                                              */ =>
+                                              ((__next /*
+                                                   expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 32 }
+                                                   */) =
+                                                  (val /*
+                                                      expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 31 }
+                                                      */) /*
+                                                  expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 33 }
+                                                  */),
+                                                  /*
+                                                  arm hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 36 }
+                                                  */
+                                              #[lang = "None"] {  } /*
+                                              pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 39 }
+                                              */ =>
+                                              (break  /*
+                                                  expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 38 }
+                                                  */),
+                                                  /*
+                                                  arm hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 40 }
+                                                  */
+                                          } /*
+                                             expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 46 }
+                                             */)
+                                         let i /*
+                                                 pat hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 51 }
+                                                 */ =
+                                             (__next /*
+                                                 expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 48 }
+                                                 */);
+                                         ({
+                                              (((new_block /*
+                                                    expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 55 }
+                                                    */)[(i /*
+                                                            expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 57 }
+                                                            */)] /*
+                                                   expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 58 }
+                                                   */) =
+                                                  (((classified_msg /*
+                                                        expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 60 }
+                                                        */)[(i /*
+                                                                expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 62 }
+                                                                */)] /*
+                                                       expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 63 }
+                                                       */) ^
+                                                      ((sk /*
+                                                           expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 65 }
+                                                           */)[(i /*
+                                                                   expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 67 }
+                                                                   */)] /*
+                                                          expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 68 }
+                                                          */) /*
+                                                      expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 69 }
+                                                      */) /*
+                                                  expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 70 }
+                                                  */);
+                                          } /*
+                                             block hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 72 }
+                                             */ /*
+                                             expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 73 }
+                                             */)
+                                     } /*
+                                        block hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 75 }
+                                        */ /*
+                                        expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 37 }
+                                        */),
+                                        /*
+                                        arm hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 76 }
+                                        */
+                                } /*
+                                   expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 79 }
+                                   */);
+                           _t
+                       } /*
+                          expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 80 }
+                          */);
+                      (return ((declassify_u8s /*
+                                   expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 83 }
+                                   */)((&(new_block /*
+                                             expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 85 }
+                                             */) /*
+                                           expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 86 }
+                                           */)) /*
+                                  expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 87 }
+                                  */) /*
+                          expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 88 }
+                          */);
+                  } /*
+                     block hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 90 }
+                     */ /*
+                     expr hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 91 }
+                     */)
+    /*
+    hir_id: HirId { owner: DefId(0:14 ~ secret_integers_usage[a377]::simple::encrypt), local_id: 0 }
+    */
+    pub fn decrypt(cipher /*
+                       pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 2 }
+                       */: &[u8],
+                   sk /*
+                       pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 4 }
+                       */: &[U8])
+     ->
+         Vec<u8> ({
+                      let mut new_block /*
+                              pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 14 }
+                              */ =
+                          ([((U8::zero /*
+                                 expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 8 }
+                                 */)() /*
+                                expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 9 }
+                                */);
+                               (8 /*
+                                   expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 11 }
+                                   */)] /*
+                              expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 12 }
+                              */);
+                      let classified_cipher /*
+                              pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 22 }
+                              */ =
+                          ((classify_u8s /*
+                               expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 17 }
+                               */)((cipher /*
+                                       expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 19 }
+                                       */)) /*
+                              expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 20 }
+                              */);
+                      ({
+                           let _t =
+                               (match ((#[lang = "into_iter"] /*
+                                           expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 77 }
+                                           */)((#[lang = "Range"]{start:
+                                                                      (0 /*
+                                                                          expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 24 }
+                                                                          */),
+                                                                  end:
+                                                                      (8 /*
+                                                                          expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 26 }
+                                                                          */),}
+                                                   /*
+                                                   expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 28 }
+                                                   */)) /*
+                                          expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 78 }
+                                          */) {
+                                    mut iter /*
+                                    pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 41 }
+                                    */ =>
+                                    (loop  {
+                                         let mut __next /*
+                                                 pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 29 }
+                                                 */;
+                                         (match ((#[lang = "next"] /*
+                                                     expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 44 }
+                                                     */)((&mut (iter /*
+                                                                   expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 42 }
+                                                                   */) /*
+                                                             expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 43 }
+                                                             */)) /*
+                                                    expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 45 }
+                                                    */) {
+                                              #[lang = "Some"] {
+                                              0: val
+                                                  /*
+                                                  pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 30 }
+                                                  */ } /*
+                                              pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 35 }
+                                              */ =>
+                                              ((__next /*
+                                                   expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 32 }
+                                                   */) =
+                                                  (val /*
+                                                      expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 31 }
+                                                      */) /*
+                                                  expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 33 }
+                                                  */),
+                                                  /*
+                                                  arm hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 36 }
+                                                  */
+                                              #[lang = "None"] {  } /*
+                                              pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 39 }
+                                              */ =>
+                                              (break  /*
+                                                  expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 38 }
+                                                  */),
+                                                  /*
+                                                  arm hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 40 }
+                                                  */
+                                          } /*
+                                             expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 46 }
+                                             */)
+                                         let i /*
+                                                 pat hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 51 }
+                                                 */ =
+                                             (__next /*
+                                                 expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 48 }
+                                                 */);
+                                         ({
+                                              (((new_block /*
+                                                    expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 55 }
+                                                    */)[(i /*
+                                                            expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 57 }
+                                                            */)] /*
+                                                   expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 58 }
+                                                   */) =
+                                                  (((classified_cipher /*
+                                                        expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 60 }
+                                                        */)[(i /*
+                                                                expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 62 }
+                                                                */)] /*
+                                                       expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 63 }
+                                                       */) ^
+                                                      ((sk /*
+                                                           expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 65 }
+                                                           */)[(i /*
+                                                                   expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 67 }
+                                                                   */)] /*
+                                                          expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 68 }
+                                                          */) /*
+                                                      expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 69 }
+                                                      */) /*
+                                                  expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 70 }
+                                                  */);
+                                          } /*
+                                             block hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 72 }
+                                             */ /*
+                                             expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 73 }
+                                             */)
+                                     } /*
+                                        block hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 75 }
+                                        */ /*
+                                        expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 37 }
+                                        */),
+                                        /*
+                                        arm hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 76 }
+                                        */
+                                } /*
+                                   expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 79 }
+                                   */);
+                           _t
+                       } /*
+                          expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 80 }
+                          */);
+                      (return ((declassify_u8s /*
+                                   expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 83 }
+                                   */)((&(new_block /*
+                                             expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 85 }
+                                             */) /*
+                                           expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 86 }
+                                           */)) /*
+                                  expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 87 }
+                                  */) /*
+                          expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 88 }
+                          */);
+                  } /*
+                     block hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 90 }
+                     */ /*
+                     expr hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 91 }
+                     */)
+    /*
+    hir_id: HirId { owner: DefId(0:16 ~ secret_integers_usage[a377]::simple::decrypt), local_id: 0 }
+    */
+} /*
+hir_id: HirId { owner: DefId(0:5 ~ secret_integers_usage[a377]::simple), local_id: 0 }
+*/
+fn main() ({
+               let secret_key /*
+                       pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 5 }
+                       */ =
+                   ((get_secret_key /*
+                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 2 }
+                        */)() /*
+                       expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 3 }
+                       */);
+               let mut buffer /*
+                       pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 13 }
+                       */ =
+                   ((String::new /*
+                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 10 }
+                        */)() /*
+                       expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 11 }
+                       */);
+               ({
+                    ((::std::io::_print /*
+                         expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 18 }
+                         */)(((::core::fmt::Arguments::new_v1 /*
+                                  expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 25 }
+                                  */)((&([("Please input a 8 byte message\n"
+                                              /*
+                                              expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 26 }
+                                              */)] /*
+                                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 27 }
+                                            */) /*
+                                          expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 28 }
+                                          */),
+                                      (&(match (() /*
+                                                   expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 29 }
+                                                   */) {
+                                             () /*
+                                             pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 30 }
+                                             */ =>
+                                             ([] /*
+                                                 expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 32 }
+                                                 */),
+                                                 /*
+                                                 arm hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 31 }
+                                                 */
+                                         } /*
+                                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 33 }
+                                            */) /*
+                                          expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 34 }
+                                          */)) /*
+                                 expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 35 }
+                                 */)) /*
+                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 36 }
+                        */);
+                } /*
+                   block hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 38 }
+                   */ /*
+                   expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 39 }
+                   */);
+               let _ /*
+                       pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 51 }
+                       */ =
+                   (((io::stdin /*
+                         expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 44 }
+                         */)() /*
+                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 45 }
+                        */).read_line((&mut (buffer /*
+                                                expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 47 }
+                                                */) /*
+                                          expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 48 }
+                                          */)) /*
+                       expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 49 }
+                       */);
+               let mut message /*
+                       pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 58 }
+                       */ =
+                   ([(0u8 /*
+                         expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 53 }
+                         */);
+                        (8 /*
+                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 55 }
+                            */)] /*
+                       expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 56 }
+                       */);
+               ({
+                    let _t =
+                        (match ((#[lang = "into_iter"] /*
+                                    expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 119 }
+                                    */)((#[lang = "Range"]{start:
+                                                               (0 /*
+                                                                   expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 60 }
+                                                                   */),
+                                                           end:
+                                                               (8 /*
+                                                                   expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 62 }
+                                                                   */),} /*
+                                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 64 }
+                                            */)) /*
+                                   expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 120 }
+                                   */) {
+                             mut iter /*
+                             pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 77 }
+                             */ =>
+                             (loop  {
+                                  let mut __next /*
+                                          pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 65 }
+                                          */;
+                                  (match ((#[lang = "next"] /*
+                                              expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 80 }
+                                              */)((&mut (iter /*
+                                                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 78 }
+                                                            */) /*
+                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 79 }
+                                                      */)) /*
+                                             expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 81 }
+                                             */) {
+                                       #[lang = "Some"] {
+                                       0: val
+                                           /*
+                                           pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 66 }
+                                           */ } /*
+                                       pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 71 }
+                                       */ =>
+                                       ((__next /*
+                                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 68 }
+                                            */) =
+                                           (val /*
+                                               expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 67 }
+                                               */) /*
+                                           expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 69 }
+                                           */),
+                                           /*
+                                           arm hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 72 }
+                                           */
+                                       #[lang = "None"] {  } /*
+                                       pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 75 }
+                                       */ =>
+                                       (break  /*
+                                           expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 74 }
+                                           */),
+                                           /*
+                                           arm hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 76 }
+                                           */
+                                   } /*
+                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 82 }
+                                      */)
+                                  let i /*
+                                          pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 87 }
+                                          */ =
+                                      (__next /*
+                                          expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 84 }
+                                          */);
+                                  ({
+                                       (if ((i /*
+                                                expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 107 }
+                                                */) <
+                                               ((buffer /*
+                                                    expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 110 }
+                                                    */).len() /*
+                                                   expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 111 }
+                                                   */) /*
+                                               expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 112 }
+                                               */)
+                                           ({
+                                                (((message /*
+                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 91 }
+                                                      */)[(i /*
+                                                              expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 93 }
+                                                              */)] /*
+                                                     expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 94 }
+                                                     */) =
+                                                    (((buffer /*
+                                                          expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 97 }
+                                                          */).as_bytes() /*
+                                                         expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 98 }
+                                                         */)[(i /*
+                                                                 expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 100 }
+                                                                 */)] /*
+                                                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 101 }
+                                                        */) /*
+                                                    expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 102 }
+                                                    */);
+                                            } /*
+                                               block hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 104 }
+                                               */ /*
+                                               expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 105 }
+                                               */) /*
+                                           expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 113 }
+                                           */)
+                                        } /*
+                                           block hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 114 }
+                                           */ /*
+                                           expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 115 }
+                                           */)
+                                   } /*
+                                      block hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 117 }
+                                      */ /*
+                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 73 }
+                                      */),
+                                  /*
+                                  arm hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 118 }
+                                  */ }
+                                 /*
+                                 expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 121 }
+                                 */); _t } /*
+                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 122 }
+                        */);
+                    let cipher_text /*
+                            pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 134 }
+                            */ =
+                        ((encrypt /*
+                             expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 125 }
+                             */)((&(message /*
+                                       expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 127 }
+                                       */) /*
+                                     expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 128 }
+                                     */),
+                                 (&(secret_key /*
+                                       expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 130 }
+                                       */) /*
+                                     expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 131 }
+                                     */)) /*
+                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 132 }
+                            */);
+                    let text /*
+                            pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 146 }
+                            */ =
+                        ((decrypt /*
+                             expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 137 }
+                             */)((&(cipher_text /*
+                                       expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 139 }
+                                       */) /*
+                                     expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 140 }
+                                     */),
+                                 (&(secret_key /*
+                                       expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 142 }
+                                       */) /*
+                                     expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 143 }
+                                     */)) /*
+                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 144 }
+                            */);
+                    (if (!(((message /*
+                                expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 157 }
+                                */) ==
+                               (&((text /*
+                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 159 }
+                                      */)[(#[lang = "RangeFull"]{} /*
+                                              expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 160 }
+                                              */)] /*
+                                     expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 161 }
+                                     */) /*
+                                   expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 162 }
+                                   */) /*
+                               expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 163 }
+                               */)) /*
+                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 164 }
+                            */)
+                        ({
+                             ((::core::panicking::panic /*
+                                  expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 151 }
+                                  */)(("assertion failed: message == &text[..]"
+                                          /*
+                                          expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 152 }
+                                          */)) /*
+                                 expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 153 }
+                                 */)
+                         } /*
+                            block hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 154 }
+                            */ /*
+                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 155 }
+                            */) /*
+                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 165 }
+                        */);
+                         ({
+                              ((::std::io::_print /*
+                                   expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 170 }
+                                   */)(((::core::fmt::Arguments::new_v1 /*
+                                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 177 }
+                                            */)((&([("message: " /*
+                                                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 178 }
+                                                        */),
+                                                    ("\n" /*
+                                                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 179 }
+                                                        */)] /*
+                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 180 }
+                                                      */) /*
+                                                    expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 181 }
+                                                    */),
+                                                (&(match (((&(message /*
+                                                                 expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 183 }
+                                                                 */) /*
+                                                               expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 184 }
+                                                               */),) /*
+                                                             expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 185 }
+                                                             */) {
+                                                       (arg0 /*
+                                                        pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 186 }
+                                                        */,) /*
+                                                       pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 187 }
+                                                       */ =>
+                                                       ([((::core::fmt::ArgumentV1::new
+                                                              /*
+                                                              expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 195 }
+                                                              */)((arg0 /*
+                                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 197 }
+                                                                      */),
+                                                                  (::core::fmt::Debug::fmt
+                                                                      /*
+                                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 202 }
+                                                                      */)) /*
+                                                             expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 203 }
+                                                             */)] /*
+                                                           expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 204 }
+                                                           */),
+                                                           /*
+                                                           arm hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 188 }
+                                                           */
+                                                   } /*
+                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 205 }
+                                                      */) /*
+                                                    expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 206 }
+                                                    */)) /*
+                                           expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 207 }
+                                           */)) /*
+                                  expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 208 }
+                                  */);
+                          } /*
+                             block hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 210 }
+                             */ /*
+                             expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 211 }
+                             */);
+                         ({
+                              ((::std::io::_print /*
+                                   expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 216 }
+                                   */)(((::core::fmt::Arguments::new_v1 /*
+                                            expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 223 }
+                                            */)((&([("ciphertext: " /*
+                                                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 224 }
+                                                        */),
+                                                    ("\n" /*
+                                                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 225 }
+                                                        */)] /*
+                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 226 }
+                                                      */) /*
+                                                    expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 227 }
+                                                    */),
+                                                (&(match (((&(cipher_text /*
+                                                                 expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 229 }
+                                                                 */) /*
+                                                               expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 230 }
+                                                               */),) /*
+                                                             expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 231 }
+                                                             */) {
+                                                       (arg0 /*
+                                                        pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 232 }
+                                                        */,) /*
+                                                       pat hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 233 }
+                                                       */ =>
+                                                       ([((::core::fmt::ArgumentV1::new
+                                                              /*
+                                                              expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 241 }
+                                                              */)((arg0 /*
+                                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 243 }
+                                                                      */),
+                                                                  (::core::fmt::Debug::fmt
+                                                                      /*
+                                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 248 }
+                                                                      */)) /*
+                                                             expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 249 }
+                                                             */)] /*
+                                                           expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 250 }
+                                                           */),
+                                                           /*
+                                                           arm hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 234 }
+                                                           */
+                                                   } /*
+                                                      expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 251 }
+                                                      */) /*
+                                                    expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 252 }
+                                                    */)) /*
+                                           expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 253 }
+                                           */)) /*
+                                  expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 254 }
+                                  */);
+                          } /*
+                             block hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 256 }
+                             */ /*
+                             expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 257 }
+                             */);
+                     } /*
+                        block hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 259 }
+                        */ /*
+                        expr hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 260 }
+                        */)
+                    /*
+                    hir_id: HirId { owner: DefId(0:18 ~ secret_integers_usage[a377]::main), local_id: 0 }
+                    */

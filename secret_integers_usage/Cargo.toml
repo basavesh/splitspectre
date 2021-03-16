@@ -6,6 +6,12 @@ edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[[bin]]
+name = "transformer"
+path = "src/transformer.rs"
+
 [dependencies]
 rand = "0.8.3"
 secret_integers = "0.1.6"
+syn = { version = "1.0.60", features = ["parsing", "full", "extra-traits", "fold", "printing", "visit", "visit-mut"] }
+quote = "1.0.9"

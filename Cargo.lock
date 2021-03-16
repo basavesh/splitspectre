@@ -109,8 +109,10 @@ checksum = "60a1e39aeaa13b6bdda0d3a9c0527cd29fa9f8fecde0bed1e552be761e46c796"
 name = "secret_integers_usage"
 version = "0.1.0"
 dependencies = [
+ "quote",
  "rand",
  "secret_integers",
+ "syn",
 ]
 
 [[package]]
@@ -148,10 +150,12 @@ dependencies = [
 name = "split_prototype"
 version = "0.1.0"
 dependencies = [
+ "quote",
  "rand",
  "secret_integers",
  "serde",
  "serde_json",
+ "syn",
 ]
 
 [[package]]

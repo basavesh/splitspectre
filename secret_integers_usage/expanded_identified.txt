@@ -1,0 +1,173 @@
+#![feature(prelude_import)]
+#[prelude_import]
+use std::prelude::v1::*; /* 4 */
+#[macro_use]
+extern crate std; /* 9 */
+use std::io; /* 10 */
+use simple::*; /* 15 */
+pub mod simple {
+
+    use rand::Rng;
+    /*
+    18
+    */
+    use secret_integers::*;
+    /*
+    23
+    */
+    /// classify vector of u8s into U8s
+    fn classify_u8s(v /* pat 27 */: &[u8]) -> Vec<U8> {
+        ((((v /* 41 */).iter() /* 42
+              */).map((|x /* pat 44 */|
+                          ((U8::classify /* 48 */)((*(x /* 50 */) /* 51 */))
+                              /* 52 */) /* 53 */)) /* 54 */).collect() /* 55
+            */)
+    }
+    /*
+    block 36
+    */
+    /*
+    25
+    */
+    /// declassify vector of U8s into u8s
+    fn declassify_u8s(v /* pat 58 */: &[U8]) -> Vec<u8> {
+        ((((v /* 72 */).iter() /* 73
+              */).map((|x /* pat 75 */|
+                          ((U8::declassify /* 79 */)((*(x /* 81 */) /* 82 */))
+                              /* 83 */) /* 84 */)) /* 85 */).collect() /* 86
+            */)
+    }
+    /*
+    block 67
+    */
+    /*
+    56
+    */
+    pub fn get_secret_key() -> Vec<U8> {
+        let random_bytes /* pat 94 */ =
+            (((rand::thread_rng /* 103 */)() /* 104
+                 */).gen::<[u8; (8 /* 100 */)]>() /* 105 */);
+        (return ((classify_u8s /* 107
+                     */)((&(random_bytes /* 109 */) /* 110 */)) /* 111 */) /*
+            112 */);
+    }
+    /*
+    block 92
+    */
+    /*
+    87
+    */
+    pub fn encrypt(msg /* pat 115 */: &[u8], sk /* pat 121 */: &[U8])
+     -> Vec<u8> {
+        let mut new_block /* pat 132 */ =
+            ([((U8::zero /* 135 */)() /* 136 */); (8 /* 138 */)] /* 139 */);
+        let classified_msg /* pat 141 */ =
+            ((classify_u8s /* 143 */)((msg /* 145 */)) /* 146 */);
+        (for i /* pat 147 */ in ((0 /* 148 */)..(8 /* 149 */) /* 150 */) {
+             (((new_block /* 153 */)[(i /* 155 */)] /* 156 */) =
+                 (((classified_msg /* 158 */)[(i /* 160 */)] /* 161 */) ^
+                     ((sk /* 163 */)[(i /* 165 */)] /* 166 */) /* 167 */) /*
+                 168 */);
+         } /* block 151 */ /* 169 */)
+        (return ((declassify_u8s /* 171
+                     */)((&(new_block /* 173 */) /* 174 */)) /* 175 */) /* 176
+            */);
+    }
+    /*
+    block 130
+    */
+    /*
+    113
+    */
+    pub fn decrypt(cipher /* pat 179 */: &[u8], sk /* pat 185 */: &[U8])
+     -> Vec<u8> {
+        let mut new_block /* pat 196 */ =
+            ([((U8::zero /* 199 */)() /* 200 */); (8 /* 202 */)] /* 203 */);
+        let classified_cipher /* pat 205 */ =
+            ((classify_u8s /* 207 */)((cipher /* 209 */)) /* 210 */);
+        (for i /* pat 211 */ in ((0 /* 212 */)..(8 /* 213 */) /* 214 */) {
+             (((new_block /* 217 */)[(i /* 219 */)] /* 220 */) =
+                 (((classified_cipher /* 222 */)[(i /* 224 */)] /* 225 */) ^
+                     ((sk /* 227 */)[(i /* 229 */)] /* 230 */) /* 231 */) /*
+                 232 */);
+         } /* block 215 */ /* 233 */)
+        (return ((declassify_u8s /* 235
+                     */)((&(new_block /* 237 */) /* 238 */)) /* 239 */) /* 240
+            */);
+    }
+    /*
+    block 194
+    */
+    /*
+    177
+    */
+} /* 17 */
+fn main() {
+    let secret_key /* pat 244 */ = ((get_secret_key /* 246 */)() /* 247 */);
+    let mut buffer /* pat 249 */ = ((String::new /* 252 */)() /* 253 */);
+    ({
+         ((::std::io::_print /* 325
+              */)(((::core::fmt::Arguments::new_v1 /* 332
+                       */)((&([("Please input a 8 byte message\n" /* 333 */)]
+                                 /* 334 */) /* 335 */),
+                           (&(match (() /* 336 */) {
+                                  () /* pat 338 */ => ([] /* 339 */),
+                              } /* 340 */) /* 341 */)) /* 342 */)) /* 326 */);
+     } /* block 321 */ /* 327 */);
+    let _ /* pat 255 */ =
+        (((io::stdin /* 259 */)() /* 260
+             */).read_line((&mut (buffer /* 262 */) /* 263 */)) /* 264 */);
+    let mut message /* pat 266 */ =
+        ([(0u8 /* 267 */); (8 /* 269 */)] /* 270 */);
+    (for i /* pat 271 */ in ((0 /* 272 */)..(8 /* 273 */) /* 274 */) {
+         (if ((i /* 277 */) < ((buffer /* 280 */).len() /* 281 */) /* 282 */)
+             {
+              (((message /* 285 */)[(i /* 287 */)] /* 288 */) =
+                  (((buffer /* 291 */).as_bytes() /* 292 */)[(i /* 294 */)] /*
+                      295 */) /* 296 */);
+          } /* block 283 */ /* 297 */)
+     } /* block 275 */ /* 298 */)
+    let cipher_text /* pat 300 */ =
+        ((encrypt /* 302
+             */)((&(message /* 304 */) /* 305 */),
+                 (&(secret_key /* 307 */) /* 308 */)) /* 309 */);
+    let text /* pat 311 */ =
+        ((decrypt /* 313
+             */)((&(cipher_text /* 315 */) /* 316 */),
+                 (&(secret_key /* 318 */) /* 319 */)) /* 320 */);
+    (if (!(((message /* 344 */) ==
+               (&((text /* 346 */)[(.. /* 347 */)] /* 348 */) /* 349 */) /*
+               350 */)) /* 351 */) {
+         ((::core::panicking::panic /* 356
+              */)(("assertion failed: message == &text[..]" /* 357 */)) /* 358
+             */)
+     } /* block 352 */ /* 359 */);
+    ({
+         ((::std::io::_print /* 364
+              */)(((::core::fmt::Arguments::new_v1 /* 371
+                       */)((&([("message: " /* 372 */), ("\n" /* 373 */)] /*
+                                 374 */) /* 375 */),
+                           (&(match (((&(message /* 377 */) /* 378 */),) /*
+                                        379 */) {
+                                  (arg0 /* pat 382 */,) /* pat 381 */ =>
+                                  ([((::core::fmt::ArgumentV1::new /* 387
+                                         */)((arg0 /* 389 */),
+                                             (::core::fmt::Debug::fmt /* 394
+                                                 */)) /* 395 */)] /* 396 */),
+                              } /* 397 */) /* 398 */)) /* 399 */)) /* 365 */);
+     } /* block 360 */ /* 366 */);
+    ({
+         ((::std::io::_print /* 404
+              */)(((::core::fmt::Arguments::new_v1 /* 411
+                       */)((&([("ciphertext: " /* 412 */), ("\n" /* 413 */)]
+                                 /* 414 */) /* 415 */),
+                           (&(match (((&(cipher_text /* 417 */) /* 418 */),)
+                                        /* 419 */) {
+                                  (arg0 /* pat 422 */,) /* pat 421 */ =>
+                                  ([((::core::fmt::ArgumentV1::new /* 427
+                                         */)((arg0 /* 429 */),
+                                             (::core::fmt::Debug::fmt /* 434
+                                                 */)) /* 435 */)] /* 436 */),
+                              } /* 437 */) /* 438 */)) /* 439 */)) /* 405 */);
+     } /* block 400 */ /* 406 */);
+} /* block 242 */ /* 241 */

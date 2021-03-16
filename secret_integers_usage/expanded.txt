@@ -1,0 +1,74 @@
+#![feature(prelude_import)]
+#[prelude_import]
+use std::prelude::v1::*;
+#[macro_use]
+extern crate std;
+use std::io;
+use simple::*;
+pub mod simple {
+
+    use rand::Rng;
+    use secret_integers::*;
+    /// classify vector of u8s into U8s
+    fn classify_u8s(v: &[u8]) -> Vec<U8> {
+        v.iter().map(|x| U8::classify(*x)).collect()
+    }
+    /// declassify vector of U8s into u8s
+    fn declassify_u8s(v: &[U8]) -> Vec<u8> {
+        v.iter().map(|x| U8::declassify(*x)).collect()
+    }
+    pub fn get_secret_key() -> Vec<U8> {
+        let random_bytes = rand::thread_rng().gen::<[u8; 8]>();
+        return classify_u8s(&random_bytes);
+    }
+    pub fn encrypt(msg: &[u8], sk: &[U8]) -> Vec<u8> {
+        let mut new_block = [U8::zero(); 8];
+        let classified_msg = classify_u8s(msg);
+        for i in 0..8 { new_block[i] = classified_msg[i] ^ sk[i]; }
+        return declassify_u8s(&new_block);
+    }
+    pub fn decrypt(cipher: &[u8], sk: &[U8]) -> Vec<u8> {
+        let mut new_block = [U8::zero(); 8];
+        let classified_cipher = classify_u8s(cipher);
+        for i in 0..8 { new_block[i] = classified_cipher[i] ^ sk[i]; }
+        return declassify_u8s(&new_block);
+    }
+}
+fn main() {
+    let secret_key = get_secret_key();
+    let mut buffer = String::new();
+    {
+        ::std::io::_print(::core::fmt::Arguments::new_v1(&["Please input a 8 byte message\n"],
+                                                         &match () {
+                                                              () => [],
+                                                          }));
+    };
+    let _ = io::stdin().read_line(&mut buffer);
+    let mut message = [0u8; 8];
+    for i in 0..8 {
+        if i < buffer.len() { message[i] = buffer.as_bytes()[i]; }
+    }
+    let cipher_text = encrypt(&message, &secret_key);
+    let text = decrypt(&cipher_text, &secret_key);
+    if !(message == &text[..]) {
+        ::core::panicking::panic("assertion failed: message == &text[..]")
+    };
+    {
+        ::std::io::_print(::core::fmt::Arguments::new_v1(&["message: ", "\n"],
+                                                         &match (&message,) {
+                                                              (arg0,) =>
+                                                              [::core::fmt::ArgumentV1::new(arg0,
+                                                                                            ::core::fmt::Debug::fmt)],
+                                                          }));
+    };
+    {
+        ::std::io::_print(::core::fmt::Arguments::new_v1(&["ciphertext: ",
+                                                           "\n"],
+                                                         &match (&cipher_text,)
+                                                              {
+                                                              (arg0,) =>
+                                                              [::core::fmt::ArgumentV1::new(arg0,
+                                                                                            ::core::fmt::Debug::fmt)],
+                                                          }));
+    };
+}

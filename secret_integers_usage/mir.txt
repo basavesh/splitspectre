@@ -1,0 +1,1449 @@
+// WARNING: This output format is intended for human consumers only
+// and is subject to change without notice. Knock yourself out.
+fn simple::decrypt(_1: &[u8], _2: &[secret_integers::U8]) -> Vec<u8> {
+    debug cipher => _1;                  // in scope 0 at secret_integers_usage/src/simple.rs:28:16: 28:22
+    debug sk => _2;                      // in scope 0 at secret_integers_usage/src/simple.rs:28:31: 28:33
+    let mut _0: std::vec::Vec<u8>;       // return place in scope 0 at secret_integers_usage/src/simple.rs:28:45: 28:52
+    let mut _3: [secret_integers::U8; 8]; // in scope 0 at secret_integers_usage/src/simple.rs:29:9: 29:22
+    let mut _4: secret_integers::U8;     // in scope 0 at secret_integers_usage/src/simple.rs:29:26: 29:36
+    let mut _6: &[u8];                   // in scope 0 at secret_integers_usage/src/simple.rs:30:42: 30:48
+    let mut _7: std::ops::Range<usize>;  // in scope 0 at secret_integers_usage/src/simple.rs:31:14: 31:18
+    let mut _8: std::ops::Range<usize>;  // in scope 0 at secret_integers_usage/src/simple.rs:31:14: 31:18
+    let mut _11: std::option::Option<usize>; // in scope 0 at secret_integers_usage/src/simple.rs:31:14: 31:18
+    let mut _12: &mut std::ops::Range<usize>; // in scope 0 at secret_integers_usage/src/simple.rs:31:14: 31:18
+    let mut _13: &mut std::ops::Range<usize>; // in scope 0 at secret_integers_usage/src/simple.rs:31:14: 31:18
+    let mut _14: isize;                  // in scope 0 at secret_integers_usage/src/simple.rs:31:9: 31:10
+    let mut _16: usize;                  // in scope 0 at secret_integers_usage/src/simple.rs:31:9: 31:10
+    let mut _18: secret_integers::U8;    // in scope 0 at secret_integers_usage/src/simple.rs:32:24: 32:52
+    let mut _19: secret_integers::U8;    // in scope 0 at secret_integers_usage/src/simple.rs:32:24: 32:44
+    let mut _20: &secret_integers::U8;   // in scope 0 at secret_integers_usage/src/simple.rs:32:24: 32:44
+    let mut _21: &std::vec::Vec<secret_integers::U8>; // in scope 0 at secret_integers_usage/src/simple.rs:32:24: 32:41
+    let mut _22: usize;                  // in scope 0 at secret_integers_usage/src/simple.rs:32:42: 32:43
+    let mut _23: secret_integers::U8;    // in scope 0 at secret_integers_usage/src/simple.rs:32:47: 32:52
+    let _24: usize;                      // in scope 0 at secret_integers_usage/src/simple.rs:32:50: 32:51
+    let mut _25: usize;                  // in scope 0 at secret_integers_usage/src/simple.rs:32:47: 32:52
+    let mut _26: bool;                   // in scope 0 at secret_integers_usage/src/simple.rs:32:47: 32:52
+    let _27: usize;                      // in scope 0 at secret_integers_usage/src/simple.rs:32:19: 32:20
+    let mut _28: usize;                  // in scope 0 at secret_integers_usage/src/simple.rs:32:9: 32:21
+    let mut _29: bool;                   // in scope 0 at secret_integers_usage/src/simple.rs:32:9: 32:21
+    let mut _30: &[secret_integers::U8]; // in scope 0 at secret_integers_usage/src/simple.rs:34:27: 34:37
+    let mut _31: &[secret_integers::U8; 8]; // in scope 0 at secret_integers_usage/src/simple.rs:34:27: 34:37
+    let _32: &[secret_integers::U8; 8];  // in scope 0 at secret_integers_usage/src/simple.rs:34:27: 34:37
+    scope 1 {
+        debug new_block => _3;           // in scope 1 at secret_integers_usage/src/simple.rs:29:9: 29:22
+        let _5: std::vec::Vec<secret_integers::U8>; // in scope 1 at secret_integers_usage/src/simple.rs:30:9: 30:26
+        scope 2 {
+            debug classified_cipher => _5; // in scope 2 at secret_integers_usage/src/simple.rs:30:9: 30:26
+            let mut _9: std::ops::Range<usize>; // in scope 2 at secret_integers_usage/src/simple.rs:31:14: 31:18
+            scope 3 {
+                debug iter => _9;        // in scope 3 at secret_integers_usage/src/simple.rs:31:14: 31:18
+                let mut _10: usize;      // in scope 3 at secret_integers_usage/src/simple.rs:31:14: 31:18
+                scope 4 {
+                    debug __next => _10; // in scope 4 at secret_integers_usage/src/simple.rs:31:14: 31:18
+                    let _15: usize;      // in scope 4 at secret_integers_usage/src/simple.rs:31:9: 31:10
+                    let _17: usize;      // in scope 4 at secret_integers_usage/src/simple.rs:31:9: 31:10
+                    scope 5 {
+                        debug val => _15; // in scope 5 at secret_integers_usage/src/simple.rs:31:9: 31:10
+                    }
+                    scope 6 {
+                        debug i => _17;  // in scope 6 at secret_integers_usage/src/simple.rs:31:9: 31:10
+                    }
+                }
+            }
+        }
+    }
+
+    bb0: {
+        StorageLive(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:29:9: 29:22
+        StorageLive(_4);                 // scope 0 at secret_integers_usage/src/simple.rs:29:26: 29:36
+        _4 = secret_integers::U8::zero() -> bb1; // scope 0 at secret_integers_usage/src/simple.rs:29:26: 29:36
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:29:26: 29:34
+                                         // + literal: Const { ty: fn() -> secret_integers::U8 {secret_integers::U8::zero}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _3 = [move _4; 8];               // scope 0 at secret_integers_usage/src/simple.rs:29:25: 29:40
+        StorageDead(_4);                 // scope 0 at secret_integers_usage/src/simple.rs:29:39: 29:40
+        StorageLive(_5);                 // scope 1 at secret_integers_usage/src/simple.rs:30:9: 30:26
+        StorageLive(_6);                 // scope 1 at secret_integers_usage/src/simple.rs:30:42: 30:48
+        _6 = _1;                         // scope 1 at secret_integers_usage/src/simple.rs:30:42: 30:48
+        _5 = classify_u8s(move _6) -> bb2; // scope 1 at secret_integers_usage/src/simple.rs:30:29: 30:49
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:30:29: 30:41
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::vec::Vec<secret_integers::U8> {simple::classify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        StorageDead(_6);                 // scope 1 at secret_integers_usage/src/simple.rs:30:48: 30:49
+        StorageLive(_7);                 // scope 2 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        StorageLive(_8);                 // scope 2 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        (_8.0: usize) = const 0_usize;   // scope 2 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        (_8.1: usize) = const 8_usize;   // scope 2 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        _7 = <std::ops::Range<usize> as IntoIterator>::into_iter(move _8) -> [return: bb3, unwind: bb16]; // scope 2 at secret_integers_usage/src/simple.rs:31:14: 31:18
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:31:14: 31:18
+                                         // + literal: Const { ty: fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as std::iter::IntoIterator>::IntoIter {<std::ops::Range<usize> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        StorageDead(_8);                 // scope 2 at secret_integers_usage/src/simple.rs:31:17: 31:18
+        StorageLive(_9);                 // scope 2 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        _9 = move _7;                    // scope 2 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        goto -> bb4;                     // scope 3 at secret_integers_usage/src/simple.rs:31:5: 33:6
+    }
+
+    bb4: {
+        StorageLive(_10);                // scope 3 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        StorageLive(_11);                // scope 4 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        StorageLive(_12);                // scope 4 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        StorageLive(_13);                // scope 4 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        _13 = &mut _9;                   // scope 4 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        _12 = &mut (*_13);               // scope 4 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        _11 = <std::ops::Range<usize> as Iterator>::next(move _12) -> [return: bb5, unwind: bb16]; // scope 4 at secret_integers_usage/src/simple.rs:31:14: 31:18
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:31:14: 31:18
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::ops::Range<usize>) -> std::option::Option<<std::ops::Range<usize> as std::iter::Iterator>::Item> {<std::ops::Range<usize> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        StorageDead(_12);                // scope 4 at secret_integers_usage/src/simple.rs:31:17: 31:18
+        _14 = discriminant(_11);         // scope 4 at secret_integers_usage/src/simple.rs:31:9: 31:10
+        switchInt(move _14) -> [0_isize: bb6, 1_isize: bb8, otherwise: bb7]; // scope 4 at secret_integers_usage/src/simple.rs:31:9: 31:10
+    }
+
+    bb6: {
+        StorageDead(_13);                // scope 4 at secret_integers_usage/src/simple.rs:31:17: 31:18
+        StorageDead(_11);                // scope 4 at secret_integers_usage/src/simple.rs:31:17: 31:18
+        StorageDead(_10);                // scope 3 at secret_integers_usage/src/simple.rs:33:5: 33:6
+        StorageDead(_9);                 // scope 2 at secret_integers_usage/src/simple.rs:33:5: 33:6
+        StorageDead(_7);                 // scope 2 at secret_integers_usage/src/simple.rs:31:17: 31:18
+        StorageLive(_30);                // scope 2 at secret_integers_usage/src/simple.rs:34:27: 34:37
+        StorageLive(_31);                // scope 2 at secret_integers_usage/src/simple.rs:34:27: 34:37
+        StorageLive(_32);                // scope 2 at secret_integers_usage/src/simple.rs:34:27: 34:37
+        _32 = &_3;                       // scope 2 at secret_integers_usage/src/simple.rs:34:27: 34:37
+        _31 = _32;                       // scope 2 at secret_integers_usage/src/simple.rs:34:27: 34:37
+        _30 = move _31 as &[secret_integers::U8] (Pointer(Unsize)); // scope 2 at secret_integers_usage/src/simple.rs:34:27: 34:37
+        StorageDead(_31);                // scope 2 at secret_integers_usage/src/simple.rs:34:36: 34:37
+        _0 = declassify_u8s(move _30) -> [return: bb13, unwind: bb16]; // scope 2 at secret_integers_usage/src/simple.rs:34:12: 34:38
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:34:12: 34:26
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> std::vec::Vec<u8> {simple::declassify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb7: {
+        unreachable;                     // scope 4 at secret_integers_usage/src/simple.rs:31:14: 31:18
+    }
+
+    bb8: {
+        StorageLive(_15);                // scope 4 at secret_integers_usage/src/simple.rs:31:9: 31:10
+        _15 = ((_11 as Some).0: usize);  // scope 4 at secret_integers_usage/src/simple.rs:31:9: 31:10
+        StorageLive(_16);                // scope 5 at secret_integers_usage/src/simple.rs:31:9: 31:10
+        _16 = _15;                       // scope 5 at secret_integers_usage/src/simple.rs:31:9: 31:10
+        _10 = move _16;                  // scope 5 at secret_integers_usage/src/simple.rs:31:9: 31:10
+        StorageDead(_16);                // scope 5 at secret_integers_usage/src/simple.rs:31:9: 31:10
+        StorageDead(_15);                // scope 4 at secret_integers_usage/src/simple.rs:31:9: 31:10
+        StorageDead(_13);                // scope 4 at secret_integers_usage/src/simple.rs:31:17: 31:18
+        StorageDead(_11);                // scope 4 at secret_integers_usage/src/simple.rs:31:17: 31:18
+        StorageLive(_17);                // scope 4 at secret_integers_usage/src/simple.rs:31:9: 31:10
+        _17 = _10;                       // scope 4 at secret_integers_usage/src/simple.rs:31:14: 31:18
+        StorageLive(_18);                // scope 6 at secret_integers_usage/src/simple.rs:32:24: 32:52
+        StorageLive(_19);                // scope 6 at secret_integers_usage/src/simple.rs:32:24: 32:44
+        StorageLive(_20);                // scope 6 at secret_integers_usage/src/simple.rs:32:24: 32:44
+        StorageLive(_21);                // scope 6 at secret_integers_usage/src/simple.rs:32:24: 32:41
+        _21 = &_5;                       // scope 6 at secret_integers_usage/src/simple.rs:32:24: 32:41
+        StorageLive(_22);                // scope 6 at secret_integers_usage/src/simple.rs:32:42: 32:43
+        _22 = _17;                       // scope 6 at secret_integers_usage/src/simple.rs:32:42: 32:43
+        _20 = <Vec<secret_integers::U8> as Index<usize>>::index(move _21, move _22) -> [return: bb9, unwind: bb16]; // scope 6 at secret_integers_usage/src/simple.rs:32:24: 32:44
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:32:24: 32:44
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>, usize) -> &'r <std::vec::Vec<secret_integers::U8> as std::ops::Index<usize>>::Output {<std::vec::Vec<secret_integers::U8> as std::ops::Index<usize>>::index}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb9: {
+        _19 = (*_20);                    // scope 6 at secret_integers_usage/src/simple.rs:32:24: 32:44
+        StorageDead(_22);                // scope 6 at secret_integers_usage/src/simple.rs:32:43: 32:44
+        StorageDead(_21);                // scope 6 at secret_integers_usage/src/simple.rs:32:43: 32:44
+        StorageLive(_23);                // scope 6 at secret_integers_usage/src/simple.rs:32:47: 32:52
+        StorageLive(_24);                // scope 6 at secret_integers_usage/src/simple.rs:32:50: 32:51
+        _24 = _17;                       // scope 6 at secret_integers_usage/src/simple.rs:32:50: 32:51
+        _25 = Len((*_2));                // scope 6 at secret_integers_usage/src/simple.rs:32:47: 32:52
+        _26 = Lt(_24, _25);              // scope 6 at secret_integers_usage/src/simple.rs:32:47: 32:52
+        assert(move _26, "index out of bounds: the length is {} but the index is {}", move _25, _24) -> [success: bb10, unwind: bb16]; // scope 6 at secret_integers_usage/src/simple.rs:32:47: 32:52
+    }
+
+    bb10: {
+        _23 = (*_2)[_24];                // scope 6 at secret_integers_usage/src/simple.rs:32:47: 32:52
+        _18 = <secret_integers::U8 as BitXor>::bitxor(move _19, move _23) -> [return: bb11, unwind: bb16]; // scope 6 at secret_integers_usage/src/simple.rs:32:24: 32:52
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:32:24: 32:52
+                                         // + literal: Const { ty: fn(secret_integers::U8, secret_integers::U8) -> <secret_integers::U8 as std::ops::BitXor>::Output {<secret_integers::U8 as std::ops::BitXor>::bitxor}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb11: {
+        StorageDead(_23);                // scope 6 at secret_integers_usage/src/simple.rs:32:51: 32:52
+        StorageDead(_19);                // scope 6 at secret_integers_usage/src/simple.rs:32:51: 32:52
+        StorageLive(_27);                // scope 6 at secret_integers_usage/src/simple.rs:32:19: 32:20
+        _27 = _17;                       // scope 6 at secret_integers_usage/src/simple.rs:32:19: 32:20
+        _28 = const 8_usize;             // scope 6 at secret_integers_usage/src/simple.rs:32:9: 32:21
+        _29 = Lt(_27, _28);              // scope 6 at secret_integers_usage/src/simple.rs:32:9: 32:21
+        assert(move _29, "index out of bounds: the length is {} but the index is {}", move _28, _27) -> [success: bb12, unwind: bb16]; // scope 6 at secret_integers_usage/src/simple.rs:32:9: 32:21
+    }
+
+    bb12: {
+        _3[_27] = move _18;              // scope 6 at secret_integers_usage/src/simple.rs:32:9: 32:52
+        StorageDead(_18);                // scope 6 at secret_integers_usage/src/simple.rs:32:51: 32:52
+        StorageDead(_27);                // scope 6 at secret_integers_usage/src/simple.rs:32:52: 32:53
+        StorageDead(_24);                // scope 6 at secret_integers_usage/src/simple.rs:32:52: 32:53
+        StorageDead(_20);                // scope 6 at secret_integers_usage/src/simple.rs:32:52: 32:53
+        StorageDead(_17);                // scope 4 at secret_integers_usage/src/simple.rs:33:5: 33:6
+        StorageDead(_10);                // scope 3 at secret_integers_usage/src/simple.rs:33:5: 33:6
+        goto -> bb4;                     // scope 3 at secret_integers_usage/src/simple.rs:31:5: 33:6
+    }
+
+    bb13: {
+        StorageDead(_30);                // scope 2 at secret_integers_usage/src/simple.rs:34:37: 34:38
+        StorageDead(_32);                // scope 2 at secret_integers_usage/src/simple.rs:34:38: 34:39
+        drop(_5) -> [return: bb14, unwind: bb15]; // scope 1 at secret_integers_usage/src/simple.rs:35:1: 35:2
+    }
+
+    bb14: {
+        StorageDead(_5);                 // scope 1 at secret_integers_usage/src/simple.rs:35:1: 35:2
+        StorageDead(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:35:1: 35:2
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:35:2: 35:2
+    }
+
+    bb15 (cleanup): {
+        drop(_0) -> bb17;                // scope 0 at secret_integers_usage/src/simple.rs:35:1: 35:2
+    }
+
+    bb16 (cleanup): {
+        drop(_5) -> bb17;                // scope 1 at secret_integers_usage/src/simple.rs:35:1: 35:2
+    }
+
+    bb17 (cleanup): {
+        resume;                          // scope 0 at secret_integers_usage/src/simple.rs:28:1: 35:2
+    }
+}
+
+simple::get_secret_key::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at secret_integers_usage/src/simple.rs:15:54: 15:55
+
+    bb0: {
+        _0 = const 8_usize;              // scope 0 at secret_integers_usage/src/simple.rs:15:54: 15:55
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:15:54: 15:55
+    }
+}
+
+fn declassify_u8s(_1: &[secret_integers::U8]) -> Vec<u8> {
+    debug v => _1;                       // in scope 0 at secret_integers_usage/src/simple.rs:10:19: 10:20
+    let mut _0: std::vec::Vec<u8>;       // return place in scope 0 at secret_integers_usage/src/simple.rs:10:32: 10:39
+    let mut _2: std::iter::Map<std::slice::Iter<secret_integers::U8>, [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]>; // in scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:41
+    let mut _3: std::slice::Iter<secret_integers::U8>; // in scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:13
+    let mut _4: &[secret_integers::U8];  // in scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:6
+    let mut _5: [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]; // in scope 0 at secret_integers_usage/src/simple.rs:11:18: 11:40
+
+    bb0: {
+        StorageLive(_2);                 // scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:41
+        StorageLive(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:13
+        StorageLive(_4);                 // scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:6
+        _4 = _1;                         // scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:6
+        _3 = core::slice::<impl [secret_integers::U8]>::iter(move _4) -> bb1; // scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:13
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:11:7: 11:11
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> std::slice::Iter<'r, secret_integers::U8> {core::slice::<impl [secret_integers::U8]>::iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        StorageDead(_4);                 // scope 0 at secret_integers_usage/src/simple.rs:11:12: 11:13
+        StorageLive(_5);                 // scope 0 at secret_integers_usage/src/simple.rs:11:18: 11:40
+        _2 = <std::slice::Iter<secret_integers::U8> as Iterator>::map::<u8, [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]>(move _3, move _5) -> bb2; // scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:41
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:11:14: 11:17
+                                         // + literal: Const { ty: fn(std::slice::Iter<secret_integers::U8>, [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]) -> std::iter::Map<std::slice::Iter<secret_integers::U8>, [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]> {<std::slice::Iter<secret_integers::U8> as std::iter::Iterator>::map::<u8, [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        StorageDead(_5);                 // scope 0 at secret_integers_usage/src/simple.rs:11:40: 11:41
+        StorageDead(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:11:40: 11:41
+        _0 = <Map<std::slice::Iter<secret_integers::U8>, [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]> as Iterator>::collect::<Vec<u8>>(move _2) -> bb3; // scope 0 at secret_integers_usage/src/simple.rs:11:5: 11:51
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:11:42: 11:49
+                                         // + literal: Const { ty: fn(std::iter::Map<std::slice::Iter<secret_integers::U8>, [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]>) -> std::vec::Vec<u8> {<std::iter::Map<std::slice::Iter<secret_integers::U8>, [closure@secret_integers_usage/src/simple.rs:11:18: 11:40]> as std::iter::Iterator>::collect::<std::vec::Vec<u8>>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        StorageDead(_2);                 // scope 0 at secret_integers_usage/src/simple.rs:11:50: 11:51
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:12:2: 12:2
+    }
+}
+
+simple::decrypt::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at secret_integers_usage/src/simple.rs:29:38: 29:39
+
+    bb0: {
+        _0 = const 8_usize;              // scope 0 at secret_integers_usage/src/simple.rs:29:38: 29:39
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:29:38: 29:39
+    }
+}
+
+fn simple::encrypt(_1: &[u8], _2: &[secret_integers::U8]) -> Vec<u8> {
+    debug msg => _1;                     // in scope 0 at secret_integers_usage/src/simple.rs:19:16: 19:19
+    debug sk => _2;                      // in scope 0 at secret_integers_usage/src/simple.rs:19:28: 19:30
+    let mut _0: std::vec::Vec<u8>;       // return place in scope 0 at secret_integers_usage/src/simple.rs:19:42: 19:49
+    let mut _3: [secret_integers::U8; 8]; // in scope 0 at secret_integers_usage/src/simple.rs:20:9: 20:22
+    let mut _4: secret_integers::U8;     // in scope 0 at secret_integers_usage/src/simple.rs:20:26: 20:36
+    let mut _6: &[u8];                   // in scope 0 at secret_integers_usage/src/simple.rs:21:39: 21:42
+    let mut _7: std::ops::Range<usize>;  // in scope 0 at secret_integers_usage/src/simple.rs:22:14: 22:18
+    let mut _8: std::ops::Range<usize>;  // in scope 0 at secret_integers_usage/src/simple.rs:22:14: 22:18
+    let mut _11: std::option::Option<usize>; // in scope 0 at secret_integers_usage/src/simple.rs:22:14: 22:18
+    let mut _12: &mut std::ops::Range<usize>; // in scope 0 at secret_integers_usage/src/simple.rs:22:14: 22:18
+    let mut _13: &mut std::ops::Range<usize>; // in scope 0 at secret_integers_usage/src/simple.rs:22:14: 22:18
+    let mut _14: isize;                  // in scope 0 at secret_integers_usage/src/simple.rs:22:9: 22:10
+    let mut _16: usize;                  // in scope 0 at secret_integers_usage/src/simple.rs:22:9: 22:10
+    let mut _18: secret_integers::U8;    // in scope 0 at secret_integers_usage/src/simple.rs:23:24: 23:49
+    let mut _19: secret_integers::U8;    // in scope 0 at secret_integers_usage/src/simple.rs:23:24: 23:41
+    let mut _20: &secret_integers::U8;   // in scope 0 at secret_integers_usage/src/simple.rs:23:24: 23:41
+    let mut _21: &std::vec::Vec<secret_integers::U8>; // in scope 0 at secret_integers_usage/src/simple.rs:23:24: 23:38
+    let mut _22: usize;                  // in scope 0 at secret_integers_usage/src/simple.rs:23:39: 23:40
+    let mut _23: secret_integers::U8;    // in scope 0 at secret_integers_usage/src/simple.rs:23:44: 23:49
+    let _24: usize;                      // in scope 0 at secret_integers_usage/src/simple.rs:23:47: 23:48
+    let mut _25: usize;                  // in scope 0 at secret_integers_usage/src/simple.rs:23:44: 23:49
+    let mut _26: bool;                   // in scope 0 at secret_integers_usage/src/simple.rs:23:44: 23:49
+    let _27: usize;                      // in scope 0 at secret_integers_usage/src/simple.rs:23:19: 23:20
+    let mut _28: usize;                  // in scope 0 at secret_integers_usage/src/simple.rs:23:9: 23:21
+    let mut _29: bool;                   // in scope 0 at secret_integers_usage/src/simple.rs:23:9: 23:21
+    let mut _30: &[secret_integers::U8]; // in scope 0 at secret_integers_usage/src/simple.rs:25:27: 25:37
+    let mut _31: &[secret_integers::U8; 8]; // in scope 0 at secret_integers_usage/src/simple.rs:25:27: 25:37
+    let _32: &[secret_integers::U8; 8];  // in scope 0 at secret_integers_usage/src/simple.rs:25:27: 25:37
+    scope 1 {
+        debug new_block => _3;           // in scope 1 at secret_integers_usage/src/simple.rs:20:9: 20:22
+        let _5: std::vec::Vec<secret_integers::U8>; // in scope 1 at secret_integers_usage/src/simple.rs:21:9: 21:23
+        scope 2 {
+            debug classified_msg => _5;  // in scope 2 at secret_integers_usage/src/simple.rs:21:9: 21:23
+            let mut _9: std::ops::Range<usize>; // in scope 2 at secret_integers_usage/src/simple.rs:22:14: 22:18
+            scope 3 {
+                debug iter => _9;        // in scope 3 at secret_integers_usage/src/simple.rs:22:14: 22:18
+                let mut _10: usize;      // in scope 3 at secret_integers_usage/src/simple.rs:22:14: 22:18
+                scope 4 {
+                    debug __next => _10; // in scope 4 at secret_integers_usage/src/simple.rs:22:14: 22:18
+                    let _15: usize;      // in scope 4 at secret_integers_usage/src/simple.rs:22:9: 22:10
+                    let _17: usize;      // in scope 4 at secret_integers_usage/src/simple.rs:22:9: 22:10
+                    scope 5 {
+                        debug val => _15; // in scope 5 at secret_integers_usage/src/simple.rs:22:9: 22:10
+                    }
+                    scope 6 {
+                        debug i => _17;  // in scope 6 at secret_integers_usage/src/simple.rs:22:9: 22:10
+                    }
+                }
+            }
+        }
+    }
+
+    bb0: {
+        StorageLive(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:20:9: 20:22
+        StorageLive(_4);                 // scope 0 at secret_integers_usage/src/simple.rs:20:26: 20:36
+        _4 = secret_integers::U8::zero() -> bb1; // scope 0 at secret_integers_usage/src/simple.rs:20:26: 20:36
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:20:26: 20:34
+                                         // + literal: Const { ty: fn() -> secret_integers::U8 {secret_integers::U8::zero}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _3 = [move _4; 8];               // scope 0 at secret_integers_usage/src/simple.rs:20:25: 20:40
+        StorageDead(_4);                 // scope 0 at secret_integers_usage/src/simple.rs:20:39: 20:40
+        StorageLive(_5);                 // scope 1 at secret_integers_usage/src/simple.rs:21:9: 21:23
+        StorageLive(_6);                 // scope 1 at secret_integers_usage/src/simple.rs:21:39: 21:42
+        _6 = _1;                         // scope 1 at secret_integers_usage/src/simple.rs:21:39: 21:42
+        _5 = classify_u8s(move _6) -> bb2; // scope 1 at secret_integers_usage/src/simple.rs:21:26: 21:43
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:21:26: 21:38
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::vec::Vec<secret_integers::U8> {simple::classify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        StorageDead(_6);                 // scope 1 at secret_integers_usage/src/simple.rs:21:42: 21:43
+        StorageLive(_7);                 // scope 2 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        StorageLive(_8);                 // scope 2 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        (_8.0: usize) = const 0_usize;   // scope 2 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        (_8.1: usize) = const 8_usize;   // scope 2 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        _7 = <std::ops::Range<usize> as IntoIterator>::into_iter(move _8) -> [return: bb3, unwind: bb16]; // scope 2 at secret_integers_usage/src/simple.rs:22:14: 22:18
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:22:14: 22:18
+                                         // + literal: Const { ty: fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as std::iter::IntoIterator>::IntoIter {<std::ops::Range<usize> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        StorageDead(_8);                 // scope 2 at secret_integers_usage/src/simple.rs:22:17: 22:18
+        StorageLive(_9);                 // scope 2 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        _9 = move _7;                    // scope 2 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        goto -> bb4;                     // scope 3 at secret_integers_usage/src/simple.rs:22:5: 24:6
+    }
+
+    bb4: {
+        StorageLive(_10);                // scope 3 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        StorageLive(_11);                // scope 4 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        StorageLive(_12);                // scope 4 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        StorageLive(_13);                // scope 4 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        _13 = &mut _9;                   // scope 4 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        _12 = &mut (*_13);               // scope 4 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        _11 = <std::ops::Range<usize> as Iterator>::next(move _12) -> [return: bb5, unwind: bb16]; // scope 4 at secret_integers_usage/src/simple.rs:22:14: 22:18
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:22:14: 22:18
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::ops::Range<usize>) -> std::option::Option<<std::ops::Range<usize> as std::iter::Iterator>::Item> {<std::ops::Range<usize> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        StorageDead(_12);                // scope 4 at secret_integers_usage/src/simple.rs:22:17: 22:18
+        _14 = discriminant(_11);         // scope 4 at secret_integers_usage/src/simple.rs:22:9: 22:10
+        switchInt(move _14) -> [0_isize: bb6, 1_isize: bb8, otherwise: bb7]; // scope 4 at secret_integers_usage/src/simple.rs:22:9: 22:10
+    }
+
+    bb6: {
+        StorageDead(_13);                // scope 4 at secret_integers_usage/src/simple.rs:22:17: 22:18
+        StorageDead(_11);                // scope 4 at secret_integers_usage/src/simple.rs:22:17: 22:18
+        StorageDead(_10);                // scope 3 at secret_integers_usage/src/simple.rs:24:5: 24:6
+        StorageDead(_9);                 // scope 2 at secret_integers_usage/src/simple.rs:24:5: 24:6
+        StorageDead(_7);                 // scope 2 at secret_integers_usage/src/simple.rs:22:17: 22:18
+        StorageLive(_30);                // scope 2 at secret_integers_usage/src/simple.rs:25:27: 25:37
+        StorageLive(_31);                // scope 2 at secret_integers_usage/src/simple.rs:25:27: 25:37
+        StorageLive(_32);                // scope 2 at secret_integers_usage/src/simple.rs:25:27: 25:37
+        _32 = &_3;                       // scope 2 at secret_integers_usage/src/simple.rs:25:27: 25:37
+        _31 = _32;                       // scope 2 at secret_integers_usage/src/simple.rs:25:27: 25:37
+        _30 = move _31 as &[secret_integers::U8] (Pointer(Unsize)); // scope 2 at secret_integers_usage/src/simple.rs:25:27: 25:37
+        StorageDead(_31);                // scope 2 at secret_integers_usage/src/simple.rs:25:36: 25:37
+        _0 = declassify_u8s(move _30) -> [return: bb13, unwind: bb16]; // scope 2 at secret_integers_usage/src/simple.rs:25:12: 25:38
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:25:12: 25:26
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> std::vec::Vec<u8> {simple::declassify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb7: {
+        unreachable;                     // scope 4 at secret_integers_usage/src/simple.rs:22:14: 22:18
+    }
+
+    bb8: {
+        StorageLive(_15);                // scope 4 at secret_integers_usage/src/simple.rs:22:9: 22:10
+        _15 = ((_11 as Some).0: usize);  // scope 4 at secret_integers_usage/src/simple.rs:22:9: 22:10
+        StorageLive(_16);                // scope 5 at secret_integers_usage/src/simple.rs:22:9: 22:10
+        _16 = _15;                       // scope 5 at secret_integers_usage/src/simple.rs:22:9: 22:10
+        _10 = move _16;                  // scope 5 at secret_integers_usage/src/simple.rs:22:9: 22:10
+        StorageDead(_16);                // scope 5 at secret_integers_usage/src/simple.rs:22:9: 22:10
+        StorageDead(_15);                // scope 4 at secret_integers_usage/src/simple.rs:22:9: 22:10
+        StorageDead(_13);                // scope 4 at secret_integers_usage/src/simple.rs:22:17: 22:18
+        StorageDead(_11);                // scope 4 at secret_integers_usage/src/simple.rs:22:17: 22:18
+        StorageLive(_17);                // scope 4 at secret_integers_usage/src/simple.rs:22:9: 22:10
+        _17 = _10;                       // scope 4 at secret_integers_usage/src/simple.rs:22:14: 22:18
+        StorageLive(_18);                // scope 6 at secret_integers_usage/src/simple.rs:23:24: 23:49
+        StorageLive(_19);                // scope 6 at secret_integers_usage/src/simple.rs:23:24: 23:41
+        StorageLive(_20);                // scope 6 at secret_integers_usage/src/simple.rs:23:24: 23:41
+        StorageLive(_21);                // scope 6 at secret_integers_usage/src/simple.rs:23:24: 23:38
+        _21 = &_5;                       // scope 6 at secret_integers_usage/src/simple.rs:23:24: 23:38
+        StorageLive(_22);                // scope 6 at secret_integers_usage/src/simple.rs:23:39: 23:40
+        _22 = _17;                       // scope 6 at secret_integers_usage/src/simple.rs:23:39: 23:40
+        _20 = <Vec<secret_integers::U8> as Index<usize>>::index(move _21, move _22) -> [return: bb9, unwind: bb16]; // scope 6 at secret_integers_usage/src/simple.rs:23:24: 23:41
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:23:24: 23:41
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>, usize) -> &'r <std::vec::Vec<secret_integers::U8> as std::ops::Index<usize>>::Output {<std::vec::Vec<secret_integers::U8> as std::ops::Index<usize>>::index}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb9: {
+        _19 = (*_20);                    // scope 6 at secret_integers_usage/src/simple.rs:23:24: 23:41
+        StorageDead(_22);                // scope 6 at secret_integers_usage/src/simple.rs:23:40: 23:41
+        StorageDead(_21);                // scope 6 at secret_integers_usage/src/simple.rs:23:40: 23:41
+        StorageLive(_23);                // scope 6 at secret_integers_usage/src/simple.rs:23:44: 23:49
+        StorageLive(_24);                // scope 6 at secret_integers_usage/src/simple.rs:23:47: 23:48
+        _24 = _17;                       // scope 6 at secret_integers_usage/src/simple.rs:23:47: 23:48
+        _25 = Len((*_2));                // scope 6 at secret_integers_usage/src/simple.rs:23:44: 23:49
+        _26 = Lt(_24, _25);              // scope 6 at secret_integers_usage/src/simple.rs:23:44: 23:49
+        assert(move _26, "index out of bounds: the length is {} but the index is {}", move _25, _24) -> [success: bb10, unwind: bb16]; // scope 6 at secret_integers_usage/src/simple.rs:23:44: 23:49
+    }
+
+    bb10: {
+        _23 = (*_2)[_24];                // scope 6 at secret_integers_usage/src/simple.rs:23:44: 23:49
+        _18 = <secret_integers::U8 as BitXor>::bitxor(move _19, move _23) -> [return: bb11, unwind: bb16]; // scope 6 at secret_integers_usage/src/simple.rs:23:24: 23:49
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:23:24: 23:49
+                                         // + literal: Const { ty: fn(secret_integers::U8, secret_integers::U8) -> <secret_integers::U8 as std::ops::BitXor>::Output {<secret_integers::U8 as std::ops::BitXor>::bitxor}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb11: {
+        StorageDead(_23);                // scope 6 at secret_integers_usage/src/simple.rs:23:48: 23:49
+        StorageDead(_19);                // scope 6 at secret_integers_usage/src/simple.rs:23:48: 23:49
+        StorageLive(_27);                // scope 6 at secret_integers_usage/src/simple.rs:23:19: 23:20
+        _27 = _17;                       // scope 6 at secret_integers_usage/src/simple.rs:23:19: 23:20
+        _28 = const 8_usize;             // scope 6 at secret_integers_usage/src/simple.rs:23:9: 23:21
+        _29 = Lt(_27, _28);              // scope 6 at secret_integers_usage/src/simple.rs:23:9: 23:21
+        assert(move _29, "index out of bounds: the length is {} but the index is {}", move _28, _27) -> [success: bb12, unwind: bb16]; // scope 6 at secret_integers_usage/src/simple.rs:23:9: 23:21
+    }
+
+    bb12: {
+        _3[_27] = move _18;              // scope 6 at secret_integers_usage/src/simple.rs:23:9: 23:49
+        StorageDead(_18);                // scope 6 at secret_integers_usage/src/simple.rs:23:48: 23:49
+        StorageDead(_27);                // scope 6 at secret_integers_usage/src/simple.rs:23:49: 23:50
+        StorageDead(_24);                // scope 6 at secret_integers_usage/src/simple.rs:23:49: 23:50
+        StorageDead(_20);                // scope 6 at secret_integers_usage/src/simple.rs:23:49: 23:50
+        StorageDead(_17);                // scope 4 at secret_integers_usage/src/simple.rs:24:5: 24:6
+        StorageDead(_10);                // scope 3 at secret_integers_usage/src/simple.rs:24:5: 24:6
+        goto -> bb4;                     // scope 3 at secret_integers_usage/src/simple.rs:22:5: 24:6
+    }
+
+    bb13: {
+        StorageDead(_30);                // scope 2 at secret_integers_usage/src/simple.rs:25:37: 25:38
+        StorageDead(_32);                // scope 2 at secret_integers_usage/src/simple.rs:25:38: 25:39
+        drop(_5) -> [return: bb14, unwind: bb15]; // scope 1 at secret_integers_usage/src/simple.rs:26:1: 26:2
+    }
+
+    bb14: {
+        StorageDead(_5);                 // scope 1 at secret_integers_usage/src/simple.rs:26:1: 26:2
+        StorageDead(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:26:1: 26:2
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:26:2: 26:2
+    }
+
+    bb15 (cleanup): {
+        drop(_0) -> bb17;                // scope 0 at secret_integers_usage/src/simple.rs:26:1: 26:2
+    }
+
+    bb16 (cleanup): {
+        drop(_5) -> bb17;                // scope 1 at secret_integers_usage/src/simple.rs:26:1: 26:2
+    }
+
+    bb17 (cleanup): {
+        resume;                          // scope 0 at secret_integers_usage/src/simple.rs:19:1: 26:2
+    }
+}
+
+fn declassify_u8s::{closure#0}(_1: &mut [closure@secret_integers_usage/src/simple.rs:11:18: 11:40], _2: &secret_integers::U8) -> u8 {
+    debug x => _2;                       // in scope 0 at secret_integers_usage/src/simple.rs:11:19: 11:20
+    let mut _0: u8;                      // return place in scope 0 at secret_integers_usage/src/simple.rs:11:22: 11:22
+    let mut _3: secret_integers::U8;     // in scope 0 at secret_integers_usage/src/simple.rs:11:37: 11:39
+
+    bb0: {
+        StorageLive(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:11:37: 11:39
+        _3 = (*_2);                      // scope 0 at secret_integers_usage/src/simple.rs:11:37: 11:39
+        _0 = secret_integers::U8::declassify(move _3) -> bb1; // scope 0 at secret_integers_usage/src/simple.rs:11:22: 11:40
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:11:22: 11:36
+                                         // + literal: Const { ty: fn(secret_integers::U8) -> u8 {secret_integers::U8::declassify}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        StorageDead(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:11:39: 11:40
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:11:40: 11:40
+    }
+}
+
+fn classify_u8s(_1: &[u8]) -> Vec<secret_integers::U8> {
+    debug v => _1;                       // in scope 0 at secret_integers_usage/src/simple.rs:5:17: 5:18
+    let mut _0: std::vec::Vec<secret_integers::U8>; // return place in scope 0 at secret_integers_usage/src/simple.rs:5:30: 5:37
+    let mut _2: std::iter::Map<std::slice::Iter<u8>, [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]>; // in scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:39
+    let mut _3: std::slice::Iter<u8>;    // in scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:13
+    let mut _4: &[u8];                   // in scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:6
+    let mut _5: [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]; // in scope 0 at secret_integers_usage/src/simple.rs:6:18: 6:38
+
+    bb0: {
+        StorageLive(_2);                 // scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:39
+        StorageLive(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:13
+        StorageLive(_4);                 // scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:6
+        _4 = _1;                         // scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:6
+        _3 = core::slice::<impl [u8]>::iter(move _4) -> bb1; // scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:13
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:6:7: 6:11
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::slice::Iter<'r, u8> {core::slice::<impl [u8]>::iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        StorageDead(_4);                 // scope 0 at secret_integers_usage/src/simple.rs:6:12: 6:13
+        StorageLive(_5);                 // scope 0 at secret_integers_usage/src/simple.rs:6:18: 6:38
+        _2 = <std::slice::Iter<u8> as Iterator>::map::<secret_integers::U8, [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]>(move _3, move _5) -> bb2; // scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:39
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:6:14: 6:17
+                                         // + literal: Const { ty: fn(std::slice::Iter<u8>, [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]) -> std::iter::Map<std::slice::Iter<u8>, [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]> {<std::slice::Iter<u8> as std::iter::Iterator>::map::<secret_integers::U8, [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        StorageDead(_5);                 // scope 0 at secret_integers_usage/src/simple.rs:6:38: 6:39
+        StorageDead(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:6:38: 6:39
+        _0 = <Map<std::slice::Iter<u8>, [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]> as Iterator>::collect::<Vec<secret_integers::U8>>(move _2) -> bb3; // scope 0 at secret_integers_usage/src/simple.rs:6:5: 6:49
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:6:40: 6:47
+                                         // + literal: Const { ty: fn(std::iter::Map<std::slice::Iter<u8>, [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]>) -> std::vec::Vec<secret_integers::U8> {<std::iter::Map<std::slice::Iter<u8>, [closure@secret_integers_usage/src/simple.rs:6:18: 6:38]> as std::iter::Iterator>::collect::<std::vec::Vec<secret_integers::U8>>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        StorageDead(_2);                 // scope 0 at secret_integers_usage/src/simple.rs:6:48: 6:49
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:7:2: 7:2
+    }
+}
+
+fn main() -> () {
+    let mut _0: ();                      // return place in scope 0 at secret_integers_usage/src/main.rs:5:11: 5:11
+    let _1: std::vec::Vec<secret_integers::U8>; // in scope 0 at secret_integers_usage/src/main.rs:6:9: 6:19
+    let _3: ();                          // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:62
+    let mut _4: std::fmt::Arguments;     // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _5: &[&str];                 // in scope 0 at secret_integers_usage/src/main.rs:8:14: 8:45
+    let mut _6: &[&str; 1];              // in scope 0 at secret_integers_usage/src/main.rs:8:14: 8:45
+    let _7: &[&str; 1];                  // in scope 0 at secret_integers_usage/src/main.rs:8:14: 8:45
+    let mut _8: &[std::fmt::ArgumentV1]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _9: &[std::fmt::ArgumentV1; 0]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let _10: &[std::fmt::ArgumentV1; 0]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _11: std::result::Result<usize, std::io::Error>; // in scope 0 at secret_integers_usage/src/main.rs:9:13: 9:47
+    let mut _12: &std::io::Stdin;        // in scope 0 at secret_integers_usage/src/main.rs:9:13: 9:24
+    let _13: std::io::Stdin;             // in scope 0 at secret_integers_usage/src/main.rs:9:13: 9:24
+    let mut _14: &mut std::string::String; // in scope 0 at secret_integers_usage/src/main.rs:9:35: 9:46
+    let mut _15: &mut std::string::String; // in scope 0 at secret_integers_usage/src/main.rs:9:35: 9:46
+    let mut _17: std::ops::Range<usize>; // in scope 0 at secret_integers_usage/src/main.rs:11:14: 11:18
+    let mut _18: std::ops::Range<usize>; // in scope 0 at secret_integers_usage/src/main.rs:11:14: 11:18
+    let mut _21: std::option::Option<usize>; // in scope 0 at secret_integers_usage/src/main.rs:11:14: 11:18
+    let mut _22: &mut std::ops::Range<usize>; // in scope 0 at secret_integers_usage/src/main.rs:11:14: 11:18
+    let mut _23: &mut std::ops::Range<usize>; // in scope 0 at secret_integers_usage/src/main.rs:11:14: 11:18
+    let mut _24: isize;                  // in scope 0 at secret_integers_usage/src/main.rs:11:9: 11:10
+    let mut _26: usize;                  // in scope 0 at secret_integers_usage/src/main.rs:11:9: 11:10
+    let mut _28: bool;                   // in scope 0 at secret_integers_usage/src/main.rs:12:12: 12:28
+    let mut _29: usize;                  // in scope 0 at secret_integers_usage/src/main.rs:12:12: 12:13
+    let mut _30: usize;                  // in scope 0 at secret_integers_usage/src/main.rs:12:16: 12:28
+    let mut _31: &std::string::String;   // in scope 0 at secret_integers_usage/src/main.rs:12:16: 12:22
+    let mut _32: u8;                     // in scope 0 at secret_integers_usage/src/main.rs:13:26: 13:46
+    let mut _33: &[u8];                  // in scope 0 at secret_integers_usage/src/main.rs:13:26: 13:43
+    let mut _34: &std::string::String;   // in scope 0 at secret_integers_usage/src/main.rs:13:26: 13:32
+    let _35: usize;                      // in scope 0 at secret_integers_usage/src/main.rs:13:44: 13:45
+    let mut _36: usize;                  // in scope 0 at secret_integers_usage/src/main.rs:13:26: 13:46
+    let mut _37: bool;                   // in scope 0 at secret_integers_usage/src/main.rs:13:26: 13:46
+    let _38: usize;                      // in scope 0 at secret_integers_usage/src/main.rs:13:21: 13:22
+    let mut _39: usize;                  // in scope 0 at secret_integers_usage/src/main.rs:13:13: 13:23
+    let mut _40: bool;                   // in scope 0 at secret_integers_usage/src/main.rs:13:13: 13:23
+    let mut _42: &[u8];                  // in scope 0 at secret_integers_usage/src/main.rs:16:31: 16:39
+    let mut _43: &[u8; 8];               // in scope 0 at secret_integers_usage/src/main.rs:16:31: 16:39
+    let _44: &[u8; 8];                   // in scope 0 at secret_integers_usage/src/main.rs:16:31: 16:39
+    let mut _45: &[secret_integers::U8]; // in scope 0 at secret_integers_usage/src/main.rs:16:41: 16:52
+    let _46: &[secret_integers::U8];     // in scope 0 at secret_integers_usage/src/main.rs:16:41: 16:52
+    let mut _47: &std::vec::Vec<secret_integers::U8>; // in scope 0 at secret_integers_usage/src/main.rs:16:41: 16:52
+    let _48: &std::vec::Vec<secret_integers::U8>; // in scope 0 at secret_integers_usage/src/main.rs:16:41: 16:52
+    let mut _50: &[u8];                  // in scope 0 at secret_integers_usage/src/main.rs:17:24: 17:36
+    let _51: &[u8];                      // in scope 0 at secret_integers_usage/src/main.rs:17:24: 17:36
+    let mut _52: &std::vec::Vec<u8>;     // in scope 0 at secret_integers_usage/src/main.rs:17:24: 17:36
+    let _53: &std::vec::Vec<u8>;         // in scope 0 at secret_integers_usage/src/main.rs:17:24: 17:36
+    let mut _54: &[secret_integers::U8]; // in scope 0 at secret_integers_usage/src/main.rs:17:38: 17:49
+    let _55: &[secret_integers::U8];     // in scope 0 at secret_integers_usage/src/main.rs:17:38: 17:49
+    let mut _56: &std::vec::Vec<secret_integers::U8>; // in scope 0 at secret_integers_usage/src/main.rs:17:38: 17:49
+    let _57: &std::vec::Vec<secret_integers::U8>; // in scope 0 at secret_integers_usage/src/main.rs:17:38: 17:49
+    let mut _58: bool;                   // in scope 0 at secret_integers_usage/src/main.rs:18:5: 18:35
+    let mut _59: bool;                   // in scope 0 at secret_integers_usage/src/main.rs:18:13: 18:33
+    let mut _60: &[u8; 8];               // in scope 0 at secret_integers_usage/src/main.rs:18:13: 18:20
+    let mut _61: &&[u8];                 // in scope 0 at secret_integers_usage/src/main.rs:18:24: 18:33
+    let _62: &[u8];                      // in scope 0 at secret_integers_usage/src/main.rs:18:24: 18:33
+    let _63: &[u8];                      // in scope 0 at secret_integers_usage/src/main.rs:18:25: 18:33
+    let mut _64: &std::vec::Vec<u8>;     // in scope 0 at secret_integers_usage/src/main.rs:18:25: 18:29
+    let mut _65: std::ops::RangeFull;    // in scope 0 at secret_integers_usage/src/main.rs:18:30: 18:32
+    let _66: ();                         // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:62
+    let mut _67: std::fmt::Arguments;    // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _68: &[&str];                // in scope 0 at secret_integers_usage/src/main.rs:19:14: 19:29
+    let mut _69: &[&str; 2];             // in scope 0 at secret_integers_usage/src/main.rs:19:14: 19:29
+    let _70: &[&str; 2];                 // in scope 0 at secret_integers_usage/src/main.rs:19:14: 19:29
+    let mut _71: &[std::fmt::ArgumentV1]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _72: &[std::fmt::ArgumentV1; 1]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let _73: &[std::fmt::ArgumentV1; 1]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let _74: [std::fmt::ArgumentV1; 1];  // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _75: (&[u8; 8],);            // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _76: &[u8; 8];               // in scope 0 at secret_integers_usage/src/main.rs:19:31: 19:38
+    let mut _78: std::fmt::ArgumentV1;   // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _79: &[u8; 8];               // in scope 0 at secret_integers_usage/src/main.rs:19:31: 19:38
+    let mut _80: for<'r, 's, 't0> fn(&'r [u8; 8], &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error>; // in scope 0 at secret_integers_usage/src/main.rs:19:31: 19:38
+    let _81: ();                         // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:62
+    let mut _82: std::fmt::Arguments;    // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _83: &[&str];                // in scope 0 at secret_integers_usage/src/main.rs:20:14: 20:32
+    let mut _84: &[&str; 2];             // in scope 0 at secret_integers_usage/src/main.rs:20:14: 20:32
+    let _85: &[&str; 2];                 // in scope 0 at secret_integers_usage/src/main.rs:20:14: 20:32
+    let mut _86: &[std::fmt::ArgumentV1]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _87: &[std::fmt::ArgumentV1; 1]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let _88: &[std::fmt::ArgumentV1; 1]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let _89: [std::fmt::ArgumentV1; 1];  // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _90: (&std::vec::Vec<u8>,);  // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _91: &std::vec::Vec<u8>;     // in scope 0 at secret_integers_usage/src/main.rs:20:34: 20:45
+    let mut _93: std::fmt::ArgumentV1;   // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _94: &std::vec::Vec<u8>;     // in scope 0 at secret_integers_usage/src/main.rs:20:34: 20:45
+    let mut _95: for<'r, 's, 't0> fn(&'r std::vec::Vec<u8>, &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error>; // in scope 0 at secret_integers_usage/src/main.rs:20:34: 20:45
+    scope 1 {
+        debug secret_key => _1;          // in scope 1 at secret_integers_usage/src/main.rs:6:9: 6:19
+        let mut _2: std::string::String; // in scope 1 at secret_integers_usage/src/main.rs:7:9: 7:19
+        scope 2 {
+            debug buffer => _2;          // in scope 2 at secret_integers_usage/src/main.rs:7:9: 7:19
+            let mut _98: &[std::fmt::ArgumentV1; 0]; // in scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+            let mut _99: &[&str; 1];     // in scope 2 at secret_integers_usage/src/main.rs:8:14: 8:45
+            scope 3 {
+                let mut _16: [u8; 8];    // in scope 3 at secret_integers_usage/src/main.rs:10:9: 10:20
+                scope 4 {
+                    debug message => _16; // in scope 4 at secret_integers_usage/src/main.rs:10:9: 10:20
+                    let mut _19: std::ops::Range<usize>; // in scope 4 at secret_integers_usage/src/main.rs:11:14: 11:18
+                    let _41: std::vec::Vec<u8>; // in scope 4 at secret_integers_usage/src/main.rs:16:9: 16:20
+                    scope 5 {
+                        debug iter => _19; // in scope 5 at secret_integers_usage/src/main.rs:11:14: 11:18
+                        let mut _20: usize; // in scope 5 at secret_integers_usage/src/main.rs:11:14: 11:18
+                        scope 6 {
+                            debug __next => _20; // in scope 6 at secret_integers_usage/src/main.rs:11:14: 11:18
+                            let _25: usize; // in scope 6 at secret_integers_usage/src/main.rs:11:9: 11:10
+                            let _27: usize; // in scope 6 at secret_integers_usage/src/main.rs:11:9: 11:10
+                            scope 7 {
+                                debug val => _25; // in scope 7 at secret_integers_usage/src/main.rs:11:9: 11:10
+                            }
+                            scope 8 {
+                                debug i => _27; // in scope 8 at secret_integers_usage/src/main.rs:11:9: 11:10
+                            }
+                        }
+                    }
+                    scope 9 {
+                        debug cipher_text => _41; // in scope 9 at secret_integers_usage/src/main.rs:16:9: 16:20
+                        let _49: std::vec::Vec<u8>; // in scope 9 at secret_integers_usage/src/main.rs:17:9: 17:13
+                        scope 10 {
+                            debug text => _49; // in scope 10 at secret_integers_usage/src/main.rs:17:9: 17:13
+                            let _77: &[u8; 8]; // in scope 10 at secret_integers_usage/src/main.rs:19:31: 19:38
+                            let _92: &std::vec::Vec<u8>; // in scope 10 at secret_integers_usage/src/main.rs:20:34: 20:45
+                            let mut _96: &[&str; 2]; // in scope 10 at secret_integers_usage/src/main.rs:20:14: 20:32
+                            let mut _97: &[&str; 2]; // in scope 10 at secret_integers_usage/src/main.rs:19:14: 19:29
+                            scope 11 {
+                                debug arg0 => _77; // in scope 11 at secret_integers_usage/src/main.rs:19:31: 19:38
+                            }
+                            scope 12 {
+                                debug arg0 => _92; // in scope 12 at secret_integers_usage/src/main.rs:20:34: 20:45
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    bb0: {
+        StorageLive(_1);                 // scope 0 at secret_integers_usage/src/main.rs:6:9: 6:19
+        _1 = simple::get_secret_key() -> bb1; // scope 0 at secret_integers_usage/src/main.rs:6:22: 6:38
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:6:22: 6:36
+                                         // + literal: Const { ty: fn() -> std::vec::Vec<secret_integers::U8> {simple::get_secret_key}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        StorageLive(_2);                 // scope 1 at secret_integers_usage/src/main.rs:7:9: 7:19
+        _2 = String::new() -> [return: bb2, unwind: bb43]; // scope 1 at secret_integers_usage/src/main.rs:7:22: 7:35
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:7:22: 7:33
+                                         // + literal: Const { ty: fn() -> std::string::String {std::string::String::new}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        StorageLive(_3);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:62
+        StorageLive(_4);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_5);                 // scope 2 at secret_integers_usage/src/main.rs:8:14: 8:45
+        StorageLive(_6);                 // scope 2 at secret_integers_usage/src/main.rs:8:14: 8:45
+        StorageLive(_7);                 // scope 2 at secret_integers_usage/src/main.rs:8:14: 8:45
+        _99 = const main::promoted[3];   // scope 2 at secret_integers_usage/src/main.rs:8:14: 8:45
+                                         // ty::Const
+                                         // + ty: &[&str; 1]
+                                         // + val: Unevaluated(WithOptConstParam { did: DefId(0:18 ~ secret_integers_usage[a377]::main), const_param_did: None }, [], Some(promoted[3]))
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:8:14: 8:45
+                                         // + literal: Const { ty: &[&str; 1], val: Unevaluated(WithOptConstParam { did: DefId(0:18 ~ secret_integers_usage[a377]::main), const_param_did: None }, [], Some(promoted[3])) }
+        _7 = _99;                        // scope 2 at secret_integers_usage/src/main.rs:8:14: 8:45
+        _6 = _7;                         // scope 2 at secret_integers_usage/src/main.rs:8:14: 8:45
+        _5 = move _6 as &[&str] (Pointer(Unsize)); // scope 2 at secret_integers_usage/src/main.rs:8:14: 8:45
+        StorageDead(_6);                 // scope 2 at secret_integers_usage/src/main.rs:8:44: 8:45
+        StorageLive(_8);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_9);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_10);                // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        _98 = const main::promoted[2];   // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // ty::Const
+                                         // + ty: &[std::fmt::ArgumentV1; 0]
+                                         // + val: Unevaluated(WithOptConstParam { did: DefId(0:18 ~ secret_integers_usage[a377]::main), const_param_did: None }, [], Some(promoted[2]))
+                                         // mir::Constant
+                                         // + span: /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // + literal: Const { ty: &[std::fmt::ArgumentV1; 0], val: Unevaluated(WithOptConstParam { did: DefId(0:18 ~ secret_integers_usage[a377]::main), const_param_did: None }, [], Some(promoted[2])) }
+        _10 = _98;                       // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        _9 = _10;                        // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        _8 = move _9 as &[std::fmt::ArgumentV1] (Pointer(Unsize)); // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageDead(_9);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _4 = Arguments::new_v1(move _5, move _8) -> [return: bb3, unwind: bb42]; // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // mir::Constant
+                                         // + span: /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // + user_ty: UserType(0)
+                                         // + literal: Const { ty: fn(&[&'static str], &[std::fmt::ArgumentV1]) -> std::fmt::Arguments {std::fmt::Arguments::new_v1}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        StorageDead(_8);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        StorageDead(_5);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _3 = _print(move _4) -> [return: bb4, unwind: bb42]; // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:62
+                                         // mir::Constant
+                                         // + span: /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:27
+                                         // + literal: Const { ty: for<'r> fn(std::fmt::Arguments<'r>) {std::io::_print}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        StorageDead(_4);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:61: 96:62
+        StorageDead(_10);                // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_7);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_3);                 // scope 2 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageLive(_11);                // scope 2 at secret_integers_usage/src/main.rs:9:13: 9:47
+        StorageLive(_12);                // scope 2 at secret_integers_usage/src/main.rs:9:13: 9:24
+        StorageLive(_13);                // scope 2 at secret_integers_usage/src/main.rs:9:13: 9:24
+        _13 = stdin() -> [return: bb5, unwind: bb42]; // scope 2 at secret_integers_usage/src/main.rs:9:13: 9:24
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:9:13: 9:22
+                                         // + literal: Const { ty: fn() -> std::io::Stdin {std::io::stdin}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        _12 = &_13;                      // scope 2 at secret_integers_usage/src/main.rs:9:13: 9:24
+        StorageLive(_14);                // scope 2 at secret_integers_usage/src/main.rs:9:35: 9:46
+        StorageLive(_15);                // scope 2 at secret_integers_usage/src/main.rs:9:35: 9:46
+        _15 = &mut _2;                   // scope 2 at secret_integers_usage/src/main.rs:9:35: 9:46
+        _14 = &mut (*_15);               // scope 2 at secret_integers_usage/src/main.rs:9:35: 9:46
+        _11 = Stdin::read_line(move _12, move _14) -> [return: bb6, unwind: bb42]; // scope 2 at secret_integers_usage/src/main.rs:9:13: 9:47
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:9:25: 9:34
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r std::io::Stdin, &'s mut std::string::String) -> std::result::Result<usize, std::io::Error> {std::io::Stdin::read_line}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb6: {
+        StorageDead(_14);                // scope 2 at secret_integers_usage/src/main.rs:9:46: 9:47
+        StorageDead(_12);                // scope 2 at secret_integers_usage/src/main.rs:9:46: 9:47
+        drop(_11) -> [return: bb7, unwind: bb42]; // scope 2 at secret_integers_usage/src/main.rs:9:47: 9:48
+    }
+
+    bb7: {
+        StorageDead(_15);                // scope 2 at secret_integers_usage/src/main.rs:9:47: 9:48
+        StorageDead(_13);                // scope 2 at secret_integers_usage/src/main.rs:9:47: 9:48
+        StorageDead(_11);                // scope 2 at secret_integers_usage/src/main.rs:9:47: 9:48
+        StorageLive(_16);                // scope 3 at secret_integers_usage/src/main.rs:10:9: 10:20
+        _16 = [const 0_u8; 8];           // scope 3 at secret_integers_usage/src/main.rs:10:23: 10:31
+        StorageLive(_17);                // scope 4 at secret_integers_usage/src/main.rs:11:14: 11:18
+        StorageLive(_18);                // scope 4 at secret_integers_usage/src/main.rs:11:14: 11:18
+        (_18.0: usize) = const 0_usize;  // scope 4 at secret_integers_usage/src/main.rs:11:14: 11:18
+        (_18.1: usize) = const 8_usize;  // scope 4 at secret_integers_usage/src/main.rs:11:14: 11:18
+        _17 = <std::ops::Range<usize> as IntoIterator>::into_iter(move _18) -> [return: bb8, unwind: bb42]; // scope 4 at secret_integers_usage/src/main.rs:11:14: 11:18
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:11:14: 11:18
+                                         // + literal: Const { ty: fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as std::iter::IntoIterator>::IntoIter {<std::ops::Range<usize> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        StorageDead(_18);                // scope 4 at secret_integers_usage/src/main.rs:11:17: 11:18
+        StorageLive(_19);                // scope 4 at secret_integers_usage/src/main.rs:11:14: 11:18
+        _19 = move _17;                  // scope 4 at secret_integers_usage/src/main.rs:11:14: 11:18
+        goto -> bb9;                     // scope 5 at secret_integers_usage/src/main.rs:11:5: 15:6
+    }
+
+    bb9: {
+        StorageLive(_20);                // scope 5 at secret_integers_usage/src/main.rs:11:14: 11:18
+        StorageLive(_21);                // scope 6 at secret_integers_usage/src/main.rs:11:14: 11:18
+        StorageLive(_22);                // scope 6 at secret_integers_usage/src/main.rs:11:14: 11:18
+        StorageLive(_23);                // scope 6 at secret_integers_usage/src/main.rs:11:14: 11:18
+        _23 = &mut _19;                  // scope 6 at secret_integers_usage/src/main.rs:11:14: 11:18
+        _22 = &mut (*_23);               // scope 6 at secret_integers_usage/src/main.rs:11:14: 11:18
+        _21 = <std::ops::Range<usize> as Iterator>::next(move _22) -> [return: bb10, unwind: bb42]; // scope 6 at secret_integers_usage/src/main.rs:11:14: 11:18
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:11:14: 11:18
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::ops::Range<usize>) -> std::option::Option<<std::ops::Range<usize> as std::iter::Iterator>::Item> {<std::ops::Range<usize> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb10: {
+        StorageDead(_22);                // scope 6 at secret_integers_usage/src/main.rs:11:17: 11:18
+        _24 = discriminant(_21);         // scope 6 at secret_integers_usage/src/main.rs:11:9: 11:10
+        switchInt(move _24) -> [0_isize: bb11, 1_isize: bb13, otherwise: bb12]; // scope 6 at secret_integers_usage/src/main.rs:11:9: 11:10
+    }
+
+    bb11: {
+        StorageDead(_23);                // scope 6 at secret_integers_usage/src/main.rs:11:17: 11:18
+        StorageDead(_21);                // scope 6 at secret_integers_usage/src/main.rs:11:17: 11:18
+        StorageDead(_20);                // scope 5 at secret_integers_usage/src/main.rs:15:5: 15:6
+        StorageDead(_19);                // scope 4 at secret_integers_usage/src/main.rs:15:5: 15:6
+        StorageDead(_17);                // scope 4 at secret_integers_usage/src/main.rs:11:17: 11:18
+        StorageLive(_41);                // scope 4 at secret_integers_usage/src/main.rs:16:9: 16:20
+        StorageLive(_42);                // scope 4 at secret_integers_usage/src/main.rs:16:31: 16:39
+        StorageLive(_43);                // scope 4 at secret_integers_usage/src/main.rs:16:31: 16:39
+        StorageLive(_44);                // scope 4 at secret_integers_usage/src/main.rs:16:31: 16:39
+        _44 = &_16;                      // scope 4 at secret_integers_usage/src/main.rs:16:31: 16:39
+        _43 = _44;                       // scope 4 at secret_integers_usage/src/main.rs:16:31: 16:39
+        _42 = move _43 as &[u8] (Pointer(Unsize)); // scope 4 at secret_integers_usage/src/main.rs:16:31: 16:39
+        StorageDead(_43);                // scope 4 at secret_integers_usage/src/main.rs:16:38: 16:39
+        StorageLive(_45);                // scope 4 at secret_integers_usage/src/main.rs:16:41: 16:52
+        StorageLive(_46);                // scope 4 at secret_integers_usage/src/main.rs:16:41: 16:52
+        StorageLive(_47);                // scope 4 at secret_integers_usage/src/main.rs:16:41: 16:52
+        StorageLive(_48);                // scope 4 at secret_integers_usage/src/main.rs:16:41: 16:52
+        _48 = &_1;                       // scope 4 at secret_integers_usage/src/main.rs:16:41: 16:52
+        _47 = _48;                       // scope 4 at secret_integers_usage/src/main.rs:16:41: 16:52
+        _46 = <Vec<secret_integers::U8> as Deref>::deref(move _47) -> [return: bb21, unwind: bb42]; // scope 4 at secret_integers_usage/src/main.rs:16:41: 16:52
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:16:41: 16:52
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>) -> &'r <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::Target {<std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb12: {
+        unreachable;                     // scope 6 at secret_integers_usage/src/main.rs:11:14: 11:18
+    }
+
+    bb13: {
+        StorageLive(_25);                // scope 6 at secret_integers_usage/src/main.rs:11:9: 11:10
+        _25 = ((_21 as Some).0: usize);  // scope 6 at secret_integers_usage/src/main.rs:11:9: 11:10
+        StorageLive(_26);                // scope 7 at secret_integers_usage/src/main.rs:11:9: 11:10
+        _26 = _25;                       // scope 7 at secret_integers_usage/src/main.rs:11:9: 11:10
+        _20 = move _26;                  // scope 7 at secret_integers_usage/src/main.rs:11:9: 11:10
+        StorageDead(_26);                // scope 7 at secret_integers_usage/src/main.rs:11:9: 11:10
+        StorageDead(_25);                // scope 6 at secret_integers_usage/src/main.rs:11:9: 11:10
+        StorageDead(_23);                // scope 6 at secret_integers_usage/src/main.rs:11:17: 11:18
+        StorageDead(_21);                // scope 6 at secret_integers_usage/src/main.rs:11:17: 11:18
+        StorageLive(_27);                // scope 6 at secret_integers_usage/src/main.rs:11:9: 11:10
+        _27 = _20;                       // scope 6 at secret_integers_usage/src/main.rs:11:14: 11:18
+        StorageLive(_28);                // scope 8 at secret_integers_usage/src/main.rs:12:12: 12:28
+        StorageLive(_29);                // scope 8 at secret_integers_usage/src/main.rs:12:12: 12:13
+        _29 = _27;                       // scope 8 at secret_integers_usage/src/main.rs:12:12: 12:13
+        StorageLive(_30);                // scope 8 at secret_integers_usage/src/main.rs:12:16: 12:28
+        StorageLive(_31);                // scope 8 at secret_integers_usage/src/main.rs:12:16: 12:22
+        _31 = &_2;                       // scope 8 at secret_integers_usage/src/main.rs:12:16: 12:22
+        _30 = String::len(move _31) -> [return: bb14, unwind: bb42]; // scope 8 at secret_integers_usage/src/main.rs:12:16: 12:28
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:12:23: 12:26
+                                         // + literal: Const { ty: for<'r> fn(&'r std::string::String) -> usize {std::string::String::len}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb14: {
+        StorageDead(_31);                // scope 8 at secret_integers_usage/src/main.rs:12:27: 12:28
+        _28 = Lt(move _29, move _30);    // scope 8 at secret_integers_usage/src/main.rs:12:12: 12:28
+        StorageDead(_30);                // scope 8 at secret_integers_usage/src/main.rs:12:27: 12:28
+        StorageDead(_29);                // scope 8 at secret_integers_usage/src/main.rs:12:27: 12:28
+        switchInt(move _28) -> [false: bb16, otherwise: bb15]; // scope 8 at secret_integers_usage/src/main.rs:12:9: 14:10
+    }
+
+    bb15: {
+        StorageLive(_32);                // scope 8 at secret_integers_usage/src/main.rs:13:26: 13:46
+        StorageLive(_33);                // scope 8 at secret_integers_usage/src/main.rs:13:26: 13:43
+        StorageLive(_34);                // scope 8 at secret_integers_usage/src/main.rs:13:26: 13:32
+        _34 = &_2;                       // scope 8 at secret_integers_usage/src/main.rs:13:26: 13:32
+        _33 = String::as_bytes(move _34) -> [return: bb17, unwind: bb42]; // scope 8 at secret_integers_usage/src/main.rs:13:26: 13:43
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:13:33: 13:41
+                                         // + literal: Const { ty: for<'r> fn(&'r std::string::String) -> &'r [u8] {std::string::String::as_bytes}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb16: {
+        goto -> bb20;                    // scope 8 at secret_integers_usage/src/main.rs:12:9: 14:10
+    }
+
+    bb17: {
+        StorageDead(_34);                // scope 8 at secret_integers_usage/src/main.rs:13:42: 13:43
+        StorageLive(_35);                // scope 8 at secret_integers_usage/src/main.rs:13:44: 13:45
+        _35 = _27;                       // scope 8 at secret_integers_usage/src/main.rs:13:44: 13:45
+        _36 = Len((*_33));               // scope 8 at secret_integers_usage/src/main.rs:13:26: 13:46
+        _37 = Lt(_35, _36);              // scope 8 at secret_integers_usage/src/main.rs:13:26: 13:46
+        assert(move _37, "index out of bounds: the length is {} but the index is {}", move _36, _35) -> [success: bb18, unwind: bb42]; // scope 8 at secret_integers_usage/src/main.rs:13:26: 13:46
+    }
+
+    bb18: {
+        _32 = (*_33)[_35];               // scope 8 at secret_integers_usage/src/main.rs:13:26: 13:46
+        StorageLive(_38);                // scope 8 at secret_integers_usage/src/main.rs:13:21: 13:22
+        _38 = _27;                       // scope 8 at secret_integers_usage/src/main.rs:13:21: 13:22
+        _39 = const 8_usize;             // scope 8 at secret_integers_usage/src/main.rs:13:13: 13:23
+        _40 = Lt(_38, _39);              // scope 8 at secret_integers_usage/src/main.rs:13:13: 13:23
+        assert(move _40, "index out of bounds: the length is {} but the index is {}", move _39, _38) -> [success: bb19, unwind: bb42]; // scope 8 at secret_integers_usage/src/main.rs:13:13: 13:23
+    }
+
+    bb19: {
+        _16[_38] = move _32;             // scope 8 at secret_integers_usage/src/main.rs:13:13: 13:46
+        StorageDead(_32);                // scope 8 at secret_integers_usage/src/main.rs:13:45: 13:46
+        StorageDead(_38);                // scope 8 at secret_integers_usage/src/main.rs:13:46: 13:47
+        StorageDead(_35);                // scope 8 at secret_integers_usage/src/main.rs:13:46: 13:47
+        StorageDead(_33);                // scope 8 at secret_integers_usage/src/main.rs:13:46: 13:47
+        goto -> bb20;                    // scope 8 at secret_integers_usage/src/main.rs:12:9: 14:10
+    }
+
+    bb20: {
+        StorageDead(_28);                // scope 8 at secret_integers_usage/src/main.rs:14:9: 14:10
+        StorageDead(_27);                // scope 6 at secret_integers_usage/src/main.rs:15:5: 15:6
+        StorageDead(_20);                // scope 5 at secret_integers_usage/src/main.rs:15:5: 15:6
+        goto -> bb9;                     // scope 5 at secret_integers_usage/src/main.rs:11:5: 15:6
+    }
+
+    bb21: {
+        _45 = _46;                       // scope 4 at secret_integers_usage/src/main.rs:16:41: 16:52
+        StorageDead(_47);                // scope 4 at secret_integers_usage/src/main.rs:16:51: 16:52
+        _41 = simple::encrypt(move _42, move _45) -> [return: bb22, unwind: bb42]; // scope 4 at secret_integers_usage/src/main.rs:16:23: 16:53
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:16:23: 16:30
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r [u8], &'s [secret_integers::U8]) -> std::vec::Vec<u8> {simple::encrypt}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb22: {
+        StorageDead(_45);                // scope 4 at secret_integers_usage/src/main.rs:16:52: 16:53
+        StorageDead(_42);                // scope 4 at secret_integers_usage/src/main.rs:16:52: 16:53
+        StorageDead(_48);                // scope 4 at secret_integers_usage/src/main.rs:16:53: 16:54
+        StorageDead(_46);                // scope 4 at secret_integers_usage/src/main.rs:16:53: 16:54
+        StorageDead(_44);                // scope 4 at secret_integers_usage/src/main.rs:16:53: 16:54
+        StorageLive(_49);                // scope 9 at secret_integers_usage/src/main.rs:17:9: 17:13
+        StorageLive(_50);                // scope 9 at secret_integers_usage/src/main.rs:17:24: 17:36
+        StorageLive(_51);                // scope 9 at secret_integers_usage/src/main.rs:17:24: 17:36
+        StorageLive(_52);                // scope 9 at secret_integers_usage/src/main.rs:17:24: 17:36
+        StorageLive(_53);                // scope 9 at secret_integers_usage/src/main.rs:17:24: 17:36
+        _53 = &_41;                      // scope 9 at secret_integers_usage/src/main.rs:17:24: 17:36
+        _52 = _53;                       // scope 9 at secret_integers_usage/src/main.rs:17:24: 17:36
+        _51 = <Vec<u8> as Deref>::deref(move _52) -> [return: bb23, unwind: bb41]; // scope 9 at secret_integers_usage/src/main.rs:17:24: 17:36
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:17:24: 17:36
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<u8>) -> &'r <std::vec::Vec<u8> as std::ops::Deref>::Target {<std::vec::Vec<u8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb23: {
+        _50 = _51;                       // scope 9 at secret_integers_usage/src/main.rs:17:24: 17:36
+        StorageDead(_52);                // scope 9 at secret_integers_usage/src/main.rs:17:35: 17:36
+        StorageLive(_54);                // scope 9 at secret_integers_usage/src/main.rs:17:38: 17:49
+        StorageLive(_55);                // scope 9 at secret_integers_usage/src/main.rs:17:38: 17:49
+        StorageLive(_56);                // scope 9 at secret_integers_usage/src/main.rs:17:38: 17:49
+        StorageLive(_57);                // scope 9 at secret_integers_usage/src/main.rs:17:38: 17:49
+        _57 = &_1;                       // scope 9 at secret_integers_usage/src/main.rs:17:38: 17:49
+        _56 = _57;                       // scope 9 at secret_integers_usage/src/main.rs:17:38: 17:49
+        _55 = <Vec<secret_integers::U8> as Deref>::deref(move _56) -> [return: bb24, unwind: bb41]; // scope 9 at secret_integers_usage/src/main.rs:17:38: 17:49
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:17:38: 17:49
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>) -> &'r <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::Target {<std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb24: {
+        _54 = _55;                       // scope 9 at secret_integers_usage/src/main.rs:17:38: 17:49
+        StorageDead(_56);                // scope 9 at secret_integers_usage/src/main.rs:17:48: 17:49
+        _49 = simple::decrypt(move _50, move _54) -> [return: bb25, unwind: bb41]; // scope 9 at secret_integers_usage/src/main.rs:17:16: 17:50
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:17:16: 17:23
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r [u8], &'s [secret_integers::U8]) -> std::vec::Vec<u8> {simple::decrypt}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb25: {
+        StorageDead(_54);                // scope 9 at secret_integers_usage/src/main.rs:17:49: 17:50
+        StorageDead(_50);                // scope 9 at secret_integers_usage/src/main.rs:17:49: 17:50
+        StorageDead(_57);                // scope 9 at secret_integers_usage/src/main.rs:17:50: 17:51
+        StorageDead(_55);                // scope 9 at secret_integers_usage/src/main.rs:17:50: 17:51
+        StorageDead(_53);                // scope 9 at secret_integers_usage/src/main.rs:17:50: 17:51
+        StorageDead(_51);                // scope 9 at secret_integers_usage/src/main.rs:17:50: 17:51
+        StorageLive(_58);                // scope 10 at secret_integers_usage/src/main.rs:18:5: 18:35
+        StorageLive(_59);                // scope 10 at secret_integers_usage/src/main.rs:18:13: 18:33
+        StorageLive(_60);                // scope 10 at secret_integers_usage/src/main.rs:18:13: 18:20
+        _60 = &_16;                      // scope 10 at secret_integers_usage/src/main.rs:18:13: 18:20
+        StorageLive(_61);                // scope 10 at secret_integers_usage/src/main.rs:18:24: 18:33
+        StorageLive(_62);                // scope 10 at secret_integers_usage/src/main.rs:18:24: 18:33
+        StorageLive(_63);                // scope 10 at secret_integers_usage/src/main.rs:18:25: 18:33
+        StorageLive(_64);                // scope 10 at secret_integers_usage/src/main.rs:18:25: 18:29
+        _64 = &_49;                      // scope 10 at secret_integers_usage/src/main.rs:18:25: 18:29
+        StorageLive(_65);                // scope 10 at secret_integers_usage/src/main.rs:18:30: 18:32
+        _63 = <Vec<u8> as Index<RangeFull>>::index(move _64, move _65) -> [return: bb26, unwind: bb40]; // scope 10 at secret_integers_usage/src/main.rs:18:25: 18:33
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:18:25: 18:33
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<u8>, std::ops::RangeFull) -> &'r <std::vec::Vec<u8> as std::ops::Index<std::ops::RangeFull>>::Output {<std::vec::Vec<u8> as std::ops::Index<std::ops::RangeFull>>::index}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb26: {
+        StorageDead(_65);                // scope 10 at secret_integers_usage/src/main.rs:18:32: 18:33
+        StorageDead(_64);                // scope 10 at secret_integers_usage/src/main.rs:18:32: 18:33
+        _62 = _63;                       // scope 10 at secret_integers_usage/src/main.rs:18:24: 18:33
+        _61 = &_62;                      // scope 10 at secret_integers_usage/src/main.rs:18:24: 18:33
+        _59 = <[u8; 8] as PartialEq<&[u8]>>::eq(move _60, move _61) -> [return: bb27, unwind: bb40]; // scope 10 at secret_integers_usage/src/main.rs:18:13: 18:33
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:18:13: 18:33
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r [u8; 8], &'s &[u8]) -> bool {<[u8; 8] as std::cmp::PartialEq<&[u8]>>::eq}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb27: {
+        StorageDead(_61);                // scope 10 at secret_integers_usage/src/main.rs:18:32: 18:33
+        StorageDead(_60);                // scope 10 at secret_integers_usage/src/main.rs:18:32: 18:33
+        _58 = Not(move _59);             // scope 10 at secret_integers_usage/src/main.rs:18:5: 18:35
+        StorageDead(_63);                // scope 10 at secret_integers_usage/src/main.rs:18:34: 18:35
+        StorageDead(_62);                // scope 10 at secret_integers_usage/src/main.rs:18:34: 18:35
+        StorageDead(_59);                // scope 10 at secret_integers_usage/src/main.rs:18:34: 18:35
+        switchInt(move _58) -> [false: bb29, otherwise: bb28]; // scope 10 at secret_integers_usage/src/main.rs:18:5: 18:35
+    }
+
+    bb28: {
+        core::panicking::panic(const "assertion failed: message == &text[..]") -> bb40; // scope 10 at secret_integers_usage/src/main.rs:18:5: 18:35
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:18:5: 18:35
+                                         // + literal: Const { ty: fn(&'static str) -> ! {core::panicking::panic}, val: Value(Scalar(<ZST>)) }
+                                         // ty::Const
+                                         // + ty: &str
+                                         // + val: Value(Slice { data: Allocation { bytes: [97, 115, 115, 101, 114, 116, 105, 111, 110, 32, 102, 97, 105, 108, 101, 100, 58, 32, 109, 101, 115, 115, 97, 103, 101, 32, 61, 61, 32, 38, 116, 101, 120, 116, 91, 46, 46, 93], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [274877906943], len: Size { raw: 38 } }, size: Size { raw: 38 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 38 })
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:1:1: 1:1
+                                         // + literal: Const { ty: &str, val: Value(Slice { data: Allocation { bytes: [97, 115, 115, 101, 114, 116, 105, 111, 110, 32, 102, 97, 105, 108, 101, 100, 58, 32, 109, 101, 115, 115, 97, 103, 101, 32, 61, 61, 32, 38, 116, 101, 120, 116, 91, 46, 46, 93], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [274877906943], len: Size { raw: 38 } }, size: Size { raw: 38 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 38 }) }
+    }
+
+    bb29: {
+        StorageDead(_58);                // scope 10 at secret_integers_usage/src/main.rs:18:34: 18:35
+        StorageLive(_66);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:62
+        StorageLive(_67);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_68);                // scope 10 at secret_integers_usage/src/main.rs:19:14: 19:29
+        StorageLive(_69);                // scope 10 at secret_integers_usage/src/main.rs:19:14: 19:29
+        StorageLive(_70);                // scope 10 at secret_integers_usage/src/main.rs:19:14: 19:29
+        _97 = const main::promoted[1];   // scope 10 at secret_integers_usage/src/main.rs:19:14: 19:29
+                                         // ty::Const
+                                         // + ty: &[&str; 2]
+                                         // + val: Unevaluated(WithOptConstParam { did: DefId(0:18 ~ secret_integers_usage[a377]::main), const_param_did: None }, [], Some(promoted[1]))
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:19:14: 19:29
+                                         // + literal: Const { ty: &[&str; 2], val: Unevaluated(WithOptConstParam { did: DefId(0:18 ~ secret_integers_usage[a377]::main), const_param_did: None }, [], Some(promoted[1])) }
+        _70 = _97;                       // scope 10 at secret_integers_usage/src/main.rs:19:14: 19:29
+        _69 = _70;                       // scope 10 at secret_integers_usage/src/main.rs:19:14: 19:29
+        _68 = move _69 as &[&str] (Pointer(Unsize)); // scope 10 at secret_integers_usage/src/main.rs:19:14: 19:29
+        StorageDead(_69);                // scope 10 at secret_integers_usage/src/main.rs:19:28: 19:29
+        StorageLive(_71);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_72);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_73);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_74);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_75);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_76);                // scope 10 at secret_integers_usage/src/main.rs:19:31: 19:38
+        _76 = &_16;                      // scope 10 at secret_integers_usage/src/main.rs:19:31: 19:38
+        (_75.0: &[u8; 8]) = move _76;    // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageDead(_76);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        StorageLive(_77);                // scope 10 at secret_integers_usage/src/main.rs:19:31: 19:38
+        _77 = (_75.0: &[u8; 8]);         // scope 10 at secret_integers_usage/src/main.rs:19:31: 19:38
+        StorageLive(_78);                // scope 11 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_79);                // scope 11 at secret_integers_usage/src/main.rs:19:31: 19:38
+        _79 = _77;                       // scope 11 at secret_integers_usage/src/main.rs:19:31: 19:38
+        StorageLive(_80);                // scope 11 at secret_integers_usage/src/main.rs:19:31: 19:38
+        _80 = <[u8; 8] as Debug>::fmt as for<'r, 's, 't0> fn(&'r [u8; 8], &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error> (Pointer(ReifyFnPointer)); // scope 11 at secret_integers_usage/src/main.rs:19:31: 19:38
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:19:31: 19:38
+                                         // + literal: Const { ty: for<'r, 's, 't0> fn(&'r [u8; 8], &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error> {<[u8; 8] as std::fmt::Debug>::fmt}, val: Value(Scalar(<ZST>)) }
+        _78 = ArgumentV1::new::<[u8; 8]>(move _79, move _80) -> [return: bb30, unwind: bb40]; // scope 11 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // mir::Constant
+                                         // + span: /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // + user_ty: UserType(2)
+                                         // + literal: Const { ty: for<'b> fn(&'b [u8; 8], for<'r, 's, 't0> fn(&'r [u8; 8], &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error>) -> std::fmt::ArgumentV1<'b> {std::fmt::ArgumentV1::new::<[u8; 8]>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb30: {
+        StorageDead(_80);                // scope 11 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        StorageDead(_79);                // scope 11 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _74 = [move _78];                // scope 11 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageDead(_78);                // scope 11 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        StorageDead(_77);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _73 = &_74;                      // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        _72 = _73;                       // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        _71 = move _72 as &[std::fmt::ArgumentV1] (Pointer(Unsize)); // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageDead(_72);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _67 = Arguments::new_v1(move _68, move _71) -> [return: bb31, unwind: bb40]; // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // mir::Constant
+                                         // + span: /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // + user_ty: UserType(1)
+                                         // + literal: Const { ty: fn(&[&'static str], &[std::fmt::ArgumentV1]) -> std::fmt::Arguments {std::fmt::Arguments::new_v1}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb31: {
+        StorageDead(_71);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        StorageDead(_68);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _66 = _print(move _67) -> [return: bb32, unwind: bb40]; // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:62
+                                         // mir::Constant
+                                         // + span: /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:27
+                                         // + literal: Const { ty: for<'r> fn(std::fmt::Arguments<'r>) {std::io::_print}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb32: {
+        StorageDead(_67);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:61: 96:62
+        StorageDead(_75);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_74);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_73);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_70);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_66);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageLive(_81);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:62
+        StorageLive(_82);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_83);                // scope 10 at secret_integers_usage/src/main.rs:20:14: 20:32
+        StorageLive(_84);                // scope 10 at secret_integers_usage/src/main.rs:20:14: 20:32
+        StorageLive(_85);                // scope 10 at secret_integers_usage/src/main.rs:20:14: 20:32
+        _96 = const main::promoted[0];   // scope 10 at secret_integers_usage/src/main.rs:20:14: 20:32
+                                         // ty::Const
+                                         // + ty: &[&str; 2]
+                                         // + val: Unevaluated(WithOptConstParam { did: DefId(0:18 ~ secret_integers_usage[a377]::main), const_param_did: None }, [], Some(promoted[0]))
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:20:14: 20:32
+                                         // + literal: Const { ty: &[&str; 2], val: Unevaluated(WithOptConstParam { did: DefId(0:18 ~ secret_integers_usage[a377]::main), const_param_did: None }, [], Some(promoted[0])) }
+        _85 = _96;                       // scope 10 at secret_integers_usage/src/main.rs:20:14: 20:32
+        _84 = _85;                       // scope 10 at secret_integers_usage/src/main.rs:20:14: 20:32
+        _83 = move _84 as &[&str] (Pointer(Unsize)); // scope 10 at secret_integers_usage/src/main.rs:20:14: 20:32
+        StorageDead(_84);                // scope 10 at secret_integers_usage/src/main.rs:20:31: 20:32
+        StorageLive(_86);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_87);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_88);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_89);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_90);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_91);                // scope 10 at secret_integers_usage/src/main.rs:20:34: 20:45
+        _91 = &_41;                      // scope 10 at secret_integers_usage/src/main.rs:20:34: 20:45
+        (_90.0: &std::vec::Vec<u8>) = move _91; // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageDead(_91);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        StorageLive(_92);                // scope 10 at secret_integers_usage/src/main.rs:20:34: 20:45
+        _92 = (_90.0: &std::vec::Vec<u8>); // scope 10 at secret_integers_usage/src/main.rs:20:34: 20:45
+        StorageLive(_93);                // scope 12 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageLive(_94);                // scope 12 at secret_integers_usage/src/main.rs:20:34: 20:45
+        _94 = _92;                       // scope 12 at secret_integers_usage/src/main.rs:20:34: 20:45
+        StorageLive(_95);                // scope 12 at secret_integers_usage/src/main.rs:20:34: 20:45
+        _95 = <Vec<u8> as Debug>::fmt as for<'r, 's, 't0> fn(&'r std::vec::Vec<u8>, &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error> (Pointer(ReifyFnPointer)); // scope 12 at secret_integers_usage/src/main.rs:20:34: 20:45
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:20:34: 20:45
+                                         // + literal: Const { ty: for<'r, 's, 't0> fn(&'r std::vec::Vec<u8>, &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error> {<std::vec::Vec<u8> as std::fmt::Debug>::fmt}, val: Value(Scalar(<ZST>)) }
+        _93 = ArgumentV1::new::<Vec<u8>>(move _94, move _95) -> [return: bb33, unwind: bb40]; // scope 12 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // mir::Constant
+                                         // + span: /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // + user_ty: UserType(4)
+                                         // + literal: Const { ty: for<'b> fn(&'b std::vec::Vec<u8>, for<'r, 's, 't0> fn(&'r std::vec::Vec<u8>, &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error>) -> std::fmt::ArgumentV1<'b> {std::fmt::ArgumentV1::new::<std::vec::Vec<u8>>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb33: {
+        StorageDead(_95);                // scope 12 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        StorageDead(_94);                // scope 12 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _89 = [move _93];                // scope 12 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageDead(_93);                // scope 12 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        StorageDead(_92);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _88 = &_89;                      // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        _87 = _88;                       // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        _86 = move _87 as &[std::fmt::ArgumentV1] (Pointer(Unsize)); // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        StorageDead(_87);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _82 = Arguments::new_v1(move _83, move _86) -> [return: bb34, unwind: bb40]; // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // mir::Constant
+                                         // + span: /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+                                         // + user_ty: UserType(3)
+                                         // + literal: Const { ty: fn(&[&'static str], &[std::fmt::ArgumentV1]) -> std::fmt::Arguments {std::fmt::Arguments::new_v1}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb34: {
+        StorageDead(_86);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        StorageDead(_83);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:60: 96:61
+        _81 = _print(move _82) -> [return: bb35, unwind: bb40]; // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:62
+                                         // mir::Constant
+                                         // + span: /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:9: 96:27
+                                         // + literal: Const { ty: for<'r> fn(std::fmt::Arguments<'r>) {std::io::_print}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb35: {
+        StorageDead(_82);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:61: 96:62
+        StorageDead(_90);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_89);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_88);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_85);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        StorageDead(_81);                // scope 10 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:62: 96:63
+        _0 = const ();                   // scope 0 at secret_integers_usage/src/main.rs:5:11: 21:2
+        drop(_49) -> [return: bb36, unwind: bb41]; // scope 9 at secret_integers_usage/src/main.rs:21:1: 21:2
+    }
+
+    bb36: {
+        StorageDead(_49);                // scope 9 at secret_integers_usage/src/main.rs:21:1: 21:2
+        drop(_41) -> [return: bb37, unwind: bb42]; // scope 4 at secret_integers_usage/src/main.rs:21:1: 21:2
+    }
+
+    bb37: {
+        StorageDead(_41);                // scope 4 at secret_integers_usage/src/main.rs:21:1: 21:2
+        StorageDead(_16);                // scope 3 at secret_integers_usage/src/main.rs:21:1: 21:2
+        drop(_2) -> [return: bb38, unwind: bb43]; // scope 1 at secret_integers_usage/src/main.rs:21:1: 21:2
+    }
+
+    bb38: {
+        StorageDead(_2);                 // scope 1 at secret_integers_usage/src/main.rs:21:1: 21:2
+        drop(_1) -> bb39;                // scope 0 at secret_integers_usage/src/main.rs:21:1: 21:2
+    }
+
+    bb39: {
+        StorageDead(_1);                 // scope 0 at secret_integers_usage/src/main.rs:21:1: 21:2
+        return;                          // scope 0 at secret_integers_usage/src/main.rs:21:2: 21:2
+    }
+
+    bb40 (cleanup): {
+        drop(_49) -> bb41;               // scope 9 at secret_integers_usage/src/main.rs:21:1: 21:2
+    }
+
+    bb41 (cleanup): {
+        drop(_41) -> bb42;               // scope 4 at secret_integers_usage/src/main.rs:21:1: 21:2
+    }
+
+    bb42 (cleanup): {
+        drop(_2) -> bb43;                // scope 1 at secret_integers_usage/src/main.rs:21:1: 21:2
+    }
+
+    bb43 (cleanup): {
+        drop(_1) -> bb44;                // scope 0 at secret_integers_usage/src/main.rs:21:1: 21:2
+    }
+
+    bb44 (cleanup): {
+        resume;                          // scope 0 at secret_integers_usage/src/main.rs:5:1: 21:2
+    }
+}
+
+promoted[0] in main: &[&str; 2] = {
+    let mut _0: &[&str; 2];              // return place in scope 0 at secret_integers_usage/src/main.rs:20:14: 20:32
+    let mut _1: [&str; 2];               // in scope 0 at secret_integers_usage/src/main.rs:20:14: 20:32
+
+    bb0: {
+        _1 = [const "ciphertext: ", const "\n"]; // scope 0 at secret_integers_usage/src/main.rs:20:14: 20:32
+                                         // ty::Const
+                                         // + ty: &str
+                                         // + val: Value(Slice { data: Allocation { bytes: [99, 105, 112, 104, 101, 114, 116, 101, 120, 116, 58, 32], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [4095], len: Size { raw: 12 } }, size: Size { raw: 12 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 12 })
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:20:14: 20:32
+                                         // + literal: Const { ty: &str, val: Value(Slice { data: Allocation { bytes: [99, 105, 112, 104, 101, 114, 116, 101, 120, 116, 58, 32], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [4095], len: Size { raw: 12 } }, size: Size { raw: 12 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 12 }) }
+                                         // ty::Const
+                                         // + ty: &str
+                                         // + val: Value(Slice { data: Allocation { bytes: [10], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [1], len: Size { raw: 1 } }, size: Size { raw: 1 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 1 })
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:20:14: 20:32
+                                         // + literal: Const { ty: &str, val: Value(Slice { data: Allocation { bytes: [10], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [1], len: Size { raw: 1 } }, size: Size { raw: 1 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 1 }) }
+        _0 = &_1;                        // scope 0 at secret_integers_usage/src/main.rs:20:14: 20:32
+        return;                          // scope 0 at secret_integers_usage/src/main.rs:20:14: 20:32
+    }
+}
+
+promoted[1] in main: &[&str; 2] = {
+    let mut _0: &[&str; 2];              // return place in scope 0 at secret_integers_usage/src/main.rs:19:14: 19:29
+    let mut _1: [&str; 2];               // in scope 0 at secret_integers_usage/src/main.rs:19:14: 19:29
+
+    bb0: {
+        _1 = [const "message: ", const "\n"]; // scope 0 at secret_integers_usage/src/main.rs:19:14: 19:29
+                                         // ty::Const
+                                         // + ty: &str
+                                         // + val: Value(Slice { data: Allocation { bytes: [109, 101, 115, 115, 97, 103, 101, 58, 32], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [511], len: Size { raw: 9 } }, size: Size { raw: 9 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 9 })
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:19:14: 19:29
+                                         // + literal: Const { ty: &str, val: Value(Slice { data: Allocation { bytes: [109, 101, 115, 115, 97, 103, 101, 58, 32], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [511], len: Size { raw: 9 } }, size: Size { raw: 9 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 9 }) }
+                                         // ty::Const
+                                         // + ty: &str
+                                         // + val: Value(Slice { data: Allocation { bytes: [10], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [1], len: Size { raw: 1 } }, size: Size { raw: 1 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 1 })
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:19:14: 19:29
+                                         // + literal: Const { ty: &str, val: Value(Slice { data: Allocation { bytes: [10], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [1], len: Size { raw: 1 } }, size: Size { raw: 1 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 1 }) }
+        _0 = &_1;                        // scope 0 at secret_integers_usage/src/main.rs:19:14: 19:29
+        return;                          // scope 0 at secret_integers_usage/src/main.rs:19:14: 19:29
+    }
+}
+
+promoted[2] in main: &[ArgumentV1; 0] = {
+    let mut _0: &[std::fmt::ArgumentV1; 0]; // return place in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    let mut _1: [std::fmt::ArgumentV1; 0]; // in scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+
+    bb0: {
+        _1 = [];                         // scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        _0 = &_1;                        // scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+        return;                          // scope 0 at /home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/std/src/macros.rs:96:28: 96:61
+    }
+}
+
+promoted[3] in main: &[&str; 1] = {
+    let mut _0: &[&str; 1];              // return place in scope 0 at secret_integers_usage/src/main.rs:8:14: 8:45
+    let mut _1: [&str; 1];               // in scope 0 at secret_integers_usage/src/main.rs:8:14: 8:45
+
+    bb0: {
+        _1 = [const "Please input a 8 byte message\n"]; // scope 0 at secret_integers_usage/src/main.rs:8:14: 8:45
+                                         // ty::Const
+                                         // + ty: &str
+                                         // + val: Value(Slice { data: Allocation { bytes: [80, 108, 101, 97, 115, 101, 32, 105, 110, 112, 117, 116, 32, 97, 32, 56, 32, 98, 121, 116, 101, 32, 109, 101, 115, 115, 97, 103, 101, 10], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [1073741823], len: Size { raw: 30 } }, size: Size { raw: 30 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 30 })
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/main.rs:8:14: 8:45
+                                         // + literal: Const { ty: &str, val: Value(Slice { data: Allocation { bytes: [80, 108, 101, 97, 115, 101, 32, 105, 110, 112, 117, 116, 32, 97, 32, 56, 32, 98, 121, 116, 101, 32, 109, 101, 115, 115, 97, 103, 101, 10], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [1073741823], len: Size { raw: 30 } }, size: Size { raw: 30 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 30 }) }
+        _0 = &_1;                        // scope 0 at secret_integers_usage/src/main.rs:8:14: 8:45
+        return;                          // scope 0 at secret_integers_usage/src/main.rs:8:14: 8:45
+    }
+}
+
+simple::encrypt::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at secret_integers_usage/src/simple.rs:20:38: 20:39
+
+    bb0: {
+        _0 = const 8_usize;              // scope 0 at secret_integers_usage/src/simple.rs:20:38: 20:39
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:20:38: 20:39
+    }
+}
+
+fn simple::get_secret_key() -> Vec<secret_integers::U8> {
+    let mut _0: std::vec::Vec<secret_integers::U8>; // return place in scope 0 at secret_integers_usage/src/simple.rs:14:28: 14:35
+    let _1: [u8; 8];                     // in scope 0 at secret_integers_usage/src/simple.rs:15:9: 15:21
+    let mut _2: &mut rand::prelude::ThreadRng; // in scope 0 at secret_integers_usage/src/simple.rs:15:24: 15:42
+    let mut _3: rand::prelude::ThreadRng; // in scope 0 at secret_integers_usage/src/simple.rs:15:24: 15:42
+    let mut _4: &[u8];                   // in scope 0 at secret_integers_usage/src/simple.rs:16:25: 16:38
+    let mut _5: &[u8; 8];                // in scope 0 at secret_integers_usage/src/simple.rs:16:25: 16:38
+    let _6: &[u8; 8];                    // in scope 0 at secret_integers_usage/src/simple.rs:16:25: 16:38
+    scope 1 {
+        debug random_bytes => _1;        // in scope 1 at secret_integers_usage/src/simple.rs:15:9: 15:21
+    }
+
+    bb0: {
+        StorageLive(_1);                 // scope 0 at secret_integers_usage/src/simple.rs:15:9: 15:21
+        StorageLive(_2);                 // scope 0 at secret_integers_usage/src/simple.rs:15:24: 15:42
+        StorageLive(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:15:24: 15:42
+        _3 = thread_rng() -> bb1;        // scope 0 at secret_integers_usage/src/simple.rs:15:24: 15:42
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:15:24: 15:40
+                                         // + literal: Const { ty: fn() -> rand::prelude::ThreadRng {rand::thread_rng}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _2 = &mut _3;                    // scope 0 at secret_integers_usage/src/simple.rs:15:24: 15:42
+        _1 = <ThreadRng as Rng>::gen::<[u8; 8]>(move _2) -> [return: bb2, unwind: bb5]; // scope 0 at secret_integers_usage/src/simple.rs:15:24: 15:59
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:15:43: 15:46
+                                         // + user_ty: UserType(0)
+                                         // + literal: Const { ty: for<'r> fn(&'r mut rand::prelude::ThreadRng) -> [u8; 8] {<rand::prelude::ThreadRng as rand::Rng>::gen::<[u8; 8]>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        StorageDead(_2);                 // scope 0 at secret_integers_usage/src/simple.rs:15:58: 15:59
+        drop(_3) -> bb3;                 // scope 0 at secret_integers_usage/src/simple.rs:15:59: 15:60
+    }
+
+    bb3: {
+        StorageDead(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:15:59: 15:60
+        StorageLive(_4);                 // scope 1 at secret_integers_usage/src/simple.rs:16:25: 16:38
+        StorageLive(_5);                 // scope 1 at secret_integers_usage/src/simple.rs:16:25: 16:38
+        StorageLive(_6);                 // scope 1 at secret_integers_usage/src/simple.rs:16:25: 16:38
+        _6 = &_1;                        // scope 1 at secret_integers_usage/src/simple.rs:16:25: 16:38
+        _5 = _6;                         // scope 1 at secret_integers_usage/src/simple.rs:16:25: 16:38
+        _4 = move _5 as &[u8] (Pointer(Unsize)); // scope 1 at secret_integers_usage/src/simple.rs:16:25: 16:38
+        StorageDead(_5);                 // scope 1 at secret_integers_usage/src/simple.rs:16:37: 16:38
+        _0 = classify_u8s(move _4) -> bb4; // scope 1 at secret_integers_usage/src/simple.rs:16:12: 16:39
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:16:12: 16:24
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::vec::Vec<secret_integers::U8> {simple::classify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        StorageDead(_4);                 // scope 1 at secret_integers_usage/src/simple.rs:16:38: 16:39
+        StorageDead(_6);                 // scope 1 at secret_integers_usage/src/simple.rs:16:39: 16:40
+        StorageDead(_1);                 // scope 0 at secret_integers_usage/src/simple.rs:17:1: 17:2
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:17:2: 17:2
+    }
+
+    bb5 (cleanup): {
+        drop(_3) -> bb6;                 // scope 0 at secret_integers_usage/src/simple.rs:15:59: 15:60
+    }
+
+    bb6 (cleanup): {
+        resume;                          // scope 0 at secret_integers_usage/src/simple.rs:14:1: 17:2
+    }
+}
+
+fn classify_u8s::{closure#0}(_1: &mut [closure@secret_integers_usage/src/simple.rs:6:18: 6:38], _2: &u8) -> secret_integers::U8 {
+    debug x => _2;                       // in scope 0 at secret_integers_usage/src/simple.rs:6:19: 6:20
+    let mut _0: secret_integers::U8;     // return place in scope 0 at secret_integers_usage/src/simple.rs:6:22: 6:22
+    let mut _3: u8;                      // in scope 0 at secret_integers_usage/src/simple.rs:6:35: 6:37
+
+    bb0: {
+        StorageLive(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:6:35: 6:37
+        _3 = (*_2);                      // scope 0 at secret_integers_usage/src/simple.rs:6:35: 6:37
+        _0 = secret_integers::U8::classify::<u8>(move _3) -> bb1; // scope 0 at secret_integers_usage/src/simple.rs:6:22: 6:38
+                                         // mir::Constant
+                                         // + span: secret_integers_usage/src/simple.rs:6:22: 6:34
+                                         // + user_ty: UserType(0)
+                                         // + literal: Const { ty: fn(u8) -> secret_integers::U8 {secret_integers::U8::classify::<u8>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        StorageDead(_3);                 // scope 0 at secret_integers_usage/src/simple.rs:6:37: 6:38
+        return;                          // scope 0 at secret_integers_usage/src/simple.rs:6:38: 6:38
+    }
+}
+
+main::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at secret_integers_usage/src/main.rs:10:29: 10:30
+
+    bb0: {
+        _0 = const 8_usize;              // scope 0 at secret_integers_usage/src/main.rs:10:29: 10:30
+        return;                          // scope 0 at secret_integers_usage/src/main.rs:10:29: 10:30
+    }
+}
