@@ -1,0 +1,10 @@
+[package]
+name = "rustc-boilerplate"
+version = "0.1.0"
+authors = []
+edition = "2018"
+
+[dependencies]
+# rustc-workspace-hack = "1.0.0"
+syn = { version = "1.0.60", features = ["parsing", "full", "extra-traits", "fold", "printing", "visit", "visit-mut"] }
+quote = "1.0.9"
