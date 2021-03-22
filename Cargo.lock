@@ -96,14 +96,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rustc-boilerplate"
-version = "0.1.0"
-dependencies = [
- "quote",
- "syn",
-]
-
-[[package]]
 name = "ryu"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
