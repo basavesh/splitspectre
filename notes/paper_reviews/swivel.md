@@ -1,6 +1,4 @@
-# Paper Summaries
-
-## Swivel
+# Swivel
 ### Abstract + Methodology
 This [paper](https://arxiv.org/pdf/2102.12730.pdf) proposes a compiler framework which provides strong in-process/in-memory isolation and hardening of spectre attacks against WebAssembly (Wasm). It provides two solutions, with probabilistic (ASLR + flush) or deterministic (rewrite?)
 1. Swivel Software Fault Isolation - a software based mechanism.
@@ -35,8 +33,11 @@ This [paper](https://arxiv.org/pdf/2102.12730.pdf) proposes a compiler framework
 3. Extends Google's `Safeside` suite to perform attacks.
 
 ### Results / Conclusion
-
-
-
+Swivel eliminates three kinds of Spectre attacks through CET + MPK and mitigates using SFI.
+Swivel-SFI has relatively less overhead than Swivel-CET.
 
 ### Limitations + Differentiation.
+- Swivel assumes that there will not be any secret information on the host.
+  - It expects the secrets to be moved to a sandbox. But how? We don't have that information.
+- Most of the time, it assumes that Hyperthreading is disabled. May be it is necessary for most of the defenses.
+- Doesn't solve Spectre-STL and many others. Didn't explore much though.
