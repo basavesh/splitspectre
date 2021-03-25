@@ -1,0 +1,3 @@
+[build]
+rustc = "/home/basavesh/research/rustStuff/splitspectre/secret_integers_usage/myrustc"
+incremental = false
