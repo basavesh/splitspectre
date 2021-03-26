@@ -41,3 +41,4 @@ Swivel-SFI has relatively less overhead than Swivel-CET.
   - It expects the secrets to be moved to a sandbox. But how? We don't have that information.
 - Most of the time, it assumes that Hyperthreading is disabled. May be it is necessary for most of the defenses.
 - Doesn't solve Spectre-STL and many others. Didn't explore much though.
+- It is strange that they completely omitted their Swivel-CET overhead in the conclusion.
