@@ -149,10 +149,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "split_functions"
-version = "0.1.0"
-
-[[package]]
 name = "split_prototype"
 version = "0.1.0"
 dependencies = [

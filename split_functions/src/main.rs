@@ -1,20 +1,24 @@
 // This is required to be able to use the rustc crates.
 #![feature(rustc_private)]
+#![feature(in_band_lifetimes)]
 
 // This is only required for the `rustc_*` crates. Regular dependencies can be used without it.
 extern crate rustc_driver;
 extern crate rustc_hir;
 extern crate rustc_interface;
 extern crate rustc_middle;
+extern crate rustc_span;
+extern crate rustc_session;
 
 use rustc_driver::{catch_with_exit_code, Callbacks, Compilation, RunCompiler};
+use rustc_hir::intravisit::{self, walk_expr, NestedVisitorMap, Visitor};
 use rustc_hir::itemlikevisit::ItemLikeVisitor;
 use rustc_hir::{ForeignItem, ImplItem, Item, ItemKind, TraitItem, TyKind};
 use rustc_interface::{Config, interface::Compiler, Queries};
-use rustc_middle::mir::TerminatorKind;
+// use rustc_middle::mir::TerminatorKind;
 use rustc_middle::ty::TyCtxt;
-
-// use rustc_middle::ty::TyKind;
+use rustc_middle::hir::map::Map;
+use rustc_session::Session;
 
 // Custom Compiler Callbacks
 pub(crate) struct CustomCallbacks;
@@ -33,19 +37,19 @@ impl Callbacks for CustomCallbacks {
         queries: &'tcx Queries<'tcx>
     ) -> Compilation {
 
-        // println!("Hello from rustc after analysis");
         compiler.session().abort_if_errors();
         let crate_name = queries.crate_name().unwrap().peek();
+
         // let us worry only about this crate
         if *crate_name == "secret_integers_usage" {
+            println!("Hello from rustc after analysis");
             queries.global_ctxt().unwrap().peek_mut().enter( |tcx|{
                 let hir = tcx.hir();
                 let krate = hir.krate();
-                let mut visitor = CustomVisitor {tcx};
-                krate.visit_all_item_likes(&mut visitor); // can be done in one line. change later.
+                let mut visitor = CustomVisitor {tcx, sess: tcx.sess};
+                krate.visit_all_item_likes(&mut visitor.as_deep_visitor()); // can be done in one line. change later.
             });
         }
-
 
         Compilation::Continue
     }
@@ -54,61 +58,53 @@ impl Callbacks for CustomCallbacks {
 
 struct CustomVisitor<'tcx> {
     tcx: TyCtxt<'tcx>,
+    sess: &'tcx Session,
 }
 
-impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomVisitor<'tcx> {
+impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
+    type Map = Map<'tcx>;
 
+    fn nested_visit_map(&mut self) -> intravisit::NestedVisitorMap<Self::Map> {
+        intravisit::NestedVisitorMap::OnlyBodies(self.tcx.hir())
+    }
 
-
-    fn visit_item(&mut self, item: &'hir Item<'hir>) {
-        // TODO: handle the type alias and stuff
-
-        fn does_this_has_secret_type(fn_decl: &rustc_hir::FnDecl) -> bool {
-            let mut result = false;
-
-            return result;
+    fn visit_expr(&mut self, expr: &'tcx rustc_hir::Expr<'tcx>) {
+        fn generated_code(sess: &'tcx Session, span: rustc_span::Span) -> bool {
+            if span.from_expansion() || span.is_dummy() {
+                return true;
+            }
+        
+            // code from rust/compiler/rustc_save_analysis/src/span_utils.rs
+            !sess.source_map().lookup_char_pos(span.lo()).file.is_real_file()
         }
 
-        // entry point like a function definition. even the main is one of them.
-        // So, we can start to sweep all the functions fist and see.
-        if let ItemKind::Fn(..) = item.kind {
-            println!("Function name: {:#?} and span: {:#?}", item.ident, item.span);
-            let def_id = self.tcx.hir().local_def_id(item.hir_id()).to_def_id();
-            println!("The def id is {:#?}", def_id);
-            if let Some(fn_decl) = self.tcx.hir().fn_decl_by_hir_id(item.hir_id()) {
-                if fn_decl.inputs.len() > 0 {
-                    if let TyKind::Rptr(_lifetime, mut_ty) = &fn_decl.inputs[0].kind {
-                        println!("{:#?}", mut_ty.ty);
+        if let rustc_hir::ExprKind::Call(exp, ..) = expr.kind {
+            if generated_code(self.sess, expr.span) {
+                return;
+            }
+
+            if let rustc_hir::ExprKind::Path(rustc_hir::QPath::Resolved(None, fn_path)) = exp.kind {
+                if let rustc_hir::def::Res::Def(_def_kind, def_id) = fn_path.res {
+                    println!("Function name is ");
+                    for seg in fn_path.segments {
+                        print!("{:?}", seg.ident.name);
                     }
+                    println!("\n and signature is {:#?}", self.tcx.fn_sig(def_id));
+
                 }
             }
-            // let mir = self.tcx.optimized_mir(def_id);
-            // for bb_data in mir.basic_blocks() {
-            //     match &bb_data.terminator.as_ref().unwrap().kind{
-            //         TerminatorKind::Call { func, .. } => {
-            //             let ty = func.ty(mir, self.tcx);
-            //             if let TyKind::FnDef(def_id, _) = ty.kind() {
-            //                 println!("{:?}", def_id);
-            //             }
-            //         }
-
-            //         _ => (),
-            //     }
-
-            // }
+            return;
         }
-    }
-    fn visit_trait_item(&mut self, _trait_item: &'hir TraitItem<'hir>) {}
-    fn visit_impl_item(&mut self, _impl_item: &'hir ImplItem<'hir>) {}
-    fn visit_foreign_item(&mut self, _foreign_item: &'hir ForeignItem<'hir>) {}
-}
 
+        intravisit::walk_expr(self, expr);
+    }
+
+}
 
 // Run the compiler with custom callbacks and return the exit status code.
 pub fn run_compiler(args: Vec<String>) -> i32 {
     catch_with_exit_code(move || RunCompiler::new(&args, &mut CustomCallbacks).run())
 }
-
 
 /// Adds the correct --sysroot option.
 fn sys_root() -> Vec<String> {

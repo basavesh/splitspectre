@@ -1,2 +1,2 @@
-#!/usr/bin/bash
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/basavesh/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib /home/basavesh/research/rustStuff/splitspectre/target/debug/split_functions "$@"
+#!/bin/zsh
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/ /Users/basaveshshivakumar/research/splitspectre/split_functions/target/debug/split_functions "$@"
