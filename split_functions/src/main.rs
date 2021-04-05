@@ -11,9 +11,9 @@ extern crate rustc_span;
 extern crate rustc_session;
 
 use rustc_driver::{catch_with_exit_code, Callbacks, Compilation, RunCompiler};
-use rustc_hir::intravisit::{self, walk_expr, NestedVisitorMap, Visitor};
-use rustc_hir::itemlikevisit::ItemLikeVisitor;
-use rustc_hir::{ForeignItem, ImplItem, Item, ItemKind, TraitItem, TyKind};
+use rustc_hir::intravisit::{self, Visitor};
+// use rustc_hir::itemlikevisit::ItemLikeVisitor;
+// use rustc_hir::{ForeignItem, ImplItem, Item, ItemKind, TraitItem, TyKind};
 use rustc_interface::{Config, interface::Compiler, Queries};
 // use rustc_middle::mir::TerminatorKind;
 use rustc_middle::ty::TyCtxt;
@@ -42,12 +42,20 @@ impl Callbacks for CustomCallbacks {
 
         // let us worry only about this crate
         if *crate_name == "secret_integers_usage" {
-            println!("Hello from rustc after analysis");
+            println!("Hello {}", crate_name);
             queries.global_ctxt().unwrap().peek_mut().enter( |tcx|{
                 let hir = tcx.hir();
                 let krate = hir.krate();
-                let mut visitor = CustomVisitor {tcx, sess: tcx.sess};
+                let mut visitor = CustomVisitor {tcx, sess: tcx.sess, secret: false};
                 krate.visit_all_item_likes(&mut visitor.as_deep_visitor()); // can be done in one line. change later.
+            });
+        } else if *crate_name == "secret_integers" {
+            println!("Hello {}", crate_name);
+            queries.global_ctxt().unwrap().peek_mut().enter( |tcx|{
+                let hir = tcx.hir();
+                let krate = hir.krate();
+                let mut visitor = CustomVisitor {tcx, sess: tcx.sess, secret: true};
+                krate.visit_all_item_likes(&mut visitor.as_deep_visitor()); 
             });
         }
 
@@ -59,6 +67,15 @@ impl Callbacks for CustomCallbacks {
 struct CustomVisitor<'tcx> {
     tcx: TyCtxt<'tcx>,
     sess: &'tcx Session,
+    secret: bool,
+}
+
+fn generated_code(sess: &'tcx Session, span: rustc_span::Span) -> bool {
+    if span.from_expansion() || span.is_dummy() {
+        return true;
+    }       
+    // code from rust/compiler/rustc_save_analysis/src/span_utils.rs
+    !sess.source_map().lookup_char_pos(span.lo()).file.is_real_file()
 }
 
 impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
@@ -69,13 +86,8 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
     }
 
     fn visit_expr(&mut self, expr: &'tcx rustc_hir::Expr<'tcx>) {
-        fn generated_code(sess: &'tcx Session, span: rustc_span::Span) -> bool {
-            if span.from_expansion() || span.is_dummy() {
-                return true;
-            }
-        
-            // code from rust/compiler/rustc_save_analysis/src/span_utils.rs
-            !sess.source_map().lookup_char_pos(span.lo()).file.is_real_file()
+        if self.secret {
+            return;
         }
 
         if let rustc_hir::ExprKind::Call(exp, ..) = expr.kind {
@@ -85,11 +97,15 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
 
             if let rustc_hir::ExprKind::Path(rustc_hir::QPath::Resolved(None, fn_path)) = exp.kind {
                 if let rustc_hir::def::Res::Def(_def_kind, def_id) = fn_path.res {
-                    println!("Function name is ");
-                    for seg in fn_path.segments {
-                        print!("{:?}", seg.ident.name);
-                    }
-                    println!("\n and signature is {:#?}", self.tcx.fn_sig(def_id));
+                    //println!("Function name is ");
+                    // for seg in fn_path.segments {
+                    //      print!("{:?}", seg.ident.name);
+                    // }
+                    let _inputs = self.tcx.fn_sig(def_id).inputs().skip_binder();
+                    // for input in inputs {
+                    //     println!("input type is {:?}", (**input).kind());
+                    // }
+                    // println!("\n and signature is {:#?}", self.tcx.fn_sig(def_id).inputs());
 
                 }
             }
@@ -97,6 +113,27 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
         }
 
         intravisit::walk_expr(self, expr);
+    }
+
+    fn visit_ty(&mut self, t: &'tcx rustc_hir::Ty<'tcx>) {
+        if !self.secret {
+            return;
+        }
+
+        if generated_code(self.sess, t.span) {
+            return;
+        }
+        if let rustc_hir::TyKind::Path(rustc_hir::QPath::Resolved(None, ty_path)) = t.kind {
+            if let rustc_hir::def::Res::PrimTy(..) = ty_path.res {
+                let x = self.tcx.type_of(t.hir_id.owner.to_def_id());
+                if let rustc_middle::ty::TyKind::Adt(_adt_def, ..) = x.kind() {
+                    // println!("Type name {:?} and info is {:#?}\n", 
+                    // adt_def.did, x.kind());
+                    return;
+                }
+            }
+        }
+        intravisit::walk_ty(self, t);
     }
 
 }
