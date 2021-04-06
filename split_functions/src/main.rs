@@ -18,7 +18,7 @@ use rustc_driver::{catch_with_exit_code, Callbacks, Compilation, RunCompiler};
 use rustc_hir::intravisit::{self, Visitor};
 // use rustc_hir::itemlikevisit::ItemLikeVisitor;
 // use rustc_hir::{ForeignItem, ImplItem, Item, ItemKind, TraitItem, TyKind};
-use rustc_interface::{Config, interface::Compiler, Queries};
+use rustc_interface::{interface::Compiler, Queries};
 // use rustc_middle::mir::TerminatorKind;
 use rustc_middle::ty::TyCtxt;
 use rustc_middle::hir::map::Map;
@@ -30,11 +30,11 @@ pub(crate) struct CustomCallbacks;
 
 impl Callbacks for CustomCallbacks {
 
-    // first callback the compiler driver calls
-    fn config(&mut self, config: &mut Config) {
-        // prevent the compiler from dropping the expanded AST
-        config.opts.debugging_opts.save_analysis = true;
-    }
+    // // first callback the compiler driver calls
+    // fn config(&mut self, config: &mut Config) {
+    //     // prevent the compiler from dropping the expanded AST
+    //     config.opts.debugging_opts.save_analysis = true;
+    // }
 
     fn after_analysis<'tcx>(
         &mut self,
@@ -81,8 +81,20 @@ struct CustomVisitor<'tcx> {
     tcx: TyCtxt<'tcx>,
     sess: &'tcx Session,
     secret: bool,
-    fn_defs: HashMap<rustc_span::def_id::DefId ,rustc_span::Span>,
-    fn_calls: HashMap<rustc_span::def_id::DefId , Vec<rustc_span::Span>>,
+    fn_defs: HashMap<rustc_span::def_id::DefId , FnDef>,
+    fn_calls: HashMap<rustc_span::def_id::DefId , Vec<FnCall<'tcx>>>,
+}
+
+#[derive(Debug)]
+struct FnDef {
+    ident: rustc_span::symbol::Ident,
+    span: rustc_span::Span,
+}
+
+#[derive(Debug)]
+struct FnCall<'tcx>{
+    span: rustc_span::Span,
+    segments: &'tcx [rustc_hir::PathSegment<'tcx>],
 }
 
 fn generated_code(sess: &'tcx Session, span: rustc_span::Span) -> bool {
@@ -117,11 +129,18 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
                     if fn_call_str.contains("secret_integers::U8") {
                         let def_id_clone = def_id.clone();
                         if self.fn_calls.contains_key(&def_id_clone) {
-                            self.fn_calls.get_mut(&def_id_clone).unwrap().push(expr.span);
-                            // self.fn_calls[&def_id_clone].push(expr.span);
+                            self.fn_calls.get_mut(&def_id_clone)
+                                            .unwrap()
+                                            .push(FnCall{
+                                                    segments: fn_path.segments,
+                                                    span: expr.span, 
+                                            });
                         } else {
-                            let vector = vec![expr.span];
-                            self.fn_calls.insert(def_id_clone, vector);
+                            self.fn_calls.insert(def_id_clone, 
+                                                 vec!(FnCall{
+                                                        segments: fn_path.segments, 
+                                                        span: expr.span
+                                                 }));
                         }
                     }
                 }
@@ -165,7 +184,7 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
             if fn_sig_str.contains("secret_integers::U8") {
                 let def_id = self.tcx.hir().local_def_id(item.hir_id()).to_def_id();
                 let span_info = item.span;
-                self.fn_defs.insert(def_id, span_info);
+                self.fn_defs.insert(def_id, FnDef{ident: item.ident, span:span_info});
             }
         }
         
