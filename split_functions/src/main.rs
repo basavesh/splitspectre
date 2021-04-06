@@ -58,7 +58,8 @@ impl Callbacks for CustomCallbacks {
                                     fn_calls: HashMap::new(),
                                 };
                 krate.visit_all_item_likes(&mut visitor.as_deep_visitor()); // can be done in one line. change later.
-                println!("{:#?}", visitor.fn_defs);
+                println!("\n\nFn_Defs:\n{:#?}\n", visitor.fn_defs);
+                println!("\n\nFn_Calls:\n{:#?}\n", visitor.fn_calls);
             });
         } 
         //     else if *crate_name == "secret_integers" {
@@ -123,17 +124,6 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
                             self.fn_calls.insert(def_id_clone, vector);
                         }
                     }
-
-                    //println!("Function name is ");
-                    // for seg in fn_path.segments {
-                    //      print!("{:?}", seg.ident.name);
-                    // }
-                    // let _inputs = self.tcx.fn_sig(def_id).inputs().skip_binder();
-                    // for input in inputs {
-                    //     println!("input type is {:?}", (**input).kind());
-                    // }
-                    // println!("\n and signature is {:#?}", self.tcx.fn_sig(def_id).inputs());
-
                 }
             }
             return;
@@ -142,6 +132,7 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
         intravisit::walk_expr(self, expr);
     }
 
+    // Planning to use this only for "secret_integers" library crate
     fn visit_ty(&mut self, t: &'tcx rustc_hir::Ty<'tcx>) {
         if !self.secret {
             return;
@@ -176,19 +167,6 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
                 let span_info = item.span;
                 self.fn_defs.insert(def_id, span_info);
             }
-            
-            // let x = fn_sig.inputs().into_iter();
-            // for ty in x {
-            //     let mut y = ty.walk();
-            //     loop {
-            //         if let Some(z) = y.next() {
-            //             println!("Experimenting {:?}", z);
-            //         } else {
-            //             break;
-            //         }
-                    
-            //     }
-            // }
         }
         
         intravisit::walk_item(self, item);
