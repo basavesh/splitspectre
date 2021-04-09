@@ -7,6 +7,7 @@
 
 // This is only required for the `rustc_*` crates. Regular dependencies can be used without it.
 extern crate rustc_driver;
+extern crate rustc_ast;
 extern crate rustc_hir;
 extern crate rustc_interface;
 extern crate rustc_middle;
@@ -30,12 +31,6 @@ pub(crate) struct CustomCallbacks;
 
 impl Callbacks for CustomCallbacks {
 
-    // // first callback the compiler driver calls
-    // fn config(&mut self, config: &mut Config) {
-    //     // prevent the compiler from dropping the expanded AST
-    //     config.opts.debugging_opts.save_analysis = true;
-    // }
-
     fn after_analysis<'tcx>(
         &mut self,
         compiler: &Compiler,
@@ -52,25 +47,30 @@ impl Callbacks for CustomCallbacks {
                 let hir = tcx.hir();
                 let krate = hir.krate();
                 let mut visitor = CustomVisitor {
-                                    tcx, sess: tcx.sess, 
-                                    secret: false, 
+                                    tcx, sess: tcx.sess,
+                                    secret: false,
                                     fn_defs: HashMap::new(),
                                     fn_calls: HashMap::new(),
                                 };
                 krate.visit_all_item_likes(&mut visitor.as_deep_visitor()); // can be done in one line. change later.
-                println!("\n\nFn_Defs:\n{:#?}\n", visitor.fn_defs);
-                println!("\n\nFn_Calls:\n{:#?}\n", visitor.fn_calls);
+                //println!("\n\nFn_Defs:\n{:#?}\n", visitor.fn_defs);
+                //println!("\n\nFn_Calls:\n{:#?}\n", visitor.fn_calls);
             });
-        } 
-        //     else if *crate_name == "secret_integers" {
-        //     println!("Hello {}", crate_name);
-        //     queries.global_ctxt().unwrap().peek_mut().enter( |tcx|{
-        //         let hir = tcx.hir();
-        //         let krate = hir.krate();
-        //         let mut visitor = CustomVisitor {tcx, sess: tcx.sess, secret: true};
-        //         krate.visit_all_item_likes(&mut visitor.as_deep_visitor()); 
-        //     });
-        // }
+        }
+            else if *crate_name == "secret_integers" {
+            println!("Hello {}", crate_name);
+            queries.global_ctxt().unwrap().peek_mut().enter( |tcx|{
+                let hir = tcx.hir();
+                let krate = hir.krate();
+                let mut visitor = CustomVisitor {
+                                    tcx, sess: tcx.sess,
+                                    secret: true,
+                                    fn_defs: HashMap::new(),
+                                    fn_calls: HashMap::new(),
+                                };
+                krate.visit_all_item_likes(&mut visitor.as_deep_visitor());
+            });
+        }
 
         Compilation::Continue
     }
@@ -100,7 +100,7 @@ struct FnCall<'tcx>{
 fn generated_code(sess: &'tcx Session, span: rustc_span::Span) -> bool {
     if span.from_expansion() || span.is_dummy() {
         return true;
-    }       
+    }
     // code from rust/compiler/rustc_save_analysis/src/span_utils.rs
     !sess.source_map().lookup_char_pos(span.lo()).file.is_real_file()
 }
@@ -133,12 +133,12 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
                                             .unwrap()
                                             .push(FnCall{
                                                     segments: fn_path.segments,
-                                                    span: expr.span, 
+                                                    span: expr.span,
                                             });
                         } else {
-                            self.fn_calls.insert(def_id_clone, 
+                            self.fn_calls.insert(def_id_clone,
                                                  vec!(FnCall{
-                                                        segments: fn_path.segments, 
+                                                        segments: fn_path.segments,
                                                         span: expr.span
                                                  }));
                         }
@@ -160,13 +160,15 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
         if generated_code(self.sess, t.span) {
             return;
         }
+
         if let rustc_hir::TyKind::Path(rustc_hir::QPath::Resolved(None, ty_path)) = t.kind {
-            if let rustc_hir::def::Res::PrimTy(..) = ty_path.res {
-                let x = self.tcx.type_of(t.hir_id.owner.to_def_id());
-                if let rustc_middle::ty::TyKind::Adt(_adt_def, ..) = x.kind() {
-                    // println!("Type name {:?} and info is {:#?}\n", 
-                    // adt_def.did, x.kind());
-                    return;
+            if let rustc_hir::def::Res::PrimTy(prim_ty) = ty_path.res {
+                match prim_ty {
+                    rustc_hir::PrimTy::Uint(rustc_ast::ast::UintTy::U8) => {
+                        // println!("Voila {:#?}", );
+                        // TODO this is the Secret_Integers::U8 type
+                    }
+                    _ => {}
                 }
             }
         }
@@ -187,7 +189,7 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
                 self.fn_defs.insert(def_id, FnDef{ident: item.ident, span:span_info});
             }
         }
-        
+
         intravisit::walk_item(self, item);
     }
 
