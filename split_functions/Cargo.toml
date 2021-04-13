@@ -8,3 +8,8 @@ edition = "2018"
 
 [dependencies]
 if_chain = "1.0.1"
+anyhow = "1.0.39"
+log = "0.4.1"
+
+[dev-dependencies]
+proptest = "1.0.0"
