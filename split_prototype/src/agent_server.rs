@@ -1,7 +1,6 @@
 use std::fs;
 use std::thread;
 use std::path::Path;
-use agent_common::*;
 use std::collections::HashMap;
 use std::io::{Read, Write, Error};
 use std::sync::{Arc, Mutex, RwLock};
@@ -10,8 +9,37 @@ use std::net::Shutdown;
 use secret_integers::*;
 use simple::*;
 
-pub mod agent_common;
 pub mod simple;
+
+use serde::{Serialize, Deserialize};
+
+pub static SOCKET_PATH: &'static str = "/tmp/loopback-socket";
+
+#[derive(Serialize, Deserialize, Debug)]
+pub enum MyRequest {
+    ReqGetSecretKey,
+    ReqEncrypt {
+        plaintext: Vec<u8>,
+        keyid: u64,
+    },
+    ReqDecrypt {
+        ciphertext: Vec<u8>,
+        keyid: u64,
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub enum MyResponse {
+    ResGetSecretKey {
+        keyid: u64,
+    },
+    ResEncrypt {
+        ciphertext: Vec<u8>,
+    },
+    ResDecrypt {
+        plaintext: Vec<u8>,
+    }
+}
 
 fn handle_client(mut stream: UnixStream, child_arc_keys_map: Arc<RwLock<HashMap<u64,
     Vec<U8>>>>, child_arc_counter: Arc<Mutex<u64>>) -> Result<(), Error> {

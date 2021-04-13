@@ -1,11 +1,9 @@
 use std::io;
-use agent_client::*;
-pub mod agent_client;
-pub mod agent_common;
+use agent_simple::*;
+pub mod agent_simple;
 
 fn main() {
     let secret_key: u64 = agent_get_secret_key().unwrap();
-    println!("Secret Key id is {}", secret_key);
     let mut buffer: String = String::new();
     println!("Please input a 8 byte message");
     let _ = io::stdin().read_line(&mut buffer);
