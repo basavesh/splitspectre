@@ -1,3 +1,4 @@
 [workspace]
 members = ["secret_integers_usage", "split_prototype"]
-exclude = ["old_stuff/basic_protocol", "old_stuff/sodium_oxide_usage", "old_stuff/syn_examples", "old_stuff/unix_domain_communication", "rustc-boilerplate", "split_functions"]
+exclude = ["old_stuff/basic_protocol", "old_stuff/sodium_oxide_usage", "old_stuff/syn_examples",
+            "old_stuff/unix_domain_communication", "old_stuff/rustc-boilerplate", "old_stuff/rustfix_usage", "split_functions"]
