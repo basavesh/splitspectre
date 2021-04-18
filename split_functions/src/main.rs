@@ -13,10 +13,12 @@ extern crate rustc_interface;
 extern crate rustc_middle;
 extern crate rustc_span;
 extern crate rustc_session;
+extern crate rustc_errors;
 extern crate if_chain;  // TODO convert some to if_chain!
 
 use rustc_driver::{catch_with_exit_code, Callbacks, Compilation, RunCompiler};
 use rustc_hir::intravisit::{self, Visitor};
+use rustc_errors::{Applicability, DiagnosticBuilder};
 // use rustc_hir::itemlikevisit::ItemLikeVisitor;
 // use rustc_hir::{ForeignItem, ImplItem, Item, ItemKind, TraitItem, TyKind};
 use rustc_interface::{interface::Compiler, Queries};
@@ -142,6 +144,11 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomVisitor<'tcx> {
                                                         span: expr.span
                                                  }));
                         }
+
+                        let mut diag = self.sess.struct_span_warn(expr.span, "Test this warning message");
+                        let snip = self.sess.source_map().span_to_snippet(expr.span).unwrap();
+                        diag.span_suggestion(expr.span, "try using agent_call here", format!("agent_{}", snip), Applicability::MachineApplicable);
+                        diag.emit();
                     }
                 }
             }
