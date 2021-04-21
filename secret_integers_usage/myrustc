@@ -1,2 +1,2 @@
 #!/bin/zsh
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/ /Users/basaveshshivakumar/research/splitspectre/myrustc/target/debug/myrustc "$@"
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(rustc --print sysroot)/lib/rustlib/aarch64-apple-darwin/lib/ /Users/basaveshshivakumar/research/splitspectre/myrustc/target/debug/myrustc "$@"
