@@ -17,20 +17,22 @@ extern crate rustc_span;
 extern crate rustc_session;
 extern crate rustc_errors;
 extern crate if_chain;
+extern crate rustc_hir_pretty;
 
 use rustc_driver::{catch_with_exit_code, Callbacks, Compilation, RunCompiler};
 use rustc_hir::intravisit::{self, NestedVisitorMap, Visitor};
 use rustc_errors::{Applicability, DiagnosticBuilder};
 use rustc_hir::itemlikevisit::ItemLikeVisitor;
-use rustc_hir::{ForeignItem, ImplItem, Item, ItemKind, TraitItem, TyKind};
+use rustc_hir::{ForeignItem, ImplItem, Item, ItemKind, TraitItem, TyKind, Stmt};
 use rustc_interface::{interface::Compiler, Queries};
 use rustc_middle::mir::TerminatorKind;
 use rustc_middle::ty::TyCtxt;
 use rustc_middle::hir::map::Map;
 use rustc_session::Session;
 use std::collections::HashMap;
+use rustc_hir_pretty::ty_to_string;
 
-/// Custom Compiler callbacks.format
+/// Custom Compiler callbacks
 pub(crate) struct CustomCallbacks;
 
 impl Callbacks for CustomCallbacks {
@@ -39,7 +41,6 @@ impl Callbacks for CustomCallbacks {
         compiler: &Compiler,
         queries: &'tcx Queries<'tcx>,
     ) -> Compilation {
-        // println!("Hello from rustc after analysis");
         compiler.session().abort_if_errors();
 
         let crate_name = queries.crate_name().unwrap().peek();
@@ -61,7 +62,6 @@ impl Callbacks for CustomCallbacks {
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
 
             for bid in item_visitor.body_ids {
-                // println!("Body ID: {:#?}", bid);
                 let mut deep_visitor = DeepVisitor {
                                                     tcx,
                                                     sess: tcx.sess,
@@ -69,7 +69,6 @@ impl Callbacks for CustomCallbacks {
                                                     fn_defs: HashMap::new(),
                                                     fn_calls: HashMap::new(),
                                                     };
-                //tcx.hir().krate().visit_all_item_likes(&mut deep_visitor.as_deep_visitor());
                 deep_visitor.visit_nested_body(bid);
 
             }
@@ -142,6 +141,21 @@ impl<'tcx> intravisit::Visitor<'tcx> for DeepVisitor<'tcx> {
         intravisit::NestedVisitorMap::OnlyBodies(self.tcx.hir())
     }
 
+    fn visit_stmt(&mut self, s: &'tcx Stmt<'tcx>) {
+
+        if let rustc_hir::StmtKind::Local(local) = s.kind {
+            if let Some(ty_info) = local.ty {
+                if ty_to_string(ty_info).contains("secret_integers::U8") {
+                    println!("You should not be using here");
+                    let mut diag = self.sess.struct_span_warn(ty_info.span, "Test this type warning message");
+                    diag.span_suggestion(ty_info.span, "try using u64 here", format!("u64"), Applicability::MachineApplicable);
+                    diag.emit();
+                }
+            }
+        }
+        intravisit::walk_stmt(self, s);
+    }
+
     fn visit_expr(&mut self, expr: &'tcx rustc_hir::Expr<'tcx>) {
         if self.secret_crate {
             return;
@@ -177,14 +191,12 @@ impl<'tcx> intravisit::Visitor<'tcx> for DeepVisitor<'tcx> {
                         let snip = self.sess.source_map().span_to_snippet(expr.span).unwrap();
                         diag.span_suggestion(expr.span, "try using agent_call here", format!("agent_{}", snip), Applicability::MachineApplicable);
                         diag.emit();
-                        return; // Don't go deeper inside this.
                     }
                 }
             }
-            return;
-        } else {
-            intravisit::walk_expr(self, expr);
         }
+
+        intravisit::walk_expr(self, expr);
     }
 }
 
