@@ -1,0 +1,20 @@
+[package]
+name = "split_tonic"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]] # Bin to run the HelloWorld gRPC server
+name = "tonic_server"
+path = "src/agent_server.rs"
+
+[dependencies]
+rand = "0.8.3"
+secret_integers = "0.1.6"
+tonic = "0.4.3"
+prost = "0.7"
+tokio = { version = "1.5.0", features = ["macros", "rt-multi-thread"] }
+
+[build-dependencies]
+tonic-build = "0.4.2"
