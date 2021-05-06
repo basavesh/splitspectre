@@ -13,7 +13,7 @@ message GetSecretKeyRequest {
 
 message GetSecretKeyResponse {
     // Return the keyid of the secret type.
-    uint64 keyid = 1;
+    uint64 result = 1;
 }
 
 message EncryptRequest {
@@ -22,7 +22,7 @@ message EncryptRequest {
 }
 
 message EncryptResponse {
-    bytes cipher = 1;
+    bytes result = 1;
 }
 
 message DecryptRequest {
@@ -31,6 +31,6 @@ message DecryptRequest {
 }
 
 message DecryptResponse {
-    bytes msg = 1;
+    bytes result = 1;
 }
 

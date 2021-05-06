@@ -9,7 +9,7 @@ pub async fn agent_get_secret_key() -> u64 {
     let mut client = AgentClient::connect("http://127.0.0.1:50051").await.unwrap();
     let request = tonic::Request::new(GetSecretKeyRequest {});
     let response = client.get_secret_key(request).await.unwrap().into_inner();
-    return response.keyid;
+    return response.result;
 }
 
 pub async fn agent_encrypt(msg: &[u8], sk: &u64) -> Vec<u8> {
@@ -19,7 +19,7 @@ pub async fn agent_encrypt(msg: &[u8], sk: &u64) -> Vec<u8> {
         keyid: *sk,
     });
     let response = client.encrypt(request).await.unwrap().into_inner();
-    return response.cipher;
+    return response.result;
 }
 
 pub async fn agent_decrypt(cipher: &[u8], sk: &u64) -> Vec<u8> {
@@ -29,6 +29,6 @@ pub async fn agent_decrypt(cipher: &[u8], sk: &u64) -> Vec<u8> {
         keyid: *sk,
     });
     let response = client.decrypt(request).await.unwrap().into_inner();
-    return response.msg;
+    return response.result;
 }
 

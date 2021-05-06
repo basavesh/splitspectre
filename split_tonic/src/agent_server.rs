@@ -32,7 +32,7 @@ impl Agent for MyAgent {
             *num += 1;
             write_guard.insert(*num, simple::get_secret_key());
             let response = GetSecretKeyResponse {
-                keyid: *num,
+                result: *num,
             };
 
             return Ok(Response::new(response));
@@ -54,7 +54,7 @@ impl Agent for MyAgent {
                 let sk = &read_guard[&request.keyid];
                 let new_block = simple::encrypt(&request.msg, &sk);
                 let response = EncryptResponse {
-                    cipher: new_block,
+                    result: new_block,
                 };
 
                 return Ok(Response::new(response));
@@ -78,7 +78,7 @@ impl Agent for MyAgent {
                 let sk = &read_guard[&request.keyid];
                 let new_block = simple::decrypt(&request.cipher, &sk);
                 let response = DecryptResponse {
-                    msg: new_block,
+                    result: new_block,
                 };
 
                 return Ok(Response::new(response));
