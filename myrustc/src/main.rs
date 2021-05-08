@@ -36,6 +36,11 @@ use rustc_hir_pretty::ty_to_string;
 pub(crate) struct CustomCallbacks;
 
 impl Callbacks for CustomCallbacks {
+
+    fn config(&mut self, config: &mut rustc_interface::interface::Config) {
+        config.opts.debugging_opts.save_analysis = true;
+    }
+
     fn after_analysis<'tcx>(
         &mut self,
         compiler: &Compiler,
