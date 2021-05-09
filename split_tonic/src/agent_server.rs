@@ -104,6 +104,8 @@ impl Agent for MyAgent {
     ) -> Result<Response<DecryptResponse>, Status> {
         println!("Got a decrypt Request");
 
+        // If the callee signature doesn't return a secret type,
+        // I should just take the read lock
         if let Ok(read_guard) = self.keys_map.read() {
             let request = request.into_inner();
 

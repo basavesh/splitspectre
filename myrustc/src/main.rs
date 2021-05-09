@@ -63,20 +63,10 @@ impl Callbacks for CustomCallbacks {
                                                 secret_crate,
                                                 inside_secret_fn: false,
                                                 body_ids: Vec::new(),
+                                                fn_defs: HashMap::new(),
+                                                fn_calls: HashMap::new(),
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
-
-            for bid in item_visitor.body_ids {
-                let mut deep_visitor = DeepVisitor {
-                                                    tcx,
-                                                    sess: tcx.sess,
-                                                    secret_crate,
-                                                    fn_defs: HashMap::new(),
-                                                    fn_calls: HashMap::new(),
-                                                    };
-                deep_visitor.visit_nested_body(bid);
-
-            }
         });
         Compilation::Continue
     }
@@ -96,6 +86,8 @@ struct CustomItemVisitor<'tcx> {
     secret_crate: bool,
     inside_secret_fn: bool,
     body_ids: Vec<rustc_hir::BodyId>,
+    fn_defs: HashMap<rustc_span::def_id::DefId , FnDef>,
+    fn_calls: HashMap<rustc_span::def_id::DefId , Vec<FnCall<'tcx>>>,
 }
 
 impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
@@ -105,26 +97,20 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
                             .local_def_id(item.hir_id()).to_def_id();
             let fn_call_sig = self.tcx.fn_sig(def_id);
             let fn_call_str = fn_call_sig.to_string();
+            println!("The function signature is {:?}", fn_call_str);
             if fn_call_str.contains("secret_integers::U8") {
                 // This function should be moved to `trusted` process.
                 println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());
             } else {
                 // walk this body and check function / method calls.
-                self.body_ids.push(body_id);
+                // self.body_ids.push(body_id);
+                self.visit_nested_body(body_id);
             }
         }
     }
     fn visit_trait_item(&mut self, _trait_item: &'hir TraitItem<'hir>) {}
     fn visit_impl_item(&mut self, _impl_item: &'hir ImplItem<'hir>) {}
     fn visit_foreign_item(&mut self, _foreign_item: &'hir ForeignItem<'hir>) {}
-}
-
-struct DeepVisitor<'tcx> {
-    tcx: TyCtxt<'tcx>,
-    sess: &'tcx Session,
-    secret_crate: bool,
-    fn_defs: HashMap<rustc_span::def_id::DefId , FnDef>,
-    fn_calls: HashMap<rustc_span::def_id::DefId , Vec<FnCall<'tcx>>>,
 }
 
 #[derive(Debug)]
@@ -139,7 +125,7 @@ struct FnCall<'tcx>{
     segments: &'tcx [rustc_hir::PathSegment<'tcx>],
 }
 
-impl<'tcx> intravisit::Visitor<'tcx> for DeepVisitor<'tcx> {
+impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
     type Map = Map<'tcx>;
 
     fn nested_visit_map(&mut self) -> intravisit::NestedVisitorMap<Self::Map> {
