@@ -17,7 +17,7 @@ message GetSecretKeyResponse {
 }
 
 message EncryptRequest {
-    bytes msg = 1;      // PlainText
+    bytes arg1 = 1;      // PlainText
     uint64 keyid = 2;   // Secret KeyId
 }
 
@@ -26,7 +26,7 @@ message EncryptResponse {
 }
 
 message DecryptRequest {
-    bytes cipher = 1;
+    bytes arg1 = 1;
     uint64 keyid = 2;
 }
 

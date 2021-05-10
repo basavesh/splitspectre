@@ -520,6 +520,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "rustc-workspace-hack"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fc71d2faa173b74b232dedc235e3ee1696581bb132fc116fa3626d6151a1a8fb"
+
+[[package]]
 name = "secret_integers"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -547,6 +553,7 @@ version = "0.1.0"
 dependencies = [
  "prost",
  "rand",
+ "rustc-workspace-hack",
  "secret_integers",
  "tokio",
  "tonic",

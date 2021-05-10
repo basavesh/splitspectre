@@ -24,8 +24,8 @@ fn gen_agent_client () {
     scope.new_module("splitspectre").vis("pub").push_raw("tonic::include_proto!(\"splitspectre\");");
 
     agent_client_fn_return(&mut scope, "GetSecretKeyRequest {}", "get_secret_key", "u64");
-    agent_client_fn_return(&mut scope, "EncryptRequest { msg: msg.to_vec(), keyid: *sk}", "encrypt", "Vec<u8>");
-    agent_client_fn_return(&mut scope, "DecryptRequest { cipher: cipher.to_vec(), keyid: *sk}", "decrypt", "Vec<u8>");
+    agent_client_fn_return(&mut scope, "EncryptRequest { arg1: arg1.to_vec(), keyid: *arg2,}", "encrypt", "Vec<u8>");
+    agent_client_fn_return(&mut scope, "DecryptRequest { arg1: arg1.to_vec(), keyid: *arg2,}", "decrypt", "Vec<u8>");
 
     println!("{}", scope.to_string());
 }
@@ -121,8 +121,8 @@ fn gen_proto_file() {
 }
 
 fn main() {
-    gen_agent_client();
+    // gen_agent_client();
     //println!();
-    //agent_server_impl();
+    agent_server_impl();
     //gen_proto_file();
 }

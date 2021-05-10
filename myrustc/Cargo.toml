@@ -8,6 +8,7 @@ edition = "2018"
 [dependencies]
 if_chain = "1.0.1"
 rustc-workspace-hack = "1.0.0"
+heck = "0.3.2"
 
 
 [package.metadata.rust-analyzer]

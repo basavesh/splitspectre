@@ -32,6 +32,8 @@ use rustc_session::Session;
 use std::collections::HashMap;
 use rustc_hir_pretty::ty_to_string;
 
+use heck::CamelCase;
+
 /// Custom Compiler callbacks
 pub(crate) struct CustomCallbacks;
 
@@ -96,10 +98,11 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
             let def_id = self.tcx.hir()
                             .local_def_id(item.hir_id()).to_def_id();
             let fn_call_sig = self.tcx.fn_sig(def_id);
-            println!("The fn_sig input(s) {:#?}", fn_call_sig.skip_binder().inputs());
-            println!("The fn_sig input(s) {:#?}", fn_call_sig.skip_binder().output());
+            // println!("The fn_sig input(s) {:#?}", fn_call_sig.skip_binder().inputs());
+            // println!("The fn_sig input(s) {:#?}", fn_call_sig.skip_binder().output());
 
             let fn_call_str = fn_call_sig.to_string();
+            // println!("Function name is {}", item.ident.name.to_ident_string());
             // println!("The function signature is {:?}", fn_call_str);
             if fn_call_str.contains("secret_integers::U8") {
                 // This function should be moved to `trusted` process.
@@ -140,7 +143,6 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
         if let rustc_hir::StmtKind::Local(local) = s.kind {
             if let Some(ty_info) = local.ty {
                 if ty_to_string(ty_info).contains("secret_integers::U8") {
-                    println!("You should not be using here");
                     let mut diag = self.sess.struct_span_warn(ty_info.span, "Test this type warning message");
                     diag.span_suggestion(ty_info.span, "try using u64 here", format!("u64"), Applicability::MachineApplicable);
                     diag.emit();
@@ -162,9 +164,19 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
 
             if let rustc_hir::ExprKind::Path(rustc_hir::QPath::Resolved(None, fn_path)) = exp.kind {
                 if let rustc_hir::def::Res::Def(_def_kind, def_id) = fn_path.res {
-                    let fn_call_sig = self.tcx.fn_sig(def_id);
+                    let fn_call_sig = self.tcx.fn_sig(def_id).skip_binder();
                     let fn_call_str = format!("{}", fn_call_sig);
                     if fn_call_str.contains("secret_integers::U8") {
+
+                        let fn_name: String = self.sess.source_map()
+                                                    .span_to_snippet(expr.span)
+                                                    .unwrap().split("(")
+                                                    .collect::<Vec<&str>>()[0].to_string();
+                        println!("\n\nThe function name Original: {} and CamelCase: {}", fn_name, fn_name.to_camel_case());
+                        let fn_inputs = fn_call_sig.inputs();
+                        println!("The function inputs are {:#?}", fn_inputs);
+                        let fn_output = fn_call_sig.output();
+                        println!("The function output is {:#?}", fn_output);
                         let def_id_clone = def_id.clone();
                         if self.fn_calls.contains_key(&def_id_clone) {
                             self.fn_calls.get_mut(&def_id_clone)

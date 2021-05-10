@@ -85,7 +85,7 @@ impl Agent for MyAgent {
 
             if read_guard.contains_key(&request.keyid) {
                 let sk = &read_guard[&request.keyid];
-                let new_block = simple::encrypt(&request.msg, &sk);
+                let new_block = simple::encrypt(&request.arg1, &sk);
                 let response = EncryptResponse {
                     result: new_block,
                 };
@@ -111,7 +111,7 @@ impl Agent for MyAgent {
 
             if read_guard.contains_key(&request.keyid) {
                 let sk = &read_guard[&request.keyid];
-                let new_block = simple::decrypt(&request.cipher, &sk);
+                let new_block = simple::decrypt(&request.arg1, &sk);
                 let response = DecryptResponse {
                     result: new_block,
                 };
