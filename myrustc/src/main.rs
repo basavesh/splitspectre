@@ -96,8 +96,11 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
             let def_id = self.tcx.hir()
                             .local_def_id(item.hir_id()).to_def_id();
             let fn_call_sig = self.tcx.fn_sig(def_id);
+            println!("The fn_sig input(s) {:#?}", fn_call_sig.skip_binder().inputs());
+            println!("The fn_sig input(s) {:#?}", fn_call_sig.skip_binder().output());
+
             let fn_call_str = fn_call_sig.to_string();
-            println!("The function signature is {:?}", fn_call_str);
+            // println!("The function signature is {:?}", fn_call_str);
             if fn_call_str.contains("secret_integers::U8") {
                 // This function should be moved to `trusted` process.
                 println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());

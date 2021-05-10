@@ -15,3 +15,7 @@ rand = "0.8.3"
 secret_integers = "0.1.6"
 syn = { version = "1.0.60", features = ["parsing", "full", "extra-traits", "fold", "printing", "visit", "visit-mut"] }
 quote = "1.0.9"
+rustc-workspace-hack = "1.0.0"
+
+[package.metadata.rust-analyzer]
+rustc_private = true

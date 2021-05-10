@@ -7,3 +7,8 @@ edition = "2018"
 
 [dependencies]
 if_chain = "1.0.1"
+rustc-workspace-hack = "1.0.0"
+
+
+[package.metadata.rust-analyzer]
+rustc_private = true

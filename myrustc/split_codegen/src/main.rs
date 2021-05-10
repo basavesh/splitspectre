@@ -2,23 +2,33 @@
 use codegen::Scope;
 
 // Need to handle cases later
-fn agent_client_fn_return() {
-    let mut scope = Scope::new();
+fn agent_client_fn_return(scope: &mut Scope, request: &str, fn_name: &str, ret: &str) {
     let addr = "http://127.0.0.1:50051";
-    let request = "GetSecretKeyRequest {}";
-    let fn_name = "get_secret_key";
+
     scope
-        .new_fn("agent_get_secret_key")
+        .new_fn(format!("agent_{}",fn_name).as_str())
         .vis("pub")
         .set_async(true)
-        .ret("u64")
-        .line(format!("let mut client = AgentClient::connect(\"{}\").await.unwrap();", addr))
+        .ret(ret)
+        .line(format!("let mut client = agent_client::AgentClient::connect(\"{}\").await.unwrap();", addr))
         .line(format!("let request = tonic::Request::new({});", request))
         .line(format!("let response = client.{}(request).await.unwrap().into_inner();", fn_name))
-        .line(format!("return response.result"));
-        println!("{}", scope.to_string());
+        .line(format!("return response.result;"));
 }
 
+fn gen_agent_client () {
+
+    let mut scope = Scope::new();
+
+    scope.import("splitspectre", "*");
+    scope.new_module("splitspectre").vis("pub").push_raw("tonic::include_proto!(\"splitspectre\");");
+
+    agent_client_fn_return(&mut scope, "GetSecretKeyRequest {}", "get_secret_key", "u64");
+    agent_client_fn_return(&mut scope, "EncryptRequest { msg: msg.to_vec(), keyid: *sk}", "encrypt", "Vec<u8>");
+    agent_client_fn_return(&mut scope, "DecryptRequest { cipher: cipher.to_vec(), keyid: *sk}", "decrypt", "Vec<u8>");
+
+    println!("{}", scope.to_string());
+}
 
 // Server case is little complicated
 fn agent_server_impl () {
@@ -93,8 +103,26 @@ fn agent_server_impl () {
     println!("{}", scope.to_string());
 }
 
+fn gen_proto_file() {
+
+    let mut scope = Scope::new();
+    scope
+        .new_struct("GetSecretKeyRequest")
+        .derive("Serialize")
+        .derive("Deserialize");
+    scope
+        .new_struct("GetSecretKeyResponse")
+        .derive("Serialize")
+        .derive("Deserialize")
+        .field("result", "uint64");
+
+    println!("{}", scope.to_string());
+
+}
+
 fn main() {
-    //agent_client_fn_return();
+    gen_agent_client();
     //println!();
-    agent_server_impl();
+    //agent_server_impl();
+    //gen_proto_file();
 }
