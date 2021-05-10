@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-use codegen::Scope;
+use codegen::*;
 
 // Need to handle cases later
 fn agent_client_fn_return(scope: &mut Scope, request: &str, fn_name: &str, ret: &str) {
@@ -30,99 +30,74 @@ fn gen_agent_client () {
     println!("{}", scope.to_string());
 }
 
-// Server case is little complicated
-fn agent_server_impl () {
-    let mut scope = Scope::new();
-    scope.import("tonic", "Request");
-    scope.import("tonic", "Response");
-    scope.import("tonic", "Status");
-    scope.import("tonic::transport", "Server");
-    let my_struct = scope.new_struct("MyAgent");
-    my_struct.field("keys_map", "Arc<RwLock<HashMap<u64, Vec<U8>>>>");
-    my_struct.field("counter", "Arc<Mutex<u64>>");
-    let imp = scope.new_impl("MyAgent");
-    imp.impl_trait("Agent");
-    imp.r#macro("#[tonic::async_trait]");
-
-    // Make this a function.
-    {
-        let my_fn = imp.new_fn("get_secret_key");
-        let req_param = "GetSecretKeyRequest";
-        let res_param = "GetSecretKeyResponse";
-        my_fn
-            .set_async(true)
-            .arg_ref_self()
-            .arg("request", req_param)
-            .ret(format!("Result<Response<{}, Status>", res_param));
-    }
-
-    // Make this a function
-    {
-        let my_fn = imp.new_fn("encrypt");
-        let req_param = "EncryptRequest";
-        let res_param = "EncryptResponse";
-        my_fn
-            .set_async(true)
-            .arg_ref_self()
-            .arg("request", req_param)
-            .ret(format!("Result<Response<{}, Status>", res_param));
-    }
-
-    // Make this a function
-    {
-        let my_fn = imp.new_fn("encrypt");
-        let req_param = "EncryptRequest";
-        let res_param = "EncryptResponse";
-        my_fn
-            .set_async(true)
-            .arg_ref_self()
-            .arg("request", req_param)
-            .ret(format!("Result<Response<{}, Status>", res_param));
-    }
-
-    // Make this a different function
-    {
-        let my_fn = imp.new_fn("main");
-        my_fn
-            .set_async(true)
-            .attr("tokio::main")
-            .ret("Result<(), Box<dyn std::error::Error>>")
-            .line("let addr = \"127.0.0.1:50051\".parse()?;")
-            .line("let agent = MyAgent {")
-            .line("    keys_map: Arc::new(RwLock::new(HashMap::new())),")
-            .line("    counter: Arc::new(Mutex::new(0)),")
-            .line("};")
-            .line("Server::builder()")
-            .line("    .add_service(AgentServer::new(agent))")
-            .line("    .serve(addr).await?;\n")
-            .line("Ok(())");
-
-
-    }
-
-    println!("{}", scope.to_string());
+fn agent_server_fn_return(imp: &mut Impl, fn_name: &str, request: &str, response: &str) {
+    imp
+        .new_fn(fn_name)
+        .set_async(true)
+        .arg_ref_self()
+        .arg("request", request)
+        .ret(format!("Result<Response<{}, Status>", response));
 }
 
-fn gen_proto_file() {
+// Server case is little complicated
+fn agent_server_impl(scope: &mut Scope) {
+    // MyAgent Struct
+    scope
+        .new_struct("MyAgent")
+        .derive("Debug")
+        .derive("Default")
+        .field("keys_map", "Arc<RwLock<HashMap<u64, Vec<U8>>>>")
+        .field("counter", "Arc<Mutex<u64>>");
+    let imp = scope.new_impl("MyAgent");
+    imp.impl_trait("agent_server::Agent");
+    imp.r#macro("#[tonic::async_trait]");
 
+    agent_server_fn_return(imp,"get_secret_key", "GetSecretKey", "GetSecretKeyResponse");
+    agent_server_fn_return(imp, "encrypt", "EncryptRequest", "EncryptResponse");
+    agent_server_fn_return(imp, "decrypt", "DecryptRequest", "DecryptResponse");
+
+}
+
+fn agent_server_imports_and_modules(scope: &mut Scope) {
+    scope.import("tonic", "*");
+    scope.import("splitspectre", "*");
+    scope.import("secret_integers", "*");
+    scope.import("std::sync", "*");
+    scope.import("std::collections", "HashMap");
+    scope.new_module("splitspectre").vis("pub").push_raw("tonic::include_proto!(\"splitspectre\");");
+
+    // This is something not standard
+    scope.raw("pub mod simple;");
+}
+
+fn agent_server_classify_declassify(scope: &mut Scope) {
+    // classify
+    scope
+        .new_fn("classify_u8s")
+        .attr("allow(dead_code)")
+        .arg("v", "&[u8]")
+        .ret("Vec<U8>")
+        .line("v.iter().map(|x| U8::classify(*x)).collect()");
+    scope
+        .new_fn("declassify_u8s")
+        .attr("allow(dead_code)")
+        .arg("v", "&[U8]")
+        .ret("Vec<u8>")
+        .line("v.iter().map(|x| U8::declassify(*x)).collect()");
+}
+
+fn gen_agent_server() {
     let mut scope = Scope::new();
-    scope
-        .new_struct("GetSecretKeyRequest")
-        .derive("Serialize")
-        .derive("Deserialize");
-    scope
-        .new_struct("GetSecretKeyResponse")
-        .derive("Serialize")
-        .derive("Deserialize")
-        .field("result", "uint64");
+    agent_server_imports_and_modules(&mut scope);
+    agent_server_classify_declassify(&mut scope);
+    agent_server_impl(&mut scope);
 
     println!("{}", scope.to_string());
-
 }
 
 fn main() {
     // gen_agent_client();
     //println!();
-    agent_server_impl();
-    //gen_proto_file();
+    gen_agent_server();
+    //gen_agent_server_impl();
 }

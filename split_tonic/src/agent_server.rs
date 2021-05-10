@@ -1,10 +1,8 @@
-#![allow(dead_code)]
-use tonic::{transport::Server, Request, Response, Status};
-use splitspectre::agent_server::{Agent, AgentServer};
+//#![allow(dead_code)]
+use tonic::*;
 use splitspectre::*;
-
 use secret_integers::*;
-use std::sync::{Arc, Mutex, RwLock};
+use std::sync::*;
 use std::collections::HashMap;
 
 pub mod simple;
@@ -15,23 +13,25 @@ pub mod splitspectre {
 }
 
 /// classify vector of u8s into U8s
+#[allow(dead_code)]
 fn classify_u8s(v: &[u8]) -> Vec<U8> {
     v.iter().map(|x| U8::classify(*x)).collect()
 }
 
 /// declassify vector of U8s into u8s
+#[allow(dead_code)]
 fn declassify_u8s(v: &[U8]) -> Vec<u8> {
     v.iter().map(|x| U8::declassify(*x)).collect()
 }
 
 #[derive(Debug, Default)]
-pub struct MyAgent {
+struct MyAgent {
     keys_map: Arc<RwLock<HashMap<u64, Vec<U8>>>>,
     counter: Arc<Mutex<u64>>,
 }
 
 #[tonic::async_trait]
-impl Agent for MyAgent {
+impl agent_server::Agent for MyAgent {
     async fn get_secret_key(
         &self,
         _request: Request<GetSecretKeyRequest>, // No param request
@@ -126,18 +126,14 @@ impl Agent for MyAgent {
 }
 
 #[tokio::main]
-async fn main () -> Result<(), Box<dyn std::error::Error>>{
-
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "127.0.0.1:50051".parse()?;
     let agent = MyAgent {
         keys_map: Arc::new(RwLock::new(HashMap::new())),
         counter: Arc::new(Mutex::new(0)),
     };
-
-    Server::builder()
-        .add_service(AgentServer::new(agent))
-        .serve(addr)
-        .await?;
-
+    transport::Server::builder()
+        .add_service(agent_server::AgentServer::new(agent))
+        .serve(addr).await?;
     Ok(())
 }
