@@ -50,6 +50,10 @@ impl agent_server::Agent for MyAgent {
         if let Ok(mut write_guard) = self.keys_map.write() {
             for (k, v) in write_guard.iter() {
                 // To compare, should declassify secrets
+                // XXXXXXX Do we want to de-duplicate the data here 
+                // Idea 1: more constant time comparison
+                // Idea 2: don't do this, just create a new (key, val)
+                // Idea 3: use another hashmap
                 if declassify_u8s(v) == declassify_u8s(&call_result) {
                     // time to return the result
                     // we already have the key for this

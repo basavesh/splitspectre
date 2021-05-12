@@ -9,6 +9,7 @@ edition = "2018"
 if_chain = "1.0.1"
 rustc-workspace-hack = "1.0.0"
 heck = "0.3.2"
+codegen = { git = "https://github.com/basavesh/codegen.git"}
 
 
 [package.metadata.rust-analyzer]

@@ -16,7 +16,7 @@ fn agent_client_fn_return(scope: &mut Scope, request: &str, fn_name: &str, ret: 
         .line(format!("return response.result;"));
 }
 
-fn gen_agent_client () {
+pub fn gen_agent_client () {
 
     let mut scope = Scope::new();
 
@@ -93,11 +93,4 @@ fn gen_agent_server() {
     agent_server_impl(&mut scope);
 
     println!("{}", scope.to_string());
-}
-
-fn main() {
-    // gen_agent_client();
-    //println!();
-    gen_agent_server();
-    //gen_agent_server_impl();
 }

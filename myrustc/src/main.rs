@@ -34,6 +34,9 @@ use rustc_hir_pretty::ty_to_string;
 
 use heck::CamelCase;
 
+pub mod lib;
+use lib::*;
+
 /// Custom Compiler callbacks
 pub(crate) struct CustomCallbacks;
 
@@ -69,6 +72,7 @@ impl Callbacks for CustomCallbacks {
                                                 fn_calls: HashMap::new(),
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
+            lib::gen_agent_client();
         });
         Compilation::Continue
     }
