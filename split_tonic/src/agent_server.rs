@@ -27,7 +27,7 @@ fn declassify_u8s(v: &[U8]) -> Vec<u8> {
 
 #[derive(Debug, Default)]
 struct MyAgent {
-    keys_map: Arc<RwLock<HashMap<u64, Vec<U8>>>>,
+    keys_map: Arc<Mutex<HashMap<u64, Vec<U8>>>>,
     counter: Arc<Mutex<u64>>,
 }
 
@@ -53,7 +53,7 @@ impl agent_server::Agent for MyAgent {
         // Idea 3: use another hashmap
         let call_result = get_secret_key();
 
-        if let Ok(mut write_guard) = self.keys_map.write() {
+        if let Ok(mut write_guard) = self.keys_map.lock() {
             // time to create a new keyid
             let mut num = self.counter.lock().unwrap();
             *num += 1;
@@ -74,7 +74,7 @@ impl agent_server::Agent for MyAgent {
 
         // If the callee signature doesn't return a secret type,
         // I should just take the read lock
-        if let Ok(read_guard) = self.keys_map.read() {
+        if let Ok(read_guard) = self.keys_map.lock() {
             let request = request.into_inner();
 
             if read_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
@@ -100,7 +100,7 @@ impl agent_server::Agent for MyAgent {
 
         // If the callee signature doesn't return a secret type,
         // I should just take the read lock
-        if let Ok(read_guard) = self.keys_map.read() {
+        if let Ok(read_guard) = self.keys_map.lock() {
             let request = request.into_inner();
 
             if read_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
@@ -123,7 +123,7 @@ impl agent_server::Agent for MyAgent {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "127.0.0.1:50051".parse()?;
     let agent = MyAgent {
-        keys_map: Arc::new(RwLock::new(HashMap::new())),
+        keys_map: Arc::new(Mutex::new(HashMap::new())),
         counter: Arc::new(Mutex::new(0)),
     };
     transport::Server::builder()
