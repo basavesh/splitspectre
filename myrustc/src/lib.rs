@@ -122,7 +122,7 @@ pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
             fn_ret = fn_ret.replace("[secret_integers::U8]", "u64");
             fn_ret = fn_ret.replace("std::vec::Vec<secret_integers::U8>", "u64");
         }
-        agent_client_fn_return(&mut scope, fn_name.as_str(), fn_args, &request, fn_ret.as_str(), ret_secret);
+        agent_client_fn_return(&mut scope, &fn_name, fn_args, &request, &fn_ret, ret_secret);
     }
     println!("{}", scope.to_string());
 }
@@ -137,7 +137,7 @@ fn agent_server_fn_return(imp: &mut Impl, fn_name: &str, request: &str, response
 }
 
 // Server case is little complicated
-fn agent_server_impl(scope: &mut Scope) {
+fn agent_server_impl(scope: &mut Scope, my_visitor: &CustomItemVisitor) {
     // MyAgent Struct
     scope
         .new_struct("MyAgent")
@@ -149,13 +149,16 @@ fn agent_server_impl(scope: &mut Scope) {
     imp.impl_trait("agent_server::Agent");
     imp.r#macro("#[tonic::async_trait]");
 
-    agent_server_fn_return(imp,"get_secret_key", "GetSecretKeyRequest", "GetSecretKeyResponse");
-    agent_server_fn_return(imp, "encrypt", "EncryptRequest", "EncryptResponse");
-    agent_server_fn_return(imp, "decrypt", "DecryptRequest", "DecryptResponse");
+    for (_k, v) in my_visitor.fn_calls.iter() {
+        let fn_name = v.segments.last().unwrap().ident.name.to_ident_string();
+        let request = format!("{}Request", fn_name.to_camel_case());
+        let respone = format!("{}Response", fn_name.to_camel_case());
 
+        agent_server_fn_return(imp, &fn_name, &request, &respone);
+    }
 }
 
-fn agent_server_imports_and_modules(scope: &mut Scope) {
+fn agent_server_imports_and_modules(scope: &mut Scope, ) {
     scope.import("tonic", "*");
     scope.import("splitspectre", "*");
     scope.import("secret_integers", "*");
@@ -183,11 +186,29 @@ fn agent_server_classify_declassify(scope: &mut Scope) {
         .line("v.iter().map(|x| U8::declassify(*x)).collect()");
 }
 
-pub fn gen_agent_server() {
+fn agent_server_main(scope: &mut Scope){
+    scope
+        .new_fn("main")
+        .set_async(true)
+        .attr("tokio::main")
+        .ret("Result<(), Box<dyn std::error::Error>>")
+        .line("let addr = \"127.0.0.1:50051\".parse()?;")
+        .line("let agent = MyAgent {")
+        .line("    keys_map: Arc::new(Mutex::new(HashMap::new())),")
+        .line("    counter: Arc::new(Mutex::new(0)),")
+        .line("};")
+        .line("transport::Server::builder()")
+        .line("    .add_service(agent_server::AgentServer::new(agent))")
+        .line("    .serve(addr).await?;")
+        .line("Ok(())");
+}
+
+pub fn gen_agent_server(my_visitor: &CustomItemVisitor) {
     let mut scope = Scope::new();
     agent_server_imports_and_modules(&mut scope);
     agent_server_classify_declassify(&mut scope);
-    agent_server_impl(&mut scope);
+    agent_server_impl(&mut scope, my_visitor);
+    agent_server_main(&mut scope);
 
     println!("{}", scope.to_string());
 }

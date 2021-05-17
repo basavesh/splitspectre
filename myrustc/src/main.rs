@@ -73,8 +73,8 @@ impl Callbacks for CustomCallbacks {
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
             if *crate_name == "secret_integers_usage" {
-                lib::gen_agent_client(&item_visitor);
-                // lib::gen_agent_server(item_visitor.fn_calls);
+                // lib::gen_agent_client(&item_visitor); // This works fine
+                lib::gen_agent_server(&item_visitor);
             }
 
         });
