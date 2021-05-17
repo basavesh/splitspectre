@@ -79,9 +79,9 @@ impl agent_server::Agent for MyAgent {
 
             if read_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
                 let sk = &read_guard[&request.arg2.as_ref().unwrap().keyid];
-                let new_block = encrypt(&request.arg1, &sk);
+                let result = encrypt(&request.arg1, &sk);
                 let response = EncryptResponse {
-                    result: new_block,
+                    result,
                 };
 
                 return Ok(Response::new(response));
@@ -105,9 +105,9 @@ impl agent_server::Agent for MyAgent {
 
             if read_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
                 let sk = &read_guard[&request.arg2.as_ref().unwrap().keyid];
-                let new_block = decrypt(&request.arg1, &sk);
+                let result = decrypt(&request.arg1, &sk);
                 let response = DecryptResponse {
-                    result: new_block,
+                    result,
                 };
 
                 return Ok(Response::new(response));
