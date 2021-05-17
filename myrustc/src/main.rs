@@ -72,7 +72,11 @@ impl Callbacks for CustomCallbacks {
                                                 fn_calls: HashMap::new(),
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
-            lib::gen_agent_client();
+            if *crate_name == "secret_integers_usage" {
+                lib::gen_agent_client(&item_visitor);
+                // lib::gen_agent_server(item_visitor.fn_calls);
+            }
+
         });
         Compilation::Continue
     }
@@ -84,16 +88,6 @@ fn generated_code(sess: &'tcx Session, span: rustc_span::Span) -> bool {
     }
     // code from rust/compiler/rustc_save_analysis/src/span_utils.rs
     !sess.source_map().lookup_char_pos(span.lo()).file.is_real_file()
-}
-
-struct CustomItemVisitor<'tcx> {
-    tcx: TyCtxt<'tcx>,
-    sess: &'tcx Session,  // not sure if I need to use this.
-    secret_crate: bool,
-    inside_secret_fn: bool,
-    body_ids: Vec<rustc_hir::BodyId>,
-    fn_defs: HashMap<rustc_span::def_id::DefId , FnDef>,
-    fn_calls: HashMap<rustc_span::def_id::DefId , Vec<FnCall<'tcx>>>,
 }
 
 impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
@@ -121,18 +115,6 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
     fn visit_trait_item(&mut self, _trait_item: &'hir TraitItem<'hir>) {}
     fn visit_impl_item(&mut self, _impl_item: &'hir ImplItem<'hir>) {}
     fn visit_foreign_item(&mut self, _foreign_item: &'hir ForeignItem<'hir>) {}
-}
-
-#[derive(Debug)]
-struct FnDef {
-    ident: rustc_span::symbol::Ident,
-    span: rustc_span::Span,
-}
-
-#[derive(Debug)]
-struct FnCall<'tcx>{
-    span: rustc_span::Span,
-    segments: &'tcx [rustc_hir::PathSegment<'tcx>],
 }
 
 impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
@@ -167,34 +149,37 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
             }
 
             if let rustc_hir::ExprKind::Path(rustc_hir::QPath::Resolved(None, fn_path)) = exp.kind {
+                let fn_name = fn_path.segments.last().unwrap().ident.name.to_ident_string();
                 if let rustc_hir::def::Res::Def(_def_kind, def_id) = fn_path.res {
                     let fn_call_sig = self.tcx.fn_sig(def_id).skip_binder();
                     let fn_call_str = format!("{}", fn_call_sig);
                     if fn_call_str.contains("secret_integers::U8") {
-
-                        let fn_name: String = self.sess.source_map()
-                                                    .span_to_snippet(expr.span)
-                                                    .unwrap().split("(")
-                                                    .collect::<Vec<&str>>()[0].to_string();
-                        println!("\n\nThe function name Original: {} and CamelCase: {}", fn_name, fn_name.to_camel_case());
-                        let fn_inputs = fn_call_sig.inputs();
-                        println!("The function inputs are {:#?}", fn_inputs);
-                        let fn_output = fn_call_sig.output();
-                        println!("The function output is {:#?}", fn_output);
+                        //println!("\n\nThe function name Original: {} and CamelCase: {}", fn_name, fn_name.to_camel_case());
+                        //let fn_inputs = fn_call_sig.inputs();
+                        //println!("The function inputs are {:#?}", fn_inputs);
+                        // let fn_output = fn_call_sig.output();
+                        //println!("The function output is {:#?}", fn_output);
                         let def_id_clone = def_id.clone();
                         if self.fn_calls.contains_key(&def_id_clone) {
                             self.fn_calls.get_mut(&def_id_clone)
                                             .unwrap()
-                                            .push(FnCall{
-                                                    segments: fn_path.segments,
-                                                    span: expr.span,
-                                            });
+                                            .spans
+                                            .push(expr.span);
+                                            // .push(FnCall{
+                                            //         segments: fn_path.segments,
+                                            //         span: expr.span,
+                                            //         name: fn_name,
+                                            //         fn_sig: fn_call_sig.clone(),
+                                            // });
                         } else {
                             self.fn_calls.insert(def_id_clone,
-                                                 vec!(FnCall{
+                                                    FnCall{
                                                         segments: fn_path.segments,
-                                                        span: expr.span
-                                                 }));
+                                                        spans: vec!(expr.span),
+                                                        name: fn_name,
+                                                        fn_sig: fn_call_sig.clone(),
+                                                    }
+                                                );
                         }
 
                         let mut diag = self.sess.struct_span_warn(expr.span, "Test this warning message");

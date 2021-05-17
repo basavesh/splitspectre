@@ -3,6 +3,7 @@ use simple::*;
 pub mod simple;
 
 fn main() {
+    // Need to handle the simple::get_secret_key() case
     let secret_key: Vec<secret_integers::U8> = get_secret_key();
     let mut buffer: String = String::new();
     println!("Please input a 8 byte message");
