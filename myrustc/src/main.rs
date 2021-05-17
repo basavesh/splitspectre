@@ -105,6 +105,8 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
             if fn_call_str.contains("secret_integers::U8") {
                 // This function should be moved to `trusted` process.
                 println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());
+                let snip = self.sess.source_map().span_to_snippet(item.span).unwrap();
+                println!("{}\n\n", snip);
             } else {
                 // walk this body and check function / method calls.
                 // self.body_ids.push(body_id);

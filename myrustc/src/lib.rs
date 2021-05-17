@@ -61,18 +61,28 @@ pub struct FnCall<'tcx>{
 
 
 // Need to handle cases later
-fn agent_client_fn_return(scope: &mut Scope, fn_name: &str, request: &str, ret: &str) {
+fn agent_client_fn_return(scope: &mut Scope, fn_name: &str, fn_args: Vec<(String, String)>, request: &str, ret: &str, ret_secret: bool) {
     let addr = "http://127.0.0.1:50051";
 
-    scope
+    let my_fn = scope
         .new_fn(format!("agent_{}",fn_name).as_str())
         .vis("pub")
         .set_async(true)
         .ret(ret)
         .line(format!("let mut client = agent_client::AgentClient::connect(\"{}\").await.unwrap();", addr))
         .line(format!("let request = tonic::Request::new({});", request))
-        .line(format!("let response = client.{}(request).await.unwrap().into_inner();", fn_name))
-        .line(format!("return response.result;"));
+        .line(format!("let response = client.{}(request).await.unwrap().into_inner();", fn_name));
+
+    for arg in fn_args.iter() {
+        my_fn.arg(&arg.0, &arg.1);
+    }
+
+    if ret_secret {
+        my_fn.line(format!("return response.result.unwrap().keyid;"));
+    } else {
+        my_fn.line(format!("return response.result;"));
+    }
+
 }
 
 pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
@@ -83,27 +93,37 @@ pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
 
     for (_k, v) in my_visitor.fn_calls.iter() {
         let fn_name = v.segments.last().unwrap().ident.name.to_ident_string();
-        let fn_name_cc = fn_name.to_camel_case();
+        // let fn_name_cc = fn_name.to_camel_case();
 
-        println!("Old: The function arguments are {:#?} ", v.fn_sig.inputs());
         // transform arguments
-        for ty in v.fn_sig.inputs().iter() {
-            let ty_string = ty.to_string();
-            let ty_string = ty_string.replace("&[secret_integers::U8]", "u64");
-            let ty_string = ty_string.replace("std::vec::Vec<secret_integers::U8>", "u64");
-            println!("New: The argument type is {:#?}", ty_string);
+        let mut fn_args = Vec::new();
+        let mut request: String = format!("{}Request {{", fn_name.to_camel_case());
+        for (i, ty) in v.fn_sig.inputs().iter().enumerate() {
+            if let rustc_middle::ty::TyKind::Ref(_, ref_ty, _) = ty.kind() {
+                if let rustc_middle::ty::TyKind::Slice(slice_ty) = ref_ty.kind() {
+                    if slice_ty.to_string() == "secret_integers::U8" {
+                        fn_args.push((format!("arg{}", i+1), "&u64".to_string()));
+                        request.push_str(format!(" arg{} : Some(SecretId{{ keyid: *arg{},}}),", i+1, i +1).as_str());
+                    } else {
+                        fn_args.push((format!("arg{}", i+1), ty.to_string()));
+                        request.push_str(format!(" arg{} : arg{}.to_vec(),", i+1, i +1).as_str());
+                    }
+                }
+                // TODO: handle other cases
+            }
+            // TODO: handle other cases
         }
-        println!("Old: The function return type is {:#?} ", v.fn_sig.output());
-        let fn_ret = v.fn_sig.output().to_string();
-        let fn_ret = fn_ret.replace("[secret_integers::U8]", "u64");
-        let fn_ret = fn_ret.replace("std::vec::Vec<secret_integers::U8>", "u64");
-        println!("New: The function return type is {:#?} ", fn_ret);
-        // println!("The function name is {:?}", fn_name);
-        agent_client_fn_return(&mut scope, fn_name.as_str(), "GetSecretKeyRequest {}", fn_ret.as_str());
-    }
-    // agent_client_fn_return(&mut scope, "EncryptRequest { arg1: arg1.to_vec(), keyid: *arg2,}", "encrypt", "Vec<u8>");
-    // agent_client_fn_return(&mut scope, "DecryptRequest { arg1: arg1.to_vec(), keyid: *arg2,}", "decrypt", "Vec<u8>");
+        request.push('}');
 
+        // transform return
+        let mut fn_ret = v.fn_sig.output().to_string();
+        let ret_secret = fn_ret.contains("secret_integers::U8");
+        if ret_secret {
+            fn_ret = fn_ret.replace("[secret_integers::U8]", "u64");
+            fn_ret = fn_ret.replace("std::vec::Vec<secret_integers::U8>", "u64");
+        }
+        agent_client_fn_return(&mut scope, fn_name.as_str(), fn_args, &request, fn_ret.as_str(), ret_secret);
+    }
     println!("{}", scope.to_string());
 }
 
