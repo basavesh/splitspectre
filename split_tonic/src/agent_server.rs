@@ -4,6 +4,7 @@ use splitspectre::*;
 use secret_integers::*;
 use std::sync::*;
 use std::collections::HashMap;
+use simple::*;
 
 pub mod simple;
 
@@ -40,39 +41,28 @@ impl agent_server::Agent for MyAgent {
 
         // TODO change the logic of this
         // If the callee function contains secret type in the argument,
-        // get a read lock immidiately and get keyid
+        // get a read lock immediately and get keyid
         // TODO need to supply some extra information to find that.
 
         // Only if the return type is secret.
         // First, check if the result is already stored in the HashMap
-        let call_result = simple::get_secret_key();
+
+        // XXXXXXX Do we want to de-duplicate the data here
+        // Idea 1: more constant time comparison
+        // Idea 2: don't do this, just create a new (key, val)
+        // Idea 3: use another hashmap
+        let call_result = get_secret_key();
 
         if let Ok(mut write_guard) = self.keys_map.write() {
-            for (k, v) in write_guard.iter() {
-                // To compare, should declassify secrets
-                // XXXXXXX Do we want to de-duplicate the data here 
-                // Idea 1: more constant time comparison
-                // Idea 2: don't do this, just create a new (key, val)
-                // Idea 3: use another hashmap
-                if declassify_u8s(v) == declassify_u8s(&call_result) {
-                    // time to return the result
-                    // we already have the key for this
-                    let response = GetSecretKeyResponse {
-                        result: *k,
-                    };
-                    return Ok(Response::new(response));
-                }
-            }
             // time to create a new keyid
             let mut num = self.counter.lock().unwrap();
             *num += 1;
             write_guard.insert(*num, call_result);
             let response = GetSecretKeyResponse {
-                result: *num,
+                result: Some(SecretId{keyid: *num}),
             };
             return Ok(Response::new(response));
         }
-
         Err(tonic::Status::unimplemented("Could not obtain lock"))
     }
 
@@ -87,9 +77,9 @@ impl agent_server::Agent for MyAgent {
         if let Ok(read_guard) = self.keys_map.read() {
             let request = request.into_inner();
 
-            if read_guard.contains_key(&request.keyid) {
-                let sk = &read_guard[&request.keyid];
-                let new_block = simple::encrypt(&request.arg1, &sk);
+            if read_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
+                let sk = &read_guard[&request.arg2.as_ref().unwrap().keyid];
+                let new_block = encrypt(&request.arg1, &sk);
                 let response = EncryptResponse {
                     result: new_block,
                 };
@@ -113,9 +103,9 @@ impl agent_server::Agent for MyAgent {
         if let Ok(read_guard) = self.keys_map.read() {
             let request = request.into_inner();
 
-            if read_guard.contains_key(&request.keyid) {
-                let sk = &read_guard[&request.keyid];
-                let new_block = simple::decrypt(&request.arg1, &sk);
+            if read_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
+                let sk = &read_guard[&request.arg2.as_ref().unwrap().keyid];
+                let new_block = decrypt(&request.arg1, &sk);
                 let response = DecryptResponse {
                     result: new_block,
                 };

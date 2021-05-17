@@ -8,17 +8,21 @@ service Agent {
     rpc Decrypt (DecryptRequest) returns (DecryptResponse) {}
 }
 
+message SecretId {
+    uint64 keyid = 1;
+}
+
 message GetSecretKeyRequest {
 }
 
 message GetSecretKeyResponse {
     // Return the keyid of the secret type.
-    uint64 result = 1;
+    SecretId result = 1;
 }
 
 message EncryptRequest {
     bytes arg1 = 1;      // PlainText
-    uint64 keyid = 2;   // Secret KeyId
+    SecretId arg2 = 2;   // Secret KeyId
 }
 
 message EncryptResponse {
@@ -27,7 +31,7 @@ message EncryptResponse {
 
 message DecryptRequest {
     bytes arg1 = 1;
-    uint64 keyid = 2;
+    SecretId arg2 = 2;
 }
 
 message DecryptResponse {
