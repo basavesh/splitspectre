@@ -73,8 +73,8 @@ impl Callbacks for CustomCallbacks {
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
             if *crate_name == "secret_integers_usage" {
-                // lib::gen_agent_client(&item_visitor); // This works fine
-                lib::gen_agent_server(&item_visitor);
+                lib::gen_agent_client(&item_visitor); // This works fine
+                lib::gen_agent_server(&item_visitor); // This works fine
             }
 
         });
@@ -106,7 +106,7 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
                 // This function should be moved to `trusted` process.
                 println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());
                 let snip = self.sess.source_map().span_to_snippet(item.span).unwrap();
-                println!("{}\n\n", snip);
+                println!("{}\n", snip);
             } else {
                 // walk this body and check function / method calls.
                 // self.body_ids.push(body_id);
@@ -167,12 +167,6 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
                                             .unwrap()
                                             .spans
                                             .push(expr.span);
-                                            // .push(FnCall{
-                                            //         segments: fn_path.segments,
-                                            //         span: expr.span,
-                                            //         name: fn_name,
-                                            //         fn_sig: fn_call_sig.clone(),
-                                            // });
                         } else {
                             self.fn_calls.insert(def_id_clone,
                                                     FnCall{
