@@ -4,7 +4,7 @@
 
 // Copied from main
 #![feature(rustc_private)]
-// #![feature(in_band_lifetimes)]
+#![feature(in_band_lifetimes)]
 
 extern crate rustc_driver;
 extern crate rustc_ast;
@@ -127,8 +127,8 @@ pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
     println!("{}", scope.to_string());
 }
 
-fn agent_server_fn_return(imp: &mut Impl, fn_name: &str, request: &str, response: &str) {
-    imp
+fn agent_server_fn_return(imp: &'a mut Impl, fn_name: &'a str, request: &'a str, response: &'a str) -> &'a mut Function {
+    return imp
         .new_fn(fn_name)
         .set_async(true)
         .arg_ref_self()
@@ -154,7 +154,73 @@ fn agent_server_impl(scope: &mut Scope, my_visitor: &CustomItemVisitor) {
         let request = format!("{}Request", fn_name.to_camel_case());
         let respone = format!("{}Response", fn_name.to_camel_case());
 
-        agent_server_fn_return(imp, &fn_name, &request, &respone);
+        let my_fn = agent_server_fn_return(imp, &fn_name, &request, &respone);
+
+        // deal with arguments stuff
+        if v.fn_sig.inputs().len() > 0 {
+            my_fn.line("let request = request.into_inner();");
+        }
+
+        // currently dealing with only either arg is secret or ret is secret
+        if v.fn_sig.output().to_string().contains("secret_integers::U8") {
+            // We were supposed to return a secret
+            // grab a write lock
+            let mut fn_args = String::new();
+            for (i, ty) in v.fn_sig.inputs().iter().enumerate() {
+                if let rustc_middle::ty::TyKind::Ref(..) = ty.kind() {
+                    fn_args.push_str(&format!("&request.arg{}, ", i + 1));
+                } else {
+                    fn_args.push_str(&format!("request.arg{}, ", i + 1));
+                }
+            }
+            my_fn.line(format!("let call_result = {}({});", fn_name, fn_args));
+            let mut blk = Block::new("if let Ok(mut lock_guard) = self.keys_map.lock()");
+            blk.line("let mut num = self.counter.lock().unwrap();");
+            blk.line("*num += 1;");
+            blk.line("lock_guard.insert(*num, call_result);");
+            blk.line(format!("let response = {} {{ result: Some(SecretId{{ keyid: *num}})", fn_name.to_camel_case()));
+            blk.line("return Ok(Response::new(response));");
+            my_fn.push_block(blk);
+        } else {
+            let mut blk = Block::new("if let Ok(lock_guard) = self.keys_map.lock()");
+            // considering only one secret argument, which might be wrong
+            // TODO handle other cases later
+            let mut fn_args = String::new();
+            for (i, ty) in v.fn_sig.inputs().iter().enumerate() {
+                if ty.to_string().contains("secret_integers::U8") {
+                    // this was secret
+                    let mut if_blk = Block::new(&format!("if lock_guard.contains_key(&request.arg{}.as_ref().unwrap().keyid)", i + 1));
+                    if_blk.line(format!("let sk = &lock_guard[&request.arg{}.as_ref().unwrap().keyid];", i + 1));
+
+                    // TODO change this to function or something else later
+                    for (j, j_ty) in v.fn_sig.inputs().iter().enumerate() {
+                        if i != j {
+                            if let rustc_middle::ty::TyKind::Ref(..) = j_ty.kind() {
+                                fn_args.push_str(&format!("&request.arg{}, ", j + 1));
+                            } else {
+                                fn_args.push_str(&format!("request.arg{}, ", j + 1));
+                            }
+                        } else {
+                            if let rustc_middle::ty::TyKind::Ref(..) = j_ty.kind() {
+                                fn_args.push_str("&sk, ");
+                            } else {
+                                fn_args.push_str("sk, ");
+                            }
+                        }
+                    }
+                    if_blk.line(format!("let result = {}({});", fn_name, fn_args));
+                    if_blk.line(format!("let response = {}Response {{ result, }};", fn_name.to_camel_case()));
+                    if_blk.line("return Ok(Response::new(response));");
+                    blk.push_block(if_blk);
+                    blk.line("return Err(tonic::Status::unimplemented(\"No corresponding secret for the key provided\"));");
+                }
+                // TODO: handle other cases
+            }
+
+            my_fn.push_block(blk);
+        }
+
+        my_fn.line("Err(tonic::Status::unimplemented(\"Could not obtain lock\"))");
     }
 }
 

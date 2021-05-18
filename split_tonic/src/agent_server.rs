@@ -37,7 +37,6 @@ impl agent_server::Agent for MyAgent {
         &self,
         _request: Request<GetSecretKeyRequest>, // No param request
     ) -> Result<Response<GetSecretKeyResponse>, Status> { // Return respone - keyid
-        println!("Got a GetSecretKey Request");
 
         // TODO change the logic of this
         // If the callee function contains secret type in the argument,
@@ -53,11 +52,11 @@ impl agent_server::Agent for MyAgent {
         // Idea 3: use another hashmap
         let call_result = get_secret_key();
 
-        if let Ok(mut write_guard) = self.keys_map.lock() {
+        if let Ok(mut lock_guard) = self.keys_map.lock() {
             // time to create a new keyid
             let mut num = self.counter.lock().unwrap();
             *num += 1;
-            write_guard.insert(*num, call_result);
+            lock_guard.insert(*num, call_result);
             let response = GetSecretKeyResponse {
                 result: Some(SecretId{keyid: *num}),
             };
@@ -70,16 +69,15 @@ impl agent_server::Agent for MyAgent {
         &self,
         request: Request<EncryptRequest>,
     ) -> Result<Response<EncryptResponse>, Status> {
-        println!("Got an encrypt Request");
+        let request = request.into_inner();
 
         // If the callee signature doesn't return a secret type,
         // I should just take the read lock
-        if let Ok(read_guard) = self.keys_map.lock() {
-            let request = request.into_inner();
+        if let Ok(lock_guard) = self.keys_map.lock() {
 
-            if read_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
-                let sk = &read_guard[&request.arg2.as_ref().unwrap().keyid];
-                let result = encrypt(&request.arg1, &sk);
+            if lock_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
+                let sk = &lock_guard[&request.arg2.as_ref().unwrap().keyid];
+                let result = encrypt(&request.arg1, &sk,);
                 let response = EncryptResponse {
                     result,
                 };
@@ -96,16 +94,15 @@ impl agent_server::Agent for MyAgent {
         &self,
         request: Request<DecryptRequest>,
     ) -> Result<Response<DecryptResponse>, Status> {
-        println!("Got a decrypt Request");
+        let request = request.into_inner();
 
         // If the callee signature doesn't return a secret type,
         // I should just take the read lock
-        if let Ok(read_guard) = self.keys_map.lock() {
-            let request = request.into_inner();
+        if let Ok(lock_guard) = self.keys_map.lock() {
 
-            if read_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
-                let sk = &read_guard[&request.arg2.as_ref().unwrap().keyid];
-                let result = decrypt(&request.arg1, &sk);
+            if lock_guard.contains_key(&request.arg2.as_ref().unwrap().keyid) {
+                let sk = &lock_guard[&request.arg2.as_ref().unwrap().keyid];
+                let result = decrypt(&request.arg1, &sk,);
                 let response = DecryptResponse {
                     result,
                 };
