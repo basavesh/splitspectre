@@ -34,8 +34,14 @@ use rustc_hir_pretty::ty_to_string;
 
 use heck::CamelCase;
 
+// Write the output into files
+use std::env;
+use std::fs::File;
+use std::fs::OpenOptions;
+
 pub mod lib;
 use lib::*;
+use std::io::prelude::*;
 
 /// Custom Compiler callbacks
 pub(crate) struct CustomCallbacks;

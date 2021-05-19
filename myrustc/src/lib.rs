@@ -33,7 +33,9 @@ use rustc_hir_pretty::ty_to_string;
 use codegen::*;
 use heck::CamelCase;
 
-
+// File Operations
+use std::fs::{self, OpenOptions};
+use std::io::prelude::*;
 
 pub struct CustomItemVisitor<'tcx> {
     pub tcx: TyCtxt<'tcx>,
@@ -86,6 +88,13 @@ fn agent_client_fn_return(scope: &mut Scope, fn_name: &str, fn_args: Vec<(String
 }
 
 pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
+    fs::create_dir_all("split_result").unwrap();
+    let mut file = OpenOptions::new()
+                                .read(true)
+                                .write(true)
+                                .create(true)
+                                .truncate(true)
+                                .open("split_result/agent_client.rs").unwrap();
     let mut scope = Scope::new();
 
     scope.import("splitspectre", "*");
@@ -124,7 +133,8 @@ pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
         }
         agent_client_fn_return(&mut scope, &fn_name, fn_args, &request, &fn_ret, ret_secret);
     }
-    println!("{}", scope.to_string());
+    // println!("{}", scope.to_string());
+    file.write_all(scope.to_string().as_bytes()).unwrap();
 }
 
 fn agent_server_fn_return(imp: &'a mut Impl, fn_name: &'a str, request: &'a str, response: &'a str) -> &'a mut Function {
@@ -270,11 +280,19 @@ fn agent_server_main(scope: &mut Scope){
 }
 
 pub fn gen_agent_server(my_visitor: &CustomItemVisitor) {
+    fs::create_dir_all("split_result").unwrap();
+    let mut file = OpenOptions::new()
+                                .read(true)
+                                .write(true)
+                                .create(true)
+                                .truncate(true)
+                                .open("split_result/agent_server.rs").unwrap();
     let mut scope = Scope::new();
     agent_server_imports_and_modules(&mut scope);
     agent_server_classify_declassify(&mut scope);
     agent_server_impl(&mut scope, my_visitor);
     agent_server_main(&mut scope);
 
-    println!("{}", scope.to_string());
+    //println!("{}", scope.to_string());
+    file.write_all(scope.to_string().as_bytes()).unwrap();
 }
