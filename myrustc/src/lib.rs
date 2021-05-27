@@ -43,7 +43,7 @@ pub struct CustomItemVisitor<'tcx> {
     pub secret_crate: bool,
     pub inside_secret_fn: bool,
     pub body_ids: Vec<rustc_hir::BodyId>,
-    pub fn_defs: HashMap<rustc_span::def_id::DefId , FnDef>,
+    pub fn_defs: Vec<String>,
     pub fn_calls: HashMap<rustc_span::def_id::DefId , FnCall<'tcx>>,
 }
 
@@ -61,6 +61,17 @@ pub struct FnCall<'tcx>{
     pub fn_sig: rustc_middle::ty::FnSig<'tcx>,
 }
 
+pub fn gen_agent_sever_lib(my_visitor: &CustomItemVisitor) {
+    fs::create_dir_all("split_result").unwrap();
+    let mut file = OpenOptions::new()
+                                .read(true)
+                                .write(true)
+                                .create(true)
+                                .truncate(true)
+                                .open("split_result/agent_server_lib.rs").unwrap();
+
+    file.write_all(my_visitor.fn_defs.join("\n").as_bytes()).unwrap();
+}
 
 // Need to handle cases later
 fn agent_client_fn_return(scope: &mut Scope, fn_name: &str, fn_args: Vec<(String, String)>, request: &str, ret: &str, ret_secret: bool) {
@@ -102,7 +113,6 @@ pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
 
     for (_k, v) in my_visitor.fn_calls.iter() {
         let fn_name = v.segments.last().unwrap().ident.name.to_ident_string();
-        // let fn_name_cc = fn_name.to_camel_case();
 
         // transform arguments
         let mut fn_args = Vec::new();

@@ -74,15 +74,15 @@ impl Callbacks for CustomCallbacks {
                                                 secret_crate,
                                                 inside_secret_fn: false,
                                                 body_ids: Vec::new(),
-                                                fn_defs: HashMap::new(),
+                                                fn_defs: Vec::<String>::new(),
                                                 fn_calls: HashMap::new(),
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
             if *crate_name == "secret_integers_usage" {
                 lib::gen_agent_client(&item_visitor); // This works fine
                 lib::gen_agent_server(&item_visitor); // This works fine
+                lib::gen_agent_sever_lib(&item_visitor);
             }
-
         });
         Compilation::Continue
     }
@@ -102,20 +102,14 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
             let def_id = self.tcx.hir()
                             .local_def_id(item.hir_id()).to_def_id();
             let fn_call_sig = self.tcx.fn_sig(def_id);
-            // println!("The fn_sig input(s) {:#?}", fn_call_sig.skip_binder().inputs());
-            // println!("The fn_sig input(s) {:#?}", fn_call_sig.skip_binder().output());
-
             let fn_call_str = fn_call_sig.to_string();
-            // println!("Function name is {}", item.ident.name.to_ident_string());
-            // println!("The function signature is {:?}", fn_call_str);
             if fn_call_str.contains("secret_integers::U8") {
                 // This function should be moved to `trusted` process.
                 println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());
                 let snip = self.sess.source_map().span_to_snippet(item.span).unwrap();
-                println!("{}\n", snip);
+                // println!("{}\n", snip);
+                self.fn_defs.push(snip);
             } else {
-                // walk this body and check function / method calls.
-                // self.body_ids.push(body_id);
                 self.visit_nested_body(body_id);
             }
         }
@@ -162,11 +156,6 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
                     let fn_call_sig = self.tcx.fn_sig(def_id).skip_binder();
                     let fn_call_str = format!("{}", fn_call_sig);
                     if fn_call_str.contains("secret_integers::U8") {
-                        //println!("\n\nThe function name Original: {} and CamelCase: {}", fn_name, fn_name.to_camel_case());
-                        //let fn_inputs = fn_call_sig.inputs();
-                        //println!("The function inputs are {:#?}", fn_inputs);
-                        // let fn_output = fn_call_sig.output();
-                        //println!("The function output is {:#?}", fn_output);
                         let def_id_clone = def_id.clone();
                         if self.fn_calls.contains_key(&def_id_clone) {
                             self.fn_calls.get_mut(&def_id_clone)
