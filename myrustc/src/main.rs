@@ -63,7 +63,7 @@ impl Callbacks for CustomCallbacks {
         let secret_crate;
         if *crate_name == "secret_integers" {
             secret_crate = true;
-        } else if *crate_name == "secret_integers_usage" {
+        } else if *crate_name == "secret_integers_usage" || *crate_name == "chacha20" {
             secret_crate = false;
         } else {
             return Compilation::Continue;
@@ -78,10 +78,10 @@ impl Callbacks for CustomCallbacks {
                                                 fn_calls: HashMap::new(),
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
-            if *crate_name == "secret_integers_usage" {
+            if *crate_name == "secret_integers_usage" || *crate_name == "chacha20" {
                 lib::gen_agent_client(&item_visitor); // This works fine
                 lib::gen_agent_server(&item_visitor); // This works fine
-                lib::gen_agent_sever_lib(&item_visitor);
+                lib::gen_agent_sever_lib(&item_visitor); // need to take of the imports
             }
         });
         Compilation::Continue

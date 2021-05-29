@@ -1,0 +1,3 @@
+[build]
+rustc = "/Users/basaveshshivakumar/research/splitspectre/chacha20/myrustc"
+incremental = false
