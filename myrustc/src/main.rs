@@ -82,6 +82,9 @@ impl Callbacks for CustomCallbacks {
                 lib::gen_agent_client(&item_visitor); // This works fine
                 lib::gen_agent_server(&item_visitor); // This works fine
                 lib::gen_agent_sever_lib(&item_visitor); // need to take of the imports
+                lib::gen_agent_proto(&item_visitor);
+                lib::gen_agent_build();
+                lib::gen_agent_cargo();
             }
         });
         Compilation::Continue

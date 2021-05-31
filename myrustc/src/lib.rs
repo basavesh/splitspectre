@@ -62,15 +62,34 @@ pub struct FnCall<'tcx>{
 }
 
 pub fn gen_agent_sever_lib(my_visitor: &CustomItemVisitor) {
+    fs::create_dir_all("split_result/src").unwrap();
+    let mut file = OpenOptions::new()
+                                .read(true)
+                                .write(true)
+                                .create(true)
+                                .truncate(true)
+                                .open("split_result/src/agent_server_lib.rs").unwrap();
+
+    file.write_all(my_visitor.fn_defs.join("\n").as_bytes()).unwrap();
+}
+
+// This is a static code as of now
+pub fn gen_agent_build() {
     fs::create_dir_all("split_result").unwrap();
     let mut file = OpenOptions::new()
                                 .read(true)
                                 .write(true)
                                 .create(true)
                                 .truncate(true)
-                                .open("split_result/agent_server_lib.rs").unwrap();
+                                .open("split_result/build.rs").unwrap();
+    let mut scope = Scope::new();
+    scope
+        .new_fn("main")
+        .ret("Result<(), Box<dyn std::error::Error>>")
+        .line("tonic_build::compiler_protos(\"proto/splitspectre.proto\")?;")
+        .line("Ok(())");
 
-    file.write_all(my_visitor.fn_defs.join("\n").as_bytes()).unwrap();
+    file.write_all(scope.to_string().as_bytes()).unwrap();
 }
 
 // Need to handle cases later
@@ -99,13 +118,13 @@ fn agent_client_fn_return(scope: &mut Scope, fn_name: &str, fn_args: Vec<(String
 }
 
 pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
-    fs::create_dir_all("split_result").unwrap();
+    fs::create_dir_all("split_result/src").unwrap();
     let mut file = OpenOptions::new()
                                 .read(true)
                                 .write(true)
                                 .create(true)
                                 .truncate(true)
-                                .open("split_result/agent_client.rs").unwrap();
+                                .open("split_result/src/agent_client.rs").unwrap();
     let mut scope = Scope::new();
 
     scope.import("splitspectre", "*");
@@ -290,13 +309,13 @@ fn agent_server_main(scope: &mut Scope){
 }
 
 pub fn gen_agent_server(my_visitor: &CustomItemVisitor) {
-    fs::create_dir_all("split_result").unwrap();
+    fs::create_dir_all("split_result/src").unwrap();
     let mut file = OpenOptions::new()
                                 .read(true)
                                 .write(true)
                                 .create(true)
                                 .truncate(true)
-                                .open("split_result/agent_server.rs").unwrap();
+                                .open("split_result/src/agent_server.rs").unwrap();
     let mut scope = Scope::new();
     agent_server_imports_and_modules(&mut scope);
     agent_server_classify_declassify(&mut scope);
@@ -305,4 +324,28 @@ pub fn gen_agent_server(my_visitor: &CustomItemVisitor) {
 
     //println!("{}", scope.to_string());
     file.write_all(scope.to_string().as_bytes()).unwrap();
+}
+
+pub fn gen_agent_proto(my_visitor: &CustomItemVisitor) {
+    fs::create_dir_all("split_result/proto").unwrap();
+    let mut file = OpenOptions::new()
+                                .read(true)
+                                .write(true)
+                                .create(true)
+                                .truncate(true)
+                                .open("split_result/proto/splitspectre.proto").unwrap();
+
+    file.write("Testing".as_bytes());
+}
+
+pub fn gen_agent_cargo() {
+    fs::create_dir_all("split_result").unwrap();
+    let mut file = OpenOptions::new()
+                                .read(true)
+                                .write(true)
+                                .create(true)
+                                .truncate(true)
+                                .open("split_result/Cargo.toml").unwrap();
+
+    file.write("Testing".as_bytes());
 }

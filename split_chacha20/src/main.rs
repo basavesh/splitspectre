@@ -1,4 +1,8 @@
 use secret_integers::*;
+use std::io;
+use agent_client::*;
+pub mod agent_client;
+use std::env;
 
 fn main() {
     let plaintext = agent_classify_u8s(&vec![

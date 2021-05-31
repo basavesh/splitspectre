@@ -11,3 +11,4 @@ split_prototype/target
 split_functions/target
 split_tonic/target
 split_result/
+split_chacha/target
