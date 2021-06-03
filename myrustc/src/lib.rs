@@ -335,7 +335,7 @@ pub fn gen_agent_proto(my_visitor: &CustomItemVisitor) {
                                 .truncate(true)
                                 .open("split_result/proto/splitspectre.proto").unwrap();
 
-    file.write("Testing".as_bytes());
+    file.write("Testing".as_bytes()).unwrap();
 }
 
 pub fn gen_agent_cargo() {
@@ -347,5 +347,5 @@ pub fn gen_agent_cargo() {
                                 .truncate(true)
                                 .open("split_result/Cargo.toml").unwrap();
 
-    file.write("Testing".as_bytes());
+    file.write("Testing".as_bytes()).unwrap();
 }
