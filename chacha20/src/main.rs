@@ -17,6 +17,10 @@ pub fn classify_u8s(v: &[u8]) -> Vec<U8> {
     v.iter().map(|x| U8::classify(*x)).collect()
 }
 
+pub fn declassify_u8s(v: &[U8]) -> Vec<u8> {
+    v.iter().map(|x| U8::declassify(*x)).collect()
+}
+
 fn line(a: Index, b: Index, d: Index, s: RotVal, m: &mut State) {
     m[a] = m[a] + m[b];
     m[d] = m[d] ^ m[a];
@@ -114,16 +118,16 @@ fn chacha20_counter_mode(key: &Key, counter: U32, nonce: &Nonce, msg: &Vec<U8>) 
         .collect()
 }
 
-pub fn chacha20_encrypt(key: &Key, counter: u32, nonce: &[u8], msg: &Vec<u8>) -> Vec<U8> {
+pub fn chacha20_encrypt(key: &Key, counter: u32, nonce: &Vec<u8>, msg: &Vec<u8>) -> Vec<u8> {
     let nonce = &classify_u8s(nonce);
     let msg = &classify_u8s(msg);
-    chacha20_counter_mode(key, counter.into(), nonce, msg)
+    declassify_u8s(&chacha20_counter_mode(key, counter.into(), nonce, msg))
 }
 
-pub fn chacha20_decrypt(key: &Key, counter: u32, nonce: &Vec<u8>, msg: &Vec<u8>) -> Vec<U8> {
+pub fn chacha20_decrypt(key: &Key, counter: u32, nonce: &Vec<u8>, msg: &Vec<u8>) -> Vec<u8> {
     let nonce = &classify_u8s(nonce);
     let msg = &classify_u8s(msg);
-    chacha20_counter_mode(key, counter.into(), nonce, msg)
+    declassify_u8s(&chacha20_counter_mode(key, counter.into(), nonce, msg))
 }
 
 fn main() {
@@ -156,6 +160,6 @@ fn main() {
     ];
     let computed_ciphertext = chacha20_encrypt(&key, 1u32, &nonce, &plaintext);
     for (i, (x1, x2)) in ciphertext.iter().zip(computed_ciphertext).enumerate() {
-        assert_eq!(*x1, x2.declassify(), "at index {:?}", i);
+        assert_eq!(*x1, x2, "at index {:?}", i);
     }
 }
