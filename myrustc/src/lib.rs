@@ -27,7 +27,8 @@ use rustc_middle::mir::TerminatorKind;
 use rustc_middle::ty::TyCtxt;
 use rustc_middle::hir::map::Map;
 use rustc_session::Session;
-use std::collections::HashMap;
+// use std::collections::HashMap;
+use indexmap::IndexMap;
 use rustc_hir_pretty::ty_to_string;
 
 use codegen::*;
@@ -44,7 +45,7 @@ pub struct CustomItemVisitor<'tcx> {
     pub inside_secret_fn: bool,
     pub body_ids: Vec<rustc_hir::BodyId>,
     pub fn_defs: Vec<String>,
-    pub fn_calls: HashMap<rustc_span::def_id::DefId , FnCall<'tcx>>,
+    pub fn_calls: IndexMap<rustc_span::def_id::DefId , FnCall<'tcx>>,
 }
 
 #[derive(Debug)]
@@ -146,8 +147,20 @@ pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
                         fn_args.push((format!("arg{}", i+1), ty.to_string()));
                         request.push_str(format!(" arg{} : arg{}.to_vec(),", i+1, i +1).as_str());
                     }
+                } else {    // BAD HACK TODO
+                    if ref_ty.to_string() == "std::vec::Vec<secret_integers::U8>" {
+                        fn_args.push((format!("arg{}", i+1), "&u64".to_string()));
+                        request.push_str(format!(" arg{} : Some(SecretId{{ keyid: *arg{},}}),", i+1, i +1).as_str());
+                    } else {
+                        fn_args.push((format!("arg{}", i+1), ty.to_string()));
+                        request.push_str(format!(" arg{} : arg{},", i+1, i +1).as_str());
+                    }
+                    println!("I need to take care of this type {:#?}", ref_ty);
                 }
                 // TODO: handle other cases
+            } else { // Another BAD HACK TODO
+                fn_args.push((format!("arg{}", i+1), ty.to_string()));
+                request.push_str(format!(" arg{} : arg{},", i+1, i +1).as_str());
             }
             // TODO: handle other cases
         }
@@ -326,6 +339,7 @@ pub fn gen_agent_server(my_visitor: &CustomItemVisitor) {
     file.write_all(scope.to_string().as_bytes()).unwrap();
 }
 
+// Currently, going to support only basic types
 pub fn gen_agent_proto(my_visitor: &CustomItemVisitor) {
     fs::create_dir_all("split_result/proto").unwrap();
     let mut file = OpenOptions::new()
@@ -335,7 +349,69 @@ pub fn gen_agent_proto(my_visitor: &CustomItemVisitor) {
                                 .truncate(true)
                                 .open("split_result/proto/splitspectre.proto").unwrap();
 
-    file.write("Testing".as_bytes()).unwrap();
+    let mut data: String = String::new();
+
+    data.push_str("syntax = \"proto3\";\n");
+    data.push_str("package splitspectre;\n");
+
+
+    // Service Agent
+    data.push_str("service Agent {\n");
+    for (_k, v) in my_visitor.fn_calls.iter() {
+        let fn_name = v.segments.last().unwrap().ident.name.to_ident_string();
+
+        // transform arguments
+        // let mut fn_args = Vec::new();
+        // let mut request: String = format!("{}Request", fn_name.to_camel_case());
+        let line: String = format!("    rpc {fn} ({fn}Request) returns ({fn}Response) {{}}\n", fn = fn_name.to_camel_case());
+        data += &line;
+    }
+    data.push_str("}\n\n");
+
+    // usual secretId stuff
+    data.push_str("message SecretId {\n");
+    data.push_str("    uint64 keyid = 1;\n}\n\n");
+
+    // individual stuff
+    for (_k, v) in my_visitor.fn_calls.iter() {
+        let fn_name = v.segments.last().unwrap().ident.name.to_ident_string();
+
+        // for request
+        data.push_str(&format!("message {}Request {{\n", fn_name.to_camel_case()));
+        for (i, ty) in v.fn_sig.inputs().iter().enumerate() {
+            if let rustc_middle::ty::TyKind::Ref(_, ref_ty, _) = ty.kind() {
+                if let rustc_middle::ty::TyKind::Slice(slice_ty) = ref_ty.kind() {
+                    if slice_ty.to_string() == "secret_integers::U8" {
+                        data.push_str(&format!("    SecretId arg{n} = {n};\n", n = i + 1));
+                    } else {
+                        data.push_str(&format!("    bytes arg{n} = {n};\n", n = i + 1));
+                    }
+                }
+                // TODO: handle other cases
+            }
+        }
+        data.push_str("}\n\n");
+
+        // for response
+        data.push_str(&format!("message {}Response {{\n", fn_name.to_camel_case()));
+        if v.fn_sig.output().to_string().contains("secret_integers::U8") {
+            // Need to handle a lot of cases
+            // TODO
+            data.push_str("    SecretId result = 1;\n");
+        } else {
+            if let rustc_middle::ty::TyKind::Ref(..) = v.fn_sig.output().kind() {
+                data.push_str("    bytes result = 1;\n");
+            } else {
+                // Vec
+                data.push_str("    bytes result = 1;\n")
+
+                // TODO handle other cases
+            }
+        }
+        data.push_str("}\n\n");
+    }
+
+    file.write(data.as_bytes()).unwrap();
 }
 
 pub fn gen_agent_cargo() {

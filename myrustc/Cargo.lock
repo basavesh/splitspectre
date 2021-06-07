@@ -54,6 +54,7 @@ dependencies = [
  "codegen",
  "heck",
  "if_chain",
+ "indexmap",
  "rustc-workspace-hack",
 ]
 

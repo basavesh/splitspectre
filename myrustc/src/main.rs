@@ -29,7 +29,8 @@ use rustc_middle::mir::TerminatorKind;
 use rustc_middle::ty::TyCtxt;
 use rustc_middle::hir::map::Map;
 use rustc_session::Session;
-use std::collections::HashMap;
+//use std::collections::HashMap;
+use indexmap::IndexMap;
 use rustc_hir_pretty::ty_to_string;
 
 use heck::CamelCase;
@@ -75,7 +76,7 @@ impl Callbacks for CustomCallbacks {
                                                 inside_secret_fn: false,
                                                 body_ids: Vec::new(),
                                                 fn_defs: Vec::<String>::new(),
-                                                fn_calls: HashMap::new(),
+                                                fn_calls: IndexMap::new(),
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
             if *crate_name == "secret_integers_usage" || *crate_name == "chacha20" {
@@ -85,6 +86,8 @@ impl Callbacks for CustomCallbacks {
                 lib::gen_agent_proto(&item_visitor);
                 lib::gen_agent_build();
                 lib::gen_agent_cargo();
+                // Debug
+                println!("Fn_calls: {:#?}", item_visitor.fn_calls);
             }
         });
         Compilation::Continue
