@@ -38,6 +38,27 @@ use heck::CamelCase;
 use std::fs::{self, OpenOptions};
 use std::io::prelude::*;
 
+// type map
+use lazy_static::lazy_static;
+use std::collections::HashMap;
+
+lazy_static! {
+    static ref PROTOTYPES: HashMap<&'static str, &'static str> = {
+        let mut map = HashMap::new();
+        map.insert("f64", "double");
+        map.insert("f32", "float");
+        map.insert("i32", "int32");
+        map.insert("i64", "int64");
+        map.insert("u32", "uint32");
+        map.insert("u64", "uint64");
+        map.insert("bool", "bool");
+        map.insert("String", "string");
+        map.insert("Vec<u8>", "bytes");
+        map.insert("std::vec::Vec<u8>", "bytes");
+        map
+    };
+}
+
 pub struct CustomItemVisitor<'tcx> {
     pub tcx: TyCtxt<'tcx>,
     pub sess: &'tcx Session,  // not sure if I need to use this.
@@ -155,7 +176,7 @@ pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
                         fn_args.push((format!("arg{}", i+1), ty.to_string()));
                         request.push_str(format!(" arg{} : arg{},", i+1, i +1).as_str());
                     }
-                    println!("I need to take care of this type {:#?}", ref_ty);
+                    //println!("I need to take care of this type {:#?}", ref_ty);
                 }
                 // TODO: handle other cases
             } else { // Another BAD HACK TODO
@@ -377,38 +398,65 @@ pub fn gen_agent_proto(my_visitor: &CustomItemVisitor) {
         let fn_name = v.segments.last().unwrap().ident.name.to_ident_string();
 
         // for request
-        data.push_str(&format!("message {}Request {{\n", fn_name.to_camel_case()));
-        for (i, ty) in v.fn_sig.inputs().iter().enumerate() {
-            if let rustc_middle::ty::TyKind::Ref(_, ref_ty, _) = ty.kind() {
-                if let rustc_middle::ty::TyKind::Slice(slice_ty) = ref_ty.kind() {
-                    if slice_ty.to_string() == "secret_integers::U8" {
-                        data.push_str(&format!("    SecretId arg{n} = {n};\n", n = i + 1));
+        {
+            data.push_str(&format!("message {}Request {{\n", fn_name.to_camel_case()));
+            for (i, ty) in v.fn_sig.inputs().iter().enumerate() {
+                if let rustc_middle::ty::TyKind::Ref(_, ref_ty, _) = ty.kind() {
+                    if let rustc_middle::ty::TyKind::Slice(slice_ty) = ref_ty.kind() {
+                        if slice_ty.to_string() == "secret_integers::U8" {
+                            data.push_str(&format!("    SecretId arg{n} = {n};\n", n = i + 1));
+                        } else {
+                            data.push_str(&format!("    bytes arg{n} = {n};\n", n = i + 1));
+                        }
                     } else {
-                        data.push_str(&format!("    bytes arg{n} = {n};\n", n = i + 1));
+                        // TODO what if it is ref of something else
+                        // HACK - has bugs
+                        if ty.to_string().contains("std::vec::Vec<secret_integers::U8>") {
+                            data.push_str(&format!("    uint64 arg{n} = {n};\n", n = i + 1));
+                        } else if let key = ref_ty.to_string().as_str() {
+                            if PROTOTYPES.contains_key(&key) {
+                                data.push_str(&format!("    {} arg{n} = {n};\n", PROTOTYPES[key], n = i + 1));
+                            }
+                        }
+
                     }
+                    // TODO: handle other cases
+                } else {
+                    // handle all other cases, refer the agent_client impl
+                    // need to create a map to convert the rust types to proto types
+                    if ty.to_string() == "std::vec::Vec<secret_integers::U8>" {
+                        data.push_str(&format!("    uint64 arg{n} = {n};\n", n = i + 1));
+                    } else if let key = ty.to_string().as_str() {
+                        if PROTOTYPES.contains_key(&key) {
+                            data.push_str(&format!("    {} arg{n} = {n};\n", PROTOTYPES[key], n = i + 1));
+                        }
+                    }
+
                 }
-                // TODO: handle other cases
             }
+            data.push_str("}\n\n");
         }
-        data.push_str("}\n\n");
 
         // for response
-        data.push_str(&format!("message {}Response {{\n", fn_name.to_camel_case()));
-        if v.fn_sig.output().to_string().contains("secret_integers::U8") {
-            // Need to handle a lot of cases
-            // TODO
-            data.push_str("    SecretId result = 1;\n");
-        } else {
-            if let rustc_middle::ty::TyKind::Ref(..) = v.fn_sig.output().kind() {
-                data.push_str("    bytes result = 1;\n");
+        {
+            data.push_str(&format!("message {}Response {{\n", fn_name.to_camel_case()));
+            if v.fn_sig.output().to_string().contains("secret_integers::U8") {
+                // Need to handle a lot of cases
+                // TODO
+                data.push_str("    SecretId result = 1;\n");
             } else {
-                // Vec
-                data.push_str("    bytes result = 1;\n")
+                if let rustc_middle::ty::TyKind::Ref(..) = v.fn_sig.output().kind() {
+                    data.push_str("    bytes result = 1;\n");
+                } else {
+                    // Vec
+                    data.push_str("    bytes result = 1;\n")
 
-                // TODO handle other cases
+                    // TODO handle other cases
+                }
             }
+            data.push_str("}\n\n");
         }
-        data.push_str("}\n\n");
+
     }
 
     file.write(data.as_bytes()).unwrap();
