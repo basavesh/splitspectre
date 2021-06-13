@@ -1,8 +1,6 @@
 syntax = "proto3";
 package splitspectre;
-
 service Agent {
-    // This is where we will create the function signatures
     rpc ClassifyU8s (ClassifyU8sRequest) returns (ClassifyU8sResponse) {}
     rpc Chacha20Encrypt (Chacha20EncryptRequest) returns (Chacha20EncryptResponse) {}
 }
@@ -16,17 +14,17 @@ message ClassifyU8sRequest {
 }
 
 message ClassifyU8sResponse {
-    // Return the keyid of the secret type.
     SecretId result = 1;
 }
 
 message Chacha20EncryptRequest {
-    bytes arg1 = 1;      // PlainText
-    SecretId arg2 = 2;   // Secret KeyId
+    SecretId arg1 = 1;
+    uint32 arg2 = 2;
+    bytes arg3 = 3;
+    bytes arg4 = 4;
 }
 
 message Chacha20EncryptResponse {
     bytes result = 1;
 }
-
 

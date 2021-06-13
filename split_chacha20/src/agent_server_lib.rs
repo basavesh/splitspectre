@@ -1,6 +1,52 @@
+use secret_integers::*;
+
+const BLOCK_SIZE: usize = 64;
+type State = [U32; 16];
+type Key = Vec<U8>;
+type Nonce = Vec<U8>;
+type Block = [U8; 64];
+type Constants = [u32; 4];
+type Index = usize;
+type RotVal = u32;
+
+const CONSTANTS: Constants = [0x61707865, 0x3320646e, 0x79622d32, 0x6b206574];
+
 pub fn classify_u8s(v: &[u8]) -> Vec<U8> {
     v.iter().map(|x| U8::classify(*x)).collect()
 }
+pub fn declassify_u8s(v: &[U8]) -> Vec<u8> {
+    v.iter().map(|x| U8::declassify(*x)).collect()
+}
+
+pub fn classify_u32s(v: &[u32]) -> Vec<U32> {
+    v.iter().map(|x| U32::classify(*x)).collect()
+}
+
+fn line(a: Index, b: Index, d: Index, s: RotVal, m: &mut State) {
+    m[a] = m[a] + m[b];
+    m[d] = m[d] ^ m[a];
+    m[d] = m[d].rotate_left(s);
+}
+
+fn quarter_round(a: Index, b: Index, c: Index, d: Index, m: &mut State) {
+    line(a, b, d, 16, m);
+    line(c, d, b, 12, m);
+    line(a, b, d, 8, m);
+    line(c, d, b, 7, m);
+}
+
+fn double_round(m: &mut State) {
+    quarter_round(0, 4, 8, 12, m);
+    quarter_round(1, 5, 9, 13, m);
+    quarter_round(2, 6, 10, 14, m);
+    quarter_round(3, 7, 11, 15, m);
+
+    quarter_round(0, 5, 10, 15, m);
+    quarter_round(1, 6, 11, 12, m);
+    quarter_round(2, 7, 8, 13, m);
+    quarter_round(3, 4, 9, 14, m);
+}
+
 fn chacha20_init(k: &Key, counter: U32, nonce: &Nonce) -> State {
     let mut st = [U32::classify(0u32); 16];
     st[0..4].copy_from_slice(&classify_u32s(&CONSTANTS));
@@ -9,6 +55,17 @@ fn chacha20_init(k: &Key, counter: U32, nonce: &Nonce) -> State {
     st[13..16].copy_from_slice(U32::from_bytes_le(nonce).as_slice());
     st
 }
+
+fn chacha20_core(st: &mut State) {
+    let mut working_state = st.clone();
+    for _ in 0..10 {
+        double_round(&mut working_state);
+    }
+    for i in 0..16 {
+        st[i] += working_state[i];
+    }
+}
+
 fn chacha20(k: &Key, counter: U32, nonce: &Nonce) -> State {
     let mut st = chacha20_init(k, counter, nonce);
     chacha20_core(&mut st);
@@ -56,9 +113,13 @@ fn chacha20_counter_mode(key: &Key, counter: U32, nonce: &Nonce, msg: &Vec<U8>) 
         .take(msg.len())
         .collect()
 }
-pub fn chacha20_encrypt(key: &Key, counter: U32, nonce: &Nonce, msg: &Vec<U8>) -> Vec<U8> {
-    chacha20_counter_mode(key, counter, nonce, msg)
+pub fn chacha20_encrypt(key: &Key, counter: u32, nonce: &Vec<u8>, msg: &Vec<u8>) -> Vec<u8> {
+    let nonce = &classify_u8s(nonce);
+    let msg = &classify_u8s(msg);
+    declassify_u8s(&chacha20_counter_mode(key, counter.into(), nonce, msg))
 }
-pub fn chacha20_decrypt(key: &Key, counter: U32, nonce: &Nonce, msg: &Vec<U8>) -> Vec<U8> {
-    chacha20_counter_mode(key, counter, nonce, msg)
+pub fn chacha20_decrypt(key: &Key, counter: u32, nonce: &Vec<u8>, msg: &Vec<u8>) -> Vec<u8> {
+    let nonce = &classify_u8s(nonce);
+    let msg = &classify_u8s(msg);
+    declassify_u8s(&chacha20_counter_mode(key, counter.into(), nonce, msg))
 }

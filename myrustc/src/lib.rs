@@ -306,7 +306,7 @@ fn agent_server_imports_and_modules(scope: &mut Scope, ) {
     scope.new_module("splitspectre").vis("pub").push_raw("tonic::include_proto!(\"splitspectre\");");
 
     // This is something not standard
-    scope.raw("pub mod simple;");
+    scope.raw("pub mod agent_server_lib;");
 }
 
 fn agent_server_classify_declassify(scope: &mut Scope) {
@@ -390,13 +390,14 @@ pub fn gen_agent_proto(my_visitor: &CustomItemVisitor) {
     data.push_str("}\n\n");
 
     // usual secretId stuff
-    data.push_str("message SecretId {\n");
-    data.push_str("    uint64 keyid = 1;\n}\n\n");
+    {
+        data.push_str("message SecretId {\n");
+        data.push_str("    uint64 keyid = 1;\n}\n\n");
+    }
 
     // individual stuff
     for (_k, v) in my_visitor.fn_calls.iter() {
         let fn_name = v.segments.last().unwrap().ident.name.to_ident_string();
-
         // for request
         {
             data.push_str(&format!("message {}Request {{\n", fn_name.to_camel_case()));
@@ -418,20 +419,18 @@ pub fn gen_agent_proto(my_visitor: &CustomItemVisitor) {
                                 data.push_str(&format!("    {} arg{n} = {n};\n", PROTOTYPES[key], n = i + 1));
                             }
                         }
-
                     }
                     // TODO: handle other cases
                 } else {
                     // handle all other cases, refer the agent_client impl
                     // need to create a map to convert the rust types to proto types
-                    if ty.to_string() == "std::vec::Vec<secret_integers::U8>" {
+                    if ty.to_string().contains("std::vec::Vec<secret_integers::U8>") {
                         data.push_str(&format!("    uint64 arg{n} = {n};\n", n = i + 1));
                     } else if let key = ty.to_string().as_str() {
                         if PROTOTYPES.contains_key(&key) {
                             data.push_str(&format!("    {} arg{n} = {n};\n", PROTOTYPES[key], n = i + 1));
                         }
                     }
-
                 }
             }
             data.push_str("}\n\n");
