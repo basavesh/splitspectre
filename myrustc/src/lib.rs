@@ -174,7 +174,7 @@ pub fn gen_agent_client(my_visitor: &CustomItemVisitor) {
                         request.push_str(format!(" arg{} : Some(SecretId{{ keyid: *arg{},}}),", i+1, i +1).as_str());
                     } else {
                         fn_args.push((format!("arg{}", i+1), ty.to_string()));
-                        request.push_str(format!(" arg{} : arg{},", i+1, i +1).as_str());
+                        request.push_str(format!(" arg{} : arg{}.to_vec(),", i+1, i +1).as_str());
                     }
                     //println!("I need to take care of this type {:#?}", ref_ty);
                 }
@@ -205,8 +205,8 @@ fn agent_server_fn_return(imp: &'a mut Impl, fn_name: &'a str, request: &'a str,
         .new_fn(fn_name)
         .set_async(true)
         .arg_ref_self()
-        .arg("request", request)
-        .ret(format!("Result<Response<{}, Status>", response));
+        .arg("request", format!("Request<{}>",request))
+        .ret(format!("Result<Response<{}>, Status>", response));
 }
 
 // Server case is little complicated
@@ -216,7 +216,7 @@ fn agent_server_impl(scope: &mut Scope, my_visitor: &CustomItemVisitor) {
         .new_struct("MyAgent")
         .derive("Debug")
         .derive("Default")
-        .field("keys_map", "Arc<RwLock<HashMap<u64, Vec<U8>>>>")
+        .field("keys_map", "Arc<Mutex<HashMap<u64, Vec<U8>>>>")
         .field("counter", "Arc<Mutex<u64>>");
     let imp = scope.new_impl("MyAgent");
     imp.impl_trait("agent_server::Agent");
@@ -251,7 +251,7 @@ fn agent_server_impl(scope: &mut Scope, my_visitor: &CustomItemVisitor) {
             blk.line("let mut num = self.counter.lock().unwrap();");
             blk.line("*num += 1;");
             blk.line("lock_guard.insert(*num, call_result);");
-            blk.line(format!("let response = {} {{ result: Some(SecretId{{ keyid: *num}})", fn_name.to_camel_case()));
+            blk.line(format!("let response = {}Response {{ result: Some(SecretId{{ keyid: *num}})}};", fn_name.to_camel_case()));
             blk.line("return Ok(Response::new(response));");
             my_fn.push_block(blk);
         } else {
@@ -303,6 +303,7 @@ fn agent_server_imports_and_modules(scope: &mut Scope, ) {
     scope.import("secret_integers", "*");
     scope.import("std::sync", "*");
     scope.import("std::collections", "HashMap");
+    scope.import("agent_server_lib", "*");
     scope.new_module("splitspectre").vis("pub").push_raw("tonic::include_proto!(\"splitspectre\");");
 
     // This is something not standard
@@ -413,7 +414,7 @@ pub fn gen_agent_proto(my_visitor: &CustomItemVisitor) {
                         // TODO what if it is ref of something else
                         // HACK - has bugs
                         if ty.to_string().contains("std::vec::Vec<secret_integers::U8>") {
-                            data.push_str(&format!("    uint64 arg{n} = {n};\n", n = i + 1));
+                            data.push_str(&format!("    SecretId arg{n} = {n};\n", n = i + 1));
                         } else if let key = ref_ty.to_string().as_str() {
                             if PROTOTYPES.contains_key(&key) {
                                 data.push_str(&format!("    {} arg{n} = {n};\n", PROTOTYPES[key], n = i + 1));
@@ -425,7 +426,7 @@ pub fn gen_agent_proto(my_visitor: &CustomItemVisitor) {
                     // handle all other cases, refer the agent_client impl
                     // need to create a map to convert the rust types to proto types
                     if ty.to_string().contains("std::vec::Vec<secret_integers::U8>") {
-                        data.push_str(&format!("    uint64 arg{n} = {n};\n", n = i + 1));
+                        data.push_str(&format!("    SecretId arg{n} = {n};\n", n = i + 1));
                     } else if let key = ty.to_string().as_str() {
                         if PROTOTYPES.contains_key(&key) {
                             data.push_str(&format!("    {} arg{n} = {n};\n", PROTOTYPES[key], n = i + 1));
