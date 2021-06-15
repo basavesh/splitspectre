@@ -1,0 +1,336 @@
+#[prelude_import]
+use std::prelude::rust_2018::*;
+#[macro_use]
+extern crate std;
+use secret_integers::*;
+
+const BLOCK_SIZE: usize = 64;
+type State = [U32; 16];
+type Key = Vec<U8>;
+type Nonce = Vec<U8>;
+type Block = [U8; 64];
+type Constants = [u32; 4];
+type Index = usize;
+type RotVal = u32;
+
+pub fn classify_u32s(v: &[u32])
+ -> Vec<U32> { v.iter().map(|x| U32::classify(*x)).collect() }
+
+pub fn classify_u8s(v: &[u8])
+ -> Vec<U8> { v.iter().map(|x| U8::classify(*x)).collect() }
+
+pub fn declassify_u8s(v: &[U8])
+ -> Vec<u8> { v.iter().map(|x| U8::declassify(*x)).collect() }
+
+fn line(a: Index, b: Index, d: Index, s: RotVal,
+        m:
+            &mut State) {
+                            m[a] = m[a] + m[b];
+                            m[d] = m[d] ^ m[a];
+                            m[d] = m[d].rotate_left(s);
+                        }
+
+fn quarter_round(a: Index, b: Index, c: Index, d: Index,
+                 m:
+                     &mut State) {
+                                     line(a, b, d, 16, m);
+                                     line(c, d, b, 12, m);
+                                     line(a, b, d, 8, m);
+                                     line(c, d, b, 7, m);
+                                 }
+
+fn double_round(m:
+                    &mut State) {
+                                    quarter_round(0, 4, 8, 12, m);
+                                    quarter_round(1, 5, 9, 13, m);
+                                    quarter_round(2, 6, 10, 14, m);
+                                    quarter_round(3, 7, 11, 15, m);
+
+                                    quarter_round(0, 5, 10, 15, m);
+                                    quarter_round(1, 6, 11, 12, m);
+                                    quarter_round(2, 7, 8, 13, m);
+                                    quarter_round(3, 4, 9, 14, m);
+                                }
+
+const CONSTANTS: Constants = [1634760805, 857760878, 2036477234, 1797285236];
+
+fn chacha20_init(k: &Key, counter: U32, nonce: &Nonce)
+ ->
+     State {
+               let mut st = [U32::classify(0u32); 16];
+               st[#[lang = "Range"]{start: 0,
+                                    end:
+                                        4,}].copy_from_slice(&classify_u32s(&CONSTANTS));
+               st[#[lang = "Range"]{start: 4,
+                                    end:
+                                        12,}].copy_from_slice(U32::from_bytes_le(k).as_slice());
+               st[12] = counter;
+               st[#[lang = "Range"]{start: 13,
+                                    end:
+                                        16,}].copy_from_slice(U32::from_bytes_le(nonce).as_slice());
+               st
+           }
+
+fn chacha20_core(st:
+                     &mut State) {
+                                     let mut working_state = st.clone();
+                                     {
+                                         let _t =
+                                             match #[lang = "into_iter"](#[lang = "Range"]{start:
+                                                                                               0,
+                                                                                           end:
+                                                                                               10,})
+                                                 {
+                                                 mut iter =>
+                                                 loop  {
+                                                     let mut __next;
+                                                     match #[lang = "next"](&mut iter)
+                                                         {
+                                                         #[lang = "Some"] {
+                                                         0: val } =>
+                                                         __next = val,
+                                                         #[lang = "None"] {  }
+                                                         => break ,
+                                                     }
+                                                     let _ = __next;
+                                                     {
+                                                         double_round(&mut working_state);
+                                                     }
+                                                 },
+                                             };
+                                         _t
+                                     };
+                                     {
+                                         let _t =
+                                             match #[lang = "into_iter"](#[lang = "Range"]{start:
+                                                                                               0,
+                                                                                           end:
+                                                                                               16,})
+                                                 {
+                                                 mut iter =>
+                                                 loop  {
+                                                     let mut __next;
+                                                     match #[lang = "next"](&mut iter)
+                                                         {
+                                                         #[lang = "Some"] {
+                                                         0: val } =>
+                                                         __next = val,
+                                                         #[lang = "None"] {  }
+                                                         => break ,
+                                                     }
+                                                     let i = __next;
+                                                     {
+                                                         st[i] +=
+                                                             working_state[i];
+                                                     }
+                                                 },
+                                             };
+                                         _t
+                                     }
+                                 }
+
+fn chacha20(k: &Key, counter: U32, nonce: &Nonce)
+ ->
+     State {
+               let mut st = chacha20_init(k, counter, nonce);
+               chacha20_core(&mut st);
+               st
+           }
+
+fn chacha20_block(k: &Key, counter: U32, nonce: &Nonce)
+ ->
+     Block {
+               let st = chacha20(k, counter, nonce);
+               let mut block = [U8::classify(0u8); BLOCK_SIZE];
+               block.copy_from_slice(U32::to_bytes_le(&st).as_slice());
+               block
+           }
+
+fn xor_block(block: &Block, key_block: &Block)
+ ->
+     Block {
+               let mut v_out = [Default::default(); BLOCK_SIZE];
+               {
+                   let _t =
+                       match #[lang = "into_iter"](#[lang = "Range"]{start: 0,
+                                                                     end:
+                                                                         BLOCK_SIZE,})
+                           {
+                           mut iter =>
+                           loop  {
+                               let mut __next;
+                               match #[lang = "next"](&mut iter) {
+                                   #[lang = "Some"] { 0: val } =>
+                                   __next = val,
+                                   #[lang = "None"] {  } => break ,
+                               }
+                               let i = __next;
+                               { v_out[i] = block[i] ^ key_block[i]; }
+                           },
+                       };
+                   _t
+               };
+               let mut out = [Default::default(); BLOCK_SIZE];
+               out.copy_from_slice(&v_out);
+               out
+           }
+
+fn chacha20_counter_mode(key: &Key, counter: U32, nonce: &Nonce,
+                         msg: &Vec<U8>)
+ ->
+     Vec<U8> {
+                 let mut blocks: Vec<[U8; BLOCK_SIZE]> =
+                     msg.chunks(BLOCK_SIZE).map(|block|
+                                                    {
+                                                        let mut new_block =
+                                                            [U8::zero();
+                                                                BLOCK_SIZE];
+                                                        new_block[#[lang = "Range"]{start:
+                                                                                        0,
+                                                                                    end:
+                                                                                        block.len(),}].copy_from_slice(block);
+                                                        new_block
+                                                    }).collect();
+                 let nb_blocks = blocks.len();
+                 let mut key_block: [U8; BLOCK_SIZE];
+                 let mut ctr = counter;
+                 {
+                     let _t =
+                         match #[lang = "into_iter"](#[lang = "Range"]{start:
+                                                                           0,
+                                                                       end:
+                                                                           blocks.len()
+                                                                               -
+                                                                               1,})
+                             {
+                             mut iter =>
+                             loop  {
+                                 let mut __next;
+                                 match #[lang = "next"](&mut iter) {
+                                     #[lang = "Some"] { 0: val } =>
+                                     __next = val,
+                                     #[lang = "None"] {  } => break ,
+                                 }
+                                 let i = __next;
+                                 {
+                                     key_block =
+                                         chacha20_block(key, ctr, nonce);
+                                     blocks[i] =
+                                         xor_block(&blocks[i], &key_block);
+                                     ctr += U32::one();
+                                 }
+                             },
+                         };
+                     _t
+                 };
+                 let last = &mut blocks[nb_blocks - 1];
+                 key_block = chacha20_block(key, ctr, nonce);
+                 *last = xor_block(last, &key_block);
+                 blocks.iter().map(|block|
+                                       block.to_vec()).flatten().take(msg.len()).collect()
+             }
+
+pub fn chacha20_encrypt(key: &Key, counter: u32, nonce: &Vec<u8>,
+                        msg: &Vec<u8>)
+ ->
+     Vec<u8> {
+                 let nonce = &classify_u8s(nonce);
+                 let msg = &classify_u8s(msg);
+                 declassify_u8s(&chacha20_counter_mode(key, counter.into(),
+                                                       nonce, msg))
+             }
+
+pub fn chacha20_decrypt(key: &Key, counter: u32, nonce: &Vec<u8>,
+                        msg: &Vec<u8>)
+ ->
+     Vec<u8> {
+                 let nonce = &classify_u8s(nonce);
+                 let msg = &classify_u8s(msg);
+                 declassify_u8s(&chacha20_counter_mode(key, counter.into(),
+                                                       nonce, msg))
+             }
+
+fn main() {
+              let plaintext =
+                  <[_]>::into_vec(box
+                                      [76, 97, 100, 105, 101, 115, 32, 97,
+                                       110, 100, 32, 71, 101, 110, 116, 108,
+                                       101, 109, 101, 110, 32, 111, 102, 32,
+                                       116, 104, 101, 32, 99, 108, 97, 115,
+                                       115, 32, 111, 102, 32, 39, 57, 57, 58,
+                                       32, 73, 102, 32, 73, 32, 99, 111, 117,
+                                       108, 100, 32, 111, 102, 102, 101, 114,
+                                       32, 121, 111, 117, 32, 111, 110, 108,
+                                       121, 32, 111, 110, 101, 32, 116, 105,
+                                       112, 32, 102, 111, 114, 32, 116, 104,
+                                       101, 32, 102, 117, 116, 117, 114, 101,
+                                       44, 32, 115, 117, 110, 115, 99, 114,
+                                       101, 101, 110, 32, 119, 111, 117, 108,
+                                       100, 32, 98, 101, 32, 105, 116, 46]);
+              let ciphertext =
+                  <[_]>::into_vec(box
+                                      [110, 46, 53, 154, 37, 104, 249, 128,
+                                       65, 186, 7, 40, 221, 13, 105, 129, 233,
+                                       126, 122, 236, 29, 67, 96, 194, 10, 39,
+                                       175, 204, 253, 159, 174, 11, 249, 27,
+                                       101, 197, 82, 71, 51, 171, 143, 89, 61,
+                                       171, 205, 98, 179, 87, 22, 57, 214, 36,
+                                       230, 81, 82, 171, 143, 83, 12, 53, 159,
+                                       8, 97, 216, 7, 202, 13, 191, 80, 13,
+                                       106, 97, 86, 163, 142, 8, 138, 34, 182,
+                                       94, 82, 188, 81, 77, 22, 204, 248, 6,
+                                       129, 140, 233, 26, 183, 121, 55, 54,
+                                       90, 249, 11, 191, 116, 163, 91, 230,
+                                       180, 11, 142, 237, 242, 120, 94, 66,
+                                       135, 77]);
+              let key =
+                  classify_u8s(&<[_]>::into_vec(box
+                                                    [0u8, 1u8, 2u8, 3u8, 4u8,
+                                                     5u8, 6u8, 7u8, 8u8, 9u8,
+                                                     10u8, 11u8, 12u8, 13u8,
+                                                     14u8, 15u8, 16u8, 17u8,
+                                                     18u8, 19u8, 20u8, 21u8,
+                                                     22u8, 23u8, 24u8, 25u8,
+                                                     26u8, 27u8, 28u8, 29u8,
+                                                     30u8, 31u8]));
+              let nonce =
+                  <[_]>::into_vec(box [0, 0, 0, 0, 0, 0, 0, 74, 0, 0, 0, 0]);
+              let computed_ciphertext =
+                  chacha20_encrypt(&key, 1u32, &nonce, &plaintext);
+              {
+                  let _t =
+                      match #[lang = "into_iter"](ciphertext.iter().zip(computed_ciphertext).enumerate())
+                          {
+                          mut iter =>
+                          loop  {
+                              let mut __next;
+                              match #[lang = "next"](&mut iter) {
+                                  #[lang = "Some"] { 0: val } => __next = val,
+                                  #[lang = "None"] {  } => break ,
+                              }
+                              let (i, (x1, x2)) = __next;
+                              {
+                                  {
+                                      match (&*x1, &x2) {
+                                          (left_val, right_val) => {
+                                              if !(*left_val == *right_val)
+                                                 {
+                                                     let kind =
+                                                         ::core::panicking::AssertKind::Eq;
+                                                     ::core::panicking::assert_failed(kind,
+                                                                                      &*left_val,
+                                                                                      &*right_val,
+                                                                                      ::core::option::Option::Some(::core::fmt::Arguments::new_v1(&["at index "],
+                                                                                                                                                  &match (&i,)
+                                                                                                                                                       {
+                                                                                                                                                       (arg0,)
+                                                                                                                                                       =>
+                                                                                                                                                       [::core::fmt::ArgumentV1::new(arg0,
+                                                                                                                                                                                     ::core::fmt::Debug::fmt)],
+                                                                                                                                                   })));
+                                                 }
+                                              } }
+                                      };
+                                  }
+                              }, }; _t }
+              }

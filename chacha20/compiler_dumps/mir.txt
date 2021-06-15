@@ -1,0 +1,2453 @@
+// WARNING: This output format is intended for human consumers only
+// and is subject to change without notice. Knock yourself out.
+fn chacha20_encrypt(_1: &std::vec::Vec<secret_integers::U8>, _2: u32, _3: &std::vec::Vec<u8>, _4: &std::vec::Vec<u8>) -> std::vec::Vec<u8> {
+    debug key => _1;                     // in scope 0 at chacha20/src/main.rs:121:25: 121:28
+    debug counter => _2;                 // in scope 0 at chacha20/src/main.rs:121:36: 121:43
+    debug nonce => _3;                   // in scope 0 at chacha20/src/main.rs:121:50: 121:55
+    debug msg => _4;                     // in scope 0 at chacha20/src/main.rs:121:67: 121:70
+    let mut _0: std::vec::Vec<u8>;       // return place in scope 0 at chacha20/src/main.rs:121:85: 121:92
+    let _5: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:122:9: 122:14
+    let _6: std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:122:18: 122:37
+    let mut _7: &[u8];                   // in scope 0 at chacha20/src/main.rs:122:31: 122:36
+    let _8: &[u8];                       // in scope 0 at chacha20/src/main.rs:122:31: 122:36
+    let mut _9: &std::vec::Vec<u8>;      // in scope 0 at chacha20/src/main.rs:122:31: 122:36
+    let _11: std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:123:16: 123:33
+    let mut _12: &[u8];                  // in scope 0 at chacha20/src/main.rs:123:29: 123:32
+    let _13: &[u8];                      // in scope 0 at chacha20/src/main.rs:123:29: 123:32
+    let mut _14: &std::vec::Vec<u8>;     // in scope 0 at chacha20/src/main.rs:123:29: 123:32
+    let mut _15: &[secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:124:20: 124:75
+    let _16: &[secret_integers::U8];     // in scope 0 at chacha20/src/main.rs:124:20: 124:75
+    let mut _17: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:124:20: 124:75
+    let _18: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:124:20: 124:75
+    let _19: std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:124:21: 124:75
+    let mut _20: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:124:43: 124:46
+    let mut _21: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:124:48: 124:62
+    let mut _22: u32;                    // in scope 0 at chacha20/src/main.rs:124:48: 124:55
+    let mut _23: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:124:64: 124:69
+    let mut _24: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:124:71: 124:74
+    scope 1 {
+        debug nonce => _5;               // in scope 1 at chacha20/src/main.rs:122:9: 122:14
+        let _10: &std::vec::Vec<secret_integers::U8>; // in scope 1 at chacha20/src/main.rs:123:9: 123:12
+        scope 2 {
+            debug msg => _10;            // in scope 2 at chacha20/src/main.rs:123:9: 123:12
+        }
+    }
+
+    bb0: {
+        _9 = _3;                         // scope 0 at chacha20/src/main.rs:122:31: 122:36
+        _8 = <std::vec::Vec<u8> as std::ops::Deref>::deref(move _9) -> bb1; // scope 0 at chacha20/src/main.rs:122:31: 122:36
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:122:31: 122:36
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<u8>) -> &'r <std::vec::Vec<u8> as std::ops::Deref>::Target {<std::vec::Vec<u8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _7 = _8;                         // scope 0 at chacha20/src/main.rs:122:31: 122:36
+        _6 = classify_u8s(move _7) -> bb2; // scope 0 at chacha20/src/main.rs:122:18: 122:37
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:122:18: 122:30
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::vec::Vec<secret_integers::U8> {classify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _5 = &_6;                        // scope 0 at chacha20/src/main.rs:122:17: 122:37
+        _14 = _4;                        // scope 1 at chacha20/src/main.rs:123:29: 123:32
+        _13 = <std::vec::Vec<u8> as std::ops::Deref>::deref(move _14) -> [return: bb3, unwind: bb16]; // scope 1 at chacha20/src/main.rs:123:29: 123:32
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:123:29: 123:32
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<u8>) -> &'r <std::vec::Vec<u8> as std::ops::Deref>::Target {<std::vec::Vec<u8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _12 = _13;                       // scope 1 at chacha20/src/main.rs:123:29: 123:32
+        _11 = classify_u8s(move _12) -> [return: bb4, unwind: bb16]; // scope 1 at chacha20/src/main.rs:123:16: 123:33
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:123:16: 123:28
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::vec::Vec<secret_integers::U8> {classify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _10 = &_11;                      // scope 1 at chacha20/src/main.rs:123:15: 123:33
+        _20 = _1;                        // scope 2 at chacha20/src/main.rs:124:43: 124:46
+        _22 = _2;                        // scope 2 at chacha20/src/main.rs:124:48: 124:55
+        _21 = <u32 as std::convert::Into<secret_integers::U32>>::into(move _22) -> [return: bb5, unwind: bb15]; // scope 2 at chacha20/src/main.rs:124:48: 124:62
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:124:56: 124:60
+                                         // + literal: Const { ty: fn(u32) -> secret_integers::U32 {<u32 as std::convert::Into<secret_integers::U32>>::into}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        _23 = _5;                        // scope 2 at chacha20/src/main.rs:124:64: 124:69
+        _24 = _10;                       // scope 2 at chacha20/src/main.rs:124:71: 124:74
+        _19 = chacha20_counter_mode(move _20, move _21, move _23, move _24) -> [return: bb6, unwind: bb15]; // scope 2 at chacha20/src/main.rs:124:21: 124:75
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:124:21: 124:42
+                                         // + literal: Const { ty: for<'r, 's, 't0> fn(&'r std::vec::Vec<secret_integers::U8>, secret_integers::U32, &'s std::vec::Vec<secret_integers::U8>, &'t0 std::vec::Vec<secret_integers::U8>) -> std::vec::Vec<secret_integers::U8> {chacha20_counter_mode}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb6: {
+        _18 = &_19;                      // scope 2 at chacha20/src/main.rs:124:20: 124:75
+        _17 = _18;                       // scope 2 at chacha20/src/main.rs:124:20: 124:75
+        _16 = <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref(move _17) -> [return: bb7, unwind: bb12]; // scope 2 at chacha20/src/main.rs:124:20: 124:75
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:124:20: 124:75
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>) -> &'r <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::Target {<std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb7: {
+        _15 = _16;                       // scope 2 at chacha20/src/main.rs:124:20: 124:75
+        _0 = declassify_u8s(move _15) -> [return: bb8, unwind: bb12]; // scope 2 at chacha20/src/main.rs:124:5: 124:76
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:124:5: 124:19
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> std::vec::Vec<u8> {declassify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        drop(_11) -> [return: bb9, unwind: bb13]; // scope 1 at chacha20/src/main.rs:125:1: 125:2
+    }
+
+    bb9: {
+        drop(_6) -> [return: bb10, unwind: bb14]; // scope 0 at chacha20/src/main.rs:125:1: 125:2
+    }
+
+    bb10: {
+        drop(_19) -> bb11;               // scope 0 at chacha20/src/main.rs:125:1: 125:2
+    }
+
+    bb11: {
+        return;                          // scope 0 at chacha20/src/main.rs:125:2: 125:2
+    }
+
+    bb12 (cleanup): {
+        drop(_11) -> bb13;               // scope 1 at chacha20/src/main.rs:125:1: 125:2
+    }
+
+    bb13 (cleanup): {
+        drop(_6) -> bb14;                // scope 0 at chacha20/src/main.rs:125:1: 125:2
+    }
+
+    bb14 (cleanup): {
+        drop(_19) -> bb17;               // scope 0 at chacha20/src/main.rs:125:1: 125:2
+    }
+
+    bb15 (cleanup): {
+        drop(_11) -> bb16;               // scope 1 at chacha20/src/main.rs:125:1: 125:2
+    }
+
+    bb16 (cleanup): {
+        drop(_6) -> bb17;                // scope 0 at chacha20/src/main.rs:125:1: 125:2
+    }
+
+    bb17 (cleanup): {
+        resume;                          // scope 0 at chacha20/src/main.rs:121:1: 125:2
+    }
+}
+
+chacha20_counter_mode::{closure#0}::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:97:46: 97:56
+
+    bb0: {
+        _0 = const BLOCK_SIZE;           // scope 0 at chacha20/src/main.rs:97:46: 97:56
+        return;                          // scope 0 at chacha20/src/main.rs:97:46: 97:56
+    }
+}
+
+fn chacha20_counter_mode(_1: &std::vec::Vec<secret_integers::U8>, _2: secret_integers::U32, _3: &std::vec::Vec<secret_integers::U8>, _4: &std::vec::Vec<secret_integers::U8>) -> std::vec::Vec<secret_integers::U8> {
+    debug key => _1;                     // in scope 0 at chacha20/src/main.rs:93:26: 93:29
+    debug counter => _2;                 // in scope 0 at chacha20/src/main.rs:93:37: 93:44
+    debug nonce => _3;                   // in scope 0 at chacha20/src/main.rs:93:51: 93:56
+    debug msg => _4;                     // in scope 0 at chacha20/src/main.rs:93:66: 93:69
+    let mut _0: std::vec::Vec<secret_integers::U8>; // return place in scope 0 at chacha20/src/main.rs:93:84: 93:91
+    let mut _5: std::vec::Vec<[secret_integers::U8; 64]>; // in scope 0 at chacha20/src/main.rs:94:9: 94:19
+    let mut _6: std::iter::Map<std::slice::Chunks<secret_integers::U8>, [closure@chacha20/src/main.rs:96:14: 100:10]>; // in scope 0 at chacha20/src/main.rs:94:45: 100:11
+    let mut _7: std::slice::Chunks<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:94:45: 95:28
+    let mut _8: &[secret_integers::U8];  // in scope 0 at chacha20/src/main.rs:94:45: 94:48
+    let _9: &[secret_integers::U8];      // in scope 0 at chacha20/src/main.rs:94:45: 95:28
+    let mut _10: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:94:45: 94:48
+    let mut _11: [closure@chacha20/src/main.rs:96:14: 100:10]; // in scope 0 at chacha20/src/main.rs:96:14: 100:10
+    let mut _13: &std::vec::Vec<[secret_integers::U8; 64]>; // in scope 0 at chacha20/src/main.rs:102:21: 102:27
+    let mut _16: std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:105:14: 105:33
+    let mut _17: std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:105:14: 105:33
+    let mut _18: usize;                  // in scope 0 at chacha20/src/main.rs:105:17: 105:33
+    let mut _19: usize;                  // in scope 0 at chacha20/src/main.rs:105:17: 105:29
+    let mut _20: &std::vec::Vec<[secret_integers::U8; 64]>; // in scope 0 at chacha20/src/main.rs:105:17: 105:23
+    let mut _21: (usize, bool);          // in scope 0 at chacha20/src/main.rs:105:17: 105:33
+    let mut _24: std::option::Option<usize>; // in scope 0 at chacha20/src/main.rs:105:14: 105:33
+    let mut _25: &mut std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:105:14: 105:33
+    let mut _26: &mut std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:105:14: 105:33
+    let mut _27: isize;                  // in scope 0 at chacha20/src/main.rs:105:9: 105:10
+    let mut _29: usize;                  // in scope 0 at chacha20/src/main.rs:105:9: 105:10
+    let mut _31: [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:106:21: 106:52
+    let mut _32: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:106:36: 106:39
+    let mut _33: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:106:41: 106:44
+    let mut _34: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:106:46: 106:51
+    let mut _35: [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:107:21: 107:54
+    let mut _36: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:107:31: 107:41
+    let _37: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:107:31: 107:41
+    let _38: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:107:32: 107:41
+    let mut _39: &std::vec::Vec<[secret_integers::U8; 64]>; // in scope 0 at chacha20/src/main.rs:107:32: 107:38
+    let mut _40: usize;                  // in scope 0 at chacha20/src/main.rs:107:39: 107:40
+    let mut _41: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:107:43: 107:53
+    let _42: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:107:43: 107:53
+    let mut _43: &mut [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:107:9: 107:18
+    let mut _44: &mut std::vec::Vec<[secret_integers::U8; 64]>; // in scope 0 at chacha20/src/main.rs:107:9: 107:15
+    let mut _45: usize;                  // in scope 0 at chacha20/src/main.rs:107:16: 107:17
+    let _46: ();                         // in scope 0 at chacha20/src/main.rs:108:9: 108:26
+    let mut _47: &mut secret_integers::U32; // in scope 0 at chacha20/src/main.rs:108:9: 108:12
+    let mut _48: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:108:16: 108:26
+    let mut _50: &mut [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:110:21: 110:42
+    let mut _51: &mut std::vec::Vec<[secret_integers::U8; 64]>; // in scope 0 at chacha20/src/main.rs:110:21: 110:27
+    let mut _52: usize;                  // in scope 0 at chacha20/src/main.rs:110:28: 110:41
+    let mut _53: usize;                  // in scope 0 at chacha20/src/main.rs:110:28: 110:37
+    let mut _54: (usize, bool);          // in scope 0 at chacha20/src/main.rs:110:28: 110:41
+    let mut _55: [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:111:17: 111:48
+    let mut _56: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:111:32: 111:35
+    let mut _57: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:111:37: 111:40
+    let mut _58: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:111:42: 111:47
+    let mut _59: [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:112:13: 112:40
+    let mut _60: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:112:23: 112:27
+    let mut _61: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:112:29: 112:39
+    let _62: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:112:29: 112:39
+    let mut _63: std::iter::Take<std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>>>; // in scope 0 at chacha20/src/main.rs:113:5: 117:25
+    let mut _64: std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>>; // in scope 0 at chacha20/src/main.rs:113:5: 116:19
+    let mut _65: std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>; // in scope 0 at chacha20/src/main.rs:113:5: 115:37
+    let mut _66: std::slice::Iter<[secret_integers::U8; 64]>; // in scope 0 at chacha20/src/main.rs:113:5: 114:16
+    let mut _67: &[[secret_integers::U8; 64]]; // in scope 0 at chacha20/src/main.rs:113:5: 113:11
+    let _68: &[[secret_integers::U8; 64]]; // in scope 0 at chacha20/src/main.rs:113:5: 114:16
+    let mut _69: &std::vec::Vec<[secret_integers::U8; 64]>; // in scope 0 at chacha20/src/main.rs:113:5: 113:11
+    let mut _70: [closure@chacha20/src/main.rs:115:14: 115:36]; // in scope 0 at chacha20/src/main.rs:115:14: 115:36
+    let mut _71: usize;                  // in scope 0 at chacha20/src/main.rs:117:15: 117:24
+    let mut _72: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:117:15: 117:18
+    let mut _73: bool;                   // in scope 0 at chacha20/src/main.rs:117:24: 117:25
+    scope 1 {
+        debug blocks => _5;              // in scope 1 at chacha20/src/main.rs:94:9: 94:19
+        let _12: usize;                  // in scope 1 at chacha20/src/main.rs:102:9: 102:18
+        scope 2 {
+            debug nb_blocks => _12;      // in scope 2 at chacha20/src/main.rs:102:9: 102:18
+            let mut _14: [secret_integers::U8; 64]; // in scope 2 at chacha20/src/main.rs:103:9: 103:22
+            scope 3 {
+                debug key_block => _14;  // in scope 3 at chacha20/src/main.rs:103:9: 103:22
+                let mut _15: secret_integers::U32; // in scope 3 at chacha20/src/main.rs:104:9: 104:16
+                scope 4 {
+                    debug ctr => _15;    // in scope 4 at chacha20/src/main.rs:104:9: 104:16
+                    let mut _22: std::ops::Range<usize>; // in scope 4 at chacha20/src/main.rs:105:14: 105:33
+                    let _49: &mut [secret_integers::U8; 64]; // in scope 4 at chacha20/src/main.rs:110:9: 110:13
+                    scope 5 {
+                        debug iter => _22; // in scope 5 at chacha20/src/main.rs:105:14: 105:33
+                        let mut _23: usize; // in scope 5 at chacha20/src/main.rs:105:14: 105:33
+                        scope 6 {
+                            debug __next => _23; // in scope 6 at chacha20/src/main.rs:105:14: 105:33
+                            let _28: usize; // in scope 6 at chacha20/src/main.rs:105:9: 105:10
+                            let _30: usize; // in scope 6 at chacha20/src/main.rs:105:9: 105:10
+                            scope 7 {
+                                debug val => _28; // in scope 7 at chacha20/src/main.rs:105:9: 105:10
+                            }
+                            scope 8 {
+                                debug i => _30; // in scope 8 at chacha20/src/main.rs:105:9: 105:10
+                            }
+                        }
+                    }
+                    scope 9 {
+                        debug last => _49; // in scope 9 at chacha20/src/main.rs:110:9: 110:13
+                    }
+                }
+            }
+        }
+    }
+
+    bb0: {
+        _73 = const false;               // scope 0 at chacha20/src/main.rs:94:9: 94:19
+        _10 = _4;                        // scope 0 at chacha20/src/main.rs:94:45: 94:48
+        _9 = <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref(move _10) -> bb1; // scope 0 at chacha20/src/main.rs:94:45: 95:28
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:94:45: 95:28
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>) -> &'r <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::Target {<std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _8 = _9;                         // scope 0 at chacha20/src/main.rs:94:45: 94:48
+        _7 = core::slice::<impl [secret_integers::U8]>::chunks(move _8, const BLOCK_SIZE) -> bb2; // scope 0 at chacha20/src/main.rs:94:45: 95:28
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:95:10: 95:16
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8], usize) -> std::slice::Chunks<'r, secret_integers::U8> {core::slice::<impl [secret_integers::U8]>::chunks}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _6 = <std::slice::Chunks<secret_integers::U8> as std::iter::Iterator>::map::<[secret_integers::U8; 64], [closure@chacha20/src/main.rs:96:14: 100:10]>(move _7, move _11) -> bb3; // scope 0 at chacha20/src/main.rs:94:45: 100:11
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:96:10: 96:13
+                                         // + literal: Const { ty: fn(std::slice::Chunks<secret_integers::U8>, [closure@chacha20/src/main.rs:96:14: 100:10]) -> std::iter::Map<std::slice::Chunks<secret_integers::U8>, [closure@chacha20/src/main.rs:96:14: 100:10]> {<std::slice::Chunks<secret_integers::U8> as std::iter::Iterator>::map::<[secret_integers::U8; 64], [closure@chacha20/src/main.rs:96:14: 100:10]>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _5 = <std::iter::Map<std::slice::Chunks<secret_integers::U8>, [closure@chacha20/src/main.rs:96:14: 100:10]> as std::iter::Iterator>::collect::<std::vec::Vec<[secret_integers::U8; 64]>>(move _6) -> bb4; // scope 0 at chacha20/src/main.rs:94:45: 101:19
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:101:10: 101:17
+                                         // + literal: Const { ty: fn(std::iter::Map<std::slice::Chunks<secret_integers::U8>, [closure@chacha20/src/main.rs:96:14: 100:10]>) -> std::vec::Vec<[secret_integers::U8; 64]> {<std::iter::Map<std::slice::Chunks<secret_integers::U8>, [closure@chacha20/src/main.rs:96:14: 100:10]> as std::iter::Iterator>::collect::<std::vec::Vec<[secret_integers::U8; 64]>>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _13 = &_5;                       // scope 1 at chacha20/src/main.rs:102:21: 102:27
+        _12 = std::vec::Vec::<[secret_integers::U8; 64]>::len(move _13) -> [return: bb5, unwind: bb32]; // scope 1 at chacha20/src/main.rs:102:21: 102:33
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:102:28: 102:31
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<[secret_integers::U8; 64]>) -> usize {std::vec::Vec::<[secret_integers::U8; 64]>::len}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        _15 = _2;                        // scope 3 at chacha20/src/main.rs:104:19: 104:26
+        _20 = &_5;                       // scope 4 at chacha20/src/main.rs:105:17: 105:23
+        _19 = std::vec::Vec::<[secret_integers::U8; 64]>::len(move _20) -> [return: bb6, unwind: bb32]; // scope 4 at chacha20/src/main.rs:105:17: 105:29
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:105:24: 105:27
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<[secret_integers::U8; 64]>) -> usize {std::vec::Vec::<[secret_integers::U8; 64]>::len}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb6: {
+        _21 = CheckedSub(_19, const 1_usize); // scope 4 at chacha20/src/main.rs:105:17: 105:33
+        assert(!move (_21.1: bool), "attempt to compute `{} - {}`, which would overflow", move _19, const 1_usize) -> [success: bb7, unwind: bb32]; // scope 4 at chacha20/src/main.rs:105:17: 105:33
+    }
+
+    bb7: {
+        _18 = move (_21.0: usize);       // scope 4 at chacha20/src/main.rs:105:17: 105:33
+        (_17.0: usize) = const 0_usize;  // scope 4 at chacha20/src/main.rs:105:14: 105:33
+        (_17.1: usize) = move _18;       // scope 4 at chacha20/src/main.rs:105:14: 105:33
+        _16 = <std::ops::Range<usize> as std::iter::IntoIterator>::into_iter(move _17) -> [return: bb8, unwind: bb32]; // scope 4 at chacha20/src/main.rs:105:14: 105:33
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:105:14: 105:33
+                                         // + literal: Const { ty: fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as std::iter::IntoIterator>::IntoIter {<std::ops::Range<usize> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        _22 = move _16;                  // scope 4 at chacha20/src/main.rs:105:14: 105:33
+        goto -> bb9;                     // scope 5 at chacha20/src/main.rs:105:5: 109:6
+    }
+
+    bb9: {
+        _26 = &mut _22;                  // scope 6 at chacha20/src/main.rs:105:14: 105:33
+        _25 = &mut (*_26);               // scope 6 at chacha20/src/main.rs:105:14: 105:33
+        _24 = <std::ops::Range<usize> as std::iter::Iterator>::next(move _25) -> [return: bb10, unwind: bb32]; // scope 6 at chacha20/src/main.rs:105:14: 105:33
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:105:14: 105:33
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::ops::Range<usize>) -> std::option::Option<<std::ops::Range<usize> as std::iter::Iterator>::Item> {<std::ops::Range<usize> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb10: {
+        _27 = discriminant(_24);         // scope 6 at chacha20/src/main.rs:105:9: 105:10
+        switchInt(move _27) -> [0_isize: bb11, 1_isize: bb13, otherwise: bb12]; // scope 6 at chacha20/src/main.rs:105:9: 105:10
+    }
+
+    bb11: {
+        _51 = &mut _5;                   // scope 4 at chacha20/src/main.rs:110:21: 110:27
+        _53 = _12;                       // scope 4 at chacha20/src/main.rs:110:28: 110:37
+        _54 = CheckedSub(_53, const 1_usize); // scope 4 at chacha20/src/main.rs:110:28: 110:41
+        assert(!move (_54.1: bool), "attempt to compute `{} - {}`, which would overflow", move _53, const 1_usize) -> [success: bb20, unwind: bb32]; // scope 4 at chacha20/src/main.rs:110:28: 110:41
+    }
+
+    bb12: {
+        unreachable;                     // scope 6 at chacha20/src/main.rs:105:14: 105:33
+    }
+
+    bb13: {
+        _28 = ((_24 as Some).0: usize);  // scope 6 at chacha20/src/main.rs:105:9: 105:10
+        _29 = _28;                       // scope 7 at chacha20/src/main.rs:105:9: 105:10
+        _23 = move _29;                  // scope 7 at chacha20/src/main.rs:105:9: 105:10
+        _30 = _23;                       // scope 6 at chacha20/src/main.rs:105:14: 105:33
+        _32 = _1;                        // scope 8 at chacha20/src/main.rs:106:36: 106:39
+        _33 = _15;                       // scope 8 at chacha20/src/main.rs:106:41: 106:44
+        _34 = _3;                        // scope 8 at chacha20/src/main.rs:106:46: 106:51
+        _31 = chacha20_block(move _32, move _33, move _34) -> [return: bb14, unwind: bb32]; // scope 8 at chacha20/src/main.rs:106:21: 106:52
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:106:21: 106:35
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r std::vec::Vec<secret_integers::U8>, secret_integers::U32, &'s std::vec::Vec<secret_integers::U8>) -> [secret_integers::U8; 64] {chacha20_block}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb14: {
+        _14 = move _31;                  // scope 8 at chacha20/src/main.rs:106:9: 106:52
+        _39 = &_5;                       // scope 8 at chacha20/src/main.rs:107:32: 107:38
+        _40 = _30;                       // scope 8 at chacha20/src/main.rs:107:39: 107:40
+        _38 = <std::vec::Vec<[secret_integers::U8; 64]> as std::ops::Index<usize>>::index(move _39, move _40) -> [return: bb15, unwind: bb32]; // scope 8 at chacha20/src/main.rs:107:32: 107:41
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:107:32: 107:41
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<[secret_integers::U8; 64]>, usize) -> &'r <std::vec::Vec<[secret_integers::U8; 64]> as std::ops::Index<usize>>::Output {<std::vec::Vec<[secret_integers::U8; 64]> as std::ops::Index<usize>>::index}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb15: {
+        _37 = _38;                       // scope 8 at chacha20/src/main.rs:107:31: 107:41
+        _36 = _37;                       // scope 8 at chacha20/src/main.rs:107:31: 107:41
+        _42 = &_14;                      // scope 8 at chacha20/src/main.rs:107:43: 107:53
+        _41 = _42;                       // scope 8 at chacha20/src/main.rs:107:43: 107:53
+        _35 = xor_block(move _36, move _41) -> [return: bb16, unwind: bb32]; // scope 8 at chacha20/src/main.rs:107:21: 107:54
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:107:21: 107:30
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r [secret_integers::U8; 64], &'s [secret_integers::U8; 64]) -> [secret_integers::U8; 64] {xor_block}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb16: {
+        _44 = &mut _5;                   // scope 8 at chacha20/src/main.rs:107:9: 107:15
+        _45 = _30;                       // scope 8 at chacha20/src/main.rs:107:16: 107:17
+        _43 = <std::vec::Vec<[secret_integers::U8; 64]> as std::ops::IndexMut<usize>>::index_mut(move _44, move _45) -> [return: bb17, unwind: bb32]; // scope 8 at chacha20/src/main.rs:107:9: 107:18
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:107:9: 107:18
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::vec::Vec<[secret_integers::U8; 64]>, usize) -> &'r mut <std::vec::Vec<[secret_integers::U8; 64]> as std::ops::Index<usize>>::Output {<std::vec::Vec<[secret_integers::U8; 64]> as std::ops::IndexMut<usize>>::index_mut}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb17: {
+        (*_43) = move _35;               // scope 8 at chacha20/src/main.rs:107:9: 107:54
+        _47 = &mut _15;                  // scope 8 at chacha20/src/main.rs:108:9: 108:12
+        _48 = secret_integers::U32::one() -> [return: bb18, unwind: bb32]; // scope 8 at chacha20/src/main.rs:108:16: 108:26
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:108:16: 108:24
+                                         // + literal: Const { ty: fn() -> secret_integers::U32 {secret_integers::U32::one}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb18: {
+        _46 = <secret_integers::U32 as std::ops::AddAssign>::add_assign(move _47, move _48) -> [return: bb19, unwind: bb32]; // scope 8 at chacha20/src/main.rs:108:9: 108:26
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:108:9: 108:26
+                                         // + literal: Const { ty: for<'r> fn(&'r mut secret_integers::U32, secret_integers::U32) {<secret_integers::U32 as std::ops::AddAssign>::add_assign}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb19: {
+        goto -> bb9;                     // scope 5 at chacha20/src/main.rs:105:5: 109:6
+    }
+
+    bb20: {
+        _52 = move (_54.0: usize);       // scope 4 at chacha20/src/main.rs:110:28: 110:41
+        _50 = <std::vec::Vec<[secret_integers::U8; 64]> as std::ops::IndexMut<usize>>::index_mut(move _51, move _52) -> [return: bb21, unwind: bb32]; // scope 4 at chacha20/src/main.rs:110:21: 110:42
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:110:21: 110:42
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::vec::Vec<[secret_integers::U8; 64]>, usize) -> &'r mut <std::vec::Vec<[secret_integers::U8; 64]> as std::ops::Index<usize>>::Output {<std::vec::Vec<[secret_integers::U8; 64]> as std::ops::IndexMut<usize>>::index_mut}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb21: {
+        _49 = &mut (*_50);               // scope 4 at chacha20/src/main.rs:110:16: 110:42
+        _56 = _1;                        // scope 9 at chacha20/src/main.rs:111:32: 111:35
+        _57 = _15;                       // scope 9 at chacha20/src/main.rs:111:37: 111:40
+        _58 = _3;                        // scope 9 at chacha20/src/main.rs:111:42: 111:47
+        _55 = chacha20_block(move _56, move _57, move _58) -> [return: bb22, unwind: bb32]; // scope 9 at chacha20/src/main.rs:111:17: 111:48
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:111:17: 111:31
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r std::vec::Vec<secret_integers::U8>, secret_integers::U32, &'s std::vec::Vec<secret_integers::U8>) -> [secret_integers::U8; 64] {chacha20_block}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb22: {
+        _14 = move _55;                  // scope 9 at chacha20/src/main.rs:111:5: 111:48
+        _60 = &(*_49);                   // scope 9 at chacha20/src/main.rs:112:23: 112:27
+        _62 = &_14;                      // scope 9 at chacha20/src/main.rs:112:29: 112:39
+        _61 = _62;                       // scope 9 at chacha20/src/main.rs:112:29: 112:39
+        _59 = xor_block(move _60, move _61) -> [return: bb23, unwind: bb32]; // scope 9 at chacha20/src/main.rs:112:13: 112:40
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:112:13: 112:22
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r [secret_integers::U8; 64], &'s [secret_integers::U8; 64]) -> [secret_integers::U8; 64] {xor_block}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb23: {
+        (*_49) = move _59;               // scope 9 at chacha20/src/main.rs:112:5: 112:40
+        _69 = &_5;                       // scope 9 at chacha20/src/main.rs:113:5: 113:11
+        _68 = <std::vec::Vec<[secret_integers::U8; 64]> as std::ops::Deref>::deref(move _69) -> [return: bb24, unwind: bb32]; // scope 9 at chacha20/src/main.rs:113:5: 114:16
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:113:5: 114:16
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<[secret_integers::U8; 64]>) -> &'r <std::vec::Vec<[secret_integers::U8; 64]> as std::ops::Deref>::Target {<std::vec::Vec<[secret_integers::U8; 64]> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb24: {
+        _67 = _68;                       // scope 9 at chacha20/src/main.rs:113:5: 113:11
+        _66 = core::slice::<impl [[secret_integers::U8; 64]]>::iter(move _67) -> [return: bb25, unwind: bb32]; // scope 9 at chacha20/src/main.rs:113:5: 114:16
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:114:10: 114:14
+                                         // + literal: Const { ty: for<'r> fn(&'r [[secret_integers::U8; 64]]) -> std::slice::Iter<'r, [secret_integers::U8; 64]> {core::slice::<impl [[secret_integers::U8; 64]]>::iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb25: {
+        _65 = <std::slice::Iter<[secret_integers::U8; 64]> as std::iter::Iterator>::map::<std::vec::Vec<secret_integers::U8>, [closure@chacha20/src/main.rs:115:14: 115:36]>(move _66, move _70) -> [return: bb26, unwind: bb32]; // scope 9 at chacha20/src/main.rs:113:5: 115:37
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:115:10: 115:13
+                                         // + literal: Const { ty: fn(std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]) -> std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]> {<std::slice::Iter<[secret_integers::U8; 64]> as std::iter::Iterator>::map::<std::vec::Vec<secret_integers::U8>, [closure@chacha20/src/main.rs:115:14: 115:36]>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb26: {
+        _64 = <std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]> as std::iter::Iterator>::flatten(move _65) -> [return: bb27, unwind: bb32]; // scope 9 at chacha20/src/main.rs:113:5: 116:19
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:116:10: 116:17
+                                         // + literal: Const { ty: fn(std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>) -> std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>> {<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]> as std::iter::Iterator>::flatten}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb27: {
+        _73 = const true;                // scope 9 at chacha20/src/main.rs:116:18: 116:19
+        _72 = _4;                        // scope 9 at chacha20/src/main.rs:117:15: 117:18
+        _71 = std::vec::Vec::<secret_integers::U8>::len(move _72) -> [return: bb28, unwind: bb35]; // scope 9 at chacha20/src/main.rs:117:15: 117:24
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:117:19: 117:22
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>) -> usize {std::vec::Vec::<secret_integers::U8>::len}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb28: {
+        _73 = const false;               // scope 9 at chacha20/src/main.rs:113:5: 117:25
+        _63 = <std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>> as std::iter::Iterator>::take(move _64, move _71) -> [return: bb29, unwind: bb35]; // scope 9 at chacha20/src/main.rs:113:5: 117:25
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:117:10: 117:14
+                                         // + literal: Const { ty: fn(std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>>, usize) -> std::iter::Take<std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>>> {<std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>> as std::iter::Iterator>::take}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb29: {
+        _73 = const false;               // scope 9 at chacha20/src/main.rs:117:24: 117:25
+        _0 = <std::iter::Take<std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>>> as std::iter::Iterator>::collect::<std::vec::Vec<secret_integers::U8>>(move _63) -> [return: bb30, unwind: bb32]; // scope 9 at chacha20/src/main.rs:113:5: 118:19
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:118:10: 118:17
+                                         // + literal: Const { ty: fn(std::iter::Take<std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>>>) -> std::vec::Vec<secret_integers::U8> {<std::iter::Take<std::iter::Flatten<std::iter::Map<std::slice::Iter<[secret_integers::U8; 64]>, [closure@chacha20/src/main.rs:115:14: 115:36]>>> as std::iter::Iterator>::collect::<std::vec::Vec<secret_integers::U8>>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb30: {
+        drop(_5) -> bb31;                // scope 0 at chacha20/src/main.rs:119:1: 119:2
+    }
+
+    bb31: {
+        return;                          // scope 0 at chacha20/src/main.rs:119:2: 119:2
+    }
+
+    bb32 (cleanup): {
+        drop(_5) -> bb33;                // scope 0 at chacha20/src/main.rs:119:1: 119:2
+    }
+
+    bb33 (cleanup): {
+        resume;                          // scope 0 at chacha20/src/main.rs:93:1: 119:2
+    }
+
+    bb34 (cleanup): {
+        drop(_64) -> bb32;               // scope 9 at chacha20/src/main.rs:117:24: 117:25
+    }
+
+    bb35 (cleanup): {
+        switchInt(_73) -> [false: bb32, otherwise: bb34]; // scope 9 at chacha20/src/main.rs:117:24: 117:25
+    }
+}
+
+fn xor_block(_1: &[secret_integers::U8; 64], _2: &[secret_integers::U8; 64]) -> [secret_integers::U8; 64] {
+    debug block => _1;                   // in scope 0 at chacha20/src/main.rs:83:14: 83:19
+    debug key_block => _2;               // in scope 0 at chacha20/src/main.rs:83:29: 83:38
+    let mut _3: [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:84:9: 84:18
+    let mut _4: secret_integers::U8;     // in scope 0 at chacha20/src/main.rs:84:22: 84:40
+    let mut _5: std::ops::Range<usize>;  // in scope 0 at chacha20/src/main.rs:85:14: 85:27
+    let mut _6: std::ops::Range<usize>;  // in scope 0 at chacha20/src/main.rs:85:14: 85:27
+    let mut _9: std::option::Option<usize>; // in scope 0 at chacha20/src/main.rs:85:14: 85:27
+    let mut _10: &mut std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:85:14: 85:27
+    let mut _11: &mut std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:85:14: 85:27
+    let mut _12: isize;                  // in scope 0 at chacha20/src/main.rs:85:9: 85:10
+    let mut _14: usize;                  // in scope 0 at chacha20/src/main.rs:85:9: 85:10
+    let mut _16: secret_integers::U8;    // in scope 0 at chacha20/src/main.rs:86:20: 86:43
+    let mut _17: secret_integers::U8;    // in scope 0 at chacha20/src/main.rs:86:20: 86:28
+    let _18: usize;                      // in scope 0 at chacha20/src/main.rs:86:26: 86:27
+    let mut _19: usize;                  // in scope 0 at chacha20/src/main.rs:86:20: 86:28
+    let mut _20: bool;                   // in scope 0 at chacha20/src/main.rs:86:20: 86:28
+    let mut _21: secret_integers::U8;    // in scope 0 at chacha20/src/main.rs:86:31: 86:43
+    let _22: usize;                      // in scope 0 at chacha20/src/main.rs:86:41: 86:42
+    let mut _23: usize;                  // in scope 0 at chacha20/src/main.rs:86:31: 86:43
+    let mut _24: bool;                   // in scope 0 at chacha20/src/main.rs:86:31: 86:43
+    let _25: usize;                      // in scope 0 at chacha20/src/main.rs:86:15: 86:16
+    let mut _26: usize;                  // in scope 0 at chacha20/src/main.rs:86:9: 86:17
+    let mut _27: bool;                   // in scope 0 at chacha20/src/main.rs:86:9: 86:17
+    let mut _28: secret_integers::U8;    // in scope 0 at chacha20/src/main.rs:88:20: 88:38
+    let _29: ();                         // in scope 0 at chacha20/src/main.rs:89:5: 89:32
+    let mut _30: &mut [secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:89:5: 89:8
+    let mut _31: &mut [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:89:5: 89:8
+    let mut _32: &[secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:89:25: 89:31
+    let mut _33: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:89:25: 89:31
+    let _34: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:89:25: 89:31
+    scope 1 {
+        debug v_out => _3;               // in scope 1 at chacha20/src/main.rs:84:9: 84:18
+        let mut _0: [secret_integers::U8; 64]; // return place in scope 1 at chacha20/src/main.rs:88:9: 88:16
+        let mut _7: std::ops::Range<usize>; // in scope 1 at chacha20/src/main.rs:85:14: 85:27
+        scope 2 {
+            debug iter => _7;            // in scope 2 at chacha20/src/main.rs:85:14: 85:27
+            let mut _8: usize;           // in scope 2 at chacha20/src/main.rs:85:14: 85:27
+            scope 3 {
+                debug __next => _8;      // in scope 3 at chacha20/src/main.rs:85:14: 85:27
+                let _13: usize;          // in scope 3 at chacha20/src/main.rs:85:9: 85:10
+                let _15: usize;          // in scope 3 at chacha20/src/main.rs:85:9: 85:10
+                scope 4 {
+                    debug val => _13;    // in scope 4 at chacha20/src/main.rs:85:9: 85:10
+                }
+                scope 5 {
+                    debug i => _15;      // in scope 5 at chacha20/src/main.rs:85:9: 85:10
+                }
+            }
+        }
+        scope 6 {
+            debug out => _0;             // in scope 6 at chacha20/src/main.rs:88:9: 88:16
+        }
+    }
+
+    bb0: {
+        _4 = <secret_integers::U8 as std::default::Default>::default() -> bb1; // scope 0 at chacha20/src/main.rs:84:22: 84:40
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:84:22: 84:38
+                                         // + literal: Const { ty: fn() -> secret_integers::U8 {<secret_integers::U8 as std::default::Default>::default}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _3 = [move _4; BLOCK_SIZE];      // scope 0 at chacha20/src/main.rs:84:21: 84:53
+        (_6.0: usize) = const 0_usize;   // scope 1 at chacha20/src/main.rs:85:14: 85:27
+        (_6.1: usize) = const 64_usize;  // scope 1 at chacha20/src/main.rs:85:14: 85:27
+        _5 = <std::ops::Range<usize> as std::iter::IntoIterator>::into_iter(move _6) -> bb2; // scope 1 at chacha20/src/main.rs:85:14: 85:27
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:85:14: 85:27
+                                         // + literal: Const { ty: fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as std::iter::IntoIterator>::IntoIter {<std::ops::Range<usize> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _7 = move _5;                    // scope 1 at chacha20/src/main.rs:85:14: 85:27
+        goto -> bb3;                     // scope 2 at chacha20/src/main.rs:85:5: 87:6
+    }
+
+    bb3: {
+        _11 = &mut _7;                   // scope 3 at chacha20/src/main.rs:85:14: 85:27
+        _10 = &mut (*_11);               // scope 3 at chacha20/src/main.rs:85:14: 85:27
+        _9 = <std::ops::Range<usize> as std::iter::Iterator>::next(move _10) -> bb4; // scope 3 at chacha20/src/main.rs:85:14: 85:27
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:85:14: 85:27
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::ops::Range<usize>) -> std::option::Option<<std::ops::Range<usize> as std::iter::Iterator>::Item> {<std::ops::Range<usize> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _12 = discriminant(_9);          // scope 3 at chacha20/src/main.rs:85:9: 85:10
+        switchInt(move _12) -> [0_isize: bb5, 1_isize: bb7, otherwise: bb6]; // scope 3 at chacha20/src/main.rs:85:9: 85:10
+    }
+
+    bb5: {
+        _28 = <secret_integers::U8 as std::default::Default>::default() -> bb12; // scope 1 at chacha20/src/main.rs:88:20: 88:38
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:88:20: 88:36
+                                         // + literal: Const { ty: fn() -> secret_integers::U8 {<secret_integers::U8 as std::default::Default>::default}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb6: {
+        unreachable;                     // scope 3 at chacha20/src/main.rs:85:14: 85:27
+    }
+
+    bb7: {
+        _13 = ((_9 as Some).0: usize);   // scope 3 at chacha20/src/main.rs:85:9: 85:10
+        _14 = _13;                       // scope 4 at chacha20/src/main.rs:85:9: 85:10
+        _8 = move _14;                   // scope 4 at chacha20/src/main.rs:85:9: 85:10
+        _15 = _8;                        // scope 3 at chacha20/src/main.rs:85:14: 85:27
+        _18 = _15;                       // scope 5 at chacha20/src/main.rs:86:26: 86:27
+        _19 = const 64_usize;            // scope 5 at chacha20/src/main.rs:86:20: 86:28
+        _20 = Lt(_18, _19);              // scope 5 at chacha20/src/main.rs:86:20: 86:28
+        assert(move _20, "index out of bounds: the length is {} but the index is {}", move _19, _18) -> bb8; // scope 5 at chacha20/src/main.rs:86:20: 86:28
+    }
+
+    bb8: {
+        _17 = (*_1)[_18];                // scope 5 at chacha20/src/main.rs:86:20: 86:28
+        _22 = _15;                       // scope 5 at chacha20/src/main.rs:86:41: 86:42
+        _23 = const 64_usize;            // scope 5 at chacha20/src/main.rs:86:31: 86:43
+        _24 = Lt(_22, _23);              // scope 5 at chacha20/src/main.rs:86:31: 86:43
+        assert(move _24, "index out of bounds: the length is {} but the index is {}", move _23, _22) -> bb9; // scope 5 at chacha20/src/main.rs:86:31: 86:43
+    }
+
+    bb9: {
+        _21 = (*_2)[_22];                // scope 5 at chacha20/src/main.rs:86:31: 86:43
+        _16 = <secret_integers::U8 as std::ops::BitXor>::bitxor(move _17, move _21) -> bb10; // scope 5 at chacha20/src/main.rs:86:20: 86:43
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:86:20: 86:43
+                                         // + literal: Const { ty: fn(secret_integers::U8, secret_integers::U8) -> <secret_integers::U8 as std::ops::BitXor>::Output {<secret_integers::U8 as std::ops::BitXor>::bitxor}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb10: {
+        _25 = _15;                       // scope 5 at chacha20/src/main.rs:86:15: 86:16
+        _26 = const 64_usize;            // scope 5 at chacha20/src/main.rs:86:9: 86:17
+        _27 = Lt(_25, _26);              // scope 5 at chacha20/src/main.rs:86:9: 86:17
+        assert(move _27, "index out of bounds: the length is {} but the index is {}", move _26, _25) -> bb11; // scope 5 at chacha20/src/main.rs:86:9: 86:17
+    }
+
+    bb11: {
+        _3[_25] = move _16;              // scope 5 at chacha20/src/main.rs:86:9: 86:43
+        goto -> bb3;                     // scope 2 at chacha20/src/main.rs:85:5: 87:6
+    }
+
+    bb12: {
+        _0 = [move _28; BLOCK_SIZE];     // scope 1 at chacha20/src/main.rs:88:19: 88:51
+        _31 = &mut _0;                   // scope 6 at chacha20/src/main.rs:89:5: 89:8
+        _30 = move _31 as &mut [secret_integers::U8] (Pointer(Unsize)); // scope 6 at chacha20/src/main.rs:89:5: 89:8
+        _34 = &_3;                       // scope 6 at chacha20/src/main.rs:89:25: 89:31
+        _33 = _34;                       // scope 6 at chacha20/src/main.rs:89:25: 89:31
+        _32 = move _33 as &[secret_integers::U8] (Pointer(Unsize)); // scope 6 at chacha20/src/main.rs:89:25: 89:31
+        _29 = core::slice::<impl [secret_integers::U8]>::copy_from_slice(move _30, move _32) -> bb13; // scope 6 at chacha20/src/main.rs:89:5: 89:32
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:89:9: 89:24
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r mut [secret_integers::U8], &'s [secret_integers::U8]) {core::slice::<impl [secret_integers::U8]>::copy_from_slice}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb13: {
+        return;                          // scope 0 at chacha20/src/main.rs:91:2: 91:2
+    }
+}
+
+fn chacha20(_1: &std::vec::Vec<secret_integers::U8>, _2: secret_integers::U32, _3: &std::vec::Vec<secret_integers::U8>) -> [secret_integers::U32; 16] {
+    debug k => _1;                       // in scope 0 at chacha20/src/main.rs:70:13: 70:14
+    debug counter => _2;                 // in scope 0 at chacha20/src/main.rs:70:22: 70:29
+    debug nonce => _3;                   // in scope 0 at chacha20/src/main.rs:70:36: 70:41
+    let mut _0: [secret_integers::U32; 16]; // return place in scope 0 at chacha20/src/main.rs:71:9: 71:15
+    let mut _4: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:71:32: 71:33
+    let mut _5: secret_integers::U32;    // in scope 0 at chacha20/src/main.rs:71:35: 71:42
+    let mut _6: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:71:44: 71:49
+    let _7: ();                          // in scope 0 at chacha20/src/main.rs:72:5: 72:27
+    let mut _8: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:72:19: 72:26
+    let mut _9: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:72:19: 72:26
+    scope 1 {
+        debug st => _0;                  // in scope 1 at chacha20/src/main.rs:71:9: 71:15
+    }
+
+    bb0: {
+        _4 = _1;                         // scope 0 at chacha20/src/main.rs:71:32: 71:33
+        _5 = _2;                         // scope 0 at chacha20/src/main.rs:71:35: 71:42
+        _6 = _3;                         // scope 0 at chacha20/src/main.rs:71:44: 71:49
+        _0 = chacha20_init(move _4, move _5, move _6) -> bb1; // scope 0 at chacha20/src/main.rs:71:18: 71:50
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:71:18: 71:31
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r std::vec::Vec<secret_integers::U8>, secret_integers::U32, &'s std::vec::Vec<secret_integers::U8>) -> [secret_integers::U32; 16] {chacha20_init}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _9 = &mut _0;                    // scope 1 at chacha20/src/main.rs:72:19: 72:26
+        _8 = &mut (*_9);                 // scope 1 at chacha20/src/main.rs:72:19: 72:26
+        _7 = chacha20_core(move _8) -> bb2; // scope 1 at chacha20/src/main.rs:72:5: 72:27
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:72:5: 72:18
+                                         // + literal: Const { ty: for<'r> fn(&'r mut [secret_integers::U32; 16]) {chacha20_core}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        return;                          // scope 0 at chacha20/src/main.rs:74:2: 74:2
+    }
+}
+
+fn chacha20_init(_1: &std::vec::Vec<secret_integers::U8>, _2: secret_integers::U32, _3: &std::vec::Vec<secret_integers::U8>) -> [secret_integers::U32; 16] {
+    debug k => _1;                       // in scope 0 at chacha20/src/main.rs:51:18: 51:19
+    debug counter => _2;                 // in scope 0 at chacha20/src/main.rs:51:27: 51:34
+    debug nonce => _3;                   // in scope 0 at chacha20/src/main.rs:51:41: 51:46
+    let mut _0: [secret_integers::U32; 16]; // return place in scope 0 at chacha20/src/main.rs:52:9: 52:15
+    let mut _4: secret_integers::U32;    // in scope 0 at chacha20/src/main.rs:52:19: 52:38
+    let _5: ();                          // in scope 0 at chacha20/src/main.rs:53:5: 53:57
+    let mut _6: &mut [secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:53:5: 53:13
+    let mut _7: &mut [secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:53:5: 53:13
+    let mut _8: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:53:5: 53:7
+    let mut _9: std::ops::Range<usize>;  // in scope 0 at chacha20/src/main.rs:53:8: 53:12
+    let mut _10: &[secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:53:30: 53:56
+    let _11: &[secret_integers::U32];    // in scope 0 at chacha20/src/main.rs:53:30: 53:56
+    let mut _12: &std::vec::Vec<secret_integers::U32>; // in scope 0 at chacha20/src/main.rs:53:30: 53:56
+    let _13: &std::vec::Vec<secret_integers::U32>; // in scope 0 at chacha20/src/main.rs:53:30: 53:56
+    let _14: std::vec::Vec<secret_integers::U32>; // in scope 0 at chacha20/src/main.rs:53:31: 53:56
+    let mut _15: &[u32];                 // in scope 0 at chacha20/src/main.rs:53:45: 53:55
+    let mut _16: &[u32; 4];              // in scope 0 at chacha20/src/main.rs:53:45: 53:55
+    let _17: &[u32; 4];                  // in scope 0 at chacha20/src/main.rs:53:45: 53:55
+    let _18: ();                         // in scope 0 at chacha20/src/main.rs:54:5: 54:64
+    let mut _19: &mut [secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:54:5: 54:14
+    let mut _20: &mut [secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:54:5: 54:14
+    let mut _21: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:54:5: 54:7
+    let mut _22: std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:54:8: 54:13
+    let mut _23: &[secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:54:31: 54:63
+    let _24: &[secret_integers::U32];    // in scope 0 at chacha20/src/main.rs:54:31: 54:63
+    let mut _25: &std::vec::Vec<secret_integers::U32>; // in scope 0 at chacha20/src/main.rs:54:31: 54:52
+    let _26: std::vec::Vec<secret_integers::U32>; // in scope 0 at chacha20/src/main.rs:54:31: 54:52
+    let mut _27: &[secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:54:50: 54:51
+    let _28: &[secret_integers::U8];     // in scope 0 at chacha20/src/main.rs:54:50: 54:51
+    let mut _29: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:54:50: 54:51
+    let mut _30: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:55:14: 55:21
+    let _31: usize;                      // in scope 0 at chacha20/src/main.rs:55:8: 55:10
+    let _32: ();                         // in scope 0 at chacha20/src/main.rs:56:5: 56:69
+    let mut _33: &mut [secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:56:5: 56:15
+    let mut _34: &mut [secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:56:5: 56:15
+    let mut _35: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:56:5: 56:7
+    let mut _36: std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:56:8: 56:14
+    let mut _37: &[secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:56:32: 56:68
+    let _38: &[secret_integers::U32];    // in scope 0 at chacha20/src/main.rs:56:32: 56:68
+    let mut _39: &std::vec::Vec<secret_integers::U32>; // in scope 0 at chacha20/src/main.rs:56:32: 56:57
+    let _40: std::vec::Vec<secret_integers::U32>; // in scope 0 at chacha20/src/main.rs:56:32: 56:57
+    let mut _41: &[secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:56:51: 56:56
+    let _42: &[secret_integers::U8];     // in scope 0 at chacha20/src/main.rs:56:51: 56:56
+    let mut _43: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:56:51: 56:56
+    scope 1 {
+        debug st => _0;                  // in scope 1 at chacha20/src/main.rs:52:9: 52:15
+        let mut _44: &[u32; 4];          // in scope 1 at chacha20/src/main.rs:53:45: 53:55
+    }
+
+    bb0: {
+        _4 = secret_integers::U32::classify::<u32>(const 0_u32) -> bb1; // scope 0 at chacha20/src/main.rs:52:19: 52:38
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:52:19: 52:32
+                                         // + user_ty: UserType(0)
+                                         // + literal: Const { ty: fn(u32) -> secret_integers::U32 {secret_integers::U32::classify::<u32>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _0 = [move _4; 16];              // scope 0 at chacha20/src/main.rs:52:18: 52:43
+        _8 = &mut _0;                    // scope 1 at chacha20/src/main.rs:53:5: 53:7
+        (_9.0: usize) = const 0_usize;   // scope 1 at chacha20/src/main.rs:53:8: 53:12
+        (_9.1: usize) = const 4_usize;   // scope 1 at chacha20/src/main.rs:53:8: 53:12
+        _7 = <[secret_integers::U32; 16] as std::ops::IndexMut<std::ops::Range<usize>>>::index_mut(move _8, move _9) -> bb2; // scope 1 at chacha20/src/main.rs:53:5: 53:13
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:53:5: 53:13
+                                         // + literal: Const { ty: for<'r> fn(&'r mut [secret_integers::U32; 16], std::ops::Range<usize>) -> &'r mut <[secret_integers::U32; 16] as std::ops::Index<std::ops::Range<usize>>>::Output {<[secret_integers::U32; 16] as std::ops::IndexMut<std::ops::Range<usize>>>::index_mut}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _6 = &mut (*_7);                 // scope 1 at chacha20/src/main.rs:53:5: 53:13
+        _44 = const chacha20_init::promoted[0]; // scope 1 at chacha20/src/main.rs:53:45: 53:55
+                                         // ty::Const
+                                         // + ty: &[u32; 4]
+                                         // + val: Unevaluated(chacha20_init, [], Some(promoted[0]))
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:53:45: 53:55
+                                         // + literal: Const { ty: &[u32; 4], val: Unevaluated(Unevaluated { def: WithOptConstParam { did: DefId(0:25 ~ chacha20[30d8]::chacha20_init), const_param_did: None }, substs: [], promoted: Some(promoted[0]) }) }
+        _17 = _44;                       // scope 1 at chacha20/src/main.rs:53:45: 53:55
+        _16 = _17;                       // scope 1 at chacha20/src/main.rs:53:45: 53:55
+        _15 = move _16 as &[u32] (Pointer(Unsize)); // scope 1 at chacha20/src/main.rs:53:45: 53:55
+        _14 = classify_u32s(move _15) -> bb3; // scope 1 at chacha20/src/main.rs:53:31: 53:56
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:53:31: 53:44
+                                         // + literal: Const { ty: for<'r> fn(&'r [u32]) -> std::vec::Vec<secret_integers::U32> {classify_u32s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _13 = &_14;                      // scope 1 at chacha20/src/main.rs:53:30: 53:56
+        _12 = _13;                       // scope 1 at chacha20/src/main.rs:53:30: 53:56
+        _11 = <std::vec::Vec<secret_integers::U32> as std::ops::Deref>::deref(move _12) -> [return: bb4, unwind: bb21]; // scope 1 at chacha20/src/main.rs:53:30: 53:56
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:53:30: 53:56
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U32>) -> &'r <std::vec::Vec<secret_integers::U32> as std::ops::Deref>::Target {<std::vec::Vec<secret_integers::U32> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _10 = _11;                       // scope 1 at chacha20/src/main.rs:53:30: 53:56
+        _5 = core::slice::<impl [secret_integers::U32]>::copy_from_slice(move _6, move _10) -> [return: bb5, unwind: bb21]; // scope 1 at chacha20/src/main.rs:53:5: 53:57
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:53:14: 53:29
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r mut [secret_integers::U32], &'s [secret_integers::U32]) {core::slice::<impl [secret_integers::U32]>::copy_from_slice}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        drop(_14) -> bb6;                // scope 1 at chacha20/src/main.rs:53:57: 53:58
+    }
+
+    bb6: {
+        _21 = &mut _0;                   // scope 1 at chacha20/src/main.rs:54:5: 54:7
+        (_22.0: usize) = const 4_usize;  // scope 1 at chacha20/src/main.rs:54:8: 54:13
+        (_22.1: usize) = const 12_usize; // scope 1 at chacha20/src/main.rs:54:8: 54:13
+        _20 = <[secret_integers::U32; 16] as std::ops::IndexMut<std::ops::Range<usize>>>::index_mut(move _21, move _22) -> bb7; // scope 1 at chacha20/src/main.rs:54:5: 54:14
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:54:5: 54:14
+                                         // + literal: Const { ty: for<'r> fn(&'r mut [secret_integers::U32; 16], std::ops::Range<usize>) -> &'r mut <[secret_integers::U32; 16] as std::ops::Index<std::ops::Range<usize>>>::Output {<[secret_integers::U32; 16] as std::ops::IndexMut<std::ops::Range<usize>>>::index_mut}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb7: {
+        _19 = &mut (*_20);               // scope 1 at chacha20/src/main.rs:54:5: 54:14
+        _29 = _1;                        // scope 1 at chacha20/src/main.rs:54:50: 54:51
+        _28 = <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref(move _29) -> bb8; // scope 1 at chacha20/src/main.rs:54:50: 54:51
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:54:50: 54:51
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>) -> &'r <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::Target {<std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        _27 = _28;                       // scope 1 at chacha20/src/main.rs:54:50: 54:51
+        _26 = secret_integers::U32::from_bytes_le(move _27) -> bb9; // scope 1 at chacha20/src/main.rs:54:31: 54:52
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:54:31: 54:49
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> std::vec::Vec<secret_integers::U32> {secret_integers::U32::from_bytes_le}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb9: {
+        _25 = &_26;                      // scope 1 at chacha20/src/main.rs:54:31: 54:52
+        _24 = std::vec::Vec::<secret_integers::U32>::as_slice(move _25) -> [return: bb10, unwind: bb20]; // scope 1 at chacha20/src/main.rs:54:31: 54:63
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:54:53: 54:61
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U32>) -> &'r [secret_integers::U32] {std::vec::Vec::<secret_integers::U32>::as_slice}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb10: {
+        _23 = _24;                       // scope 1 at chacha20/src/main.rs:54:31: 54:63
+        _18 = core::slice::<impl [secret_integers::U32]>::copy_from_slice(move _19, move _23) -> [return: bb11, unwind: bb20]; // scope 1 at chacha20/src/main.rs:54:5: 54:64
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:54:15: 54:30
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r mut [secret_integers::U32], &'s [secret_integers::U32]) {core::slice::<impl [secret_integers::U32]>::copy_from_slice}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb11: {
+        drop(_26) -> bb12;               // scope 1 at chacha20/src/main.rs:54:64: 54:65
+    }
+
+    bb12: {
+        _30 = _2;                        // scope 1 at chacha20/src/main.rs:55:14: 55:21
+        _31 = const 12_usize;            // scope 1 at chacha20/src/main.rs:55:8: 55:10
+        _0[_31] = move _30;              // scope 1 at chacha20/src/main.rs:55:5: 55:21
+        _35 = &mut _0;                   // scope 1 at chacha20/src/main.rs:56:5: 56:7
+        (_36.0: usize) = const 13_usize; // scope 1 at chacha20/src/main.rs:56:8: 56:14
+        (_36.1: usize) = const 16_usize; // scope 1 at chacha20/src/main.rs:56:8: 56:14
+        _34 = <[secret_integers::U32; 16] as std::ops::IndexMut<std::ops::Range<usize>>>::index_mut(move _35, move _36) -> bb13; // scope 1 at chacha20/src/main.rs:56:5: 56:15
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:56:5: 56:15
+                                         // + literal: Const { ty: for<'r> fn(&'r mut [secret_integers::U32; 16], std::ops::Range<usize>) -> &'r mut <[secret_integers::U32; 16] as std::ops::Index<std::ops::Range<usize>>>::Output {<[secret_integers::U32; 16] as std::ops::IndexMut<std::ops::Range<usize>>>::index_mut}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb13: {
+        _33 = &mut (*_34);               // scope 1 at chacha20/src/main.rs:56:5: 56:15
+        _43 = _3;                        // scope 1 at chacha20/src/main.rs:56:51: 56:56
+        _42 = <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref(move _43) -> bb14; // scope 1 at chacha20/src/main.rs:56:51: 56:56
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:56:51: 56:56
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>) -> &'r <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::Target {<std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb14: {
+        _41 = _42;                       // scope 1 at chacha20/src/main.rs:56:51: 56:56
+        _40 = secret_integers::U32::from_bytes_le(move _41) -> bb15; // scope 1 at chacha20/src/main.rs:56:32: 56:57
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:56:32: 56:50
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> std::vec::Vec<secret_integers::U32> {secret_integers::U32::from_bytes_le}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb15: {
+        _39 = &_40;                      // scope 1 at chacha20/src/main.rs:56:32: 56:57
+        _38 = std::vec::Vec::<secret_integers::U32>::as_slice(move _39) -> [return: bb16, unwind: bb19]; // scope 1 at chacha20/src/main.rs:56:32: 56:68
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:56:58: 56:66
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U32>) -> &'r [secret_integers::U32] {std::vec::Vec::<secret_integers::U32>::as_slice}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb16: {
+        _37 = _38;                       // scope 1 at chacha20/src/main.rs:56:32: 56:68
+        _32 = core::slice::<impl [secret_integers::U32]>::copy_from_slice(move _33, move _37) -> [return: bb17, unwind: bb19]; // scope 1 at chacha20/src/main.rs:56:5: 56:69
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:56:16: 56:31
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r mut [secret_integers::U32], &'s [secret_integers::U32]) {core::slice::<impl [secret_integers::U32]>::copy_from_slice}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb17: {
+        drop(_40) -> bb18;               // scope 1 at chacha20/src/main.rs:56:69: 56:70
+    }
+
+    bb18: {
+        return;                          // scope 0 at chacha20/src/main.rs:58:2: 58:2
+    }
+
+    bb19 (cleanup): {
+        drop(_40) -> bb22;               // scope 1 at chacha20/src/main.rs:56:69: 56:70
+    }
+
+    bb20 (cleanup): {
+        drop(_26) -> bb22;               // scope 1 at chacha20/src/main.rs:54:64: 54:65
+    }
+
+    bb21 (cleanup): {
+        drop(_14) -> bb22;               // scope 1 at chacha20/src/main.rs:53:57: 53:58
+    }
+
+    bb22 (cleanup): {
+        resume;                          // scope 0 at chacha20/src/main.rs:51:1: 58:2
+    }
+}
+
+promoted[0] in chacha20_init: &[u32; 4] = {
+    let mut _0: &[u32; 4];               // return place in scope 0 at chacha20/src/main.rs:53:45: 53:55
+    let mut _1: [u32; 4];                // in scope 0 at chacha20/src/main.rs:53:46: 53:55
+
+    bb0: {
+        _1 = const CONSTANTS;            // scope 0 at chacha20/src/main.rs:53:46: 53:55
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:53:46: 53:55
+                                         // + literal: Const { ty: [u32; 4], val: Unevaluated(Unevaluated { def: WithOptConstParam { did: DefId(0:24 ~ chacha20[30d8]::CONSTANTS), const_param_did: None }, substs: [], promoted: None }) }
+        _0 = &_1;                        // scope 0 at chacha20/src/main.rs:53:45: 53:55
+        return;                          // scope 0 at chacha20/src/main.rs:53:45: 53:55
+    }
+}
+
+fn quarter_round(_1: usize, _2: usize, _3: usize, _4: usize, _5: &mut [secret_integers::U32; 16]) -> () {
+    debug a => _1;                       // in scope 0 at chacha20/src/main.rs:30:18: 30:19
+    debug b => _2;                       // in scope 0 at chacha20/src/main.rs:30:28: 30:29
+    debug c => _3;                       // in scope 0 at chacha20/src/main.rs:30:38: 30:39
+    debug d => _4;                       // in scope 0 at chacha20/src/main.rs:30:48: 30:49
+    debug m => _5;                       // in scope 0 at chacha20/src/main.rs:30:58: 30:59
+    let mut _0: ();                      // return place in scope 0 at chacha20/src/main.rs:30:73: 30:73
+    let _6: ();                          // in scope 0 at chacha20/src/main.rs:31:5: 31:25
+    let mut _7: usize;                   // in scope 0 at chacha20/src/main.rs:31:10: 31:11
+    let mut _8: usize;                   // in scope 0 at chacha20/src/main.rs:31:13: 31:14
+    let mut _9: usize;                   // in scope 0 at chacha20/src/main.rs:31:16: 31:17
+    let mut _10: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:31:23: 31:24
+    let _11: ();                         // in scope 0 at chacha20/src/main.rs:32:5: 32:25
+    let mut _12: usize;                  // in scope 0 at chacha20/src/main.rs:32:10: 32:11
+    let mut _13: usize;                  // in scope 0 at chacha20/src/main.rs:32:13: 32:14
+    let mut _14: usize;                  // in scope 0 at chacha20/src/main.rs:32:16: 32:17
+    let mut _15: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:32:23: 32:24
+    let _16: ();                         // in scope 0 at chacha20/src/main.rs:33:5: 33:24
+    let mut _17: usize;                  // in scope 0 at chacha20/src/main.rs:33:10: 33:11
+    let mut _18: usize;                  // in scope 0 at chacha20/src/main.rs:33:13: 33:14
+    let mut _19: usize;                  // in scope 0 at chacha20/src/main.rs:33:16: 33:17
+    let mut _20: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:33:22: 33:23
+    let _21: ();                         // in scope 0 at chacha20/src/main.rs:34:5: 34:24
+    let mut _22: usize;                  // in scope 0 at chacha20/src/main.rs:34:10: 34:11
+    let mut _23: usize;                  // in scope 0 at chacha20/src/main.rs:34:13: 34:14
+    let mut _24: usize;                  // in scope 0 at chacha20/src/main.rs:34:16: 34:17
+    let mut _25: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:34:22: 34:23
+
+    bb0: {
+        _7 = _1;                         // scope 0 at chacha20/src/main.rs:31:10: 31:11
+        _8 = _2;                         // scope 0 at chacha20/src/main.rs:31:13: 31:14
+        _9 = _4;                         // scope 0 at chacha20/src/main.rs:31:16: 31:17
+        _10 = &mut (*_5);                // scope 0 at chacha20/src/main.rs:31:23: 31:24
+        _6 = line(move _7, move _8, move _9, const 16_u32, move _10) -> bb1; // scope 0 at chacha20/src/main.rs:31:5: 31:25
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:31:5: 31:9
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, u32, &'r mut [secret_integers::U32; 16]) {line}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _12 = _3;                        // scope 0 at chacha20/src/main.rs:32:10: 32:11
+        _13 = _4;                        // scope 0 at chacha20/src/main.rs:32:13: 32:14
+        _14 = _2;                        // scope 0 at chacha20/src/main.rs:32:16: 32:17
+        _15 = &mut (*_5);                // scope 0 at chacha20/src/main.rs:32:23: 32:24
+        _11 = line(move _12, move _13, move _14, const 12_u32, move _15) -> bb2; // scope 0 at chacha20/src/main.rs:32:5: 32:25
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:32:5: 32:9
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, u32, &'r mut [secret_integers::U32; 16]) {line}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _17 = _1;                        // scope 0 at chacha20/src/main.rs:33:10: 33:11
+        _18 = _2;                        // scope 0 at chacha20/src/main.rs:33:13: 33:14
+        _19 = _4;                        // scope 0 at chacha20/src/main.rs:33:16: 33:17
+        _20 = &mut (*_5);                // scope 0 at chacha20/src/main.rs:33:22: 33:23
+        _16 = line(move _17, move _18, move _19, const 8_u32, move _20) -> bb3; // scope 0 at chacha20/src/main.rs:33:5: 33:24
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:33:5: 33:9
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, u32, &'r mut [secret_integers::U32; 16]) {line}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _22 = _3;                        // scope 0 at chacha20/src/main.rs:34:10: 34:11
+        _23 = _4;                        // scope 0 at chacha20/src/main.rs:34:13: 34:14
+        _24 = _2;                        // scope 0 at chacha20/src/main.rs:34:16: 34:17
+        _25 = &mut (*_5);                // scope 0 at chacha20/src/main.rs:34:22: 34:23
+        _21 = line(move _22, move _23, move _24, const 7_u32, move _25) -> bb4; // scope 0 at chacha20/src/main.rs:34:5: 34:24
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:34:5: 34:9
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, u32, &'r mut [secret_integers::U32; 16]) {line}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _0 = const ();                   // scope 0 at chacha20/src/main.rs:30:73: 35:2
+        return;                          // scope 0 at chacha20/src/main.rs:35:2: 35:2
+    }
+}
+
+fn declassify_u8s(_1: &[secret_integers::U8]) -> std::vec::Vec<u8> {
+    debug v => _1;                       // in scope 0 at chacha20/src/main.rs:20:23: 20:24
+    let mut _0: std::vec::Vec<u8>;       // return place in scope 0 at chacha20/src/main.rs:20:36: 20:43
+    let mut _2: std::iter::Map<std::slice::Iter<secret_integers::U8>, [closure@chacha20/src/main.rs:21:18: 21:40]>; // in scope 0 at chacha20/src/main.rs:21:5: 21:41
+    let mut _3: std::slice::Iter<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:21:5: 21:13
+    let mut _4: &[secret_integers::U8];  // in scope 0 at chacha20/src/main.rs:21:5: 21:6
+    let mut _5: [closure@chacha20/src/main.rs:21:18: 21:40]; // in scope 0 at chacha20/src/main.rs:21:18: 21:40
+
+    bb0: {
+        _4 = _1;                         // scope 0 at chacha20/src/main.rs:21:5: 21:6
+        _3 = core::slice::<impl [secret_integers::U8]>::iter(move _4) -> bb1; // scope 0 at chacha20/src/main.rs:21:5: 21:13
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:21:7: 21:11
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> std::slice::Iter<'r, secret_integers::U8> {core::slice::<impl [secret_integers::U8]>::iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _2 = <std::slice::Iter<secret_integers::U8> as std::iter::Iterator>::map::<u8, [closure@chacha20/src/main.rs:21:18: 21:40]>(move _3, move _5) -> bb2; // scope 0 at chacha20/src/main.rs:21:5: 21:41
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:21:14: 21:17
+                                         // + literal: Const { ty: fn(std::slice::Iter<secret_integers::U8>, [closure@chacha20/src/main.rs:21:18: 21:40]) -> std::iter::Map<std::slice::Iter<secret_integers::U8>, [closure@chacha20/src/main.rs:21:18: 21:40]> {<std::slice::Iter<secret_integers::U8> as std::iter::Iterator>::map::<u8, [closure@chacha20/src/main.rs:21:18: 21:40]>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _0 = <std::iter::Map<std::slice::Iter<secret_integers::U8>, [closure@chacha20/src/main.rs:21:18: 21:40]> as std::iter::Iterator>::collect::<std::vec::Vec<u8>>(move _2) -> bb3; // scope 0 at chacha20/src/main.rs:21:5: 21:51
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:21:42: 21:49
+                                         // + literal: Const { ty: fn(std::iter::Map<std::slice::Iter<secret_integers::U8>, [closure@chacha20/src/main.rs:21:18: 21:40]>) -> std::vec::Vec<u8> {<std::iter::Map<std::slice::Iter<secret_integers::U8>, [closure@chacha20/src/main.rs:21:18: 21:40]> as std::iter::Iterator>::collect::<std::vec::Vec<u8>>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        return;                          // scope 0 at chacha20/src/main.rs:22:2: 22:2
+    }
+}
+
+fn classify_u32s::{closure#0}(_1: &mut [closure@chacha20/src/main.rs:13:18: 13:39], _2: &u32) -> secret_integers::U32 {
+    debug x => _2;                       // in scope 0 at chacha20/src/main.rs:13:19: 13:20
+    let mut _0: secret_integers::U32;    // return place in scope 0 at chacha20/src/main.rs:13:22: 13:22
+    let mut _3: u32;                     // in scope 0 at chacha20/src/main.rs:13:36: 13:38
+
+    bb0: {
+        _3 = (*_2);                      // scope 0 at chacha20/src/main.rs:13:36: 13:38
+        _0 = secret_integers::U32::classify::<u32>(move _3) -> bb1; // scope 0 at chacha20/src/main.rs:13:22: 13:39
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:13:22: 13:35
+                                         // + user_ty: UserType(0)
+                                         // + literal: Const { ty: fn(u32) -> secret_integers::U32 {secret_integers::U32::classify::<u32>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        return;                          // scope 0 at chacha20/src/main.rs:13:39: 13:39
+    }
+}
+
+Block::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:7:19: 7:21
+
+    bb0: {
+        _0 = const 64_usize;             // scope 0 at chacha20/src/main.rs:7:19: 7:21
+        return;                          // scope 0 at chacha20/src/main.rs:7:19: 7:21
+    }
+}
+
+const BLOCK_SIZE: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:3:19: 3:24
+
+    bb0: {
+        _0 = const 64_usize;             // scope 0 at chacha20/src/main.rs:3:27: 3:29
+        return;                          // scope 0 at chacha20/src/main.rs:3:1: 3:30
+    }
+}
+
+fn chacha20_decrypt(_1: &std::vec::Vec<secret_integers::U8>, _2: u32, _3: &std::vec::Vec<u8>, _4: &std::vec::Vec<u8>) -> std::vec::Vec<u8> {
+    debug key => _1;                     // in scope 0 at chacha20/src/main.rs:127:25: 127:28
+    debug counter => _2;                 // in scope 0 at chacha20/src/main.rs:127:36: 127:43
+    debug nonce => _3;                   // in scope 0 at chacha20/src/main.rs:127:50: 127:55
+    debug msg => _4;                     // in scope 0 at chacha20/src/main.rs:127:67: 127:70
+    let mut _0: std::vec::Vec<u8>;       // return place in scope 0 at chacha20/src/main.rs:127:85: 127:92
+    let _5: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:128:9: 128:14
+    let _6: std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:128:18: 128:37
+    let mut _7: &[u8];                   // in scope 0 at chacha20/src/main.rs:128:31: 128:36
+    let _8: &[u8];                       // in scope 0 at chacha20/src/main.rs:128:31: 128:36
+    let mut _9: &std::vec::Vec<u8>;      // in scope 0 at chacha20/src/main.rs:128:31: 128:36
+    let _11: std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:129:16: 129:33
+    let mut _12: &[u8];                  // in scope 0 at chacha20/src/main.rs:129:29: 129:32
+    let _13: &[u8];                      // in scope 0 at chacha20/src/main.rs:129:29: 129:32
+    let mut _14: &std::vec::Vec<u8>;     // in scope 0 at chacha20/src/main.rs:129:29: 129:32
+    let mut _15: &[secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:130:20: 130:75
+    let _16: &[secret_integers::U8];     // in scope 0 at chacha20/src/main.rs:130:20: 130:75
+    let mut _17: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:130:20: 130:75
+    let _18: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:130:20: 130:75
+    let _19: std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:130:21: 130:75
+    let mut _20: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:130:43: 130:46
+    let mut _21: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:130:48: 130:62
+    let mut _22: u32;                    // in scope 0 at chacha20/src/main.rs:130:48: 130:55
+    let mut _23: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:130:64: 130:69
+    let mut _24: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:130:71: 130:74
+    scope 1 {
+        debug nonce => _5;               // in scope 1 at chacha20/src/main.rs:128:9: 128:14
+        let _10: &std::vec::Vec<secret_integers::U8>; // in scope 1 at chacha20/src/main.rs:129:9: 129:12
+        scope 2 {
+            debug msg => _10;            // in scope 2 at chacha20/src/main.rs:129:9: 129:12
+        }
+    }
+
+    bb0: {
+        _9 = _3;                         // scope 0 at chacha20/src/main.rs:128:31: 128:36
+        _8 = <std::vec::Vec<u8> as std::ops::Deref>::deref(move _9) -> bb1; // scope 0 at chacha20/src/main.rs:128:31: 128:36
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:128:31: 128:36
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<u8>) -> &'r <std::vec::Vec<u8> as std::ops::Deref>::Target {<std::vec::Vec<u8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _7 = _8;                         // scope 0 at chacha20/src/main.rs:128:31: 128:36
+        _6 = classify_u8s(move _7) -> bb2; // scope 0 at chacha20/src/main.rs:128:18: 128:37
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:128:18: 128:30
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::vec::Vec<secret_integers::U8> {classify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _5 = &_6;                        // scope 0 at chacha20/src/main.rs:128:17: 128:37
+        _14 = _4;                        // scope 1 at chacha20/src/main.rs:129:29: 129:32
+        _13 = <std::vec::Vec<u8> as std::ops::Deref>::deref(move _14) -> [return: bb3, unwind: bb16]; // scope 1 at chacha20/src/main.rs:129:29: 129:32
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:129:29: 129:32
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<u8>) -> &'r <std::vec::Vec<u8> as std::ops::Deref>::Target {<std::vec::Vec<u8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _12 = _13;                       // scope 1 at chacha20/src/main.rs:129:29: 129:32
+        _11 = classify_u8s(move _12) -> [return: bb4, unwind: bb16]; // scope 1 at chacha20/src/main.rs:129:16: 129:33
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:129:16: 129:28
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::vec::Vec<secret_integers::U8> {classify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _10 = &_11;                      // scope 1 at chacha20/src/main.rs:129:15: 129:33
+        _20 = _1;                        // scope 2 at chacha20/src/main.rs:130:43: 130:46
+        _22 = _2;                        // scope 2 at chacha20/src/main.rs:130:48: 130:55
+        _21 = <u32 as std::convert::Into<secret_integers::U32>>::into(move _22) -> [return: bb5, unwind: bb15]; // scope 2 at chacha20/src/main.rs:130:48: 130:62
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:130:56: 130:60
+                                         // + literal: Const { ty: fn(u32) -> secret_integers::U32 {<u32 as std::convert::Into<secret_integers::U32>>::into}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        _23 = _5;                        // scope 2 at chacha20/src/main.rs:130:64: 130:69
+        _24 = _10;                       // scope 2 at chacha20/src/main.rs:130:71: 130:74
+        _19 = chacha20_counter_mode(move _20, move _21, move _23, move _24) -> [return: bb6, unwind: bb15]; // scope 2 at chacha20/src/main.rs:130:21: 130:75
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:130:21: 130:42
+                                         // + literal: Const { ty: for<'r, 's, 't0> fn(&'r std::vec::Vec<secret_integers::U8>, secret_integers::U32, &'s std::vec::Vec<secret_integers::U8>, &'t0 std::vec::Vec<secret_integers::U8>) -> std::vec::Vec<secret_integers::U8> {chacha20_counter_mode}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb6: {
+        _18 = &_19;                      // scope 2 at chacha20/src/main.rs:130:20: 130:75
+        _17 = _18;                       // scope 2 at chacha20/src/main.rs:130:20: 130:75
+        _16 = <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref(move _17) -> [return: bb7, unwind: bb12]; // scope 2 at chacha20/src/main.rs:130:20: 130:75
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:130:20: 130:75
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>) -> &'r <std::vec::Vec<secret_integers::U8> as std::ops::Deref>::Target {<std::vec::Vec<secret_integers::U8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb7: {
+        _15 = _16;                       // scope 2 at chacha20/src/main.rs:130:20: 130:75
+        _0 = declassify_u8s(move _15) -> [return: bb8, unwind: bb12]; // scope 2 at chacha20/src/main.rs:130:5: 130:76
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:130:5: 130:19
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> std::vec::Vec<u8> {declassify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        drop(_11) -> [return: bb9, unwind: bb13]; // scope 1 at chacha20/src/main.rs:131:1: 131:2
+    }
+
+    bb9: {
+        drop(_6) -> [return: bb10, unwind: bb14]; // scope 0 at chacha20/src/main.rs:131:1: 131:2
+    }
+
+    bb10: {
+        drop(_19) -> bb11;               // scope 0 at chacha20/src/main.rs:131:1: 131:2
+    }
+
+    bb11: {
+        return;                          // scope 0 at chacha20/src/main.rs:131:2: 131:2
+    }
+
+    bb12 (cleanup): {
+        drop(_11) -> bb13;               // scope 1 at chacha20/src/main.rs:131:1: 131:2
+    }
+
+    bb13 (cleanup): {
+        drop(_6) -> bb14;                // scope 0 at chacha20/src/main.rs:131:1: 131:2
+    }
+
+    bb14 (cleanup): {
+        drop(_19) -> bb17;               // scope 0 at chacha20/src/main.rs:131:1: 131:2
+    }
+
+    bb15 (cleanup): {
+        drop(_11) -> bb16;               // scope 1 at chacha20/src/main.rs:131:1: 131:2
+    }
+
+    bb16 (cleanup): {
+        drop(_6) -> bb17;                // scope 0 at chacha20/src/main.rs:131:1: 131:2
+    }
+
+    bb17 (cleanup): {
+        resume;                          // scope 0 at chacha20/src/main.rs:127:1: 131:2
+    }
+}
+
+chacha20_counter_mode::{constant#1}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:103:29: 103:39
+
+    bb0: {
+        _0 = const BLOCK_SIZE;           // scope 0 at chacha20/src/main.rs:103:29: 103:39
+        return;                          // scope 0 at chacha20/src/main.rs:103:29: 103:39
+    }
+}
+
+chacha20_counter_mode::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:94:30: 94:40
+
+    bb0: {
+        _0 = const BLOCK_SIZE;           // scope 0 at chacha20/src/main.rs:94:30: 94:40
+        return;                          // scope 0 at chacha20/src/main.rs:94:30: 94:40
+    }
+}
+
+xor_block::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:84:42: 84:52
+
+    bb0: {
+        _0 = const BLOCK_SIZE;           // scope 0 at chacha20/src/main.rs:84:42: 84:52
+        return;                          // scope 0 at chacha20/src/main.rs:84:42: 84:52
+    }
+}
+
+fn chacha20_block(_1: &std::vec::Vec<secret_integers::U8>, _2: secret_integers::U32, _3: &std::vec::Vec<secret_integers::U8>) -> [secret_integers::U8; 64] {
+    debug k => _1;                       // in scope 0 at chacha20/src/main.rs:76:19: 76:20
+    debug counter => _2;                 // in scope 0 at chacha20/src/main.rs:76:28: 76:35
+    debug nonce => _3;                   // in scope 0 at chacha20/src/main.rs:76:42: 76:47
+    let _4: [secret_integers::U32; 16];  // in scope 0 at chacha20/src/main.rs:77:9: 77:11
+    let mut _5: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:77:23: 77:24
+    let mut _6: secret_integers::U32;    // in scope 0 at chacha20/src/main.rs:77:26: 77:33
+    let mut _7: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:77:35: 77:40
+    let mut _8: secret_integers::U8;     // in scope 0 at chacha20/src/main.rs:78:22: 78:39
+    let _9: ();                          // in scope 0 at chacha20/src/main.rs:79:5: 79:60
+    let mut _10: &mut [secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:79:5: 79:10
+    let mut _11: &mut [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:79:5: 79:10
+    let mut _12: &[secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:79:27: 79:59
+    let _13: &[secret_integers::U8];     // in scope 0 at chacha20/src/main.rs:79:27: 79:59
+    let mut _14: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:79:27: 79:48
+    let _15: std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:79:27: 79:48
+    let mut _16: &[secret_integers::U32]; // in scope 0 at chacha20/src/main.rs:79:44: 79:47
+    let mut _17: &[secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:79:44: 79:47
+    let _18: &[secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:79:44: 79:47
+    scope 1 {
+        debug st => _4;                  // in scope 1 at chacha20/src/main.rs:77:9: 77:11
+        let mut _0: [secret_integers::U8; 64]; // return place in scope 1 at chacha20/src/main.rs:78:9: 78:18
+        scope 2 {
+            debug block => _0;           // in scope 2 at chacha20/src/main.rs:78:9: 78:18
+        }
+    }
+
+    bb0: {
+        _5 = _1;                         // scope 0 at chacha20/src/main.rs:77:23: 77:24
+        _6 = _2;                         // scope 0 at chacha20/src/main.rs:77:26: 77:33
+        _7 = _3;                         // scope 0 at chacha20/src/main.rs:77:35: 77:40
+        _4 = chacha20(move _5, move _6, move _7) -> bb1; // scope 0 at chacha20/src/main.rs:77:14: 77:41
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:77:14: 77:22
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r std::vec::Vec<secret_integers::U8>, secret_integers::U32, &'s std::vec::Vec<secret_integers::U8>) -> [secret_integers::U32; 16] {chacha20}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _8 = secret_integers::U8::classify::<u8>(const 0_u8) -> bb2; // scope 1 at chacha20/src/main.rs:78:22: 78:39
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:78:22: 78:34
+                                         // + user_ty: UserType(0)
+                                         // + literal: Const { ty: fn(u8) -> secret_integers::U8 {secret_integers::U8::classify::<u8>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _0 = [move _8; BLOCK_SIZE];      // scope 1 at chacha20/src/main.rs:78:21: 78:52
+        _11 = &mut _0;                   // scope 2 at chacha20/src/main.rs:79:5: 79:10
+        _10 = move _11 as &mut [secret_integers::U8] (Pointer(Unsize)); // scope 2 at chacha20/src/main.rs:79:5: 79:10
+        _18 = &_4;                       // scope 2 at chacha20/src/main.rs:79:44: 79:47
+        _17 = _18;                       // scope 2 at chacha20/src/main.rs:79:44: 79:47
+        _16 = move _17 as &[secret_integers::U32] (Pointer(Unsize)); // scope 2 at chacha20/src/main.rs:79:44: 79:47
+        _15 = secret_integers::U32::to_bytes_le(move _16) -> bb3; // scope 2 at chacha20/src/main.rs:79:27: 79:48
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:79:27: 79:43
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U32]) -> std::vec::Vec<secret_integers::U8> {secret_integers::U32::to_bytes_le}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _14 = &_15;                      // scope 2 at chacha20/src/main.rs:79:27: 79:48
+        _13 = std::vec::Vec::<secret_integers::U8>::as_slice(move _14) -> [return: bb4, unwind: bb7]; // scope 2 at chacha20/src/main.rs:79:27: 79:59
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:79:49: 79:57
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<secret_integers::U8>) -> &'r [secret_integers::U8] {std::vec::Vec::<secret_integers::U8>::as_slice}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _12 = _13;                       // scope 2 at chacha20/src/main.rs:79:27: 79:59
+        _9 = core::slice::<impl [secret_integers::U8]>::copy_from_slice(move _10, move _12) -> [return: bb5, unwind: bb7]; // scope 2 at chacha20/src/main.rs:79:5: 79:60
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:79:11: 79:26
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r mut [secret_integers::U8], &'s [secret_integers::U8]) {core::slice::<impl [secret_integers::U8]>::copy_from_slice}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        drop(_15) -> bb6;                // scope 2 at chacha20/src/main.rs:79:60: 79:61
+    }
+
+    bb6: {
+        return;                          // scope 0 at chacha20/src/main.rs:81:2: 81:2
+    }
+
+    bb7 (cleanup): {
+        drop(_15) -> bb8;                // scope 2 at chacha20/src/main.rs:79:60: 79:61
+    }
+
+    bb8 (cleanup): {
+        resume;                          // scope 0 at chacha20/src/main.rs:76:1: 81:2
+    }
+}
+
+chacha20_init::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:52:40: 52:42
+
+    bb0: {
+        _0 = const 16_usize;             // scope 0 at chacha20/src/main.rs:52:40: 52:42
+        return;                          // scope 0 at chacha20/src/main.rs:52:40: 52:42
+    }
+}
+
+fn double_round(_1: &mut [secret_integers::U32; 16]) -> () {
+    debug m => _1;                       // in scope 0 at chacha20/src/main.rs:37:17: 37:18
+    let mut _0: ();                      // return place in scope 0 at chacha20/src/main.rs:37:32: 37:32
+    let _2: ();                          // in scope 0 at chacha20/src/main.rs:38:5: 38:34
+    let mut _3: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:38:32: 38:33
+    let _4: ();                          // in scope 0 at chacha20/src/main.rs:39:5: 39:34
+    let mut _5: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:39:32: 39:33
+    let _6: ();                          // in scope 0 at chacha20/src/main.rs:40:5: 40:35
+    let mut _7: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:40:33: 40:34
+    let _8: ();                          // in scope 0 at chacha20/src/main.rs:41:5: 41:35
+    let mut _9: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:41:33: 41:34
+    let _10: ();                         // in scope 0 at chacha20/src/main.rs:43:5: 43:35
+    let mut _11: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:43:33: 43:34
+    let _12: ();                         // in scope 0 at chacha20/src/main.rs:44:5: 44:35
+    let mut _13: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:44:33: 44:34
+    let _14: ();                         // in scope 0 at chacha20/src/main.rs:45:5: 45:34
+    let mut _15: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:45:32: 45:33
+    let _16: ();                         // in scope 0 at chacha20/src/main.rs:46:5: 46:34
+    let mut _17: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:46:32: 46:33
+
+    bb0: {
+        _3 = &mut (*_1);                 // scope 0 at chacha20/src/main.rs:38:32: 38:33
+        _2 = quarter_round(const 0_usize, const 4_usize, const 8_usize, const 12_usize, move _3) -> bb1; // scope 0 at chacha20/src/main.rs:38:5: 38:34
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:38:5: 38:18
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, usize, &'r mut [secret_integers::U32; 16]) {quarter_round}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _5 = &mut (*_1);                 // scope 0 at chacha20/src/main.rs:39:32: 39:33
+        _4 = quarter_round(const 1_usize, const 5_usize, const 9_usize, const 13_usize, move _5) -> bb2; // scope 0 at chacha20/src/main.rs:39:5: 39:34
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:39:5: 39:18
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, usize, &'r mut [secret_integers::U32; 16]) {quarter_round}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _7 = &mut (*_1);                 // scope 0 at chacha20/src/main.rs:40:33: 40:34
+        _6 = quarter_round(const 2_usize, const 6_usize, const 10_usize, const 14_usize, move _7) -> bb3; // scope 0 at chacha20/src/main.rs:40:5: 40:35
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:40:5: 40:18
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, usize, &'r mut [secret_integers::U32; 16]) {quarter_round}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _9 = &mut (*_1);                 // scope 0 at chacha20/src/main.rs:41:33: 41:34
+        _8 = quarter_round(const 3_usize, const 7_usize, const 11_usize, const 15_usize, move _9) -> bb4; // scope 0 at chacha20/src/main.rs:41:5: 41:35
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:41:5: 41:18
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, usize, &'r mut [secret_integers::U32; 16]) {quarter_round}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _11 = &mut (*_1);                // scope 0 at chacha20/src/main.rs:43:33: 43:34
+        _10 = quarter_round(const 0_usize, const 5_usize, const 10_usize, const 15_usize, move _11) -> bb5; // scope 0 at chacha20/src/main.rs:43:5: 43:35
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:43:5: 43:18
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, usize, &'r mut [secret_integers::U32; 16]) {quarter_round}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        _13 = &mut (*_1);                // scope 0 at chacha20/src/main.rs:44:33: 44:34
+        _12 = quarter_round(const 1_usize, const 6_usize, const 11_usize, const 12_usize, move _13) -> bb6; // scope 0 at chacha20/src/main.rs:44:5: 44:35
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:44:5: 44:18
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, usize, &'r mut [secret_integers::U32; 16]) {quarter_round}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb6: {
+        _15 = &mut (*_1);                // scope 0 at chacha20/src/main.rs:45:32: 45:33
+        _14 = quarter_round(const 2_usize, const 7_usize, const 8_usize, const 13_usize, move _15) -> bb7; // scope 0 at chacha20/src/main.rs:45:5: 45:34
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:45:5: 45:18
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, usize, &'r mut [secret_integers::U32; 16]) {quarter_round}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb7: {
+        _17 = &mut (*_1);                // scope 0 at chacha20/src/main.rs:46:32: 46:33
+        _16 = quarter_round(const 3_usize, const 4_usize, const 9_usize, const 14_usize, move _17) -> bb8; // scope 0 at chacha20/src/main.rs:46:5: 46:34
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:46:5: 46:18
+                                         // + literal: Const { ty: for<'r> fn(usize, usize, usize, usize, &'r mut [secret_integers::U32; 16]) {quarter_round}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        _0 = const ();                   // scope 0 at chacha20/src/main.rs:37:32: 47:2
+        return;                          // scope 0 at chacha20/src/main.rs:47:2: 47:2
+    }
+}
+
+fn declassify_u8s::{closure#0}(_1: &mut [closure@chacha20/src/main.rs:21:18: 21:40], _2: &secret_integers::U8) -> u8 {
+    debug x => _2;                       // in scope 0 at chacha20/src/main.rs:21:19: 21:20
+    let mut _0: u8;                      // return place in scope 0 at chacha20/src/main.rs:21:22: 21:22
+    let mut _3: secret_integers::U8;     // in scope 0 at chacha20/src/main.rs:21:37: 21:39
+
+    bb0: {
+        _3 = (*_2);                      // scope 0 at chacha20/src/main.rs:21:37: 21:39
+        _0 = secret_integers::U8::declassify(move _3) -> bb1; // scope 0 at chacha20/src/main.rs:21:22: 21:40
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:21:22: 21:36
+                                         // + literal: Const { ty: fn(secret_integers::U8) -> u8 {secret_integers::U8::declassify}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        return;                          // scope 0 at chacha20/src/main.rs:21:40: 21:40
+    }
+}
+
+fn classify_u8s(_1: &[u8]) -> std::vec::Vec<secret_integers::U8> {
+    debug v => _1;                       // in scope 0 at chacha20/src/main.rs:16:21: 16:22
+    let mut _0: std::vec::Vec<secret_integers::U8>; // return place in scope 0 at chacha20/src/main.rs:16:34: 16:41
+    let mut _2: std::iter::Map<std::slice::Iter<u8>, [closure@chacha20/src/main.rs:17:18: 17:38]>; // in scope 0 at chacha20/src/main.rs:17:5: 17:39
+    let mut _3: std::slice::Iter<u8>;    // in scope 0 at chacha20/src/main.rs:17:5: 17:13
+    let mut _4: &[u8];                   // in scope 0 at chacha20/src/main.rs:17:5: 17:6
+    let mut _5: [closure@chacha20/src/main.rs:17:18: 17:38]; // in scope 0 at chacha20/src/main.rs:17:18: 17:38
+
+    bb0: {
+        _4 = _1;                         // scope 0 at chacha20/src/main.rs:17:5: 17:6
+        _3 = core::slice::<impl [u8]>::iter(move _4) -> bb1; // scope 0 at chacha20/src/main.rs:17:5: 17:13
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:17:7: 17:11
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::slice::Iter<'r, u8> {core::slice::<impl [u8]>::iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _2 = <std::slice::Iter<u8> as std::iter::Iterator>::map::<secret_integers::U8, [closure@chacha20/src/main.rs:17:18: 17:38]>(move _3, move _5) -> bb2; // scope 0 at chacha20/src/main.rs:17:5: 17:39
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:17:14: 17:17
+                                         // + literal: Const { ty: fn(std::slice::Iter<u8>, [closure@chacha20/src/main.rs:17:18: 17:38]) -> std::iter::Map<std::slice::Iter<u8>, [closure@chacha20/src/main.rs:17:18: 17:38]> {<std::slice::Iter<u8> as std::iter::Iterator>::map::<secret_integers::U8, [closure@chacha20/src/main.rs:17:18: 17:38]>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _0 = <std::iter::Map<std::slice::Iter<u8>, [closure@chacha20/src/main.rs:17:18: 17:38]> as std::iter::Iterator>::collect::<std::vec::Vec<secret_integers::U8>>(move _2) -> bb3; // scope 0 at chacha20/src/main.rs:17:5: 17:49
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:17:40: 17:47
+                                         // + literal: Const { ty: fn(std::iter::Map<std::slice::Iter<u8>, [closure@chacha20/src/main.rs:17:18: 17:38]>) -> std::vec::Vec<secret_integers::U8> {<std::iter::Map<std::slice::Iter<u8>, [closure@chacha20/src/main.rs:17:18: 17:38]> as std::iter::Iterator>::collect::<std::vec::Vec<secret_integers::U8>>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        return;                          // scope 0 at chacha20/src/main.rs:18:2: 18:2
+    }
+}
+
+fn main() -> () {
+    let mut _0: ();                      // return place in scope 0 at chacha20/src/main.rs:133:11: 133:11
+    let _1: std::vec::Vec<u8>;           // in scope 0 at chacha20/src/main.rs:134:9: 134:18
+    let mut _2: std::boxed::Box<[u8]>;   // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _3: std::boxed::Box<[u8; 114]>; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _4: std::boxed::Box<[u8; 114]>; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _6: std::boxed::Box<[u8]>;   // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _7: std::boxed::Box<[u8; 114]>; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _8: std::boxed::Box<[u8; 114]>; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _10: &[u8];                  // in scope 0 at chacha20/src/main.rs:154:28: 157:6
+    let _11: &[u8];                      // in scope 0 at chacha20/src/main.rs:154:28: 157:6
+    let mut _12: &std::vec::Vec<u8>;     // in scope 0 at chacha20/src/main.rs:154:28: 157:6
+    let _13: &std::vec::Vec<u8>;         // in scope 0 at chacha20/src/main.rs:154:28: 157:6
+    let _14: std::vec::Vec<u8>;          // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:36: 51:66
+    let mut _15: std::boxed::Box<[u8]>;  // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _16: std::boxed::Box<[u8; 32]>; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _17: std::boxed::Box<[u8; 32]>; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _19: std::boxed::Box<[u8]>;  // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _20: std::boxed::Box<[u8; 12]>; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _21: std::boxed::Box<[u8; 12]>; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+    let mut _23: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:161:48: 161:52
+    let _24: &std::vec::Vec<secret_integers::U8>; // in scope 0 at chacha20/src/main.rs:161:48: 161:52
+    let mut _25: &std::vec::Vec<u8>;     // in scope 0 at chacha20/src/main.rs:161:60: 161:66
+    let _26: &std::vec::Vec<u8>;         // in scope 0 at chacha20/src/main.rs:161:60: 161:66
+    let mut _27: &std::vec::Vec<u8>;     // in scope 0 at chacha20/src/main.rs:161:68: 161:78
+    let _28: &std::vec::Vec<u8>;         // in scope 0 at chacha20/src/main.rs:161:68: 161:78
+    let mut _29: std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>>; // in scope 0 at chacha20/src/main.rs:162:26: 162:80
+    let mut _30: std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>>; // in scope 0 at chacha20/src/main.rs:162:26: 162:80
+    let mut _31: std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>; // in scope 0 at chacha20/src/main.rs:162:26: 162:68
+    let mut _32: std::slice::Iter<u8>;   // in scope 0 at chacha20/src/main.rs:162:26: 162:43
+    let mut _33: &[u8];                  // in scope 0 at chacha20/src/main.rs:162:26: 162:36
+    let _34: &[u8];                      // in scope 0 at chacha20/src/main.rs:162:26: 162:43
+    let mut _35: &std::vec::Vec<u8>;     // in scope 0 at chacha20/src/main.rs:162:26: 162:36
+    let mut _36: std::vec::Vec<u8>;      // in scope 0 at chacha20/src/main.rs:162:48: 162:67
+    let mut _39: std::option::Option<(usize, (&u8, u8))>; // in scope 0 at chacha20/src/main.rs:162:26: 162:80
+    let mut _40: &mut std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>>; // in scope 0 at chacha20/src/main.rs:162:26: 162:80
+    let mut _41: &mut std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>>; // in scope 0 at chacha20/src/main.rs:162:26: 162:80
+    let mut _42: isize;                  // in scope 0 at chacha20/src/main.rs:162:9: 162:22
+    let mut _44: (usize, (&u8, u8));     // in scope 0 at chacha20/src/main.rs:162:9: 162:22
+    let mut _48: (&u8, &u8);             // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:50:15: 50:32
+    let mut _49: &u8;                    // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:50:16: 50:22
+    let mut _50: &u8;                    // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:50:24: 50:31
+    let mut _53: bool;                   // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:52:20: 52:46
+    let mut _54: bool;                   // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:52:21: 52:46
+    let mut _55: u8;                     // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:52:22: 52:31
+    let mut _56: u8;                     // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:52:35: 52:45
+    let mut _58: core::panicking::AssertKind; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:54: 57:58
+    let mut _59: &u8;                    // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:60: 57:70
+    let _60: &u8;                        // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:60: 57:70
+    let mut _61: &u8;                    // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:72: 57:83
+    let _62: &u8;                        // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:72: 57:83
+    let mut _63: std::option::Option<std::fmt::Arguments>; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:85: 57:145
+    let mut _64: std::fmt::Arguments;    // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+    let mut _65: &[&str];                // in scope 0 at chacha20/src/main.rs:163:29: 163:44
+    let mut _66: &[&str; 1];             // in scope 0 at chacha20/src/main.rs:163:29: 163:44
+    let _67: &[&str; 1];                 // in scope 0 at chacha20/src/main.rs:163:29: 163:44
+    let mut _68: &[std::fmt::ArgumentV1]; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+    let mut _69: &[std::fmt::ArgumentV1; 1]; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+    let _70: &[std::fmt::ArgumentV1; 1]; // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+    let _71: [std::fmt::ArgumentV1; 1];  // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+    let mut _72: (&usize,);              // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+    let mut _73: &usize;                 // in scope 0 at chacha20/src/main.rs:163:46: 163:47
+    let mut _75: std::fmt::ArgumentV1;   // in scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+    let mut _76: &usize;                 // in scope 0 at chacha20/src/main.rs:163:46: 163:47
+    let mut _77: for<'r, 's, 't0> fn(&'r usize, &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error>; // in scope 0 at chacha20/src/main.rs:163:46: 163:47
+    let mut _79: bool;                   // in scope 0 at chacha20/src/main.rs:165:1: 165:2
+    scope 1 {
+        debug plaintext => _1;           // in scope 1 at chacha20/src/main.rs:134:9: 134:18
+        let _5: std::vec::Vec<u8>;       // in scope 1 at chacha20/src/main.rs:144:9: 144:19
+        scope 2 {
+            debug ciphertext => _5;      // in scope 2 at chacha20/src/main.rs:144:9: 144:19
+            let _9: std::vec::Vec<secret_integers::U8>; // in scope 2 at chacha20/src/main.rs:154:9: 154:12
+            scope 3 {
+                debug key => _9;         // in scope 3 at chacha20/src/main.rs:154:9: 154:12
+                let _18: std::vec::Vec<u8>; // in scope 3 at chacha20/src/main.rs:158:9: 158:14
+                scope 4 {
+                    debug nonce => _18;  // in scope 4 at chacha20/src/main.rs:158:9: 158:14
+                    let _22: std::vec::Vec<u8>; // in scope 4 at chacha20/src/main.rs:161:9: 161:28
+                    scope 5 {
+                        debug computed_ciphertext => _22; // in scope 5 at chacha20/src/main.rs:161:9: 161:28
+                        let mut _37: std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>>; // in scope 5 at chacha20/src/main.rs:162:26: 162:80
+                        scope 6 {
+                            debug iter => _37; // in scope 6 at chacha20/src/main.rs:162:26: 162:80
+                            let mut _38: (usize, (&u8, u8)); // in scope 6 at chacha20/src/main.rs:162:26: 162:80
+                            scope 7 {
+                                debug __next => _38; // in scope 7 at chacha20/src/main.rs:162:26: 162:80
+                                let _43: (usize, (&u8, u8)); // in scope 7 at chacha20/src/main.rs:162:9: 162:22
+                                let _45: usize; // in scope 7 at chacha20/src/main.rs:162:10: 162:11
+                                let _46: &u8; // in scope 7 at chacha20/src/main.rs:162:14: 162:16
+                                let _47: u8; // in scope 7 at chacha20/src/main.rs:162:18: 162:20
+                                scope 8 {
+                                    debug val => _43; // in scope 8 at chacha20/src/main.rs:162:9: 162:22
+                                }
+                                scope 9 {
+                                    debug i => _45; // in scope 9 at chacha20/src/main.rs:162:10: 162:11
+                                    debug x1 => _46; // in scope 9 at chacha20/src/main.rs:162:14: 162:16
+                                    debug x2 => _47; // in scope 9 at chacha20/src/main.rs:162:18: 162:20
+                                    let _51: &u8; // in scope 9 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:51:14: 51:22
+                                    let _52: &u8; // in scope 9 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:51:24: 51:33
+                                    scope 10 {
+                                        debug left_val => _51; // in scope 10 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:51:14: 51:22
+                                        debug right_val => _52; // in scope 10 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:51:24: 51:33
+                                        let _57: core::panicking::AssertKind; // in scope 10 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:53:25: 53:29
+                                        scope 11 {
+                                            debug kind => _57; // in scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:53:25: 53:29
+                                            let _74: &usize; // in scope 11 at chacha20/src/main.rs:163:46: 163:47
+                                            let mut _78: &[&str; 1]; // in scope 11 at chacha20/src/main.rs:163:29: 163:44
+                                            scope 12 {
+                                                debug arg0 => _74; // in scope 12 at chacha20/src/main.rs:163:46: 163:47
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    bb0: {
+        _79 = const false;               // scope 0 at chacha20/src/main.rs:134:9: 134:18
+        _4 = Box([u8; 114]);             // scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        (*_4) = [const 76_u8, const 97_u8, const 100_u8, const 105_u8, const 101_u8, const 115_u8, const 32_u8, const 97_u8, const 110_u8, const 100_u8, const 32_u8, const 71_u8, const 101_u8, const 110_u8, const 116_u8, const 108_u8, const 101_u8, const 109_u8, const 101_u8, const 110_u8, const 32_u8, const 111_u8, const 102_u8, const 32_u8, const 116_u8, const 104_u8, const 101_u8, const 32_u8, const 99_u8, const 108_u8, const 97_u8, const 115_u8, const 115_u8, const 32_u8, const 111_u8, const 102_u8, const 32_u8, const 39_u8, const 57_u8, const 57_u8, const 58_u8, const 32_u8, const 73_u8, const 102_u8, const 32_u8, const 73_u8, const 32_u8, const 99_u8, const 111_u8, const 117_u8, const 108_u8, const 100_u8, const 32_u8, const 111_u8, const 102_u8, const 102_u8, const 101_u8, const 114_u8, const 32_u8, const 121_u8, const 111_u8, const 117_u8, const 32_u8, const 111_u8, const 110_u8, const 108_u8, const 121_u8, const 32_u8, const 111_u8, const 110_u8, const 101_u8, const 32_u8, const 116_u8, const 105_u8, const 112_u8, const 32_u8, const 102_u8, const 111_u8, const 114_u8, const 32_u8, const 116_u8, const 104_u8, const 101_u8, const 32_u8, const 102_u8, const 117_u8, const 116_u8, const 117_u8, const 114_u8, const 101_u8, const 44_u8, const 32_u8, const 115_u8, const 117_u8, const 110_u8, const 115_u8, const 99_u8, const 114_u8, const 101_u8, const 101_u8, const 110_u8, const 32_u8, const 119_u8, const 111_u8, const 117_u8, const 108_u8, const 100_u8, const 32_u8, const 98_u8, const 101_u8, const 32_u8, const 105_u8, const 116_u8, const 46_u8]; // scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:56: 51:65
+        _3 = move _4;                    // scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        _2 = move _3 as std::boxed::Box<[u8]> (Pointer(Unsize)); // scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        _1 = std::slice::<impl [u8]>::into_vec::<std::alloc::Global>(move _2) -> bb1; // scope 0 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:36: 51:66
+                                         // mir::Constant
+                                         // + span: /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:36: 51:51
+                                         // + user_ty: UserType(0)
+                                         // + literal: Const { ty: fn(std::boxed::Box<[u8]>) -> std::vec::Vec<u8> {std::slice::<impl [u8]>::into_vec::<std::alloc::Global>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _8 = Box([u8; 114]);             // scope 1 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        (*_8) = [const 110_u8, const 46_u8, const 53_u8, const 154_u8, const 37_u8, const 104_u8, const 249_u8, const 128_u8, const 65_u8, const 186_u8, const 7_u8, const 40_u8, const 221_u8, const 13_u8, const 105_u8, const 129_u8, const 233_u8, const 126_u8, const 122_u8, const 236_u8, const 29_u8, const 67_u8, const 96_u8, const 194_u8, const 10_u8, const 39_u8, const 175_u8, const 204_u8, const 253_u8, const 159_u8, const 174_u8, const 11_u8, const 249_u8, const 27_u8, const 101_u8, const 197_u8, const 82_u8, const 71_u8, const 51_u8, const 171_u8, const 143_u8, const 89_u8, const 61_u8, const 171_u8, const 205_u8, const 98_u8, const 179_u8, const 87_u8, const 22_u8, const 57_u8, const 214_u8, const 36_u8, const 230_u8, const 81_u8, const 82_u8, const 171_u8, const 143_u8, const 83_u8, const 12_u8, const 53_u8, const 159_u8, const 8_u8, const 97_u8, const 216_u8, const 7_u8, const 202_u8, const 13_u8, const 191_u8, const 80_u8, const 13_u8, const 106_u8, const 97_u8, const 86_u8, const 163_u8, const 142_u8, const 8_u8, const 138_u8, const 34_u8, const 182_u8, const 94_u8, const 82_u8, const 188_u8, const 81_u8, const 77_u8, const 22_u8, const 204_u8, const 248_u8, const 6_u8, const 129_u8, const 140_u8, const 233_u8, const 26_u8, const 183_u8, const 121_u8, const 55_u8, const 54_u8, const 90_u8, const 249_u8, const 11_u8, const 191_u8, const 116_u8, const 163_u8, const 91_u8, const 230_u8, const 180_u8, const 11_u8, const 142_u8, const 237_u8, const 242_u8, const 120_u8, const 94_u8, const 66_u8, const 135_u8, const 77_u8]; // scope 1 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:56: 51:65
+        _7 = move _8;                    // scope 1 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        _6 = move _7 as std::boxed::Box<[u8]> (Pointer(Unsize)); // scope 1 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        _5 = std::slice::<impl [u8]>::into_vec::<std::alloc::Global>(move _6) -> [return: bb2, unwind: bb33]; // scope 1 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:36: 51:66
+                                         // mir::Constant
+                                         // + span: /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:36: 51:51
+                                         // + user_ty: UserType(1)
+                                         // + literal: Const { ty: fn(std::boxed::Box<[u8]>) -> std::vec::Vec<u8> {std::slice::<impl [u8]>::into_vec::<std::alloc::Global>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _17 = Box([u8; 32]);             // scope 2 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        (*_17) = [const 0_u8, const 1_u8, const 2_u8, const 3_u8, const 4_u8, const 5_u8, const 6_u8, const 7_u8, const 8_u8, const 9_u8, const 10_u8, const 11_u8, const 12_u8, const 13_u8, const 14_u8, const 15_u8, const 16_u8, const 17_u8, const 18_u8, const 19_u8, const 20_u8, const 21_u8, const 22_u8, const 23_u8, const 24_u8, const 25_u8, const 26_u8, const 27_u8, const 28_u8, const 29_u8, const 30_u8, const 31_u8]; // scope 2 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:56: 51:65
+        _16 = move _17;                  // scope 2 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        _15 = move _16 as std::boxed::Box<[u8]> (Pointer(Unsize)); // scope 2 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        _14 = std::slice::<impl [u8]>::into_vec::<std::alloc::Global>(move _15) -> [return: bb3, unwind: bb32]; // scope 2 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:36: 51:66
+                                         // mir::Constant
+                                         // + span: /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:36: 51:51
+                                         // + user_ty: UserType(2)
+                                         // + literal: Const { ty: fn(std::boxed::Box<[u8]>) -> std::vec::Vec<u8> {std::slice::<impl [u8]>::into_vec::<std::alloc::Global>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _13 = &_14;                      // scope 2 at chacha20/src/main.rs:154:28: 157:6
+        _12 = _13;                       // scope 2 at chacha20/src/main.rs:154:28: 157:6
+        _11 = <std::vec::Vec<u8> as std::ops::Deref>::deref(move _12) -> [return: bb4, unwind: bb31]; // scope 2 at chacha20/src/main.rs:154:28: 157:6
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:154:28: 157:6
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<u8>) -> &'r <std::vec::Vec<u8> as std::ops::Deref>::Target {<std::vec::Vec<u8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _10 = _11;                       // scope 2 at chacha20/src/main.rs:154:28: 157:6
+        _9 = classify_u8s(move _10) -> [return: bb5, unwind: bb31]; // scope 2 at chacha20/src/main.rs:154:15: 157:7
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:154:15: 154:27
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::vec::Vec<secret_integers::U8> {classify_u8s}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb5: {
+        drop(_14) -> [return: bb6, unwind: bb30]; // scope 2 at chacha20/src/main.rs:157:7: 157:8
+    }
+
+    bb6: {
+        _21 = Box([u8; 12]);             // scope 3 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        (*_21) = [const 0_u8, const 0_u8, const 0_u8, const 0_u8, const 0_u8, const 0_u8, const 0_u8, const 74_u8, const 0_u8, const 0_u8, const 0_u8, const 0_u8]; // scope 3 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:56: 51:65
+        _20 = move _21;                  // scope 3 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        _19 = move _20 as std::boxed::Box<[u8]> (Pointer(Unsize)); // scope 3 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:52: 51:65
+        _18 = std::slice::<impl [u8]>::into_vec::<std::alloc::Global>(move _19) -> [return: bb7, unwind: bb30]; // scope 3 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:36: 51:66
+                                         // mir::Constant
+                                         // + span: /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc/src/macros.rs:51:36: 51:51
+                                         // + user_ty: UserType(3)
+                                         // + literal: Const { ty: fn(std::boxed::Box<[u8]>) -> std::vec::Vec<u8> {std::slice::<impl [u8]>::into_vec::<std::alloc::Global>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb7: {
+        _24 = &_9;                       // scope 4 at chacha20/src/main.rs:161:48: 161:52
+        _23 = _24;                       // scope 4 at chacha20/src/main.rs:161:48: 161:52
+        _26 = &_18;                      // scope 4 at chacha20/src/main.rs:161:60: 161:66
+        _25 = _26;                       // scope 4 at chacha20/src/main.rs:161:60: 161:66
+        _28 = &_1;                       // scope 4 at chacha20/src/main.rs:161:68: 161:78
+        _27 = _28;                       // scope 4 at chacha20/src/main.rs:161:68: 161:78
+        _22 = chacha20_encrypt(move _23, const 1_u32, move _25, move _27) -> [return: bb8, unwind: bb29]; // scope 4 at chacha20/src/main.rs:161:31: 161:79
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:161:31: 161:47
+                                         // + literal: Const { ty: for<'r, 's, 't0> fn(&'r std::vec::Vec<secret_integers::U8>, u32, &'s std::vec::Vec<u8>, &'t0 std::vec::Vec<u8>) -> std::vec::Vec<u8> {chacha20_encrypt}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        _79 = const true;                // scope 4 at chacha20/src/main.rs:161:78: 161:79
+        _35 = &_5;                       // scope 5 at chacha20/src/main.rs:162:26: 162:36
+        _34 = <std::vec::Vec<u8> as std::ops::Deref>::deref(move _35) -> [return: bb9, unwind: bb36]; // scope 5 at chacha20/src/main.rs:162:26: 162:43
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:162:26: 162:43
+                                         // + literal: Const { ty: for<'r> fn(&'r std::vec::Vec<u8>) -> &'r <std::vec::Vec<u8> as std::ops::Deref>::Target {<std::vec::Vec<u8> as std::ops::Deref>::deref}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb9: {
+        _33 = _34;                       // scope 5 at chacha20/src/main.rs:162:26: 162:36
+        _32 = core::slice::<impl [u8]>::iter(move _33) -> [return: bb10, unwind: bb36]; // scope 5 at chacha20/src/main.rs:162:26: 162:43
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:162:37: 162:41
+                                         // + literal: Const { ty: for<'r> fn(&'r [u8]) -> std::slice::Iter<'r, u8> {core::slice::<impl [u8]>::iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb10: {
+        _79 = const false;               // scope 5 at chacha20/src/main.rs:162:48: 162:67
+        _36 = move _22;                  // scope 5 at chacha20/src/main.rs:162:48: 162:67
+        _31 = <std::slice::Iter<u8> as std::iter::Iterator>::zip::<std::vec::Vec<u8>>(move _32, move _36) -> [return: bb11, unwind: bb36]; // scope 5 at chacha20/src/main.rs:162:26: 162:68
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:162:44: 162:47
+                                         // + literal: Const { ty: fn(std::slice::Iter<u8>, std::vec::Vec<u8>) -> std::iter::Zip<std::slice::Iter<u8>, <std::vec::Vec<u8> as std::iter::IntoIterator>::IntoIter> {<std::slice::Iter<u8> as std::iter::Iterator>::zip::<std::vec::Vec<u8>>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb11: {
+        _30 = <std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>> as std::iter::Iterator>::enumerate(move _31) -> [return: bb12, unwind: bb36]; // scope 5 at chacha20/src/main.rs:162:26: 162:80
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:162:69: 162:78
+                                         // + literal: Const { ty: fn(std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>) -> std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>> {<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>> as std::iter::Iterator>::enumerate}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb12: {
+        _29 = <std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>> as std::iter::IntoIterator>::into_iter(move _30) -> [return: bb13, unwind: bb36]; // scope 5 at chacha20/src/main.rs:162:26: 162:80
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:162:26: 162:80
+                                         // + literal: Const { ty: fn(std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>>) -> <std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>> as std::iter::IntoIterator>::IntoIter {<std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb13: {
+        _37 = move _29;                  // scope 5 at chacha20/src/main.rs:162:26: 162:80
+        goto -> bb14;                    // scope 6 at chacha20/src/main.rs:162:5: 164:6
+    }
+
+    bb14: {
+        _41 = &mut _37;                  // scope 7 at chacha20/src/main.rs:162:26: 162:80
+        _40 = &mut (*_41);               // scope 7 at chacha20/src/main.rs:162:26: 162:80
+        _39 = <std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>> as std::iter::Iterator>::next(move _40) -> [return: bb15, unwind: bb28]; // scope 7 at chacha20/src/main.rs:162:26: 162:80
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:162:26: 162:80
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>>) -> std::option::Option<<std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>> as std::iter::Iterator>::Item> {<std::iter::Enumerate<std::iter::Zip<std::slice::Iter<u8>, std::vec::IntoIter<u8>>> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb15: {
+        _42 = discriminant(_39);         // scope 7 at chacha20/src/main.rs:162:9: 162:22
+        switchInt(move _42) -> [0_isize: bb16, 1_isize: bb18, otherwise: bb17]; // scope 7 at chacha20/src/main.rs:162:9: 162:22
+    }
+
+    bb16: {
+        _0 = const ();                   // scope 7 at chacha20/src/main.rs:162:5: 164:6
+        drop(_37) -> [return: bb23, unwind: bb36]; // scope 5 at chacha20/src/main.rs:164:5: 164:6
+    }
+
+    bb17: {
+        unreachable;                     // scope 7 at chacha20/src/main.rs:162:26: 162:80
+    }
+
+    bb18: {
+        _43 = ((_39 as Some).0: (usize, (&u8, u8))); // scope 7 at chacha20/src/main.rs:162:9: 162:22
+        _44 = _43;                       // scope 8 at chacha20/src/main.rs:162:9: 162:22
+        _38 = move _44;                  // scope 8 at chacha20/src/main.rs:162:9: 162:22
+        _46 = ((_38.1: (&u8, u8)).0: &u8); // scope 7 at chacha20/src/main.rs:162:14: 162:16
+        _47 = ((_38.1: (&u8, u8)).1: u8); // scope 7 at chacha20/src/main.rs:162:18: 162:20
+        _45 = (_38.0: usize);            // scope 7 at chacha20/src/main.rs:162:10: 162:11
+        _49 = _46;                       // scope 9 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:50:16: 50:22
+        _50 = &_47;                      // scope 9 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:50:24: 50:31
+        (_48.0: &u8) = move _49;         // scope 9 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:50:15: 50:32
+        (_48.1: &u8) = move _50;         // scope 9 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:50:15: 50:32
+        _51 = (_48.0: &u8);              // scope 9 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:51:14: 51:22
+        _52 = (_48.1: &u8);              // scope 9 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:51:24: 51:33
+        _55 = (*_51);                    // scope 10 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:52:22: 52:31
+        _56 = (*_52);                    // scope 10 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:52:35: 52:45
+        _54 = Eq(move _55, move _56);    // scope 10 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:52:21: 52:46
+        _53 = Not(move _54);             // scope 10 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:52:20: 52:46
+        switchInt(move _53) -> [false: bb20, otherwise: bb19]; // scope 10 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:52:17: 58:18
+    }
+
+    bb19: {
+        discriminant(_57) = 0;           // scope 10 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:53:32: 53:65
+        _58 = const core::panicking::AssertKind::Eq; // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:54: 57:58
+                                         // ty::Const
+                                         // + ty: core::panicking::AssertKind
+                                         // + val: Value(Scalar(0x00))
+                                         // mir::Constant
+                                         // + span: /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:54: 57:58
+                                         // + literal: Const { ty: core::panicking::AssertKind, val: Value(Scalar(0x00)) }
+        _60 = _51;                       // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:60: 57:70
+        _59 = _60;                       // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:60: 57:70
+        _62 = _52;                       // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:72: 57:83
+        _61 = _62;                       // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:72: 57:83
+        _78 = const main::promoted[0];   // scope 11 at chacha20/src/main.rs:163:29: 163:44
+                                         // ty::Const
+                                         // + ty: &[&str; 1]
+                                         // + val: Unevaluated(main, [], Some(promoted[0]))
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:163:29: 163:44
+                                         // + literal: Const { ty: &[&str; 1], val: Unevaluated(Unevaluated { def: WithOptConstParam { did: DefId(0:42 ~ chacha20[30d8]::main), const_param_did: None }, substs: [], promoted: Some(promoted[0]) }) }
+        _67 = _78;                       // scope 11 at chacha20/src/main.rs:163:29: 163:44
+        _66 = _67;                       // scope 11 at chacha20/src/main.rs:163:29: 163:44
+        _65 = move _66 as &[&str] (Pointer(Unsize)); // scope 11 at chacha20/src/main.rs:163:29: 163:44
+        _73 = &_45;                      // scope 11 at chacha20/src/main.rs:163:46: 163:47
+        (_72.0: &usize) = move _73;      // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+        _74 = (_72.0: &usize);           // scope 11 at chacha20/src/main.rs:163:46: 163:47
+        _76 = _74;                       // scope 12 at chacha20/src/main.rs:163:46: 163:47
+        _77 = <usize as std::fmt::Debug>::fmt as for<'r, 's, 't0> fn(&'r usize, &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error> (Pointer(ReifyFnPointer)); // scope 12 at chacha20/src/main.rs:163:46: 163:47
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:163:46: 163:47
+                                         // + literal: Const { ty: for<'r, 's, 't0> fn(&'r usize, &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error> {<usize as std::fmt::Debug>::fmt}, val: Value(Scalar(<ZST>)) }
+        _75 = std::fmt::ArgumentV1::new::<usize>(move _76, move _77) -> [return: bb21, unwind: bb28]; // scope 12 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+                                         // mir::Constant
+                                         // + span: /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+                                         // + user_ty: UserType(5)
+                                         // + literal: Const { ty: for<'b> fn(&'b usize, for<'r, 's, 't0> fn(&'r usize, &'s mut std::fmt::Formatter<'t0>) -> std::result::Result<(), std::fmt::Error>) -> std::fmt::ArgumentV1<'b> {std::fmt::ArgumentV1::new::<usize>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb20: {
+        goto -> bb14;                    // scope 6 at chacha20/src/main.rs:162:5: 164:6
+    }
+
+    bb21: {
+        _71 = [move _75];                // scope 12 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+        _70 = &_71;                      // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+        _69 = _70;                       // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+        _68 = move _69 as &[std::fmt::ArgumentV1] (Pointer(Unsize)); // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+        _64 = std::fmt::Arguments::new_v1(move _65, move _68) -> [return: bb22, unwind: bb28]; // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+                                         // mir::Constant
+                                         // + span: /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:114: 57:144
+                                         // + user_ty: UserType(4)
+                                         // + literal: Const { ty: fn(&[&'static str], &[std::fmt::ArgumentV1]) -> std::fmt::Arguments {std::fmt::Arguments::new_v1}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb22: {
+        ((_63 as Some).0: std::fmt::Arguments) = move _64; // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:85: 57:145
+        discriminant(_63) = 1;           // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:85: 57:145
+        core::panicking::assert_failed::<u8, u8>(move _58, move _59, move _61, move _63) -> bb28; // scope 11 at /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:21: 57:146
+                                         // mir::Constant
+                                         // + span: /Users/basaveshshivakumar/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/macros/mod.rs:57:21: 57:53
+                                         // + literal: Const { ty: for<'r, 's, 't0> fn(core::panicking::AssertKind, &'r u8, &'s u8, std::option::Option<std::fmt::Arguments<'t0>>) -> ! {core::panicking::assert_failed::<u8, u8>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb23: {
+        _79 = const false;               // scope 4 at chacha20/src/main.rs:165:1: 165:2
+        drop(_18) -> [return: bb24, unwind: bb30]; // scope 3 at chacha20/src/main.rs:165:1: 165:2
+    }
+
+    bb24: {
+        drop(_9) -> [return: bb25, unwind: bb32]; // scope 2 at chacha20/src/main.rs:165:1: 165:2
+    }
+
+    bb25: {
+        drop(_5) -> [return: bb26, unwind: bb33]; // scope 1 at chacha20/src/main.rs:165:1: 165:2
+    }
+
+    bb26: {
+        drop(_1) -> bb27;                // scope 0 at chacha20/src/main.rs:165:1: 165:2
+    }
+
+    bb27: {
+        return;                          // scope 0 at chacha20/src/main.rs:165:2: 165:2
+    }
+
+    bb28 (cleanup): {
+        drop(_37) -> bb36;               // scope 5 at chacha20/src/main.rs:164:5: 164:6
+    }
+
+    bb29 (cleanup): {
+        drop(_18) -> bb30;               // scope 3 at chacha20/src/main.rs:165:1: 165:2
+    }
+
+    bb30 (cleanup): {
+        drop(_9) -> bb32;                // scope 2 at chacha20/src/main.rs:165:1: 165:2
+    }
+
+    bb31 (cleanup): {
+        drop(_14) -> bb32;               // scope 2 at chacha20/src/main.rs:157:7: 157:8
+    }
+
+    bb32 (cleanup): {
+        drop(_5) -> bb33;                // scope 1 at chacha20/src/main.rs:165:1: 165:2
+    }
+
+    bb33 (cleanup): {
+        drop(_1) -> bb34;                // scope 0 at chacha20/src/main.rs:165:1: 165:2
+    }
+
+    bb34 (cleanup): {
+        resume;                          // scope 0 at chacha20/src/main.rs:133:1: 165:2
+    }
+
+    bb35 (cleanup): {
+        drop(_22) -> bb29;               // scope 4 at chacha20/src/main.rs:165:1: 165:2
+    }
+
+    bb36 (cleanup): {
+        switchInt(_79) -> [false: bb29, otherwise: bb35]; // scope 4 at chacha20/src/main.rs:165:1: 165:2
+    }
+}
+
+promoted[0] in main: &[&str; 1] = {
+    let mut _0: &[&str; 1];              // return place in scope 0 at chacha20/src/main.rs:163:29: 163:44
+    let mut _1: [&str; 1];               // in scope 0 at chacha20/src/main.rs:163:29: 163:44
+
+    bb0: {
+        _1 = [const "at index "];        // scope 0 at chacha20/src/main.rs:163:29: 163:44
+                                         // ty::Const
+                                         // + ty: &str
+                                         // + val: Value(Slice { data: Allocation { bytes: [97, 116, 32, 105, 110, 100, 101, 120, 32], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [511], len: Size { raw: 9 } }, size: Size { raw: 9 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 9 })
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:163:29: 163:44
+                                         // + literal: Const { ty: &str, val: Value(Slice { data: Allocation { bytes: [97, 116, 32, 105, 110, 100, 101, 120, 32], relocations: Relocations(SortedMap { data: [] }), init_mask: InitMask { blocks: [511], len: Size { raw: 9 } }, size: Size { raw: 9 }, align: Align { pow2: 0 }, mutability: Not, extra: () }, start: 0, end: 9 }) }
+        _0 = &_1;                        // scope 0 at chacha20/src/main.rs:163:29: 163:44
+        return;                          // scope 0 at chacha20/src/main.rs:163:29: 163:44
+    }
+}
+
+fn chacha20_counter_mode::{closure#1}(_1: &mut [closure@chacha20/src/main.rs:115:14: 115:36], _2: &[secret_integers::U8; 64]) -> std::vec::Vec<secret_integers::U8> {
+    debug block => _2;                   // in scope 0 at chacha20/src/main.rs:115:15: 115:20
+    let mut _0: std::vec::Vec<secret_integers::U8>; // return place in scope 0 at chacha20/src/main.rs:115:22: 115:22
+    let mut _3: &[secret_integers::U8];  // in scope 0 at chacha20/src/main.rs:115:22: 115:27
+    let mut _4: &[secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:115:22: 115:27
+
+    bb0: {
+        _4 = _2;                         // scope 0 at chacha20/src/main.rs:115:22: 115:27
+        _3 = move _4 as &[secret_integers::U8] (Pointer(Unsize)); // scope 0 at chacha20/src/main.rs:115:22: 115:27
+        _0 = std::slice::<impl [secret_integers::U8]>::to_vec(move _3) -> bb1; // scope 0 at chacha20/src/main.rs:115:22: 115:36
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:115:28: 115:34
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> std::vec::Vec<secret_integers::U8> {std::slice::<impl [secret_integers::U8]>::to_vec}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        return;                          // scope 0 at chacha20/src/main.rs:115:36: 115:36
+    }
+}
+
+fn chacha20_counter_mode::{closure#0}(_1: &mut [closure@chacha20/src/main.rs:96:14: 100:10], _2: &[secret_integers::U8]) -> [secret_integers::U8; 64] {
+    debug block => _2;                   // in scope 0 at chacha20/src/main.rs:96:15: 96:20
+    let mut _0: [secret_integers::U8; 64]; // return place in scope 0 at chacha20/src/main.rs:97:17: 97:30
+    let mut _3: secret_integers::U8;     // in scope 0 at chacha20/src/main.rs:97:34: 97:44
+    let _4: ();                          // in scope 0 at chacha20/src/main.rs:98:13: 98:61
+    let mut _5: &mut [secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:98:13: 98:38
+    let mut _6: &mut [secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:98:13: 98:38
+    let mut _7: &mut [secret_integers::U8; 64]; // in scope 0 at chacha20/src/main.rs:98:13: 98:22
+    let mut _8: std::ops::Range<usize>;  // in scope 0 at chacha20/src/main.rs:98:23: 98:37
+    let mut _9: usize;                   // in scope 0 at chacha20/src/main.rs:98:26: 98:37
+    let mut _10: &[secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:98:26: 98:31
+    let mut _11: &[secret_integers::U8]; // in scope 0 at chacha20/src/main.rs:98:55: 98:60
+    scope 1 {
+        debug new_block => _0;           // in scope 1 at chacha20/src/main.rs:97:17: 97:30
+    }
+
+    bb0: {
+        _3 = secret_integers::U8::zero() -> bb1; // scope 0 at chacha20/src/main.rs:97:34: 97:44
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:97:34: 97:42
+                                         // + literal: Const { ty: fn() -> secret_integers::U8 {secret_integers::U8::zero}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _0 = [move _3; BLOCK_SIZE];      // scope 0 at chacha20/src/main.rs:97:33: 97:57
+        _7 = &mut _0;                    // scope 1 at chacha20/src/main.rs:98:13: 98:22
+        _10 = _2;                        // scope 1 at chacha20/src/main.rs:98:26: 98:31
+        _9 = core::slice::<impl [secret_integers::U8]>::len(move _10) -> bb2; // scope 1 at chacha20/src/main.rs:98:26: 98:37
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:98:32: 98:35
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U8]) -> usize {core::slice::<impl [secret_integers::U8]>::len}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        (_8.0: usize) = const 0_usize;   // scope 1 at chacha20/src/main.rs:98:23: 98:37
+        (_8.1: usize) = move _9;         // scope 1 at chacha20/src/main.rs:98:23: 98:37
+        _6 = <[secret_integers::U8; 64] as std::ops::IndexMut<std::ops::Range<usize>>>::index_mut(move _7, move _8) -> bb3; // scope 1 at chacha20/src/main.rs:98:13: 98:38
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:98:13: 98:38
+                                         // + literal: Const { ty: for<'r> fn(&'r mut [secret_integers::U8; 64], std::ops::Range<usize>) -> &'r mut <[secret_integers::U8; 64] as std::ops::Index<std::ops::Range<usize>>>::Output {<[secret_integers::U8; 64] as std::ops::IndexMut<std::ops::Range<usize>>>::index_mut}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _5 = &mut (*_6);                 // scope 1 at chacha20/src/main.rs:98:13: 98:38
+        _11 = _2;                        // scope 1 at chacha20/src/main.rs:98:55: 98:60
+        _4 = core::slice::<impl [secret_integers::U8]>::copy_from_slice(move _5, move _11) -> bb4; // scope 1 at chacha20/src/main.rs:98:13: 98:61
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:98:39: 98:54
+                                         // + literal: Const { ty: for<'r, 's> fn(&'r mut [secret_integers::U8], &'s [secret_integers::U8]) {core::slice::<impl [secret_integers::U8]>::copy_from_slice}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        return;                          // scope 0 at chacha20/src/main.rs:100:10: 100:10
+    }
+}
+
+xor_block::{constant#1}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:88:40: 88:50
+
+    bb0: {
+        _0 = const BLOCK_SIZE;           // scope 0 at chacha20/src/main.rs:88:40: 88:50
+        return;                          // scope 0 at chacha20/src/main.rs:88:40: 88:50
+    }
+}
+
+chacha20_block::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:78:41: 78:51
+
+    bb0: {
+        _0 = const BLOCK_SIZE;           // scope 0 at chacha20/src/main.rs:78:41: 78:51
+        return;                          // scope 0 at chacha20/src/main.rs:78:41: 78:51
+    }
+}
+
+fn chacha20_core(_1: &mut [secret_integers::U32; 16]) -> () {
+    debug st => _1;                      // in scope 0 at chacha20/src/main.rs:60:18: 60:20
+    let mut _0: ();                      // return place in scope 0 at chacha20/src/main.rs:60:34: 60:34
+    let mut _2: [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:61:9: 61:26
+    let mut _3: &[secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:61:29: 61:31
+    let mut _4: std::ops::Range<i32>;    // in scope 0 at chacha20/src/main.rs:62:14: 62:19
+    let mut _5: std::ops::Range<i32>;    // in scope 0 at chacha20/src/main.rs:62:14: 62:19
+    let mut _8: std::option::Option<i32>; // in scope 0 at chacha20/src/main.rs:62:14: 62:19
+    let mut _9: &mut std::ops::Range<i32>; // in scope 0 at chacha20/src/main.rs:62:14: 62:19
+    let mut _10: &mut std::ops::Range<i32>; // in scope 0 at chacha20/src/main.rs:62:14: 62:19
+    let mut _11: isize;                  // in scope 0 at chacha20/src/main.rs:62:9: 62:10
+    let mut _13: i32;                    // in scope 0 at chacha20/src/main.rs:62:9: 62:10
+    let _14: ();                         // in scope 0 at chacha20/src/main.rs:63:9: 63:41
+    let mut _15: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:63:22: 63:40
+    let mut _16: &mut [secret_integers::U32; 16]; // in scope 0 at chacha20/src/main.rs:63:22: 63:40
+    let mut _17: std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:65:14: 65:19
+    let mut _18: std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:65:14: 65:19
+    let mut _21: std::option::Option<usize>; // in scope 0 at chacha20/src/main.rs:65:14: 65:19
+    let mut _22: &mut std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:65:14: 65:19
+    let mut _23: &mut std::ops::Range<usize>; // in scope 0 at chacha20/src/main.rs:65:14: 65:19
+    let mut _24: isize;                  // in scope 0 at chacha20/src/main.rs:65:9: 65:10
+    let mut _26: usize;                  // in scope 0 at chacha20/src/main.rs:65:9: 65:10
+    let _28: ();                         // in scope 0 at chacha20/src/main.rs:66:9: 66:34
+    let mut _29: &mut secret_integers::U32; // in scope 0 at chacha20/src/main.rs:66:9: 66:14
+    let _30: usize;                      // in scope 0 at chacha20/src/main.rs:66:12: 66:13
+    let mut _31: usize;                  // in scope 0 at chacha20/src/main.rs:66:9: 66:14
+    let mut _32: bool;                   // in scope 0 at chacha20/src/main.rs:66:9: 66:14
+    let mut _33: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:66:18: 66:34
+    let _34: usize;                      // in scope 0 at chacha20/src/main.rs:66:32: 66:33
+    let mut _35: usize;                  // in scope 0 at chacha20/src/main.rs:66:18: 66:34
+    let mut _36: bool;                   // in scope 0 at chacha20/src/main.rs:66:18: 66:34
+    scope 1 {
+        debug working_state => _2;       // in scope 1 at chacha20/src/main.rs:61:9: 61:26
+        let mut _6: std::ops::Range<i32>; // in scope 1 at chacha20/src/main.rs:62:14: 62:19
+        let mut _19: std::ops::Range<usize>; // in scope 1 at chacha20/src/main.rs:65:14: 65:19
+        scope 2 {
+            debug iter => _6;            // in scope 2 at chacha20/src/main.rs:62:14: 62:19
+            let mut _7: i32;             // in scope 2 at chacha20/src/main.rs:62:14: 62:19
+            scope 3 {
+                debug __next => _7;      // in scope 3 at chacha20/src/main.rs:62:14: 62:19
+                let _12: i32;            // in scope 3 at chacha20/src/main.rs:62:9: 62:10
+                scope 4 {
+                    debug val => _12;    // in scope 4 at chacha20/src/main.rs:62:9: 62:10
+                }
+                scope 5 {
+                }
+            }
+        }
+        scope 6 {
+            debug iter => _19;           // in scope 6 at chacha20/src/main.rs:65:14: 65:19
+            let mut _20: usize;          // in scope 6 at chacha20/src/main.rs:65:14: 65:19
+            scope 7 {
+                debug __next => _20;     // in scope 7 at chacha20/src/main.rs:65:14: 65:19
+                let _25: usize;          // in scope 7 at chacha20/src/main.rs:65:9: 65:10
+                let _27: usize;          // in scope 7 at chacha20/src/main.rs:65:9: 65:10
+                scope 8 {
+                    debug val => _25;    // in scope 8 at chacha20/src/main.rs:65:9: 65:10
+                }
+                scope 9 {
+                    debug i => _27;      // in scope 9 at chacha20/src/main.rs:65:9: 65:10
+                }
+            }
+        }
+    }
+
+    bb0: {
+        _3 = &(*_1);                     // scope 0 at chacha20/src/main.rs:61:29: 61:31
+        _2 = <[secret_integers::U32; 16] as std::clone::Clone>::clone(move _3) -> bb1; // scope 0 at chacha20/src/main.rs:61:29: 61:39
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:61:32: 61:37
+                                         // + literal: Const { ty: for<'r> fn(&'r [secret_integers::U32; 16]) -> [secret_integers::U32; 16] {<[secret_integers::U32; 16] as std::clone::Clone>::clone}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        (_5.0: i32) = const 0_i32;       // scope 1 at chacha20/src/main.rs:62:14: 62:19
+        (_5.1: i32) = const 10_i32;      // scope 1 at chacha20/src/main.rs:62:14: 62:19
+        _4 = <std::ops::Range<i32> as std::iter::IntoIterator>::into_iter(move _5) -> bb2; // scope 1 at chacha20/src/main.rs:62:14: 62:19
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:62:14: 62:19
+                                         // + literal: Const { ty: fn(std::ops::Range<i32>) -> <std::ops::Range<i32> as std::iter::IntoIterator>::IntoIter {<std::ops::Range<i32> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _6 = move _4;                    // scope 1 at chacha20/src/main.rs:62:14: 62:19
+        goto -> bb3;                     // scope 2 at chacha20/src/main.rs:62:5: 64:6
+    }
+
+    bb3: {
+        _10 = &mut _6;                   // scope 3 at chacha20/src/main.rs:62:14: 62:19
+        _9 = &mut (*_10);                // scope 3 at chacha20/src/main.rs:62:14: 62:19
+        _8 = <std::ops::Range<i32> as std::iter::Iterator>::next(move _9) -> bb4; // scope 3 at chacha20/src/main.rs:62:14: 62:19
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:62:14: 62:19
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::ops::Range<i32>) -> std::option::Option<<std::ops::Range<i32> as std::iter::Iterator>::Item> {<std::ops::Range<i32> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb4: {
+        _11 = discriminant(_8);          // scope 3 at chacha20/src/main.rs:62:9: 62:10
+        switchInt(move _11) -> [0_isize: bb5, 1_isize: bb7, otherwise: bb6]; // scope 3 at chacha20/src/main.rs:62:9: 62:10
+    }
+
+    bb5: {
+        (_18.0: usize) = const 0_usize;  // scope 1 at chacha20/src/main.rs:65:14: 65:19
+        (_18.1: usize) = const 16_usize; // scope 1 at chacha20/src/main.rs:65:14: 65:19
+        _17 = <std::ops::Range<usize> as std::iter::IntoIterator>::into_iter(move _18) -> bb9; // scope 1 at chacha20/src/main.rs:65:14: 65:19
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:65:14: 65:19
+                                         // + literal: Const { ty: fn(std::ops::Range<usize>) -> <std::ops::Range<usize> as std::iter::IntoIterator>::IntoIter {<std::ops::Range<usize> as std::iter::IntoIterator>::into_iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb6: {
+        unreachable;                     // scope 3 at chacha20/src/main.rs:62:14: 62:19
+    }
+
+    bb7: {
+        _12 = ((_8 as Some).0: i32);     // scope 3 at chacha20/src/main.rs:62:9: 62:10
+        _13 = _12;                       // scope 4 at chacha20/src/main.rs:62:9: 62:10
+        _7 = move _13;                   // scope 4 at chacha20/src/main.rs:62:9: 62:10
+        _16 = &mut _2;                   // scope 5 at chacha20/src/main.rs:63:22: 63:40
+        _15 = &mut (*_16);               // scope 5 at chacha20/src/main.rs:63:22: 63:40
+        _14 = double_round(move _15) -> bb8; // scope 5 at chacha20/src/main.rs:63:9: 63:41
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:63:9: 63:21
+                                         // + literal: Const { ty: for<'r> fn(&'r mut [secret_integers::U32; 16]) {double_round}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb8: {
+        goto -> bb3;                     // scope 2 at chacha20/src/main.rs:62:5: 64:6
+    }
+
+    bb9: {
+        _19 = move _17;                  // scope 1 at chacha20/src/main.rs:65:14: 65:19
+        goto -> bb10;                    // scope 6 at chacha20/src/main.rs:65:5: 67:6
+    }
+
+    bb10: {
+        _23 = &mut _19;                  // scope 7 at chacha20/src/main.rs:65:14: 65:19
+        _22 = &mut (*_23);               // scope 7 at chacha20/src/main.rs:65:14: 65:19
+        _21 = <std::ops::Range<usize> as std::iter::Iterator>::next(move _22) -> bb11; // scope 7 at chacha20/src/main.rs:65:14: 65:19
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:65:14: 65:19
+                                         // + literal: Const { ty: for<'r> fn(&'r mut std::ops::Range<usize>) -> std::option::Option<<std::ops::Range<usize> as std::iter::Iterator>::Item> {<std::ops::Range<usize> as std::iter::Iterator>::next}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb11: {
+        _24 = discriminant(_21);         // scope 7 at chacha20/src/main.rs:65:9: 65:10
+        switchInt(move _24) -> [0_isize: bb12, 1_isize: bb14, otherwise: bb13]; // scope 7 at chacha20/src/main.rs:65:9: 65:10
+    }
+
+    bb12: {
+        _0 = const ();                   // scope 7 at chacha20/src/main.rs:65:5: 67:6
+        return;                          // scope 0 at chacha20/src/main.rs:68:2: 68:2
+    }
+
+    bb13: {
+        unreachable;                     // scope 7 at chacha20/src/main.rs:65:14: 65:19
+    }
+
+    bb14: {
+        _25 = ((_21 as Some).0: usize);  // scope 7 at chacha20/src/main.rs:65:9: 65:10
+        _26 = _25;                       // scope 8 at chacha20/src/main.rs:65:9: 65:10
+        _20 = move _26;                  // scope 8 at chacha20/src/main.rs:65:9: 65:10
+        _27 = _20;                       // scope 7 at chacha20/src/main.rs:65:14: 65:19
+        _30 = _27;                       // scope 9 at chacha20/src/main.rs:66:12: 66:13
+        _31 = const 16_usize;            // scope 9 at chacha20/src/main.rs:66:9: 66:14
+        _32 = Lt(_30, _31);              // scope 9 at chacha20/src/main.rs:66:9: 66:14
+        assert(move _32, "index out of bounds: the length is {} but the index is {}", move _31, _30) -> bb15; // scope 9 at chacha20/src/main.rs:66:9: 66:14
+    }
+
+    bb15: {
+        _29 = &mut (*_1)[_30];           // scope 9 at chacha20/src/main.rs:66:9: 66:14
+        _34 = _27;                       // scope 9 at chacha20/src/main.rs:66:32: 66:33
+        _35 = const 16_usize;            // scope 9 at chacha20/src/main.rs:66:18: 66:34
+        _36 = Lt(_34, _35);              // scope 9 at chacha20/src/main.rs:66:18: 66:34
+        assert(move _36, "index out of bounds: the length is {} but the index is {}", move _35, _34) -> bb16; // scope 9 at chacha20/src/main.rs:66:18: 66:34
+    }
+
+    bb16: {
+        _33 = _2[_34];                   // scope 9 at chacha20/src/main.rs:66:18: 66:34
+        _28 = <secret_integers::U32 as std::ops::AddAssign>::add_assign(move _29, move _33) -> bb17; // scope 9 at chacha20/src/main.rs:66:9: 66:34
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:66:9: 66:34
+                                         // + literal: Const { ty: for<'r> fn(&'r mut secret_integers::U32, secret_integers::U32) {<secret_integers::U32 as std::ops::AddAssign>::add_assign}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb17: {
+        goto -> bb10;                    // scope 6 at chacha20/src/main.rs:65:5: 67:6
+    }
+}
+
+const CONSTANTS: [u32; 4] = {
+    let mut _0: [u32; 4];                // return place in scope 0 at chacha20/src/main.rs:49:18: 49:27
+
+    bb0: {
+        _0 = [const 1634760805_u32, const 857760878_u32, const 2036477234_u32, const 1797285236_u32]; // scope 0 at chacha20/src/main.rs:49:30: 49:78
+        return;                          // scope 0 at chacha20/src/main.rs:49:1: 49:79
+    }
+}
+
+fn line(_1: usize, _2: usize, _3: usize, _4: u32, _5: &mut [secret_integers::U32; 16]) -> () {
+    debug a => _1;                       // in scope 0 at chacha20/src/main.rs:24:9: 24:10
+    debug b => _2;                       // in scope 0 at chacha20/src/main.rs:24:19: 24:20
+    debug d => _3;                       // in scope 0 at chacha20/src/main.rs:24:29: 24:30
+    debug s => _4;                       // in scope 0 at chacha20/src/main.rs:24:39: 24:40
+    debug m => _5;                       // in scope 0 at chacha20/src/main.rs:24:50: 24:51
+    let mut _0: ();                      // return place in scope 0 at chacha20/src/main.rs:24:65: 24:65
+    let mut _6: secret_integers::U32;    // in scope 0 at chacha20/src/main.rs:25:12: 25:23
+    let mut _7: secret_integers::U32;    // in scope 0 at chacha20/src/main.rs:25:12: 25:16
+    let _8: usize;                       // in scope 0 at chacha20/src/main.rs:25:14: 25:15
+    let mut _9: usize;                   // in scope 0 at chacha20/src/main.rs:25:12: 25:16
+    let mut _10: bool;                   // in scope 0 at chacha20/src/main.rs:25:12: 25:16
+    let mut _11: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:25:19: 25:23
+    let _12: usize;                      // in scope 0 at chacha20/src/main.rs:25:21: 25:22
+    let mut _13: usize;                  // in scope 0 at chacha20/src/main.rs:25:19: 25:23
+    let mut _14: bool;                   // in scope 0 at chacha20/src/main.rs:25:19: 25:23
+    let _15: usize;                      // in scope 0 at chacha20/src/main.rs:25:7: 25:8
+    let mut _16: usize;                  // in scope 0 at chacha20/src/main.rs:25:5: 25:9
+    let mut _17: bool;                   // in scope 0 at chacha20/src/main.rs:25:5: 25:9
+    let mut _18: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:26:12: 26:23
+    let mut _19: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:26:12: 26:16
+    let _20: usize;                      // in scope 0 at chacha20/src/main.rs:26:14: 26:15
+    let mut _21: usize;                  // in scope 0 at chacha20/src/main.rs:26:12: 26:16
+    let mut _22: bool;                   // in scope 0 at chacha20/src/main.rs:26:12: 26:16
+    let mut _23: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:26:19: 26:23
+    let _24: usize;                      // in scope 0 at chacha20/src/main.rs:26:21: 26:22
+    let mut _25: usize;                  // in scope 0 at chacha20/src/main.rs:26:19: 26:23
+    let mut _26: bool;                   // in scope 0 at chacha20/src/main.rs:26:19: 26:23
+    let _27: usize;                      // in scope 0 at chacha20/src/main.rs:26:7: 26:8
+    let mut _28: usize;                  // in scope 0 at chacha20/src/main.rs:26:5: 26:9
+    let mut _29: bool;                   // in scope 0 at chacha20/src/main.rs:26:5: 26:9
+    let mut _30: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:27:12: 27:31
+    let mut _31: secret_integers::U32;   // in scope 0 at chacha20/src/main.rs:27:12: 27:16
+    let _32: usize;                      // in scope 0 at chacha20/src/main.rs:27:14: 27:15
+    let mut _33: usize;                  // in scope 0 at chacha20/src/main.rs:27:12: 27:16
+    let mut _34: bool;                   // in scope 0 at chacha20/src/main.rs:27:12: 27:16
+    let mut _35: u32;                    // in scope 0 at chacha20/src/main.rs:27:29: 27:30
+    let _36: usize;                      // in scope 0 at chacha20/src/main.rs:27:7: 27:8
+    let mut _37: usize;                  // in scope 0 at chacha20/src/main.rs:27:5: 27:9
+    let mut _38: bool;                   // in scope 0 at chacha20/src/main.rs:27:5: 27:9
+
+    bb0: {
+        _8 = _1;                         // scope 0 at chacha20/src/main.rs:25:14: 25:15
+        _9 = const 16_usize;             // scope 0 at chacha20/src/main.rs:25:12: 25:16
+        _10 = Lt(_8, _9);                // scope 0 at chacha20/src/main.rs:25:12: 25:16
+        assert(move _10, "index out of bounds: the length is {} but the index is {}", move _9, _8) -> bb1; // scope 0 at chacha20/src/main.rs:25:12: 25:16
+    }
+
+    bb1: {
+        _7 = (*_5)[_8];                  // scope 0 at chacha20/src/main.rs:25:12: 25:16
+        _12 = _2;                        // scope 0 at chacha20/src/main.rs:25:21: 25:22
+        _13 = const 16_usize;            // scope 0 at chacha20/src/main.rs:25:19: 25:23
+        _14 = Lt(_12, _13);              // scope 0 at chacha20/src/main.rs:25:19: 25:23
+        assert(move _14, "index out of bounds: the length is {} but the index is {}", move _13, _12) -> bb2; // scope 0 at chacha20/src/main.rs:25:19: 25:23
+    }
+
+    bb2: {
+        _11 = (*_5)[_12];                // scope 0 at chacha20/src/main.rs:25:19: 25:23
+        _6 = <secret_integers::U32 as std::ops::Add>::add(move _7, move _11) -> bb3; // scope 0 at chacha20/src/main.rs:25:12: 25:23
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:25:12: 25:23
+                                         // + literal: Const { ty: fn(secret_integers::U32, secret_integers::U32) -> <secret_integers::U32 as std::ops::Add>::Output {<secret_integers::U32 as std::ops::Add>::add}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        _15 = _1;                        // scope 0 at chacha20/src/main.rs:25:7: 25:8
+        _16 = const 16_usize;            // scope 0 at chacha20/src/main.rs:25:5: 25:9
+        _17 = Lt(_15, _16);              // scope 0 at chacha20/src/main.rs:25:5: 25:9
+        assert(move _17, "index out of bounds: the length is {} but the index is {}", move _16, _15) -> bb4; // scope 0 at chacha20/src/main.rs:25:5: 25:9
+    }
+
+    bb4: {
+        (*_5)[_15] = move _6;            // scope 0 at chacha20/src/main.rs:25:5: 25:23
+        _20 = _3;                        // scope 0 at chacha20/src/main.rs:26:14: 26:15
+        _21 = const 16_usize;            // scope 0 at chacha20/src/main.rs:26:12: 26:16
+        _22 = Lt(_20, _21);              // scope 0 at chacha20/src/main.rs:26:12: 26:16
+        assert(move _22, "index out of bounds: the length is {} but the index is {}", move _21, _20) -> bb5; // scope 0 at chacha20/src/main.rs:26:12: 26:16
+    }
+
+    bb5: {
+        _19 = (*_5)[_20];                // scope 0 at chacha20/src/main.rs:26:12: 26:16
+        _24 = _1;                        // scope 0 at chacha20/src/main.rs:26:21: 26:22
+        _25 = const 16_usize;            // scope 0 at chacha20/src/main.rs:26:19: 26:23
+        _26 = Lt(_24, _25);              // scope 0 at chacha20/src/main.rs:26:19: 26:23
+        assert(move _26, "index out of bounds: the length is {} but the index is {}", move _25, _24) -> bb6; // scope 0 at chacha20/src/main.rs:26:19: 26:23
+    }
+
+    bb6: {
+        _23 = (*_5)[_24];                // scope 0 at chacha20/src/main.rs:26:19: 26:23
+        _18 = <secret_integers::U32 as std::ops::BitXor>::bitxor(move _19, move _23) -> bb7; // scope 0 at chacha20/src/main.rs:26:12: 26:23
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:26:12: 26:23
+                                         // + literal: Const { ty: fn(secret_integers::U32, secret_integers::U32) -> <secret_integers::U32 as std::ops::BitXor>::Output {<secret_integers::U32 as std::ops::BitXor>::bitxor}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb7: {
+        _27 = _3;                        // scope 0 at chacha20/src/main.rs:26:7: 26:8
+        _28 = const 16_usize;            // scope 0 at chacha20/src/main.rs:26:5: 26:9
+        _29 = Lt(_27, _28);              // scope 0 at chacha20/src/main.rs:26:5: 26:9
+        assert(move _29, "index out of bounds: the length is {} but the index is {}", move _28, _27) -> bb8; // scope 0 at chacha20/src/main.rs:26:5: 26:9
+    }
+
+    bb8: {
+        (*_5)[_27] = move _18;           // scope 0 at chacha20/src/main.rs:26:5: 26:23
+        _32 = _3;                        // scope 0 at chacha20/src/main.rs:27:14: 27:15
+        _33 = const 16_usize;            // scope 0 at chacha20/src/main.rs:27:12: 27:16
+        _34 = Lt(_32, _33);              // scope 0 at chacha20/src/main.rs:27:12: 27:16
+        assert(move _34, "index out of bounds: the length is {} but the index is {}", move _33, _32) -> bb9; // scope 0 at chacha20/src/main.rs:27:12: 27:16
+    }
+
+    bb9: {
+        _31 = (*_5)[_32];                // scope 0 at chacha20/src/main.rs:27:12: 27:16
+        _35 = _4;                        // scope 0 at chacha20/src/main.rs:27:29: 27:30
+        _30 = secret_integers::U32::rotate_left(move _31, move _35) -> bb10; // scope 0 at chacha20/src/main.rs:27:12: 27:31
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:27:17: 27:28
+                                         // + literal: Const { ty: fn(secret_integers::U32, u32) -> secret_integers::U32 {secret_integers::U32::rotate_left}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb10: {
+        _36 = _3;                        // scope 0 at chacha20/src/main.rs:27:7: 27:8
+        _37 = const 16_usize;            // scope 0 at chacha20/src/main.rs:27:5: 27:9
+        _38 = Lt(_36, _37);              // scope 0 at chacha20/src/main.rs:27:5: 27:9
+        assert(move _38, "index out of bounds: the length is {} but the index is {}", move _37, _36) -> bb11; // scope 0 at chacha20/src/main.rs:27:5: 27:9
+    }
+
+    bb11: {
+        (*_5)[_36] = move _30;           // scope 0 at chacha20/src/main.rs:27:5: 27:31
+        _0 = const ();                   // scope 0 at chacha20/src/main.rs:24:65: 28:2
+        return;                          // scope 0 at chacha20/src/main.rs:28:2: 28:2
+    }
+}
+
+fn classify_u8s::{closure#0}(_1: &mut [closure@chacha20/src/main.rs:17:18: 17:38], _2: &u8) -> secret_integers::U8 {
+    debug x => _2;                       // in scope 0 at chacha20/src/main.rs:17:19: 17:20
+    let mut _0: secret_integers::U8;     // return place in scope 0 at chacha20/src/main.rs:17:22: 17:22
+    let mut _3: u8;                      // in scope 0 at chacha20/src/main.rs:17:35: 17:37
+
+    bb0: {
+        _3 = (*_2);                      // scope 0 at chacha20/src/main.rs:17:35: 17:37
+        _0 = secret_integers::U8::classify::<u8>(move _3) -> bb1; // scope 0 at chacha20/src/main.rs:17:22: 17:38
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:17:22: 17:34
+                                         // + user_ty: UserType(0)
+                                         // + literal: Const { ty: fn(u8) -> secret_integers::U8 {secret_integers::U8::classify::<u8>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        return;                          // scope 0 at chacha20/src/main.rs:17:38: 17:38
+    }
+}
+
+fn classify_u32s(_1: &[u32]) -> std::vec::Vec<secret_integers::U32> {
+    debug v => _1;                       // in scope 0 at chacha20/src/main.rs:12:22: 12:23
+    let mut _0: std::vec::Vec<secret_integers::U32>; // return place in scope 0 at chacha20/src/main.rs:12:36: 12:44
+    let mut _2: std::iter::Map<std::slice::Iter<u32>, [closure@chacha20/src/main.rs:13:18: 13:39]>; // in scope 0 at chacha20/src/main.rs:13:5: 13:40
+    let mut _3: std::slice::Iter<u32>;   // in scope 0 at chacha20/src/main.rs:13:5: 13:13
+    let mut _4: &[u32];                  // in scope 0 at chacha20/src/main.rs:13:5: 13:6
+    let mut _5: [closure@chacha20/src/main.rs:13:18: 13:39]; // in scope 0 at chacha20/src/main.rs:13:18: 13:39
+
+    bb0: {
+        _4 = _1;                         // scope 0 at chacha20/src/main.rs:13:5: 13:6
+        _3 = core::slice::<impl [u32]>::iter(move _4) -> bb1; // scope 0 at chacha20/src/main.rs:13:5: 13:13
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:13:7: 13:11
+                                         // + literal: Const { ty: for<'r> fn(&'r [u32]) -> std::slice::Iter<'r, u32> {core::slice::<impl [u32]>::iter}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb1: {
+        _2 = <std::slice::Iter<u32> as std::iter::Iterator>::map::<secret_integers::U32, [closure@chacha20/src/main.rs:13:18: 13:39]>(move _3, move _5) -> bb2; // scope 0 at chacha20/src/main.rs:13:5: 13:40
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:13:14: 13:17
+                                         // + literal: Const { ty: fn(std::slice::Iter<u32>, [closure@chacha20/src/main.rs:13:18: 13:39]) -> std::iter::Map<std::slice::Iter<u32>, [closure@chacha20/src/main.rs:13:18: 13:39]> {<std::slice::Iter<u32> as std::iter::Iterator>::map::<secret_integers::U32, [closure@chacha20/src/main.rs:13:18: 13:39]>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb2: {
+        _0 = <std::iter::Map<std::slice::Iter<u32>, [closure@chacha20/src/main.rs:13:18: 13:39]> as std::iter::Iterator>::collect::<std::vec::Vec<secret_integers::U32>>(move _2) -> bb3; // scope 0 at chacha20/src/main.rs:13:5: 13:50
+                                         // mir::Constant
+                                         // + span: chacha20/src/main.rs:13:41: 13:48
+                                         // + literal: Const { ty: fn(std::iter::Map<std::slice::Iter<u32>, [closure@chacha20/src/main.rs:13:18: 13:39]>) -> std::vec::Vec<secret_integers::U32> {<std::iter::Map<std::slice::Iter<u32>, [closure@chacha20/src/main.rs:13:18: 13:39]> as std::iter::Iterator>::collect::<std::vec::Vec<secret_integers::U32>>}, val: Value(Scalar(<ZST>)) }
+    }
+
+    bb3: {
+        return;                          // scope 0 at chacha20/src/main.rs:14:2: 14:2
+    }
+}
+
+Constants::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:8:24: 8:25
+
+    bb0: {
+        _0 = const 4_usize;              // scope 0 at chacha20/src/main.rs:8:24: 8:25
+        return;                          // scope 0 at chacha20/src/main.rs:8:24: 8:25
+    }
+}
+
+State::{constant#0}: usize = {
+    let mut _0: usize;                   // return place in scope 0 at chacha20/src/main.rs:4:20: 4:22
+
+    bb0: {
+        _0 = const 16_usize;             // scope 0 at chacha20/src/main.rs:4:20: 4:22
+        return;                          // scope 0 at chacha20/src/main.rs:4:20: 4:22
+    }
+}
