@@ -92,7 +92,7 @@ pub fn gen_agent_sever_lib(my_visitor: &CustomItemVisitor) {
                                 .truncate(true)
                                 .open("split_result/src/agent_server_lib.rs").unwrap();
     file.write_all("use secret_integers::*;\n\n".as_bytes());
-    file.write_all(my_visitor.fn_defs.join("\n").as_bytes()).unwrap();
+    file.write_all(my_visitor.fn_defs.join("\n\n").as_bytes()).unwrap();
 }
 
 // This is a static code as of now

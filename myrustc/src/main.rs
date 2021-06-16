@@ -87,7 +87,7 @@ impl Callbacks for CustomCallbacks {
                 lib::gen_agent_build();
                 lib::gen_agent_cargo();
                 // Debug
-                println!("Fn_calls: {:#?}", item_visitor.fn_calls);
+                // println!("Fn_calls: {:#?}", item_visitor.fn_calls);
             }
         });
         Compilation::Continue
@@ -95,6 +95,10 @@ impl Callbacks for CustomCallbacks {
 }
 
 fn generated_code(sess: &'tcx Session, span: rustc_span::Span) -> bool {
+
+    // DEBUG for testing only
+    // return false;
+
     if span.from_expansion() || span.is_dummy() {
         return true;
     }
@@ -109,7 +113,8 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
                             .local_def_id(item.hir_id()).to_def_id();
             let fn_call_sig = self.tcx.fn_sig(def_id);
             let fn_call_str = fn_call_sig.to_string();
-            if fn_call_str.contains("secret_integers::U8") {
+            println!("Fn {}, check this function and the function sig is {:#?}\n", item.ident.name.to_ident_string(), self.tcx.fn_sig(def_id));
+            if fn_call_str.contains("secret_integers::") {
                 // This function should be moved to `trusted` process.
                 println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());
                 let snip = self.sess.source_map().span_to_snippet(item.span).unwrap();
@@ -136,7 +141,7 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
 
         if let rustc_hir::StmtKind::Local(local) = s.kind {
             if let Some(ty_info) = local.ty {
-                if ty_to_string(ty_info).contains("secret_integers::U8") {
+                if ty_to_string(ty_info).contains("secret_integers::") {
                     let mut diag = self.sess.struct_span_warn(ty_info.span, "Test this type warning message");
                     diag.span_suggestion(ty_info.span, "try using u64 here", format!("u64"), Applicability::MachineApplicable);
                     diag.emit();
@@ -161,7 +166,7 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
                 if let rustc_hir::def::Res::Def(_def_kind, def_id) = fn_path.res {
                     let fn_call_sig = self.tcx.fn_sig(def_id).skip_binder();
                     let fn_call_str = format!("{}", fn_call_sig);
-                    if fn_call_str.contains("secret_integers::U8") {
+                    if fn_call_str.contains("secret_integers::") {
                         let def_id_clone = def_id.clone();
                         if self.fn_calls.contains_key(&def_id_clone) {
                             self.fn_calls.get_mut(&def_id_clone)
