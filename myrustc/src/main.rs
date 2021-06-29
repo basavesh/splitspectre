@@ -29,7 +29,6 @@ use rustc_middle::mir::TerminatorKind;
 use rustc_middle::ty::TyCtxt;
 use rustc_middle::hir::map::Map;
 use rustc_session::Session;
-//use std::collections::HashMap;
 use indexmap::IndexMap;
 use rustc_hir_pretty::ty_to_string;
 
@@ -75,7 +74,7 @@ impl Callbacks for CustomCallbacks {
                                                 secret_crate,
                                                 inside_secret_fn: false,
                                                 body_ids: Vec::new(),
-                                                fn_defs: Vec::<String>::new(),
+                                                fn_defs: Vec::<FnDef>::new(),
                                                 fn_calls: IndexMap::new(),
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
@@ -86,8 +85,7 @@ impl Callbacks for CustomCallbacks {
                 lib::gen_agent_proto(&item_visitor);
                 lib::gen_agent_build();
                 lib::gen_agent_cargo();
-                // Debug
-                // println!("Fn_calls: {:#?}", item_visitor.fn_calls);
+                // println!("FN_DEFS: {:#?}", item_visitor.fn_defs);
             }
         });
         Compilation::Continue
@@ -99,35 +97,143 @@ fn generated_code(sess: &'tcx Session, span: rustc_span::Span) -> bool {
     // DEBUG for testing only
     // return false;
 
-    if span.from_expansion() || span.is_dummy() {
-        return true;
-    }
-    // code from rust/compiler/rustc_save_analysis/src/span_utils.rs
-    !sess.source_map().lookup_char_pos(span.lo()).file.is_real_file()
+    return span.is_dummy() || span.from_expansion();
+
+    // ORIGINAL
+    // if span.from_expansion() || span.is_dummy() {
+    //     return true;
+    // }
+    // // code from rust/compiler/rustc_save_analysis/src/span_utils.rs
+    // !sess.source_map().lookup_char_pos(span.lo()).file.is_real_file()
 }
 
 impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
+
     fn visit_item(&mut self, item: &'hir Item<'hir>) {
-        if let ItemKind::Fn(_, _, body_id) = item.kind {
-            let def_id = self.tcx.hir()
-                            .local_def_id(item.hir_id()).to_def_id();
-            let fn_call_sig = self.tcx.fn_sig(def_id);
-            let fn_call_str = fn_call_sig.to_string();
-            println!("Fn {}, check this function and the function sig is {:#?}\n", item.ident.name.to_ident_string(), self.tcx.fn_sig(def_id));
-            if fn_call_str.contains("secret_integers::") {
+        if !generated_code(self.tcx.sess, item.ident.span) {
+            // println!("BASH: Item Name {} and Item KInd {:?} \n\n", item.ident.name.to_ident_string(), item.kind);
+        } else {
+            return;
+        }
+
+        let snip = self.sess.source_map().span_to_snippet(item.span).unwrap();
+
+        // Fn(FnSig<'hir>, Generics<'hir>, BodyId)
+        if let ItemKind::Fn(_, generics, body_id) = &item.kind {
+            println!("BASH: Fn snip {:#?}", snip);
+            let def_id = self.tcx.hir().local_def_id(item.hir_id()).to_def_id();
+            let fn_def_sig = self.tcx.fn_sig(def_id);
+
+            // Let me capture most of the function details
+            let mut fn_def = FnDef{
+                            ident: item.ident,
+                            snip: snip.clone(),
+                            isgeneric: generics.params.len() > 0,
+                            // TODO move if it deals with secret args or return type
+                            tomove: false,
+                            // TODO fix this, currently, I'm going to blindly copy
+                            // this to the trusted side, hope Dead Code Elimination will take care of it
+                            duplicate: generics.params.len() > 0,
+                         };
+            let fn_def_str = fn_def_sig.to_string();
+            if fn_def_str.contains("secret_integers::") {
                 // This function should be moved to `trusted` process.
-                println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());
-                let snip = self.sess.source_map().span_to_snippet(item.span).unwrap();
-                // println!("{}\n", snip);
-                self.fn_defs.push(snip);
+                // println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());
+                fn_def.tomove = true;
+                self.fn_defs.push(fn_def);
             } else {
-                self.visit_nested_body(body_id);
+                self.fn_defs.push(fn_def);
+                self.visit_nested_body(*body_id);
             }
         }
+
+        // ExternCrate(Option<Symbol>)
+
+        // Use(&'hir Path<'hir>, UseKind)
+        if let ItemKind::Use(_path, _kind) = &item.kind {
+            // May be I need to move this to both trusted and untrusted parts
+            println!("BASH: USE snip {:#?}", snip);
+        }
+
+        // Static(&'hir Ty<'hir>, Mutability, BodyId)
+        if let ItemKind::Static(_ty, _mu, _body_id) = &item.kind {
+            println!("BASH: Static snip {:#?}", snip);
+        }
+
+        // Const(&'hir Ty<'hir>, BodyId)
+        if let ItemKind::Const(_ty, _body_id) = &item.kind {
+            println!("BASH: CONST snip {:#?}", snip);
+        }
+
+        // Mod(Mod<'hir>)
+        if let ItemKind::Mod(_mod) = &item.kind {
+            println!("BASH: Mod snip {:#?}", snip);
+        }
+
+        // GlobalAsm(&'hir GlobalAsm)
+        if let ItemKind::GlobalAsm(_glob_asm) = &item.kind {
+            println!("BASH: GlobalAsm snip {:#?}", snip);
+        }
+
+        // TyAlias(&'hir Ty<'hir>, Generics<'hir>)
+        if let ItemKind::TyAlias(_ty, _gen) = &item.kind {
+            println!("BASH: TyAlias snip {:#?}", snip);
+        }
+
+        // OpaqueTy(OpaqueTy<'hir>)
+        if let ItemKind::OpaqueTy(..) = &item.kind {
+            println!("BASH: OpaqueTy snip {:#?}", snip);
+        }
+
+        // Enum(EnumDef<'hir>, Generics<'hir>)
+        if let ItemKind::Enum(..) = &item.kind {
+            println!("BASH: Enum snip {:#?}", snip);
+        }
+
+        // Struct(VariantData<'hir>, Generics<'hir>)
+        if let ItemKind::Struct(..) = &item.kind {
+            println!("BASH: Struct snip {:#?}", snip);
+        }
+
+        // Union(VariantData<'hir>, Generics<'hir>)
+        if let ItemKind::Union(..) = &item.kind {
+            println!("BASH: Union snip {:#?}", snip);
+        }
+
     }
-    fn visit_trait_item(&mut self, _trait_item: &'hir TraitItem<'hir>) {}
-    fn visit_impl_item(&mut self, _impl_item: &'hir ImplItem<'hir>) {}
-    fn visit_foreign_item(&mut self, _foreign_item: &'hir ForeignItem<'hir>) {}
+
+    // Trait(IsAuto, Unsafety, Generics<'hir>, GenericBounds<'hir>, &'hir [TraitItemRef])
+    fn visit_trait_item(&mut self, trait_item: &'hir TraitItem<'hir>) {
+        if !generated_code(self.tcx.sess, trait_item.ident.span) {
+            // println!("BASH: Item Name {} and Item KInd {:?} \n\n", item.ident.name.to_ident_string(), item.kind);
+        } else {
+            return;
+        }
+        let snip = self.sess.source_map().span_to_snippet(trait_item.span).unwrap();
+        println!("BASH: Trait_Item snip {:#?}", snip);
+    }
+
+    // Impl(Impl<'hir>)
+    fn visit_impl_item(&mut self, impl_item: &'hir ImplItem<'hir>) {
+        if !generated_code(self.tcx.sess, impl_item.ident.span) {
+            // println!("BASH: Item Name {} and Item KInd {:?} \n\n", item.ident.name.to_ident_string(), item.kind);
+        } else {
+            return;
+        }
+        let snip = self.sess.source_map().span_to_snippet(impl_item.span).unwrap();
+        println!("BASH: Impl_Item snip {:#?}", snip);
+    }
+
+    // ForeignMod { abi: Abi, items: &'hir [ForeignItemRef<'hir>],}
+    fn visit_foreign_item(&mut self, foreign_item: &'hir ForeignItem<'hir>) {
+        if !generated_code(self.tcx.sess, foreign_item.ident.span) {
+            // println!("BASH: Item Name {} and Item KInd {:?} \n\n", item.ident.name.to_ident_string(), item.kind);
+        } else {
+            return;
+        }
+        let snip = self.sess.source_map().span_to_snippet(foreign_item.span).unwrap();
+        println!("BASH: Foreign_Item snip {:#?}", snip);
+    }
 }
 
 impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
@@ -160,7 +266,7 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
             if generated_code(self.sess, expr.span) {
                 return;
             }
-
+            // println!("BASH: This is an expression, {:#?}", expr);
             if let rustc_hir::ExprKind::Path(rustc_hir::QPath::Resolved(None, fn_path)) = exp.kind {
                 let fn_name = fn_path.segments.last().unwrap().ident.name.to_ident_string();
                 if let rustc_hir::def::Res::Def(_def_kind, def_id) = fn_path.res {

@@ -65,14 +65,17 @@ pub struct CustomItemVisitor<'tcx> {
     pub secret_crate: bool,
     pub inside_secret_fn: bool,
     pub body_ids: Vec<rustc_hir::BodyId>,
-    pub fn_defs: Vec<String>,
+    pub fn_defs: Vec<FnDef>,
     pub fn_calls: IndexMap<rustc_span::def_id::DefId , FnCall<'tcx>>,
 }
 
 #[derive(Debug)]
 pub struct FnDef {
     pub ident: rustc_span::symbol::Ident,
-    pub span: rustc_span::Span,
+    pub snip: String,
+    pub isgeneric: bool,
+    pub tomove: bool,
+    pub duplicate: bool,
 }
 
 #[derive(Debug)]
@@ -91,8 +94,17 @@ pub fn gen_agent_sever_lib(my_visitor: &CustomItemVisitor) {
                                 .create(true)
                                 .truncate(true)
                                 .open("split_result/src/agent_server_lib.rs").unwrap();
-    file.write_all("use secret_integers::*;\n\n".as_bytes());
-    file.write_all(my_visitor.fn_defs.join("\n\n").as_bytes()).unwrap();
+    file.write_all("use secret_integers::*;\n\n".as_bytes()).unwrap();
+
+    let mut data: String;
+    for fn_item in my_visitor.fn_defs.iter() {
+        if fn_item.tomove || fn_item.duplicate {
+            file.write_all(fn_item.snip.as_bytes()).unwrap();
+            file.write_all("\n\n".as_bytes()).unwrap()
+        }
+    }
+
+    //file.write_all(my_visitor.fn_defs.join("\n\n").as_bytes()).unwrap();
 }
 
 // This is a static code as of now

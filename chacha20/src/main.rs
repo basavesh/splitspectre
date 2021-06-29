@@ -9,6 +9,22 @@ type Constants = [u32; 4];
 type Index = usize;
 type RotVal = u32;
 
+fn f() -> i32 {
+    let x = 1;
+
+    macro_rules! first_x {
+        () => { x }
+    }
+
+    let x = 2;
+
+    x + first_x!()
+}
+
+fn dummy_generic<A, B>(x: A, y: B) {
+    println!("I'm not doing anything with these arguments");
+}
+
 pub fn classify_u32s(v: &[u32]) -> Vec<U32> {
     v.iter().map(|x| U32::classify(*x)).collect()
 }
@@ -162,4 +178,6 @@ fn main() {
     for (i, (x1, x2)) in ciphertext.iter().zip(computed_ciphertext).enumerate() {
         assert_eq!(*x1, x2, "at index {:?}", i);
     }
+
+    dummy_generic(nonce, key);
 }
