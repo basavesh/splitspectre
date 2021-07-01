@@ -24,220 +24,233 @@ fn f /* 476#0 */() -> i32 /* 563#0 */ {
     x /* 1309#0 */ + x /* 1309#23 */
 }
 
-pub fn classify_u32s /* 1311#0 */(v /* 1312#0 */: &[u32 /* 1185#0 */])
+fn dummy_generic /* 1311#0
+ */<A /* 1312#0 */, B /* 1313#0
+    */>(x /* 1309#0 */: A /* 1312#0 */, y /* 1314#0 */: B /* 1313#0 */) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
+        ::std /* 2#24 */::io /* 1520#24 */::_print /* 1718#24
+            */(::core /* 2#25 */::fmt /* 502#0 */::Arguments /* 67#0
+                   */::new_v1 /* 1728#0
+                   */(&["I\'m not doing anything with these arguments\n"],
+                      &match () { () => [], }));
+    };
+}
+pub fn classify_u32s /* 1317#0 */(v /* 1318#0 */: &[u32 /* 1185#0 */])
  -> Vec /* 158#0 */<U32 /* 1301#0 */> {
-    v /* 1312#0 */.iter /* 606#0 */().map /* 660#0
+    v /* 1318#0 */.iter /* 606#0 */().map /* 660#0
         */(|x /* 1309#0 */|
-               U32 /* 1301#0 */::classify /* 1313#0
-                   */(*x /* 1309#0 */)).collect /* 1314#0 */()
+               U32 /* 1301#0 */::classify /* 1319#0
+                   */(*x /* 1309#0 */)).collect /* 1320#0 */()
 }
-
-pub fn classify_u8s /* 1315#0 */(v /* 1312#0 */: &[u8 /* 1187#0 */])
+pub fn classify_u8s /* 1321#0 */(v /* 1318#0 */: &[u8 /* 1187#0 */])
  -> Vec /* 158#0 */<U8 /* 1303#0 */> {
-    v /* 1312#0 */.iter /* 606#0 */().map /* 660#0
+    v /* 1318#0 */.iter /* 606#0 */().map /* 660#0
         */(|x /* 1309#0 */|
-               U8 /* 1303#0 */::classify /* 1313#0
-                   */(*x /* 1309#0 */)).collect /* 1314#0 */()
+               U8 /* 1303#0 */::classify /* 1319#0
+                   */(*x /* 1309#0 */)).collect /* 1320#0 */()
 }
-
-pub fn declassify_u8s /* 1316#0 */(v /* 1312#0 */: &[U8 /* 1303#0 */])
+pub fn declassify_u8s /* 1322#0 */(v /* 1318#0 */: &[U8 /* 1303#0 */])
  -> Vec /* 158#0 */<u8 /* 1187#0 */> {
-    v /* 1312#0 */.iter /* 606#0 */().map /* 660#0
+    v /* 1318#0 */.iter /* 606#0 */().map /* 660#0
         */(|x /* 1309#0 */|
-               U8 /* 1303#0 */::declassify /* 1317#0
-                   */(*x /* 1309#0 */)).collect /* 1314#0 */()
+               U8 /* 1303#0 */::declassify /* 1323#0
+                   */(*x /* 1309#0 */)).collect /* 1320#0 */()
 }
-
 fn line /* 624#0
- */(a /* 1318#0 */: Index /* 1307#0 */, b /* 1319#0 */: Index /* 1307#0 */,
-    d /* 382#0 */: Index /* 1307#0 */, s /* 1320#0 */: RotVal /* 1308#0 */,
-    m /* 1321#0 */: &mut State /* 1300#0 */) {
-    m /* 1321#0 */[a /* 1318#0 */] =
-        m /* 1321#0 */[a /* 1318#0 */] + m /* 1321#0 */[b /* 1319#0 */];
-    m /* 1321#0 */[d /* 382#0 */] =
-        m /* 1321#0 */[d /* 382#0 */] ^ m /* 1321#0 */[a /* 1318#0 */];
-    m /* 1321#0 */[d /* 382#0 */] =
-        m /* 1321#0 */[d /* 382#0 */].rotate_left /* 911#0 */(s /* 1320#0 */);
+ */(a /* 1324#0 */: Index /* 1307#0 */, b /* 1325#0 */: Index /* 1307#0 */,
+    d /* 382#0 */: Index /* 1307#0 */, s /* 1326#0 */: RotVal /* 1308#0 */,
+    m /* 1327#0 */: &mut State /* 1300#0 */) {
+    m /* 1327#0 */[a /* 1324#0 */] =
+        m /* 1327#0 */[a /* 1324#0 */] + m /* 1327#0 */[b /* 1325#0 */];
+    m /* 1327#0 */[d /* 382#0 */] =
+        m /* 1327#0 */[d /* 382#0 */] ^ m /* 1327#0 */[a /* 1324#0 */];
+    m /* 1327#0 */[d /* 382#0 */] =
+        m /* 1327#0 */[d /* 382#0 */].rotate_left /* 911#0 */(s /* 1326#0 */);
 }
-
-fn quarter_round /* 1322#0
- */(a /* 1318#0 */: Index /* 1307#0 */, b /* 1319#0 */: Index /* 1307#0 */,
-    c /* 1323#0 */: Index /* 1307#0 */, d /* 382#0 */: Index /* 1307#0 */,
-    m /* 1321#0 */: &mut State /* 1300#0 */) {
+fn quarter_round /* 1328#0
+ */(a /* 1324#0 */: Index /* 1307#0 */, b /* 1325#0 */: Index /* 1307#0 */,
+    c /* 1329#0 */: Index /* 1307#0 */, d /* 382#0 */: Index /* 1307#0 */,
+    m /* 1327#0 */: &mut State /* 1300#0 */) {
     line /* 624#0
-        */(a /* 1318#0 */, b /* 1319#0 */, d /* 382#0 */, 16, m /* 1321#0 */);
+        */(a /* 1324#0 */, b /* 1325#0 */, d /* 382#0 */, 16, m /* 1327#0 */);
     line /* 624#0
-        */(c /* 1323#0 */, d /* 382#0 */, b /* 1319#0 */, 12, m /* 1321#0 */);
+        */(c /* 1329#0 */, d /* 382#0 */, b /* 1325#0 */, 12, m /* 1327#0 */);
     line /* 624#0
-        */(a /* 1318#0 */, b /* 1319#0 */, d /* 382#0 */, 8, m /* 1321#0 */);
+        */(a /* 1324#0 */, b /* 1325#0 */, d /* 382#0 */, 8, m /* 1327#0 */);
     line /* 624#0
-        */(c /* 1323#0 */, d /* 382#0 */, b /* 1319#0 */, 7, m /* 1321#0 */);
+        */(c /* 1329#0 */, d /* 382#0 */, b /* 1325#0 */, 7, m /* 1327#0 */);
 }
-
-fn double_round /* 1325#0 */(m /* 1321#0 */: &mut State /* 1300#0 */) {
-    quarter_round /* 1322#0 */(0, 4, 8, 12, m /* 1321#0 */);
-    quarter_round /* 1322#0 */(1, 5, 9, 13, m /* 1321#0 */);
-    quarter_round /* 1322#0 */(2, 6, 10, 14, m /* 1321#0 */);
-    quarter_round /* 1322#0 */(3, 7, 11, 15, m /* 1321#0 */);
-
-    quarter_round /* 1322#0 */(0, 5, 10, 15, m /* 1321#0 */);
-    quarter_round /* 1322#0 */(1, 6, 11, 12, m /* 1321#0 */);
-    quarter_round /* 1322#0 */(2, 7, 8, 13, m /* 1321#0 */);
-    quarter_round /* 1322#0 */(3, 4, 9, 14, m /* 1321#0 */);
+fn double_round /* 1331#0 */(m /* 1327#0 */: &mut State /* 1300#0 */) {
+    quarter_round /* 1328#0 */(0, 4, 8, 12, m /* 1327#0 */);
+    quarter_round /* 1328#0 */(1, 5, 9, 13, m /* 1327#0 */);
+    quarter_round /* 1328#0 */(2, 6, 10, 14, m /* 1327#0 */);
+    quarter_round /* 1328#0 */(3, 7, 11, 15, m /* 1327#0 */);
+    quarter_round /* 1328#0 */(0, 5, 10, 15, m /* 1327#0 */);
+    quarter_round /* 1328#0 */(1, 6, 11, 12, m /* 1327#0 */);
+    quarter_round /* 1328#0 */(2, 7, 8, 13, m /* 1327#0 */);
+    quarter_round /* 1328#0 */(3, 4, 9, 14, m /* 1327#0 */);
 }
-
-const CONSTANTS /* 1331#0 */: Constants /* 1306#0 */ =
+const CONSTANTS /* 1337#0 */: Constants /* 1306#0 */ =
     [0x61707865, 0x3320646e, 0x79622d32, 0x6b206574];
-
-fn chacha20_init /* 1336#0
- */(k /* 1337#0 */: &Key /* 1302#0 */, counter /* 1338#0 */: U32 /* 1301#0 */,
-    nonce /* 1339#0 */: &Nonce /* 1304#0 */) -> State /* 1300#0 */ {
-    let mut st /* 1340#0 */ =
-        [U32 /* 1301#0 */::classify /* 1313#0 */(0u32); 16];
-    st /* 1340#0 */[0..4].copy_from_slice /* 1341#0
-        */(&classify_u32s /* 1311#0 */(&CONSTANTS /* 1331#0 */));
-    st /* 1340#0 */[4..12].copy_from_slice /* 1341#0
-        */(U32 /* 1301#0 */::from_bytes_le /* 1342#0
-               */(k /* 1337#0 */).as_slice /* 1343#0 */());
-    st /* 1340#0 */[12] = counter /* 1338#0 */;
-    st /* 1340#0 */[13..16].copy_from_slice /* 1341#0
-        */(U32 /* 1301#0 */::from_bytes_le /* 1342#0
-               */(nonce /* 1339#0 */).as_slice /* 1343#0 */());
-    st /* 1340#0 */
+fn chacha20_init /* 1342#0
+ */(k /* 1343#0 */: &Key /* 1302#0 */, counter /* 1344#0 */: U32 /* 1301#0 */,
+    nonce /* 1345#0 */: &Nonce /* 1304#0 */) -> State /* 1300#0 */ {
+    let mut st /* 1346#0 */ =
+        [U32 /* 1301#0 */::classify /* 1319#0 */(0u32); 16];
+    st /* 1346#0 */[0..4].copy_from_slice /* 1347#0
+        */(&classify_u32s /* 1317#0 */(&CONSTANTS /* 1337#0 */));
+    st /* 1346#0 */[4..12].copy_from_slice /* 1347#0
+        */(U32 /* 1301#0 */::from_bytes_le /* 1348#0
+               */(k /* 1343#0 */).as_slice /* 1349#0 */());
+    st /* 1346#0 */[12] = counter /* 1344#0 */;
+    st /* 1346#0 */[13..16].copy_from_slice /* 1347#0
+        */(U32 /* 1301#0 */::from_bytes_le /* 1348#0
+               */(nonce /* 1345#0 */).as_slice /* 1349#0 */());
+    st /* 1346#0 */
 }
-
-fn chacha20_core /* 1344#0 */(st /* 1340#0 */: &mut State /* 1300#0 */) {
-    let mut working_state /* 1345#0 */ = st /* 1340#0 */.clone /* 298#0 */();
+fn chacha20_core /* 1350#0 */(st /* 1346#0 */: &mut State /* 1300#0 */) {
+    let mut working_state /* 1351#0 */ = st /* 1346#0 */.clone /* 298#0 */();
     for _ in 0..10 {
-        double_round /* 1325#0 */(&mut working_state /* 1345#0 */);
+        double_round /* 1331#0 */(&mut working_state /* 1351#0 */);
     }
     for i /* 559#0 */ in 0..16 {
-        st /* 1340#0 */[i /* 559#0 */] +=
-            working_state /* 1345#0 */[i /* 559#0 */];
+        st /* 1346#0 */[i /* 559#0 */] +=
+            working_state /* 1351#0 */[i /* 559#0 */];
     }
 }
-
-fn chacha20 /* 1346#0
- */(k /* 1337#0 */: &Key /* 1302#0 */, counter /* 1338#0 */: U32 /* 1301#0 */,
-    nonce /* 1339#0 */: &Nonce /* 1304#0 */) -> State /* 1300#0 */ {
-    let mut st /* 1340#0 */ =
-        chacha20_init /* 1336#0
-            */(k /* 1337#0 */, counter /* 1338#0 */, nonce /* 1339#0 */);
-    chacha20_core /* 1344#0 */(&mut st /* 1340#0 */);
-    st /* 1340#0 */
+fn chacha20 /* 1352#0
+ */(k /* 1343#0 */: &Key /* 1302#0 */, counter /* 1344#0 */: U32 /* 1301#0 */,
+    nonce /* 1345#0 */: &Nonce /* 1304#0 */) -> State /* 1300#0 */ {
+    let mut st /* 1346#0 */ =
+        chacha20_init /* 1342#0
+            */(k /* 1343#0 */, counter /* 1344#0 */, nonce /* 1345#0 */);
+    chacha20_core /* 1350#0 */(&mut st /* 1346#0 */);
+    st /* 1346#0 */
 }
-
-fn chacha20_block /* 1347#0
- */(k /* 1337#0 */: &Key /* 1302#0 */, counter /* 1338#0 */: U32 /* 1301#0 */,
-    nonce /* 1339#0 */: &Nonce /* 1304#0 */) -> Block /* 1305#0 */ {
-    let st /* 1340#0 */ =
-        chacha20 /* 1346#0
-            */(k /* 1337#0 */, counter /* 1338#0 */, nonce /* 1339#0 */);
+fn chacha20_block /* 1353#0
+ */(k /* 1343#0 */: &Key /* 1302#0 */, counter /* 1344#0 */: U32 /* 1301#0 */,
+    nonce /* 1345#0 */: &Nonce /* 1304#0 */) -> Block /* 1305#0 */ {
+    let st /* 1346#0 */ =
+        chacha20 /* 1352#0
+            */(k /* 1343#0 */, counter /* 1344#0 */, nonce /* 1345#0 */);
     let mut block /* 259#0 */ =
-        [U8 /* 1303#0 */::classify /* 1313#0 */(0u8);
+        [U8 /* 1303#0 */::classify /* 1319#0 */(0u8);
             BLOCK_SIZE /* 1299#0 */];
-    block /* 259#0 */.copy_from_slice /* 1341#0
-        */(U32 /* 1301#0 */::to_bytes_le /* 1348#0
-               */(&st /* 1340#0 */).as_slice /* 1343#0 */());
+    block /* 259#0 */.copy_from_slice /* 1347#0
+        */(U32 /* 1301#0 */::to_bytes_le /* 1354#0
+               */(&st /* 1346#0 */).as_slice /* 1349#0 */());
     block /* 259#0 */
 }
-
-fn xor_block /* 1349#0
+fn xor_block /* 1355#0
  */(block /* 259#0 */: &Block /* 1305#0 */,
-    key_block /* 1350#0 */: &Block /* 1305#0 */) -> Block /* 1305#0 */ {
-    let mut v_out /* 1351#0 */ =
+    key_block /* 1356#0 */: &Block /* 1305#0 */) -> Block /* 1305#0 */ {
+    let mut v_out /* 1357#0 */ =
         [Default /* 83#0 */::default /* 59#0 */(); BLOCK_SIZE /* 1299#0 */];
     for i /* 559#0 */ in 0..BLOCK_SIZE /* 1299#0 */ {
-        v_out /* 1351#0 */[i /* 559#0 */] =
+        v_out /* 1357#0 */[i /* 559#0 */] =
             block /* 259#0 */[i /* 559#0 */] ^
-                key_block /* 1350#0 */[i /* 559#0 */];
+                key_block /* 1356#0 */[i /* 559#0 */];
     }
     let mut out /* 778#0 */ =
         [Default /* 83#0 */::default /* 59#0 */(); BLOCK_SIZE /* 1299#0 */];
-    out /* 778#0 */.copy_from_slice /* 1341#0 */(&v_out /* 1351#0 */);
+    out /* 778#0 */.copy_from_slice /* 1347#0 */(&v_out /* 1357#0 */);
     out /* 778#0 */
 }
-
-fn chacha20_counter_mode /* 1352#0
- */(key /* 1353#0 */: &Key /* 1302#0 */,
-    counter /* 1338#0 */: U32 /* 1301#0 */,
-    nonce /* 1339#0 */: &Nonce /* 1304#0 */,
-    msg /* 1354#0 */: &Vec /* 158#0 */<U8 /* 1303#0 */>)
+fn chacha20_counter_mode /* 1358#0
+ */(key /* 1359#0 */: &Key /* 1302#0 */,
+    counter /* 1344#0 */: U32 /* 1301#0 */,
+    nonce /* 1345#0 */: &Nonce /* 1304#0 */,
+    msg /* 1360#0 */: &Vec /* 158#0 */<U8 /* 1303#0 */>)
  -> Vec /* 158#0 */<U8 /* 1303#0 */> {
-    let mut blocks /* 1355#0 */:
+    let mut blocks /* 1361#0 */:
             Vec /* 158#0 */<[U8 /* 1303#0 */; BLOCK_SIZE /* 1299#0 */]> =
-        msg /* 1354#0 */.chunks /* 1356#0 */(BLOCK_SIZE /* 1299#0 */).map /*
+        msg /* 1360#0 */.chunks /* 1362#0 */(BLOCK_SIZE /* 1299#0 */).map /*
             660#0
             */(|block /* 259#0 */|
                    {
-                       let mut new_block /* 1357#0 */ =
-                           [U8 /* 1303#0 */::zero /* 1358#0 */();
+                       let mut new_block /* 1363#0 */ =
+                           [U8 /* 1303#0 */::zero /* 1364#0 */();
                                BLOCK_SIZE /* 1299#0 */];
-                       new_block /* 1357#0
-                           */[0..block /* 259#0 */.len /* 1359#0
-                                     */()].copy_from_slice /* 1341#0
+                       new_block /* 1363#0
+                           */[0..block /* 259#0 */.len /* 1365#0
+                                     */()].copy_from_slice /* 1347#0
                            */(block /* 259#0 */);
-                       new_block /* 1357#0 */
-                   }).collect /* 1314#0 */();
-    let nb_blocks /* 1360#0 */ = blocks /* 1355#0 */.len /* 1359#0 */();
-    let mut key_block /* 1350#0 */:
+                       new_block /* 1363#0 */
+                   }).collect /* 1320#0 */();
+    let nb_blocks /* 1366#0 */ = blocks /* 1361#0 */.len /* 1365#0 */();
+    let mut key_block /* 1356#0 */:
             [U8 /* 1303#0 */; BLOCK_SIZE /* 1299#0 */];
-    let mut ctr /* 1361#0 */ = counter /* 1338#0 */;
-    for i /* 559#0 */ in 0..blocks /* 1355#0 */.len /* 1359#0 */() - 1 {
-        key_block /* 1350#0 */ =
-            chacha20_block /* 1347#0
-                */(key /* 1353#0 */, ctr /* 1361#0 */, nonce /* 1339#0 */);
-        blocks /* 1355#0 */[i /* 559#0 */] =
-            xor_block /* 1349#0
-                */(&blocks /* 1355#0 */[i /* 559#0 */],
-                   &key_block /* 1350#0 */);
-        ctr /* 1361#0 */ += U32 /* 1301#0 */::one /* 1362#0 */();
+    let mut ctr /* 1367#0 */ = counter /* 1344#0 */;
+    for i /* 559#0 */ in 0..blocks /* 1361#0 */.len /* 1365#0 */() - 1 {
+        key_block /* 1356#0 */ =
+            chacha20_block /* 1353#0
+                */(key /* 1359#0 */, ctr /* 1367#0 */, nonce /* 1345#0 */);
+        blocks /* 1361#0 */[i /* 559#0 */] =
+            xor_block /* 1355#0
+                */(&blocks /* 1361#0 */[i /* 559#0 */],
+                   &key_block /* 1356#0 */);
+        ctr /* 1367#0 */ += U32 /* 1301#0 */::one /* 1368#0 */();
     }
-    let last /* 1363#0 */ =
-        &mut blocks /* 1355#0 */[nb_blocks /* 1360#0 */ - 1];
-    key_block /* 1350#0 */ =
-        chacha20_block /* 1347#0
-            */(key /* 1353#0 */, ctr /* 1361#0 */, nonce /* 1339#0 */);
-    *last /* 1363#0 */ =
-        xor_block /* 1349#0 */(last /* 1363#0 */, &key_block /* 1350#0 */);
-    blocks /* 1355#0 */.iter /* 606#0 */().map /* 660#0
+    let last /* 1369#0 */ =
+        &mut blocks /* 1361#0 */[nb_blocks /* 1366#0 */ - 1];
+    key_block /* 1356#0 */ =
+        chacha20_block /* 1353#0
+            */(key /* 1359#0 */, ctr /* 1367#0 */, nonce /* 1345#0 */);
+    *last /* 1369#0 */ =
+        xor_block /* 1355#0 */(last /* 1369#0 */, &key_block /* 1356#0 */);
+    blocks /* 1361#0 */.iter /* 606#0 */().map /* 660#0
         */(|block /* 259#0 */|
-               block /* 259#0 */.to_vec /* 1364#0 */()).flatten /* 1365#0
-        */().take /* 1366#0 */(msg /* 1354#0 */.len /* 1359#0 */()).collect /*
-        1314#0 */()
+               block /* 259#0 */.to_vec /* 1370#0 */()).flatten /* 1371#0
+        */().take /* 1372#0 */(msg /* 1360#0 */.len /* 1365#0 */()).collect /*
+        1320#0 */()
 }
-
-pub fn chacha20_encrypt /* 1367#0
- */(key /* 1353#0 */: &Key /* 1302#0 */,
-    counter /* 1338#0 */: u32 /* 1185#0 */,
-    nonce /* 1339#0 */: &Vec /* 158#0 */<u8 /* 1187#0 */>,
-    msg /* 1354#0 */: &Vec /* 158#0 */<u8 /* 1187#0 */>)
+pub fn chacha20_encrypt /* 1373#0
+ */(key /* 1359#0 */: &Key /* 1302#0 */,
+    counter /* 1344#0 */: u32 /* 1185#0 */,
+    nonce /* 1345#0 */: &Vec /* 158#0 */<u8 /* 1187#0 */>,
+    msg /* 1360#0 */: &Vec /* 158#0 */<u8 /* 1187#0 */>)
  -> Vec /* 158#0 */<u8 /* 1187#0 */> {
-    let nonce /* 1339#0 */ = &classify_u8s /* 1315#0 */(nonce /* 1339#0 */);
-    let msg /* 1354#0 */ = &classify_u8s /* 1315#0 */(msg /* 1354#0 */);
-    declassify_u8s /* 1316#0
-        */(&chacha20_counter_mode /* 1352#0
-                */(key /* 1353#0 */, counter /* 1338#0 */.into /* 1368#0 */(),
-                   nonce /* 1339#0 */, msg /* 1354#0 */))
+    let nonce /* 1345#0 */ = &classify_u8s /* 1321#0 */(nonce /* 1345#0 */);
+    let msg /* 1360#0 */ = &classify_u8s /* 1321#0 */(msg /* 1360#0 */);
+    declassify_u8s /* 1322#0
+        */(&chacha20_counter_mode /* 1358#0
+                */(key /* 1359#0 */, counter /* 1344#0 */.into /* 1374#0 */(),
+                   nonce /* 1345#0 */, msg /* 1360#0 */))
 }
-
-pub fn chacha20_decrypt /* 1369#0
- */(key /* 1353#0 */: &Key /* 1302#0 */,
-    counter /* 1338#0 */: u32 /* 1185#0 */,
-    nonce /* 1339#0 */: &Vec /* 158#0 */<u8 /* 1187#0 */>,
-    msg /* 1354#0 */: &Vec /* 158#0 */<u8 /* 1187#0 */>)
+pub fn chacha20_decrypt /* 1375#0
+ */(key /* 1359#0 */: &Key /* 1302#0 */,
+    counter /* 1344#0 */: u32 /* 1185#0 */,
+    nonce /* 1345#0 */: &Vec /* 158#0 */<u8 /* 1187#0 */>,
+    msg /* 1360#0 */: &Vec /* 158#0 */<u8 /* 1187#0 */>)
  -> Vec /* 158#0 */<u8 /* 1187#0 */> {
-    let nonce /* 1339#0 */ = &classify_u8s /* 1315#0 */(nonce /* 1339#0 */);
-    let msg /* 1354#0 */ = &classify_u8s /* 1315#0 */(msg /* 1354#0 */);
-    declassify_u8s /* 1316#0
-        */(&chacha20_counter_mode /* 1352#0
-                */(key /* 1353#0 */, counter /* 1338#0 */.into /* 1368#0 */(),
-                   nonce /* 1339#0 */, msg /* 1354#0 */))
+    let nonce /* 1345#0 */ = &classify_u8s /* 1321#0 */(nonce /* 1345#0 */);
+    let msg /* 1360#0 */ = &classify_u8s /* 1321#0 */(msg /* 1360#0 */);
+    declassify_u8s /* 1322#0
+        */(&chacha20_counter_mode /* 1358#0
+                */(key /* 1359#0 */, counter /* 1344#0 */.into /* 1374#0 */(),
+                   nonce /* 1345#0 */, msg /* 1360#0 */))
 }
-
 fn main /* 657#0 */() {
-    let plaintext /* 1370#0 */ =
-        <[_]>::into_vec /* 1726#24
+    let plaintext /* 1376#0 */ =
+        <[_]>::into_vec /* 1758#26
             */(box
                    [0x4c, 0x61, 0x64, 0x69, 0x65, 0x73, 0x20, 0x61, 0x6e,
                     0x64, 0x20, 0x47, 0x65, 0x6e, 0x74, 0x6c, 0x65, 0x6d,
@@ -252,8 +265,8 @@ fn main /* 657#0 */() {
                     0x2c, 0x20, 0x73, 0x75, 0x6e, 0x73, 0x63, 0x72, 0x65,
                     0x65, 0x6e, 0x20, 0x77, 0x6f, 0x75, 0x6c, 0x64, 0x20,
                     0x62, 0x65, 0x20, 0x69, 0x74, 0x2e]);
-    let ciphertext /* 1399#0 */ =
-        <[_]>::into_vec /* 1726#26
+    let ciphertext /* 1405#0 */ =
+        <[_]>::into_vec /* 1758#28
             */(box
                    [0x6e, 0x2e, 0x35, 0x9a, 0x25, 0x68, 0xf9, 0x80, 0x41,
                     0xba, 0x07, 0x28, 0xdd, 0x0d, 0x69, 0x81, 0xe9, 0x7e,
@@ -268,51 +281,51 @@ fn main /* 657#0 */() {
                     0xe9, 0x1a, 0xb7, 0x79, 0x37, 0x36, 0x5a, 0xf9, 0x0b,
                     0xbf, 0x74, 0xa3, 0x5b, 0xe6, 0xb4, 0x0b, 0x8e, 0xed,
                     0xf2, 0x78, 0x5e, 0x42, 0x87, 0x4d]);
-    let key /* 1353#0 */ =
-        classify_u8s /* 1315#0
-            */(&<[_]>::into_vec /* 1726#28
+    let key /* 1359#0 */ =
+        classify_u8s /* 1321#0
+            */(&<[_]>::into_vec /* 1758#30
                     */(box
                            [0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 8u8, 9u8,
                             10u8, 11u8, 12u8, 13u8, 14u8, 15u8, 16u8, 17u8,
                             18u8, 19u8, 20u8, 21u8, 22u8, 23u8, 24u8, 25u8,
                             26u8, 27u8, 28u8, 29u8, 30u8, 31u8]));
-    let nonce /* 1339#0 */ =
-        <[_]>::into_vec /* 1726#30
+    let nonce /* 1345#0 */ =
+        <[_]>::into_vec /* 1758#32
             */(box
                    [0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x4a, 0x0, 0x0, 0x0,
                     0x0]);
-    let computed_ciphertext /* 1492#0 */ =
-        chacha20_encrypt /* 1367#0
-            */(&key /* 1353#0 */, 1u32, &nonce /* 1339#0 */,
-               &plaintext /* 1370#0 */);
-    for (i /* 559#0 */, (x1 /* 1493#0 */, x2 /* 1494#0 */)) in
-        ciphertext /* 1399#0 */.iter /* 606#0 */().zip /* 1495#0
-            */(computed_ciphertext /* 1492#0 */).enumerate /* 1496#0 */() {
+    let computed_ciphertext /* 1498#0 */ =
+        chacha20_encrypt /* 1373#0
+            */(&key /* 1359#0 */, 1u32, &nonce /* 1345#0 */,
+               &plaintext /* 1376#0 */);
+    for (i /* 559#0 */, (x1 /* 1499#0 */, x2 /* 1500#0 */)) in
+        ciphertext /* 1405#0 */.iter /* 606#0 */().zip /* 1501#0
+            */(computed_ciphertext /* 1498#0 */).enumerate /* 1502#0 */() {
         {
-            match (&*x1 /* 1493#0 */, &x2 /* 1494#0 */) {
-                (left_val /* 1745#32 */, right_val /* 1746#32 */) => {
-                    if !(*left_val /* 1745#32 */ == *right_val /* 1746#32 */)
+            match (&*x1 /* 1499#0 */, &x2 /* 1500#0 */) {
+                (left_val /* 1776#34 */, right_val /* 1777#34 */) => {
+                    if !(*left_val /* 1776#34 */ == *right_val /* 1777#34 */)
                        {
-                        let kind /* 608#32 */ =
-                            ::core /* 2#32 */::panicking /* 795#32
-                                */::AssertKind /* 1747#32 */::Eq /* 87#32 */;
-                        ::core /* 2#32 */::panicking /* 795#32
-                            */::assert_failed /* 1748#32
-                            */(kind /* 608#32 */, &*left_val /* 1745#32 */,
-                               &*right_val /* 1746#32 */,
-                               ::core /* 2#32 */::option /* 771#32 */::Option
-                                   /* 114#32 */::Some /* 146#32
-                                   */(::core /* 2#33 */::fmt /* 502#0
+                        let kind /* 608#34 */ =
+                            ::core /* 2#34 */::panicking /* 795#34
+                                */::AssertKind /* 1778#34 */::Eq /* 87#34 */;
+                        ::core /* 2#34 */::panicking /* 795#34
+                            */::assert_failed /* 1779#34
+                            */(kind /* 608#34 */, &*left_val /* 1776#34 */,
+                               &*right_val /* 1777#34 */,
+                               ::core /* 2#34 */::option /* 771#34 */::Option
+                                   /* 114#34 */::Some /* 146#34
+                                   */(::core /* 2#35 */::fmt /* 502#0
                                           */::Arguments /* 67#0 */::new_v1 /*
-                                          1791#0
+                                          1728#0
                                           */(&["at index "],
                                              &match (&i /* 559#0 */,) {
-                                                  (arg0 /* 1790#33 */,) =>
-                                                  [::core /* 2#33 */::fmt /*
+                                                  (arg0 /* 1818#35 */,) =>
+                                                  [::core /* 2#35 */::fmt /*
                                                        502#0 */::ArgumentV1 /*
                                                        66#0 */::new /* 723#0
-                                                       */(arg0 /* 1790#33 */,
-                                                          ::core /* 2#33
+                                                       */(arg0 /* 1818#35 */,
+                                                          ::core /* 2#35
                                                               */::fmt /* 502#0
                                                               */::Debug /*
                                                               78#0 */::fmt /*
@@ -323,20 +336,7 @@ fn main /* 657#0 */() {
             }
         };
     }
-    {
-        ::std /* 2#34 */::io /* 1516#34 */::_print /* 1808#34
-            */(::core /* 2#35 */::fmt /* 502#0 */::Arguments /* 67#0
-                   */::new_v1 /* 1791#0
-                   */(&["The contents of f: ", "\n"],
-                      &match (&f /* 476#0 */(),) {
-                           (arg0 /* 1790#35 */,) =>
-                           [::core /* 2#35 */::fmt /* 502#0 */::ArgumentV1 /*
-                                66#0 */::new /* 723#0
-                                */(arg0 /* 1790#35 */,
-                                   ::core /* 2#35 */::fmt /* 502#0 */::Display
-                                       /* 1816#0 */::fmt /* 502#0 */)],
-                       }));
-    };
+    dummy_generic /* 1311#0 */(nonce /* 1345#0 */, key /* 1359#0 */);
 }
 
 /*
@@ -344,12 +344,12 @@ Expansions:
 0: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Root
 1: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: AstPass(StdImports)
 2: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "first_x")
-3: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "vec")
+3: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "println")
 4: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "vec")
 5: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "vec")
 6: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "vec")
-7: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "assert_eq")
-8: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "println")
+7: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "vec")
+8: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "assert_eq")
 9: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_unsigned_integer")
 10: parent: ExpnId(9), call_site_ctxt: #4, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
 11: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_unsigned_integer")
@@ -370,12 +370,12 @@ Expansions:
 26: parent: ExpnId(25), call_site_ctxt: #20, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
 27: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_signed_integer")
 28: parent: ExpnId(27), call_site_ctxt: #22, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
-29: parent: ExpnId(3), call_site_ctxt: #24, def_site_ctxt: #0, kind: Macro(Bang, "$crate::__rust_force_expr")
+29: parent: ExpnId(3), call_site_ctxt: #24, def_site_ctxt: #0, kind: Macro(Bang, "$crate::format_args_nl")
 30: parent: ExpnId(4), call_site_ctxt: #26, def_site_ctxt: #0, kind: Macro(Bang, "$crate::__rust_force_expr")
 31: parent: ExpnId(5), call_site_ctxt: #28, def_site_ctxt: #0, kind: Macro(Bang, "$crate::__rust_force_expr")
 32: parent: ExpnId(6), call_site_ctxt: #30, def_site_ctxt: #0, kind: Macro(Bang, "$crate::__rust_force_expr")
-33: parent: ExpnId(7), call_site_ctxt: #32, def_site_ctxt: #0, kind: Macro(Bang, "$crate::format_args")
-34: parent: ExpnId(8), call_site_ctxt: #34, def_site_ctxt: #0, kind: Macro(Bang, "$crate::format_args_nl")
+33: parent: ExpnId(7), call_site_ctxt: #32, def_site_ctxt: #0, kind: Macro(Bang, "$crate::__rust_force_expr")
+34: parent: ExpnId(8), call_site_ctxt: #34, def_site_ctxt: #0, kind: Macro(Bang, "$crate::format_args")
 35: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Desugaring(ForLoop(Head))
 36: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Desugaring(ForLoop(IntoIter))
 37: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Desugaring(ForLoop(Head))
@@ -413,7 +413,7 @@ SyntaxContexts:
 #22: parent: #0, outer_mark: (ExpnId(27), SemiTransparent)
 #23: parent: #0, outer_mark: (ExpnId(2), SemiTransparent)
 #24: parent: #0, outer_mark: (ExpnId(3), SemiTransparent)
-#25: parent: #0, outer_mark: (ExpnId(29), SemiTransparent)
+#25: parent: #0, outer_mark: (ExpnId(29), Opaque)
 #26: parent: #0, outer_mark: (ExpnId(4), SemiTransparent)
 #27: parent: #0, outer_mark: (ExpnId(30), SemiTransparent)
 #28: parent: #0, outer_mark: (ExpnId(5), SemiTransparent)
@@ -421,7 +421,7 @@ SyntaxContexts:
 #30: parent: #0, outer_mark: (ExpnId(6), SemiTransparent)
 #31: parent: #0, outer_mark: (ExpnId(32), SemiTransparent)
 #32: parent: #0, outer_mark: (ExpnId(7), SemiTransparent)
-#33: parent: #0, outer_mark: (ExpnId(33), Opaque)
+#33: parent: #0, outer_mark: (ExpnId(33), SemiTransparent)
 #34: parent: #0, outer_mark: (ExpnId(8), SemiTransparent)
 #35: parent: #0, outer_mark: (ExpnId(34), Opaque)
 #36: parent: #0, outer_mark: (ExpnId(35), Transparent)

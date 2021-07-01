@@ -1,0 +1,212 @@
+#![feature /* 486#0 */(prelude_import)]
+#[prelude_import /* 833#1 */]
+use std /* 1099#1 */::prelude /* 832#1 */::rust_2018 /* 920#1 */::*;
+#[macro_use /* 654#1 */]
+extern crate std /* 1099#1 */;
+use std /* 1099#0 */::io /* 1298#0 */;
+use simple /* 1299#0 */::*;
+// pub mod simple;
+
+pub mod simple /* 1299#0 */ {
+    use rand /* 1300#0 */::Rng /* 1301#0 */;
+    use secret_integers /* 1302#0 */::*;
+
+    /// classify vector of u8s into U8s
+    fn classify_u8s /* 1304#0 */(v /* 1305#0 */: &[u8 /* 1187#0 */])
+     -> Vec /* 158#0 */<U8 /* 1306#0 */> {
+        v /* 1305#0 */.iter /* 606#0 */().map /* 660#0
+            */(|x /* 1307#0 */|
+                   U8 /* 1306#0 */::classify /* 1308#0
+                       */(*x /* 1307#0 */)).collect /* 1309#0 */()
+    }
+
+    /// declassify vector of U8s into u8s
+    fn declassify_u8s /* 1311#0 */(v /* 1305#0 */: &[U8 /* 1306#0 */])
+     -> Vec /* 158#0 */<u8 /* 1187#0 */> {
+        v /* 1305#0 */.iter /* 606#0 */().map /* 660#0
+            */(|x /* 1307#0 */|
+                   U8 /* 1306#0 */::declassify /* 1312#0
+                       */(*x /* 1307#0 */)).collect /* 1309#0 */()
+    }
+
+    pub fn get_secret_key /* 1313#0 */() -> Vec /* 158#0 */<U8 /* 1306#0 */> {
+        let random_bytes /* 1314#0 */ =
+            rand /* 1300#0 */::thread_rng /* 1315#0 */().gen /* 1316#0
+                */::<[u8 /* 1187#0 */; 8]>();
+        return classify_u8s /* 1304#0 */(&random_bytes /* 1314#0 */);
+    }
+
+    pub fn encrypt /* 1317#0
+     */(msg /* 1318#0 */: &[u8 /* 1187#0 */],
+        sk /* 1319#0 */: &[U8 /* 1306#0 */])
+     -> Vec /* 158#0 */<u8 /* 1187#0 */> {
+        let mut new_block /* 1320#0 */ =
+            [U8 /* 1306#0 */::zero /* 1321#0 */(); 8];
+        let classified_msg /* 1322#0 */ =
+            classify_u8s /* 1304#0 */(msg /* 1318#0 */);
+        for i /* 559#0 */ in 0..8 {
+            new_block /* 1320#0 */[i /* 559#0 */] =
+                classified_msg /* 1322#0 */[i /* 559#0 */] ^
+                    sk /* 1319#0 */[i /* 559#0 */];
+        }
+        return declassify_u8s /* 1311#0 */(&new_block /* 1320#0 */);
+    }
+
+    pub fn decrypt /* 1323#0
+     */(cipher /* 1324#0 */: &[u8 /* 1187#0 */],
+        sk /* 1319#0 */: &[U8 /* 1306#0 */])
+     -> Vec /* 158#0 */<u8 /* 1187#0 */> {
+        let mut new_block /* 1320#0 */ =
+            [U8 /* 1306#0 */::zero /* 1321#0 */(); 8];
+        let classified_cipher /* 1325#0 */ =
+            classify_u8s /* 1304#0 */(cipher /* 1324#0 */);
+        for i /* 559#0 */ in 0..8 {
+            new_block /* 1320#0 */[i /* 559#0 */] =
+                classified_cipher /* 1325#0 */[i /* 559#0 */] ^
+                    sk /* 1319#0 */[i /* 559#0 */];
+        }
+        return declassify_u8s /* 1311#0 */(&new_block /* 1320#0 */);
+    }
+
+}
+
+fn main /* 657#0 */() {
+    // Need to handle the simple::get_secret_key() case
+    let secret_key /* 1326#0 */:
+            Vec /* 158#0 */<secret_integers /* 1302#0 */::U8 /* 1306#0 */> =
+        get_secret_key /* 1313#0 */();
+    let mut buffer /* 1327#0 */: String /* 1328#0 */ =
+        String /* 1328#0 */::new /* 723#0 */();
+    {
+        ::std /* 2#23 */::io /* 1298#23 */::_print /* 1573#23
+            */(::core /* 2#24 */::fmt /* 502#0 */::Arguments /* 67#0
+                   */::new_v1 /* 1583#0
+                   */(&["Please input a 8 byte message\n"],
+                      &match () { () => [], }));
+    };
+    let _ =
+        io /* 1298#0 */::stdin /* 1331#0 */().read_line /* 1332#0
+            */(&mut buffer /* 1327#0 */);
+    let mut message /* 676#0 */ = [0u8; 8];
+    for i /* 559#0 */ in 0..8 {
+        if i /* 559#0 */ < buffer /* 1327#0 */.len /* 1333#0 */() {
+            message /* 676#0 */[i /* 559#0 */] =
+                buffer /* 1327#0 */.as_bytes /* 1334#0 */()[i /* 559#0 */];
+        }
+    }
+    let cipher_text /* 1335#0 */: Vec /* 158#0 */<u8 /* 1187#0 */> =
+        encrypt /* 1317#0 */(&message /* 676#0 */, &secret_key /* 1326#0 */);
+    let text /* 1336#0 */: Vec /* 158#0 */<u8 /* 1187#0 */> =
+        decrypt /* 1323#0
+            */(&cipher_text /* 1335#0 */, &secret_key /* 1326#0 */);
+    if !(message /* 676#0 */ == &text /* 1336#0 */[..]) {
+        ::core /* 2#26 */::panicking /* 795#0 */::panic /* 782#0
+            */("assertion failed: message == &text[..]")
+    };
+    {
+        ::std /* 2#27 */::io /* 1298#27 */::_print /* 1573#27
+            */(::core /* 2#28 */::fmt /* 502#0 */::Arguments /* 67#0
+                   */::new_v1 /* 1583#0
+                   */(&["message: ", "\n"],
+                      &match (&message /* 676#0 */,) {
+                           (arg0 /* 1618#28 */,) =>
+                           [::core /* 2#28 */::fmt /* 502#0 */::ArgumentV1 /*
+                                66#0 */::new /* 723#0
+                                */(arg0 /* 1618#28 */,
+                                   ::core /* 2#28 */::fmt /* 502#0 */::Debug
+                                       /* 78#0 */::fmt /* 502#0 */)],
+                       }));
+    };
+    {
+        ::std /* 2#29 */::io /* 1298#29 */::_print /* 1573#29
+            */(::core /* 2#30 */::fmt /* 502#0 */::Arguments /* 67#0
+                   */::new_v1 /* 1583#0
+                   */(&["ciphertext: ", "\n"],
+                      &match (&cipher_text /* 1335#0 */,) {
+                           (arg0 /* 1618#30 */,) =>
+                           [::core /* 2#30 */::fmt /* 502#0 */::ArgumentV1 /*
+                                66#0 */::new /* 723#0
+                                */(arg0 /* 1618#30 */,
+                                   ::core /* 2#30 */::fmt /* 502#0 */::Debug
+                                       /* 78#0 */::fmt /* 502#0 */)],
+                       }));
+    };
+}
+
+/*
+Expansions:
+0: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Root
+1: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: AstPass(StdImports)
+2: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "println")
+3: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "assert")
+4: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "println")
+5: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "println")
+6: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_unsigned_integer")
+7: parent: ExpnId(6), call_site_ctxt: #4, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+8: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_unsigned_integer")
+9: parent: ExpnId(8), call_site_ctxt: #6, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+10: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_unsigned_integer")
+11: parent: ExpnId(10), call_site_ctxt: #8, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+12: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_unsigned_integer")
+13: parent: ExpnId(12), call_site_ctxt: #10, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+14: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_unsigned_integer")
+15: parent: ExpnId(14), call_site_ctxt: #12, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+16: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_signed_integer")
+17: parent: ExpnId(16), call_site_ctxt: #14, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+18: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_signed_integer")
+19: parent: ExpnId(18), call_site_ctxt: #16, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+20: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_signed_integer")
+21: parent: ExpnId(20), call_site_ctxt: #18, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+22: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_signed_integer")
+23: parent: ExpnId(22), call_site_ctxt: #20, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+24: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_signed_integer")
+25: parent: ExpnId(24), call_site_ctxt: #22, def_site_ctxt: #0, kind: Macro(Bang, "define_secret_integer")
+26: parent: ExpnId(2), call_site_ctxt: #23, def_site_ctxt: #0, kind: Macro(Bang, "$crate::format_args_nl")
+27: parent: ExpnId(4), call_site_ctxt: #27, def_site_ctxt: #0, kind: Macro(Bang, "$crate::format_args_nl")
+28: parent: ExpnId(5), call_site_ctxt: #29, def_site_ctxt: #0, kind: Macro(Bang, "$crate::format_args_nl")
+29: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Desugaring(ForLoop(Head))
+30: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Desugaring(ForLoop(IntoIter))
+31: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Desugaring(ForLoop(Head))
+32: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Desugaring(ForLoop(IntoIter))
+33: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Desugaring(ForLoop(Head))
+34: parent: ExpnId(0), call_site_ctxt: #0, def_site_ctxt: #0, kind: Desugaring(ForLoop(IntoIter))
+
+SyntaxContexts:
+#0: parent: #0, outer_mark: (ExpnId(0), Opaque)
+#1: parent: #0, outer_mark: (ExpnId(1), Opaque)
+#2: parent: #0, outer_mark: (ExpnId(1), Transparent)
+#3: parent: #0, outer_mark: (ExpnId(7), SemiTransparent)
+#4: parent: #0, outer_mark: (ExpnId(6), SemiTransparent)
+#5: parent: #0, outer_mark: (ExpnId(9), SemiTransparent)
+#6: parent: #0, outer_mark: (ExpnId(8), SemiTransparent)
+#7: parent: #0, outer_mark: (ExpnId(11), SemiTransparent)
+#8: parent: #0, outer_mark: (ExpnId(10), SemiTransparent)
+#9: parent: #0, outer_mark: (ExpnId(13), SemiTransparent)
+#10: parent: #0, outer_mark: (ExpnId(12), SemiTransparent)
+#11: parent: #0, outer_mark: (ExpnId(15), SemiTransparent)
+#12: parent: #0, outer_mark: (ExpnId(14), SemiTransparent)
+#13: parent: #0, outer_mark: (ExpnId(17), SemiTransparent)
+#14: parent: #0, outer_mark: (ExpnId(16), SemiTransparent)
+#15: parent: #0, outer_mark: (ExpnId(19), SemiTransparent)
+#16: parent: #0, outer_mark: (ExpnId(18), SemiTransparent)
+#17: parent: #0, outer_mark: (ExpnId(21), SemiTransparent)
+#18: parent: #0, outer_mark: (ExpnId(20), SemiTransparent)
+#19: parent: #0, outer_mark: (ExpnId(23), SemiTransparent)
+#20: parent: #0, outer_mark: (ExpnId(22), SemiTransparent)
+#21: parent: #0, outer_mark: (ExpnId(25), SemiTransparent)
+#22: parent: #0, outer_mark: (ExpnId(24), SemiTransparent)
+#23: parent: #0, outer_mark: (ExpnId(2), SemiTransparent)
+#24: parent: #0, outer_mark: (ExpnId(26), Opaque)
+#25: parent: #0, outer_mark: (ExpnId(3), Transparent)
+#26: parent: #0, outer_mark: (ExpnId(3), Opaque)
+#27: parent: #0, outer_mark: (ExpnId(4), SemiTransparent)
+#28: parent: #0, outer_mark: (ExpnId(27), Opaque)
+#29: parent: #0, outer_mark: (ExpnId(5), SemiTransparent)
+#30: parent: #0, outer_mark: (ExpnId(28), Opaque)
+#31: parent: #0, outer_mark: (ExpnId(29), Transparent)
+#32: parent: #0, outer_mark: (ExpnId(30), Transparent)
+#33: parent: #0, outer_mark: (ExpnId(31), Transparent)
+#34: parent: #0, outer_mark: (ExpnId(32), Transparent)
+#35: parent: #0, outer_mark: (ExpnId(33), Transparent)
+#36: parent: #0, outer_mark: (ExpnId(34), Transparent)
+*/

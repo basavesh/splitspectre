@@ -43,6 +43,9 @@ pub mod lib;
 use lib::*;
 use std::io::prelude::*;
 
+// fn calls
+use std::collections::HashSet;
+
 /// Custom Compiler callbacks
 pub(crate) struct CustomCallbacks;
 
@@ -74,8 +77,9 @@ impl Callbacks for CustomCallbacks {
                                                 secret_crate,
                                                 inside_secret_fn: false,
                                                 body_ids: Vec::new(),
-                                                fn_defs: Vec::<FnDef>::new(),
+                                                fn_defs: IndexMap::new(),
                                                 fn_calls: IndexMap::new(),
+                                                curr_fn: None,
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
             if *crate_name == "secret_integers_usage" || *crate_name == "chacha20" {
@@ -85,7 +89,8 @@ impl Callbacks for CustomCallbacks {
                 lib::gen_agent_proto(&item_visitor);
                 lib::gen_agent_build();
                 lib::gen_agent_cargo();
-                // println!("FN_DEFS: {:#?}", item_visitor.fn_defs);
+                println!("FN_DEFS: {:#?}", item_visitor.fn_defs);
+                println!("Curr_Fn: {:#?}", item_visitor.curr_fn);
             }
         });
         Compilation::Continue
@@ -134,17 +139,19 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
                             // TODO fix this, currently, I'm going to blindly copy
                             // this to the trusted side, hope Dead Code Elimination will take care of it
                             duplicate: generics.params.len() > 0,
+                            bodyid: *body_id,
+                            calls: HashSet::new(),
                          };
             let fn_def_str = fn_def_sig.to_string();
             if fn_def_str.contains("secret_integers::") {
                 // This function should be moved to `trusted` process.
                 // println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());
                 fn_def.tomove = true;
-                self.fn_defs.push(fn_def);
-            } else {
-                self.fn_defs.push(fn_def);
-                self.visit_nested_body(*body_id);
             }
+            self.fn_defs.insert(def_id, fn_def);
+            self.curr_fn = Some(def_id);
+            // Visit the body and check the function calls
+            self.visit_nested_body(*body_id);
         }
 
         // ExternCrate(Option<Symbol>)
@@ -267,6 +274,8 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
                 return;
             }
             // println!("BASH: This is an expression, {:#?}", expr);
+            // I need to rewrite this whole thing now.
+
             if let rustc_hir::ExprKind::Path(rustc_hir::QPath::Resolved(None, fn_path)) = exp.kind {
                 let fn_name = fn_path.segments.last().unwrap().ident.name.to_ident_string();
                 if let rustc_hir::def::Res::Def(_def_kind, def_id) = fn_path.res {

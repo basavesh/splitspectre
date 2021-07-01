@@ -42,6 +42,9 @@ use std::io::prelude::*;
 use lazy_static::lazy_static;
 use std::collections::HashMap;
 
+// fn calls
+use std::collections::HashSet;
+
 lazy_static! {
     static ref PROTOTYPES: HashMap<&'static str, &'static str> = {
         let mut map = HashMap::new();
@@ -65,8 +68,9 @@ pub struct CustomItemVisitor<'tcx> {
     pub secret_crate: bool,
     pub inside_secret_fn: bool,
     pub body_ids: Vec<rustc_hir::BodyId>,
-    pub fn_defs: Vec<FnDef>,
+    pub fn_defs: IndexMap<rustc_span::def_id::DefId , FnDef>,
     pub fn_calls: IndexMap<rustc_span::def_id::DefId , FnCall<'tcx>>,
+    pub curr_fn: Option<rustc_span::def_id::DefId>,
 }
 
 #[derive(Debug)]
@@ -76,6 +80,8 @@ pub struct FnDef {
     pub isgeneric: bool,
     pub tomove: bool,
     pub duplicate: bool,
+    pub bodyid: rustc_hir::BodyId,
+    pub calls: HashSet<rustc_span::def_id::DefId>,
 }
 
 #[derive(Debug)]
@@ -97,9 +103,9 @@ pub fn gen_agent_sever_lib(my_visitor: &CustomItemVisitor) {
     file.write_all("use secret_integers::*;\n\n".as_bytes()).unwrap();
 
     let mut data: String;
-    for fn_item in my_visitor.fn_defs.iter() {
-        if fn_item.tomove || fn_item.duplicate {
-            file.write_all(fn_item.snip.as_bytes()).unwrap();
+    for (key, val) in my_visitor.fn_defs.iter() {
+        if val.tomove || val.duplicate {
+            file.write_all(val.snip.as_bytes()).unwrap();
             file.write_all("\n\n".as_bytes()).unwrap()
         }
     }
