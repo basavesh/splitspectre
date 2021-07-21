@@ -83,14 +83,54 @@ impl Callbacks for CustomCallbacks {
                                             };
             tcx.hir().krate().visit_all_item_likes(&mut item_visitor);
             if *crate_name == "secret_integers_usage" || *crate_name == "chacha20" {
+
+                // Need to have some sort of fix-point function to collect
+                // functions to move or copy to the trusted side.
+                let mut changed = false;
+                let mut to_dup = HashSet::new();
+                loop {
+                    for (_key, val) in item_visitor.fn_defs.iter() {
+                        if val.issecret || val.duplicate {
+                            for fn_call in &val.fn_calls {
+                                // check if the function is defined in my crate
+                                // If yes, you should duplicate this too
+                                if item_visitor.fn_defs.contains_key(fn_call) {
+                                    // A lot of Ifs
+                                    let func = &item_visitor.fn_defs[fn_call];
+                                    if !func.issecret || !func.duplicate {
+                                        to_dup.insert(fn_call.clone());
+                                        changed = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // if to_dup.len() > 0 {
+                    //     changed = true;
+                    // }
+
+                    for fn_id in to_dup.iter() {
+                        item_visitor.fn_defs[fn_id].duplicate = true;
+                    }
+                    to_dup.clear();
+
+                    if !changed {
+                        break;
+                    }
+                    changed = false;
+                }
+                println!("BASH FN dups: {:#?}", to_dup);
+
                 lib::gen_agent_client(&item_visitor); // This works fine
                 lib::gen_agent_server(&item_visitor); // This works fine
                 lib::gen_agent_sever_lib(&item_visitor); // need to take of the imports
                 lib::gen_agent_proto(&item_visitor);
                 lib::gen_agent_build();
                 lib::gen_agent_cargo();
+
                 println!("FN_DEFS: {:#?}", item_visitor.fn_defs);
-                println!("Curr_Fn: {:#?}", item_visitor.curr_fn);
+                //println!("Curr_Fn: {:#?}", item_visitor.curr_fn);
             }
         });
         Compilation::Continue
@@ -135,18 +175,18 @@ impl<'hir, 'tcx> ItemLikeVisitor<'hir> for CustomItemVisitor<'tcx> {
                             snip: snip.clone(),
                             isgeneric: generics.params.len() > 0,
                             // TODO move if it deals with secret args or return type
-                            tomove: false,
+                            issecret: false,
                             // TODO fix this, currently, I'm going to blindly copy
                             // this to the trusted side, hope Dead Code Elimination will take care of it
                             duplicate: generics.params.len() > 0,
                             bodyid: *body_id,
-                            calls: HashSet::new(),
+                            fn_calls: HashSet::new(),
                          };
             let fn_def_str = fn_def_sig.to_string();
             if fn_def_str.contains("secret_integers::") {
                 // This function should be moved to `trusted` process.
                 // println!("Move fn: {} to trusted process", item.ident.name.to_ident_string());
-                fn_def.tomove = true;
+                fn_def.issecret = true;
             }
             self.fn_defs.insert(def_id, fn_def);
             self.curr_fn = Some(def_id);
@@ -276,9 +316,21 @@ impl<'tcx> intravisit::Visitor<'tcx> for CustomItemVisitor<'tcx> {
             // println!("BASH: This is an expression, {:#?}", expr);
             // I need to rewrite this whole thing now.
 
+
+
             if let rustc_hir::ExprKind::Path(rustc_hir::QPath::Resolved(None, fn_path)) = exp.kind {
                 let fn_name = fn_path.segments.last().unwrap().ident.name.to_ident_string();
                 if let rustc_hir::def::Res::Def(_def_kind, def_id) = fn_path.res {
+                    println!("BASH: the fn_call Ident Def_id is {:#?}", def_id);
+
+                    if let Some(fn_item) = self.curr_fn {
+                        println!("BASH: This is some function bro {:#?}", fn_item);
+                        self.fn_defs[&fn_item].fn_calls.insert(def_id.clone());
+                        // if self.fn_defs[&fn_item].issecret || self.fn_defs[&fn_item].duplicate {
+                        //     self.fn_defs[&fn_item].calls.insert(def_id.clone());
+                        // }
+                    }
+
                     let fn_call_sig = self.tcx.fn_sig(def_id).skip_binder();
                     let fn_call_str = format!("{}", fn_call_sig);
                     if fn_call_str.contains("secret_integers::") {

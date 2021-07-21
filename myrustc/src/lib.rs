@@ -78,10 +78,10 @@ pub struct FnDef {
     pub ident: rustc_span::symbol::Ident,
     pub snip: String,
     pub isgeneric: bool,
-    pub tomove: bool,
+    pub issecret: bool,
     pub duplicate: bool,
     pub bodyid: rustc_hir::BodyId,
-    pub calls: HashSet<rustc_span::def_id::DefId>,
+    pub fn_calls: HashSet<rustc_span::def_id::DefId>,
 }
 
 #[derive(Debug)]
@@ -104,7 +104,7 @@ pub fn gen_agent_sever_lib(my_visitor: &CustomItemVisitor) {
 
     let mut data: String;
     for (key, val) in my_visitor.fn_defs.iter() {
-        if val.tomove || val.duplicate {
+        if val.issecret || val.duplicate {
             file.write_all(val.snip.as_bytes()).unwrap();
             file.write_all("\n\n".as_bytes()).unwrap()
         }

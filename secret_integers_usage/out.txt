@@ -16,56 +16,121 @@ BASH: USE snip "use rand::Rng;"
 BASH: Fn snip "fn classify_u8s(v: &[u8]) -> Vec<U8> {\n    v.iter().map(|x| U8::classify(*x)).collect()\n}"
 BASH: Fn snip "fn declassify_u8s(v: &[U8]) -> Vec<u8> {\n    v.iter().map(|x| U8::declassify(*x)).collect()\n}"
 BASH: Fn snip "pub fn get_secret_key() -> Vec<U8> {\n    let random_bytes = rand::thread_rng().gen::<[u8; 8]>();\n    return classify_u8s(&random_bytes);\n}"
+BASH: the fn_call Ident Def_id is DefId(17:773 ~ rand[6182]::rngs::thread::thread_rng)
+BASH: This is some function bro DefId(0:16 ~ secret_integers_usage[bdf1]::simple::get_secret_key)
+BASH: the fn_call Ident Def_id is DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s)
+BASH: This is some function bro DefId(0:16 ~ secret_integers_usage[bdf1]::simple::get_secret_key)
 BASH: Fn snip "pub fn encrypt(msg: &[u8], sk: &[U8]) -> Vec<u8> {\n    let mut new_block = [U8::zero(); 8];\n    let classified_msg = classify_u8s(msg);\n    for i in 0..8 {\n        new_block[i] = classified_msg[i] ^ sk[i];\n    }\n    return declassify_u8s(&new_block);\n}"
+BASH: the fn_call Ident Def_id is DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s)
+BASH: This is some function bro DefId(0:18 ~ secret_integers_usage[bdf1]::simple::encrypt)
+BASH: the fn_call Ident Def_id is DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s)
+BASH: This is some function bro DefId(0:18 ~ secret_integers_usage[bdf1]::simple::encrypt)
 BASH: Fn snip "pub fn decrypt(cipher: &[u8], sk: &[U8]) -> Vec<u8> {\n    let mut new_block = [U8::zero(); 8];\n    let classified_cipher = classify_u8s(cipher);\n    for i in 0..8 {\n        new_block[i] = classified_cipher[i] ^ sk[i];\n    }\n    return declassify_u8s(&new_block);\n}"
+BASH: the fn_call Ident Def_id is DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s)
+BASH: This is some function bro DefId(0:20 ~ secret_integers_usage[bdf1]::simple::decrypt)
+BASH: the fn_call Ident Def_id is DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s)
+BASH: This is some function bro DefId(0:20 ~ secret_integers_usage[bdf1]::simple::decrypt)
 BASH: Fn snip "fn main() {\n    // Need to handle the simple::get_secret_key() case\n    let secret_key: Vec<secret_integers::U8> = get_secret_key();\n    let mut buffer: String = String::new();\n    println!(\"Please input a 8 byte message\");\n    let _ = io::stdin().read_line(&mut buffer);\n    let mut message = [0u8; 8];\n    for i in 0..8 {\n        if i < buffer.len() {\n            message[i] = buffer.as_bytes()[i];\n        }\n    }\n    let cipher_text: Vec<u8> = encrypt(&message, &secret_key);\n    let text: Vec<u8> = decrypt(&cipher_text, &secret_key);\n    assert!(message == &text[..]);\n    println!(\"message: {:?}\", message);\n    println!(\"ciphertext: {:?}\", cipher_text);\n}"
+BASH: the fn_call Ident Def_id is DefId(0:16 ~ secret_integers_usage[bdf1]::simple::get_secret_key)
+BASH: This is some function bro DefId(0:22 ~ secret_integers_usage[bdf1]::main)
+BASH: the fn_call Ident Def_id is DefId(1:4039 ~ std[9cfa]::io::stdio::stdin)
+BASH: This is some function bro DefId(0:22 ~ secret_integers_usage[bdf1]::main)
+BASH: the fn_call Ident Def_id is DefId(0:18 ~ secret_integers_usage[bdf1]::simple::encrypt)
+BASH: This is some function bro DefId(0:22 ~ secret_integers_usage[bdf1]::main)
+BASH: the fn_call Ident Def_id is DefId(0:20 ~ secret_integers_usage[bdf1]::simple::decrypt)
+BASH: This is some function bro DefId(0:22 ~ secret_integers_usage[bdf1]::main)
 FN_DEFS: {
     DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s): FnDef {
         ident: classify_u8s#0,
         snip: "fn classify_u8s(v: &[u8]) -> Vec<U8> {\n    v.iter().map(|x| U8::classify(*x)).collect()\n}",
         isgeneric: false,
-        tomove: true,
+        issecret: true,
         duplicate: false,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
+                local_id: 24,
+            },
+        },
         calls: {},
     },
     DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s): FnDef {
         ident: declassify_u8s#0,
         snip: "fn declassify_u8s(v: &[U8]) -> Vec<u8> {\n    v.iter().map(|x| U8::declassify(*x)).collect()\n}",
         isgeneric: false,
-        tomove: true,
+        issecret: true,
         duplicate: false,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s),
+                local_id: 24,
+            },
+        },
         calls: {},
     },
     DefId(0:16 ~ secret_integers_usage[bdf1]::simple::get_secret_key): FnDef {
         ident: get_secret_key#0,
         snip: "pub fn get_secret_key() -> Vec<U8> {\n    let random_bytes = rand::thread_rng().gen::<[u8; 8]>();\n    return classify_u8s(&random_bytes);\n}",
         isgeneric: false,
-        tomove: true,
+        issecret: true,
         duplicate: false,
-        calls: {},
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:16 ~ secret_integers_usage[bdf1]::simple::get_secret_key),
+                local_id: 24,
+            },
+        },
+        calls: {
+            DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
+            DefId(17:773 ~ rand[6182]::rngs::thread::thread_rng),
+        },
     },
     DefId(0:18 ~ secret_integers_usage[bdf1]::simple::encrypt): FnDef {
         ident: encrypt#0,
         snip: "pub fn encrypt(msg: &[u8], sk: &[U8]) -> Vec<u8> {\n    let mut new_block = [U8::zero(); 8];\n    let classified_msg = classify_u8s(msg);\n    for i in 0..8 {\n        new_block[i] = classified_msg[i] ^ sk[i];\n    }\n    return declassify_u8s(&new_block);\n}",
         isgeneric: false,
-        tomove: true,
+        issecret: true,
         duplicate: false,
-        calls: {},
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:18 ~ secret_integers_usage[bdf1]::simple::encrypt),
+                local_id: 91,
+            },
+        },
+        calls: {
+            DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
+            DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s),
+        },
     },
     DefId(0:20 ~ secret_integers_usage[bdf1]::simple::decrypt): FnDef {
         ident: decrypt#0,
         snip: "pub fn decrypt(cipher: &[u8], sk: &[U8]) -> Vec<u8> {\n    let mut new_block = [U8::zero(); 8];\n    let classified_cipher = classify_u8s(cipher);\n    for i in 0..8 {\n        new_block[i] = classified_cipher[i] ^ sk[i];\n    }\n    return declassify_u8s(&new_block);\n}",
         isgeneric: false,
-        tomove: true,
+        issecret: true,
         duplicate: false,
-        calls: {},
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:20 ~ secret_integers_usage[bdf1]::simple::decrypt),
+                local_id: 91,
+            },
+        },
+        calls: {
+            DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
+            DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s),
+        },
     },
     DefId(0:22 ~ secret_integers_usage[bdf1]::main): FnDef {
         ident: main#0,
         snip: "fn main() {\n    // Need to handle the simple::get_secret_key() case\n    let secret_key: Vec<secret_integers::U8> = get_secret_key();\n    let mut buffer: String = String::new();\n    println!(\"Please input a 8 byte message\");\n    let _ = io::stdin().read_line(&mut buffer);\n    let mut message = [0u8; 8];\n    for i in 0..8 {\n        if i < buffer.len() {\n            message[i] = buffer.as_bytes()[i];\n        }\n    }\n    let cipher_text: Vec<u8> = encrypt(&message, &secret_key);\n    let text: Vec<u8> = decrypt(&cipher_text, &secret_key);\n    assert!(message == &text[..]);\n    println!(\"message: {:?}\", message);\n    println!(\"ciphertext: {:?}\", cipher_text);\n}",
         isgeneric: false,
-        tomove: false,
+        issecret: false,
         duplicate: false,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:22 ~ secret_integers_usage[bdf1]::main),
+                local_id: 275,
+            },
+        },
         calls: {},
     },
 }

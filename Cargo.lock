@@ -12,7 +12,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 name = "chacha20"
 version = "0.1.0"
 dependencies = [
- "secret_integers",
+ "secret_integers 0.1.6 (git+https://github.com/basavesh/rust-secret-integers.git?branch=bash-dev)",
 ]
 
 [[package]]
@@ -109,13 +109,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "60a1e39aeaa13b6bdda0d3a9c0527cd29fa9f8fecde0bed1e552be761e46c796"
 
 [[package]]
+name = "secret_integers"
+version = "0.1.6"
+source = "git+https://github.com/basavesh/rust-secret-integers.git?branch=bash-dev#69afdd019b441dd9622aef1fc175cc574d57aaac"
+
+[[package]]
 name = "secret_integers_usage"
 version = "0.1.0"
 dependencies = [
  "quote",
  "rand",
  "rustc-workspace-hack",
- "secret_integers",
+ "secret_integers 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "syn",
 ]
 

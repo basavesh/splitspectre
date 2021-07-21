@@ -2,14 +2,6 @@ BASH: USE snip "use std::num::Wrapping;"
 BASH: USE snip "std::num::Wrapping"
 BASH: Struct snip "pub struct $name(pub $repr);"
 BASH: Struct snip "pub struct $name(pub $repr);"
-BASH: Struct snip "pub struct $name(pub $repr);"
-BASH: Struct snip "pub struct $name(pub $repr);"
-BASH: Struct snip "pub struct $name(pub $repr);"
-BASH: Struct snip "pub struct $name(pub $repr);"
-BASH: Struct snip "pub struct $name(pub $repr);"
-BASH: Struct snip "pub struct $name(pub $repr);"
-BASH: Struct snip "pub struct $name(pub $repr);"
-BASH: Struct snip "pub struct $name(pub $repr);"
 BASH: CONST snip "const BLOCK_SIZE: usize = 64;"
 BASH: TyAlias snip "type State = [U32; 16];"
 BASH: TyAlias snip "type Key = Vec<U8>;"
@@ -25,14 +17,355 @@ BASH: Fn snip "pub fn classify_u8s(v: &[u8]) -> Vec<U8> {\n    v.iter().map(|x| 
 BASH: Fn snip "pub fn declassify_u8s(v: &[U8]) -> Vec<u8> {\n    v.iter().map(|x| U8::declassify(*x)).collect()\n}"
 BASH: Fn snip "fn line(a: Index, b: Index, d: Index, s: RotVal, m: &mut State) {\n    m[a] = m[a] + m[b];\n    m[d] = m[d] ^ m[a];\n    m[d] = m[d].rotate_left(s);\n}"
 BASH: Fn snip "fn quarter_round(a: Index, b: Index, c: Index, d: Index, m: &mut State) {\n    line(a, b, d, 16, m);\n    line(c, d, b, 12, m);\n    line(a, b, d, 8, m);\n    line(c, d, b, 7, m);\n}"
+BASH: the fn_call Ident Def_id is DefId(0:26 ~ chacha20[46f0]::line)
+BASH: This is some function bro DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: the fn_call Ident Def_id is DefId(0:26 ~ chacha20[46f0]::line)
+BASH: This is some function bro DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: the fn_call Ident Def_id is DefId(0:26 ~ chacha20[46f0]::line)
+BASH: This is some function bro DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: the fn_call Ident Def_id is DefId(0:26 ~ chacha20[46f0]::line)
+BASH: This is some function bro DefId(0:27 ~ chacha20[46f0]::quarter_round)
 BASH: Fn snip "fn double_round(m: &mut State) {\n    quarter_round(0, 4, 8, 12, m);\n    quarter_round(1, 5, 9, 13, m);\n    quarter_round(2, 6, 10, 14, m);\n    quarter_round(3, 7, 11, 15, m);\n\n    quarter_round(0, 5, 10, 15, m);\n    quarter_round(1, 6, 11, 12, m);\n    quarter_round(2, 7, 8, 13, m);\n    quarter_round(3, 4, 9, 14, m);\n}"
+BASH: the fn_call Ident Def_id is DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: This is some function bro DefId(0:28 ~ chacha20[46f0]::double_round)
+BASH: the fn_call Ident Def_id is DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: This is some function bro DefId(0:28 ~ chacha20[46f0]::double_round)
+BASH: the fn_call Ident Def_id is DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: This is some function bro DefId(0:28 ~ chacha20[46f0]::double_round)
+BASH: the fn_call Ident Def_id is DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: This is some function bro DefId(0:28 ~ chacha20[46f0]::double_round)
+BASH: the fn_call Ident Def_id is DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: This is some function bro DefId(0:28 ~ chacha20[46f0]::double_round)
+BASH: the fn_call Ident Def_id is DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: This is some function bro DefId(0:28 ~ chacha20[46f0]::double_round)
+BASH: the fn_call Ident Def_id is DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: This is some function bro DefId(0:28 ~ chacha20[46f0]::double_round)
+BASH: the fn_call Ident Def_id is DefId(0:27 ~ chacha20[46f0]::quarter_round)
+BASH: This is some function bro DefId(0:28 ~ chacha20[46f0]::double_round)
 BASH: CONST snip "const CONSTANTS: Constants = [0x61707865, 0x3320646e, 0x79622d32, 0x6b206574];"
 BASH: Fn snip "fn chacha20_init(k: &Key, counter: U32, nonce: &Nonce) -> State {\n    let mut st = [U32::classify(0u32); 16];\n    st[0..4].copy_from_slice(&classify_u32s(&CONSTANTS));\n    st[4..12].copy_from_slice(U32::from_bytes_le(k).as_slice());\n    st[12] = counter;\n    st[13..16].copy_from_slice(U32::from_bytes_le(nonce).as_slice());\n    st\n}"
+BASH: the fn_call Ident Def_id is DefId(0:20 ~ chacha20[46f0]::classify_u32s)
+BASH: This is some function bro DefId(0:30 ~ chacha20[46f0]::chacha20_init)
 BASH: Fn snip "fn chacha20_core(st: &mut State) {\n    let mut working_state = st.clone();\n    for _ in 0..10 {\n        double_round(&mut working_state);\n    }\n    for i in 0..16 {\n        st[i] += working_state[i];\n    }\n}"
+BASH: the fn_call Ident Def_id is DefId(0:28 ~ chacha20[46f0]::double_round)
+BASH: This is some function bro DefId(0:32 ~ chacha20[46f0]::chacha20_core)
 BASH: Fn snip "fn chacha20(k: &Key, counter: U32, nonce: &Nonce) -> State {\n    let mut st = chacha20_init(k, counter, nonce);\n    chacha20_core(&mut st);\n    st\n}"
+BASH: the fn_call Ident Def_id is DefId(0:30 ~ chacha20[46f0]::chacha20_init)
+BASH: This is some function bro DefId(0:33 ~ chacha20[46f0]::chacha20)
+BASH: the fn_call Ident Def_id is DefId(0:32 ~ chacha20[46f0]::chacha20_core)
+BASH: This is some function bro DefId(0:33 ~ chacha20[46f0]::chacha20)
 BASH: Fn snip "fn chacha20_block(k: &Key, counter: U32, nonce: &Nonce) -> Block {\n    let st = chacha20(k, counter, nonce);\n    let mut block = [U8::classify(0u8); BLOCK_SIZE];\n    block.copy_from_slice(U32::to_bytes_le(&st).as_slice());\n    block\n}"
+BASH: the fn_call Ident Def_id is DefId(0:33 ~ chacha20[46f0]::chacha20)
+BASH: This is some function bro DefId(0:34 ~ chacha20[46f0]::chacha20_block)
 BASH: Fn snip "fn xor_block(block: &Block, key_block: &Block) -> Block {\n    let mut v_out = [Default::default(); BLOCK_SIZE];\n    for i in 0..BLOCK_SIZE {\n        v_out[i] = block[i] ^ key_block[i];\n    }\n    let mut out = [Default::default(); BLOCK_SIZE];\n    out.copy_from_slice(&v_out);\n    out\n}"
+BASH: the fn_call Ident Def_id is DefId(2:2805 ~ core[fbe7]::default::Default::default)
+BASH: This is some function bro DefId(0:36 ~ chacha20[46f0]::xor_block)
+BASH: the fn_call Ident Def_id is DefId(2:2805 ~ core[fbe7]::default::Default::default)
+BASH: This is some function bro DefId(0:36 ~ chacha20[46f0]::xor_block)
 BASH: Fn snip "fn chacha20_counter_mode(key: &Key, counter: U32, nonce: &Nonce, msg: &Vec<U8>) -> Vec<U8> {\n    let mut blocks: Vec<[U8; BLOCK_SIZE]> = msg\n        .chunks(BLOCK_SIZE)\n        .map(|block| {\n            let mut new_block = [U8::zero(); BLOCK_SIZE];\n            new_block[0..block.len()].copy_from_slice(block);\n            new_block\n        })\n        .collect();\n    let nb_blocks = blocks.len();\n    let mut key_block: [U8; BLOCK_SIZE];\n    let mut ctr = counter;\n    for i in 0..blocks.len() - 1 {\n        key_block = chacha20_block(key, ctr, nonce);\n        blocks[i] = xor_block(&blocks[i], &key_block);\n        ctr += U32::one();\n    }\n    let last = &mut blocks[nb_blocks - 1];\n    key_block = chacha20_block(key, ctr, nonce);\n    *last = xor_block(last, &key_block);\n    blocks\n        .iter()\n        .map(|block| block.to_vec())\n        .flatten()\n        .take(msg.len())\n        .collect()\n}"
+BASH: the fn_call Ident Def_id is DefId(0:34 ~ chacha20[46f0]::chacha20_block)
+BASH: This is some function bro DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode)
+BASH: the fn_call Ident Def_id is DefId(0:36 ~ chacha20[46f0]::xor_block)
+BASH: This is some function bro DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode)
+BASH: the fn_call Ident Def_id is DefId(0:34 ~ chacha20[46f0]::chacha20_block)
+BASH: This is some function bro DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode)
+BASH: the fn_call Ident Def_id is DefId(0:36 ~ chacha20[46f0]::xor_block)
+BASH: This is some function bro DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode)
 BASH: Fn snip "pub fn chacha20_encrypt(key: &Key, counter: u32, nonce: &Vec<u8>, msg: &Vec<u8>) -> Vec<u8> {\n    let nonce = &classify_u8s(nonce);\n    let msg = &classify_u8s(msg);\n    declassify_u8s(&chacha20_counter_mode(key, counter.into(), nonce, msg))\n}"
+BASH: the fn_call Ident Def_id is DefId(0:22 ~ chacha20[46f0]::classify_u8s)
+BASH: This is some function bro DefId(0:45 ~ chacha20[46f0]::chacha20_encrypt)
+BASH: the fn_call Ident Def_id is DefId(0:22 ~ chacha20[46f0]::classify_u8s)
+BASH: This is some function bro DefId(0:45 ~ chacha20[46f0]::chacha20_encrypt)
+BASH: the fn_call Ident Def_id is DefId(0:24 ~ chacha20[46f0]::declassify_u8s)
+BASH: This is some function bro DefId(0:45 ~ chacha20[46f0]::chacha20_encrypt)
+BASH: the fn_call Ident Def_id is DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode)
+BASH: This is some function bro DefId(0:45 ~ chacha20[46f0]::chacha20_encrypt)
 BASH: Fn snip "pub fn chacha20_decrypt(key: &Key, counter: u32, nonce: &Vec<u8>, msg: &Vec<u8>) -> Vec<u8> {\n    let nonce = &classify_u8s(nonce);\n    let msg = &classify_u8s(msg);\n    declassify_u8s(&chacha20_counter_mode(key, counter.into(), nonce, msg))\n}"
+BASH: the fn_call Ident Def_id is DefId(0:22 ~ chacha20[46f0]::classify_u8s)
+BASH: This is some function bro DefId(0:46 ~ chacha20[46f0]::chacha20_decrypt)
+BASH: the fn_call Ident Def_id is DefId(0:22 ~ chacha20[46f0]::classify_u8s)
+BASH: This is some function bro DefId(0:46 ~ chacha20[46f0]::chacha20_decrypt)
+BASH: the fn_call Ident Def_id is DefId(0:24 ~ chacha20[46f0]::declassify_u8s)
+BASH: This is some function bro DefId(0:46 ~ chacha20[46f0]::chacha20_decrypt)
+BASH: the fn_call Ident Def_id is DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode)
+BASH: This is some function bro DefId(0:46 ~ chacha20[46f0]::chacha20_decrypt)
 BASH: Fn snip "fn main() {\n    let plaintext = vec![\n        0x4c, 0x61, 0x64, 0x69, 0x65, 0x73, 0x20, 0x61, 0x6e, 0x64, 0x20, 0x47, 0x65, 0x6e, 0x74,\n        0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x20, 0x6f, 0x66, 0x20, 0x74, 0x68, 0x65, 0x20, 0x63, 0x6c,\n        0x61, 0x73, 0x73, 0x20, 0x6f, 0x66, 0x20, 0x27, 0x39, 0x39, 0x3a, 0x20, 0x49, 0x66, 0x20,\n        0x49, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x20, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x20, 0x79,\n        0x6f, 0x75, 0x20, 0x6f, 0x6e, 0x6c, 0x79, 0x20, 0x6f, 0x6e, 0x65, 0x20, 0x74, 0x69, 0x70,\n        0x20, 0x66, 0x6f, 0x72, 0x20, 0x74, 0x68, 0x65, 0x20, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65,\n        0x2c, 0x20, 0x73, 0x75, 0x6e, 0x73, 0x63, 0x72, 0x65, 0x65, 0x6e, 0x20, 0x77, 0x6f, 0x75,\n        0x6c, 0x64, 0x20, 0x62, 0x65, 0x20, 0x69, 0x74, 0x2e,\n    ];\n    let ciphertext = vec![\n        0x6e, 0x2e, 0x35, 0x9a, 0x25, 0x68, 0xf9, 0x80, 0x41, 0xba, 0x07, 0x28, 0xdd, 0x0d, 0x69,\n        0x81, 0xe9, 0x7e, 0x7a, 0xec, 0x1d, 0x43, 0x60, 0xc2, 0x0a, 0x27, 0xaf, 0xcc, 0xfd, 0x9f,\n        0xae, 0x0b, 0xf9, 0x1b, 0x65, 0xc5, 0x52, 0x47, 0x33, 0xab, 0x8f, 0x59, 0x3d, 0xab, 0xcd,\n        0x62, 0xb3, 0x57, 0x16, 0x39, 0xd6, 0x24, 0xe6, 0x51, 0x52, 0xab, 0x8f, 0x53, 0x0c, 0x35,\n        0x9f, 0x08, 0x61, 0xd8, 0x07, 0xca, 0x0d, 0xbf, 0x50, 0x0d, 0x6a, 0x61, 0x56, 0xa3, 0x8e,\n        0x08, 0x8a, 0x22, 0xb6, 0x5e, 0x52, 0xbc, 0x51, 0x4d, 0x16, 0xcc, 0xf8, 0x06, 0x81, 0x8c,\n        0xe9, 0x1a, 0xb7, 0x79, 0x37, 0x36, 0x5a, 0xf9, 0x0b, 0xbf, 0x74, 0xa3, 0x5b, 0xe6, 0xb4,\n        0x0b, 0x8e, 0xed, 0xf2, 0x78, 0x5e, 0x42, 0x87, 0x4d,\n    ];\n    let key = classify_u8s(&vec![\n        0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 8u8, 9u8, 10u8, 11u8, 12u8, 13u8, 14u8, 15u8, 16u8,\n        17u8, 18u8, 19u8, 20u8, 21u8, 22u8, 23u8, 24u8, 25u8, 26u8, 27u8, 28u8, 29u8, 30u8, 31u8,\n    ]);\n    let nonce = vec![\n        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x4a, 0x0, 0x0, 0x0, 0x0,\n    ];\n    let computed_ciphertext = chacha20_encrypt(&key, 1u32, &nonce, &plaintext);\n    for (i, (x1, x2)) in ciphertext.iter().zip(computed_ciphertext).enumerate() {\n        assert_eq!(*x1, x2, \"at index {:?}\", i);\n    }\n\n    dummy_generic(nonce, key);\n}"
+BASH: the fn_call Ident Def_id is DefId(0:22 ~ chacha20[46f0]::classify_u8s)
+BASH: This is some function bro DefId(0:47 ~ chacha20[46f0]::main)
+BASH: the fn_call Ident Def_id is DefId(0:45 ~ chacha20[46f0]::chacha20_encrypt)
+BASH: This is some function bro DefId(0:47 ~ chacha20[46f0]::main)
+BASH: the fn_call Ident Def_id is DefId(0:17 ~ chacha20[46f0]::dummy_generic)
+BASH: This is some function bro DefId(0:47 ~ chacha20[46f0]::main)
+FN_DEFS: {
+    DefId(0:15 ~ chacha20[46f0]::f): FnDef {
+        ident: f#0,
+        snip: "fn f() -> i32 {\n    let x = 1;\n\n    macro_rules! first_x {\n        () => { x }\n    }\n\n    let x = 2;\n\n    x + first_x!()\n}",
+        isgeneric: false,
+        issecret: false,
+        duplicate: false,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:15 ~ chacha20[46f0]::f),
+                local_id: 15,
+            },
+        },
+        fn_calls: {},
+    },
+    DefId(0:17 ~ chacha20[46f0]::dummy_generic): FnDef {
+        ident: dummy_generic#0,
+        snip: "fn dummy_generic<A, B>(x: A, y: B) {\n    println!(\"I'm not doing anything with these arguments\");\n}",
+        isgeneric: true,
+        issecret: false,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:17 ~ chacha20[46f0]::dummy_generic),
+                local_id: 32,
+            },
+        },
+        fn_calls: {},
+    },
+    DefId(0:20 ~ chacha20[46f0]::classify_u32s): FnDef {
+        ident: classify_u32s#0,
+        snip: "pub fn classify_u32s(v: &[u32]) -> Vec<U32> {\n    v.iter().map(|x| U32::classify(*x)).collect()\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:20 ~ chacha20[46f0]::classify_u32s),
+                local_id: 24,
+            },
+        },
+        fn_calls: {},
+    },
+    DefId(0:22 ~ chacha20[46f0]::classify_u8s): FnDef {
+        ident: classify_u8s#0,
+        snip: "pub fn classify_u8s(v: &[u8]) -> Vec<U8> {\n    v.iter().map(|x| U8::classify(*x)).collect()\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:22 ~ chacha20[46f0]::classify_u8s),
+                local_id: 24,
+            },
+        },
+        fn_calls: {},
+    },
+    DefId(0:24 ~ chacha20[46f0]::declassify_u8s): FnDef {
+        ident: declassify_u8s#0,
+        snip: "pub fn declassify_u8s(v: &[U8]) -> Vec<u8> {\n    v.iter().map(|x| U8::declassify(*x)).collect()\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:24 ~ chacha20[46f0]::declassify_u8s),
+                local_id: 24,
+            },
+        },
+        fn_calls: {},
+    },
+    DefId(0:26 ~ chacha20[46f0]::line): FnDef {
+        ident: line#0,
+        snip: "fn line(a: Index, b: Index, d: Index, s: RotVal, m: &mut State) {\n    m[a] = m[a] + m[b];\n    m[d] = m[d] ^ m[a];\n    m[d] = m[d].rotate_left(s);\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:26 ~ chacha20[46f0]::line),
+                local_id: 64,
+            },
+        },
+        fn_calls: {},
+    },
+    DefId(0:27 ~ chacha20[46f0]::quarter_round): FnDef {
+        ident: quarter_round#0,
+        snip: "fn quarter_round(a: Index, b: Index, c: Index, d: Index, m: &mut State) {\n    line(a, b, d, 16, m);\n    line(c, d, b, 12, m);\n    line(a, b, d, 8, m);\n    line(c, d, b, 7, m);\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:27 ~ chacha20[46f0]::quarter_round),
+                local_id: 64,
+            },
+        },
+        fn_calls: {
+            DefId(0:26 ~ chacha20[46f0]::line),
+        },
+    },
+    DefId(0:28 ~ chacha20[46f0]::double_round): FnDef {
+        ident: double_round#0,
+        snip: "fn double_round(m: &mut State) {\n    quarter_round(0, 4, 8, 12, m);\n    quarter_round(1, 5, 9, 13, m);\n    quarter_round(2, 6, 10, 14, m);\n    quarter_round(3, 7, 11, 15, m);\n\n    quarter_round(0, 5, 10, 15, m);\n    quarter_round(1, 6, 11, 12, m);\n    quarter_round(2, 7, 8, 13, m);\n    quarter_round(3, 4, 9, 14, m);\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:28 ~ chacha20[46f0]::double_round),
+                local_id: 84,
+            },
+        },
+        fn_calls: {
+            DefId(0:27 ~ chacha20[46f0]::quarter_round),
+        },
+    },
+    DefId(0:30 ~ chacha20[46f0]::chacha20_init): FnDef {
+        ident: chacha20_init#0,
+        snip: "fn chacha20_init(k: &Key, counter: U32, nonce: &Nonce) -> State {\n    let mut st = [U32::classify(0u32); 16];\n    st[0..4].copy_from_slice(&classify_u32s(&CONSTANTS));\n    st[4..12].copy_from_slice(U32::from_bytes_le(k).as_slice());\n    st[12] = counter;\n    st[13..16].copy_from_slice(U32::from_bytes_le(nonce).as_slice());\n    st\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:30 ~ chacha20[46f0]::chacha20_init),
+                local_id: 88,
+            },
+        },
+        fn_calls: {
+            DefId(0:20 ~ chacha20[46f0]::classify_u32s),
+        },
+    },
+    DefId(0:32 ~ chacha20[46f0]::chacha20_core): FnDef {
+        ident: chacha20_core#0,
+        snip: "fn chacha20_core(st: &mut State) {\n    let mut working_state = st.clone();\n    for _ in 0..10 {\n        double_round(&mut working_state);\n    }\n    for i in 0..16 {\n        st[i] += working_state[i];\n    }\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:32 ~ chacha20[46f0]::chacha20_core),
+                local_id: 109,
+            },
+        },
+        fn_calls: {
+            DefId(0:28 ~ chacha20[46f0]::double_round),
+        },
+    },
+    DefId(0:33 ~ chacha20[46f0]::chacha20): FnDef {
+        ident: chacha20#0,
+        snip: "fn chacha20(k: &Key, counter: U32, nonce: &Nonce) -> State {\n    let mut st = chacha20_init(k, counter, nonce);\n    chacha20_core(&mut st);\n    st\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:33 ~ chacha20[46f0]::chacha20),
+                local_id: 29,
+            },
+        },
+        fn_calls: {
+            DefId(0:30 ~ chacha20[46f0]::chacha20_init),
+            DefId(0:32 ~ chacha20[46f0]::chacha20_core),
+        },
+    },
+    DefId(0:34 ~ chacha20[46f0]::chacha20_block): FnDef {
+        ident: chacha20_block#0,
+        snip: "fn chacha20_block(k: &Key, counter: U32, nonce: &Nonce) -> Block {\n    let st = chacha20(k, counter, nonce);\n    let mut block = [U8::classify(0u8); BLOCK_SIZE];\n    block.copy_from_slice(U32::to_bytes_le(&st).as_slice());\n    block\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:34 ~ chacha20[46f0]::chacha20_block),
+                local_id: 50,
+            },
+        },
+        fn_calls: {
+            DefId(0:33 ~ chacha20[46f0]::chacha20),
+        },
+    },
+    DefId(0:36 ~ chacha20[46f0]::xor_block): FnDef {
+        ident: xor_block#0,
+        snip: "fn xor_block(block: &Block, key_block: &Block) -> Block {\n    let mut v_out = [Default::default(); BLOCK_SIZE];\n    for i in 0..BLOCK_SIZE {\n        v_out[i] = block[i] ^ key_block[i];\n    }\n    let mut out = [Default::default(); BLOCK_SIZE];\n    out.copy_from_slice(&v_out);\n    out\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:36 ~ chacha20[46f0]::xor_block),
+                local_id: 97,
+            },
+        },
+        fn_calls: {
+            DefId(2:2805 ~ core[fbe7]::default::Default::default),
+        },
+    },
+    DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode): FnDef {
+        ident: chacha20_counter_mode#0,
+        snip: "fn chacha20_counter_mode(key: &Key, counter: U32, nonce: &Nonce, msg: &Vec<U8>) -> Vec<U8> {\n    let mut blocks: Vec<[U8; BLOCK_SIZE]> = msg\n        .chunks(BLOCK_SIZE)\n        .map(|block| {\n            let mut new_block = [U8::zero(); BLOCK_SIZE];\n            new_block[0..block.len()].copy_from_slice(block);\n            new_block\n        })\n        .collect();\n    let nb_blocks = blocks.len();\n    let mut key_block: [U8; BLOCK_SIZE];\n    let mut ctr = counter;\n    for i in 0..blocks.len() - 1 {\n        key_block = chacha20_block(key, ctr, nonce);\n        blocks[i] = xor_block(&blocks[i], &key_block);\n        ctr += U32::one();\n    }\n    let last = &mut blocks[nb_blocks - 1];\n    key_block = chacha20_block(key, ctr, nonce);\n    *last = xor_block(last, &key_block);\n    blocks\n        .iter()\n        .map(|block| block.to_vec())\n        .flatten()\n        .take(msg.len())\n        .collect()\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: true,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode),
+                local_id: 235,
+            },
+        },
+        fn_calls: {
+            DefId(0:34 ~ chacha20[46f0]::chacha20_block),
+            DefId(0:36 ~ chacha20[46f0]::xor_block),
+        },
+    },
+    DefId(0:45 ~ chacha20[46f0]::chacha20_encrypt): FnDef {
+        ident: chacha20_encrypt#0,
+        snip: "pub fn chacha20_encrypt(key: &Key, counter: u32, nonce: &Vec<u8>, msg: &Vec<u8>) -> Vec<u8> {\n    let nonce = &classify_u8s(nonce);\n    let msg = &classify_u8s(msg);\n    declassify_u8s(&chacha20_counter_mode(key, counter.into(), nonce, msg))\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: false,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:45 ~ chacha20[46f0]::chacha20_encrypt),
+                local_id: 45,
+            },
+        },
+        fn_calls: {
+            DefId(0:22 ~ chacha20[46f0]::classify_u8s),
+            DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode),
+            DefId(0:24 ~ chacha20[46f0]::declassify_u8s),
+        },
+    },
+    DefId(0:46 ~ chacha20[46f0]::chacha20_decrypt): FnDef {
+        ident: chacha20_decrypt#0,
+        snip: "pub fn chacha20_decrypt(key: &Key, counter: u32, nonce: &Vec<u8>, msg: &Vec<u8>) -> Vec<u8> {\n    let nonce = &classify_u8s(nonce);\n    let msg = &classify_u8s(msg);\n    declassify_u8s(&chacha20_counter_mode(key, counter.into(), nonce, msg))\n}",
+        isgeneric: false,
+        issecret: true,
+        duplicate: false,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:46 ~ chacha20[46f0]::chacha20_decrypt),
+                local_id: 45,
+            },
+        },
+        fn_calls: {
+            DefId(0:39 ~ chacha20[46f0]::chacha20_counter_mode),
+            DefId(0:22 ~ chacha20[46f0]::classify_u8s),
+            DefId(0:24 ~ chacha20[46f0]::declassify_u8s),
+        },
+    },
+    DefId(0:47 ~ chacha20[46f0]::main): FnDef {
+        ident: main#0,
+        snip: "fn main() {\n    let plaintext = vec![\n        0x4c, 0x61, 0x64, 0x69, 0x65, 0x73, 0x20, 0x61, 0x6e, 0x64, 0x20, 0x47, 0x65, 0x6e, 0x74,\n        0x6c, 0x65, 0x6d, 0x65, 0x6e, 0x20, 0x6f, 0x66, 0x20, 0x74, 0x68, 0x65, 0x20, 0x63, 0x6c,\n        0x61, 0x73, 0x73, 0x20, 0x6f, 0x66, 0x20, 0x27, 0x39, 0x39, 0x3a, 0x20, 0x49, 0x66, 0x20,\n        0x49, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x20, 0x6f, 0x66, 0x66, 0x65, 0x72, 0x20, 0x79,\n        0x6f, 0x75, 0x20, 0x6f, 0x6e, 0x6c, 0x79, 0x20, 0x6f, 0x6e, 0x65, 0x20, 0x74, 0x69, 0x70,\n        0x20, 0x66, 0x6f, 0x72, 0x20, 0x74, 0x68, 0x65, 0x20, 0x66, 0x75, 0x74, 0x75, 0x72, 0x65,\n        0x2c, 0x20, 0x73, 0x75, 0x6e, 0x73, 0x63, 0x72, 0x65, 0x65, 0x6e, 0x20, 0x77, 0x6f, 0x75,\n        0x6c, 0x64, 0x20, 0x62, 0x65, 0x20, 0x69, 0x74, 0x2e,\n    ];\n    let ciphertext = vec![\n        0x6e, 0x2e, 0x35, 0x9a, 0x25, 0x68, 0xf9, 0x80, 0x41, 0xba, 0x07, 0x28, 0xdd, 0x0d, 0x69,\n        0x81, 0xe9, 0x7e, 0x7a, 0xec, 0x1d, 0x43, 0x60, 0xc2, 0x0a, 0x27, 0xaf, 0xcc, 0xfd, 0x9f,\n        0xae, 0x0b, 0xf9, 0x1b, 0x65, 0xc5, 0x52, 0x47, 0x33, 0xab, 0x8f, 0x59, 0x3d, 0xab, 0xcd,\n        0x62, 0xb3, 0x57, 0x16, 0x39, 0xd6, 0x24, 0xe6, 0x51, 0x52, 0xab, 0x8f, 0x53, 0x0c, 0x35,\n        0x9f, 0x08, 0x61, 0xd8, 0x07, 0xca, 0x0d, 0xbf, 0x50, 0x0d, 0x6a, 0x61, 0x56, 0xa3, 0x8e,\n        0x08, 0x8a, 0x22, 0xb6, 0x5e, 0x52, 0xbc, 0x51, 0x4d, 0x16, 0xcc, 0xf8, 0x06, 0x81, 0x8c,\n        0xe9, 0x1a, 0xb7, 0x79, 0x37, 0x36, 0x5a, 0xf9, 0x0b, 0xbf, 0x74, 0xa3, 0x5b, 0xe6, 0xb4,\n        0x0b, 0x8e, 0xed, 0xf2, 0x78, 0x5e, 0x42, 0x87, 0x4d,\n    ];\n    let key = classify_u8s(&vec![\n        0u8, 1u8, 2u8, 3u8, 4u8, 5u8, 6u8, 7u8, 8u8, 9u8, 10u8, 11u8, 12u8, 13u8, 14u8, 15u8, 16u8,\n        17u8, 18u8, 19u8, 20u8, 21u8, 22u8, 23u8, 24u8, 25u8, 26u8, 27u8, 28u8, 29u8, 30u8, 31u8,\n    ]);\n    let nonce = vec![\n        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x4a, 0x0, 0x0, 0x0, 0x0,\n    ];\n    let computed_ciphertext = chacha20_encrypt(&key, 1u32, &nonce, &plaintext);\n    for (i, (x1, x2)) in ciphertext.iter().zip(computed_ciphertext).enumerate() {\n        assert_eq!(*x1, x2, \"at index {:?}\", i);\n    }\n\n    dummy_generic(nonce, key);\n}",
+        isgeneric: false,
+        issecret: false,
+        duplicate: false,
+        bodyid: BodyId {
+            hir_id: HirId {
+                owner: DefId(0:47 ~ chacha20[46f0]::main),
+                local_id: 486,
+            },
+        },
+        fn_calls: {
+            DefId(0:45 ~ chacha20[46f0]::chacha20_encrypt),
+            DefId(0:22 ~ chacha20[46f0]::classify_u8s),
+            DefId(0:17 ~ chacha20[46f0]::dummy_generic),
+        },
+    },
+}
+Curr_Fn: Some(
+    DefId(0:47 ~ chacha20[46f0]::main),
+)
