@@ -106,10 +106,6 @@ impl Callbacks for CustomCallbacks {
                         }
                     }
 
-                    // if to_dup.len() > 0 {
-                    //     changed = true;
-                    // }
-
                     for fn_id in to_dup.iter() {
                         item_visitor.fn_defs[fn_id].duplicate = true;
                     }

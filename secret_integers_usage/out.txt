@@ -39,34 +39,35 @@ BASH: the fn_call Ident Def_id is DefId(0:18 ~ secret_integers_usage[bdf1]::simp
 BASH: This is some function bro DefId(0:22 ~ secret_integers_usage[bdf1]::main)
 BASH: the fn_call Ident Def_id is DefId(0:20 ~ secret_integers_usage[bdf1]::simple::decrypt)
 BASH: This is some function bro DefId(0:22 ~ secret_integers_usage[bdf1]::main)
+BASH FN dups: {}
 FN_DEFS: {
     DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s): FnDef {
         ident: classify_u8s#0,
         snip: "fn classify_u8s(v: &[u8]) -> Vec<U8> {\n    v.iter().map(|x| U8::classify(*x)).collect()\n}",
         isgeneric: false,
         issecret: true,
-        duplicate: false,
+        duplicate: true,
         bodyid: BodyId {
             hir_id: HirId {
                 owner: DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
                 local_id: 24,
             },
         },
-        calls: {},
+        fn_calls: {},
     },
     DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s): FnDef {
         ident: declassify_u8s#0,
         snip: "fn declassify_u8s(v: &[U8]) -> Vec<u8> {\n    v.iter().map(|x| U8::declassify(*x)).collect()\n}",
         isgeneric: false,
         issecret: true,
-        duplicate: false,
+        duplicate: true,
         bodyid: BodyId {
             hir_id: HirId {
                 owner: DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s),
                 local_id: 24,
             },
         },
-        calls: {},
+        fn_calls: {},
     },
     DefId(0:16 ~ secret_integers_usage[bdf1]::simple::get_secret_key): FnDef {
         ident: get_secret_key#0,
@@ -80,9 +81,9 @@ FN_DEFS: {
                 local_id: 24,
             },
         },
-        calls: {
-            DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
+        fn_calls: {
             DefId(17:773 ~ rand[6182]::rngs::thread::thread_rng),
+            DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
         },
     },
     DefId(0:18 ~ secret_integers_usage[bdf1]::simple::encrypt): FnDef {
@@ -97,7 +98,7 @@ FN_DEFS: {
                 local_id: 91,
             },
         },
-        calls: {
+        fn_calls: {
             DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
             DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s),
         },
@@ -114,9 +115,9 @@ FN_DEFS: {
                 local_id: 91,
             },
         },
-        calls: {
-            DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
+        fn_calls: {
             DefId(0:14 ~ secret_integers_usage[bdf1]::simple::declassify_u8s),
+            DefId(0:12 ~ secret_integers_usage[bdf1]::simple::classify_u8s),
         },
     },
     DefId(0:22 ~ secret_integers_usage[bdf1]::main): FnDef {
@@ -131,9 +132,11 @@ FN_DEFS: {
                 local_id: 275,
             },
         },
-        calls: {},
+        fn_calls: {
+            DefId(1:4039 ~ std[9cfa]::io::stdio::stdin),
+            DefId(0:16 ~ secret_integers_usage[bdf1]::simple::get_secret_key),
+            DefId(0:20 ~ secret_integers_usage[bdf1]::simple::decrypt),
+            DefId(0:18 ~ secret_integers_usage[bdf1]::simple::encrypt),
+        },
     },
 }
-Curr_Fn: Some(
-    DefId(0:22 ~ secret_integers_usage[bdf1]::main),
-)
